@@ -22,7 +22,6 @@ namespace SCaR_Arcade
 
             gvGameList.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)
             {
-                string saxy = "heyThere";
                 Toast.MakeText(this, args.Position.ToString(), ToastLength.Short).Show();
             };
         }
