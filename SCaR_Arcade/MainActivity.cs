@@ -27,7 +27,6 @@ namespace SCaR_Arcade
 
             gvGameList.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)
             {
-                //A method will call
                 //beginGame(args);
 
                 Toast.MakeText(this, args.Position.ToString(), ToastLength.Short).Show();
