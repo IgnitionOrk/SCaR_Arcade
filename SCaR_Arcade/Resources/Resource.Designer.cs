@@ -72,6 +72,9 @@ namespace SCaR_Arcade
 		public partial class Id
 		{
 			
+			// aapt resource value: 0x7f050002
+			public const int dragBtn = 2131034114;
+			
 			// aapt resource value: 0x7f050001
 			public const int gvGameList = 2131034113;
 			
