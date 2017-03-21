@@ -27,32 +27,29 @@ namespace SCaR_Arcade
 
             gvGameList.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)
             {
-                //beginGame(args);
-
+                beginGame(args);
                 Toast.MakeText(this, args.Position.ToString(), ToastLength.Short).Show();
             };
         }
 
         private void beginGame(AdapterView.ItemClickEventArgs args)
         {
-            /*
-              var game;
-              Each case will correspond to a particular game. 
+              Intent game;
+              //Each case will correspond to a particular game. 
               switch(args.Position){
                  case 0:
-                 game = new Intent(this, typeof(TowerOfHanoi));
+                 game = new Intent(this, typeof(TowerOfHanoiActivity));
                  StartActivity(game);
                  break;
                  case 1:
-                 game = new Intent(this, typeof(MemoryChallenge));
-                 StartActivity(game);
+                 //game = new Intent(this, typeof(MemoryChallenge));
+                 //StartActivity(game);
                  break;
                  case 2:
-                 game = new Intent(this, typeof(BallMaze));
-                 StartActivity(game);
+                 //game = new Intent(this, typeof(BallMaze));
+                 //StartActivity(game);
                  break;
               }
-              */
         }
     }
 }
