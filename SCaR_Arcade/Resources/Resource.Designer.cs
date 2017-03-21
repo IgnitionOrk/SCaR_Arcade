@@ -91,10 +91,10 @@ namespace SCaR_Arcade
 			public const int imgBtn = 2131034125;
 			
 			// aapt resource value: 0x7f050004
-			public const int imgBtnDec = 2131034116;
+			public const int imgBtnDecrease = 2131034116;
 			
 			// aapt resource value: 0x7f050006
-			public const int imgBtnInc = 2131034118;
+			public const int imgBtnIncrease = 2131034118;
 			
 			// aapt resource value: 0x7f050000
 			public const int linearLayout1 = 2131034112;
@@ -102,11 +102,11 @@ namespace SCaR_Arcade
 			// aapt resource value: 0x7f050003
 			public const int linearLayout2 = 2131034115;
 			
-			// aapt resource value: 0x7f050005
-			public const int textView1 = 2131034117;
-			
 			// aapt resource value: 0x7f05000a
 			public const int tvGameTitle = 2131034122;
+			
+			// aapt resource value: 0x7f050005
+			public const int txtDifficulty = 2131034117;
 			
 			// aapt resource value: 0x7f050001
 			public const int txtGameTitle = 2131034113;

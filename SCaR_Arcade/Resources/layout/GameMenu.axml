@@ -14,34 +14,38 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/txtGameTitle" />
+            android:id="@+id/txtGameTitle"
+            android:gravity="center" />
         <TextView
             android:text="SELECT LEVEL"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/txtSltGame" />
+            android:id="@+id/txtSltGame"
+            android:textAlignment="center"
+            android:gravity="center" />
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/linearLayout2">
+            android:id="@+id/linearLayout2"
+            android:gravity="center">
             <ImageButton
                 android:src="@android:drawable/ic_menu_gallery"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:id="@+id/imgBtnDec" />
+                android:id="@+id/imgBtnDecrease" />
             <TextView
                 android:text="1"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:id="@+id/textView1" />
+                android:id="@+id/txtDifficulty" />
             <ImageButton
                 android:src="@android:drawable/ic_menu_gallery"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:id="@+id/imgBtnInc" />
+                android:id="@+id/imgBtnIncrease" />
         </LinearLayout>
         <Button
             android:text="START GAME"
