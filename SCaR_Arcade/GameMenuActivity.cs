@@ -22,6 +22,7 @@ namespace SCaR_Arcade
     {
         private TextView txtGameTitle;
         private TextView txtDifficulty;
+        private TextView txtErrorMessage;
         private Button btnStart;
         private Button btnLeaderBoard;
         private Button btnGameSelect;
@@ -38,6 +39,7 @@ namespace SCaR_Arcade
             SetContentView(Resource.Layout.GameMenu);
             txtGameTitle = FindViewById<TextView>(Resource.Id.txtGameTitle);
             txtDifficulty = FindViewById<TextView>(Resource.Id.txtDifficulty);
+            txtErrorMessage = FindViewById<TextView>(Resource.Id.txtErrorMessage);
             btnStart = FindViewById<Button>(Resource.Id.btnStart);
             btnLeaderBoard = FindViewById<Button>(Resource.Id.btnLeaderBoard);
             btnGameSelect = FindViewById<Button>(Resource.Id.btnGameSelect);
@@ -47,12 +49,16 @@ namespace SCaR_Arcade
             difficulty = 1;
             txtDifficulty.Text = String.Format("{0}", difficulty);
             txtGameTitle.Text = GetGameTitle();
+
             //--------------------------------------------------------------------
+            // Event handlers.
             btnStart.Click += ButtonClickStart;
             btnGameSelect.Click += ButtonClickSelect;
+            btnLeaderBoard.Click += ButtonClickLeaderboard;
             imgBtnIncrease.Click += ImageButtonIncrease;
             imgBtnDecrease.Click += ImageButtonDecrease;
         }
+
         //--------------------------------------------------------------------
         protected void ButtonClickStart(Object sender, EventArgs args)
         {
@@ -72,9 +78,10 @@ namespace SCaR_Arcade
             }
             catch
             {
-
+                txtErrorMessage.Text = "Oops game wouldn't start. Try again later.";
             }
         }
+
         //--------------------------------------------------------------------
         protected void ButtonClickSelect(Object sender, EventArgs args)
         {
@@ -85,9 +92,11 @@ namespace SCaR_Arcade
             }
             catch
             {
+                txtErrorMessage.Text = "Oops something went wrong with trying to go back.";
 
             }
         }
+
         //--------------------------------------------------------------------
         protected string GetGameTitle()
         {
@@ -100,6 +109,7 @@ namespace SCaR_Arcade
             }
             return title;
         }
+
         //--------------------------------------------------------------------
         protected void ImageButtonIncrease(Object sender, EventArgs args)
         {
@@ -112,6 +122,7 @@ namespace SCaR_Arcade
                 txtDifficulty.Text = String.Format("{0}", difficulty);
             }
         }
+
         //--------------------------------------------------------------------
         protected void ImageButtonDecrease(Object sender, EventArgs args)
         {
@@ -125,6 +136,12 @@ namespace SCaR_Arcade
             {
                 txtDifficulty.Text = String.Format("{0}", difficulty);
             }
+        }
+
+        //--------------------------------------------------------------------
+        protected void ButtonClickLeaderboard(Object sender, EventArgs ev)
+        {
+
         }
     }
 }

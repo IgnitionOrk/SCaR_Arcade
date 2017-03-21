@@ -70,9 +70,17 @@
         <Button
             android:text="GAME SELECT"
             android:layout_width="237.5dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:id="@+id/btnGameSelect"
             android:layout_gravity="center"
             android:textSize="30sp" />
     </LinearLayout>
+    <TextView
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtErrorMessage"
+        android:gravity="center"
+        android:maxWidth="237.5dp"
+        android:layout_gravity="center" />
 </LinearLayout>
