@@ -43,12 +43,12 @@ namespace SCaR_Arcade
                 {
                     case 1:
                         intent = new Intent(this, typeof(TowerOfHanoiActivity));
+                        StartActivity(intent);
                         break;
                     case 2:
                         //implement the memory card game;
                         break;
                 }
-                StartActivity(intent);
             }
             catch
             {
