@@ -28,7 +28,6 @@ namespace SCaR_Arcade
             btnLeaderBoard = FindViewById<Button>(Resource.Id.btnLeaderBoard);
             btnGameSelect = FindViewById<Button>(Resource.Id.btnGameSelect);
             gameChoice = Convert.ToInt32(Intent.GetStringExtra("gameChoice"));
-            gameChoice += 1;
             //--------------------------------------------------------------------
             btnStart.Click += Button_Click_Start;
             btnGameSelect.Click += Button_Click_Select;
@@ -41,11 +40,11 @@ namespace SCaR_Arcade
                 Intent intent = null;
                 switch (gameChoice)
                 {
-                    case 1:
+                    case 0:
                         intent = new Intent(this, typeof(TowerOfHanoiActivity));
                         StartActivity(intent);
                         break;
-                    case 2:
+                    case 1:
                         //implement the memory card game;
                         break;
                 }
