@@ -56,11 +56,11 @@ namespace SCaR_Arcade
             }
         }
         //--------------------------------------------------------------------
-        protected void Button_Click_Select(Object sender, EventArgs)
+        protected void Button_Click_Select(Object sender, EventArgs args)
         {
             try
             {
-                Intent intent = new Intent(this, typeof(MainActivity);
+                Intent intent = new Intent(this, typeof(MainActivity));
                 StartActivity(intent);
             }
             catch
