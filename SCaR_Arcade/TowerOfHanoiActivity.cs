@@ -19,12 +19,24 @@ namespace SCaR_Arcade
     ]
     public class TowerOfHanoiActivity : Activity
     {
+        //---------------------------------------------------------------------
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             // Set our view from the "Tower of Hanoi" layout resource
             SetContentView(Resource.Layout.TowerOfHanoi);
             Button dragBtn = FindViewById<Button>(Resource.Id.dragBtn);
+            dragBtn.Drag += Button_Drag;
+        }
+
+
+        //---------------------------------------------------------------------
+        protected void Button_Drag(Object sender, View.DragEventArgs e) {
+            var evt = e.Event;
+            switch (evt.Action)
+            {
+
+            }
         }
     }
 }
