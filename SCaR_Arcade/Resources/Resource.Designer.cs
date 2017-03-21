@@ -75,11 +75,11 @@ namespace SCaR_Arcade
 			// aapt resource value: 0x7f050003
 			public const int absoluteLayout1 = 2131034115;
 			
-			// aapt resource value: 0x7f050004
-			public const int dragBtn = 2131034116;
-			
 			// aapt resource value: 0x7f050001
 			public const int gvGameList = 2131034113;
+			
+			// aapt resource value: 0x7f050004
+			public const int imgBtn = 2131034116;
 			
 			// aapt resource value: 0x7f050002
 			public const int linearLayout1 = 2131034114;

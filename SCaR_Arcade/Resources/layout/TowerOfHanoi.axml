@@ -10,9 +10,9 @@
         p1:layout_width="match_parent"
         p1:layout_height="wrap_content"
         p1:id="@+id/absoluteLayout1" />
-    <Button
-        p1:text="Button"
-        p1:layout_width="108.5dp"
+    <ImageButton
+        p1:src="@android:drawable/ic_menu_gallery"
+        p1:layout_width="wrap_content"
         p1:layout_height="wrap_content"
-        p1:id="@+id/dragBtn" />
+        p1:id="@+id/imgBtn" />
 </LinearLayout>

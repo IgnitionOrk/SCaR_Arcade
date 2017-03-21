@@ -19,41 +19,22 @@ namespace SCaR_Arcade
     ]
     public class TowerOfHanoiActivity : Activity
     {
-        private Button dragBtn;
+        private ImageButton img;
         //---------------------------------------------------------------------
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             // Set our view from the "Tower of Hanoi" layout resource
             SetContentView(Resource.Layout.TowerOfHanoi);
-            dragBtn = FindViewById<Button>(Resource.Id.dragBtn);
-            //dragBtn.SetOnTouchListener(new OnTouchListener());
-            dragBtn.LongClick += Button_Long_Click;
+            img = FindViewById<ImageButton>(Resource.Id.imgBtn);
+            img.LongClick += Button_Long_Click;
         }
         //-------------------------------------------------------------------------------------------------
         protected void Button_Long_Click(Object sender, View.LongClickEventArgs lg) {
             // Generate clip data package to attach it to the drag
             var data = ClipData.NewPlainText("name", "Element 1");
             // Start dragging and pass data
-            ((sender) as Button).StartDrag(data, new View.DragShadowBuilder(((sender) as Button)), null, 0);
-        }
-
-
-        private class OnTouchListener : View.IOnTouchListener {
-            private IntPtr motion_Handle;
-            public Boolean OnTouch(View vi, MotionEvent moev)
-            { 
-                return true;
-            }
-            public IntPtr Handle
-            {
-                get { return motion_Handle; }
-            }
-
-            public void Dispose()
-            {
-
-            }
+            ((sender) as ImageButton).StartDrag(data, new View.DragShadowBuilder(((sender) as ImageButton)), null, 0);
         }
     }
 }
