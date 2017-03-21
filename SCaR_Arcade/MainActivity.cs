@@ -12,7 +12,7 @@ namespace SCaR_Arcade
     [Activity(Label = "SCaR_Arcade",
         MainLauncher = true,
         Icon = "@drawable/icon",
-        ScreenOrientation = Android.Content.PM.ScreenOrientation.Landscape,
+        ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait,
         Theme = "@android:style/Theme.NoTitleBar")]
     public class MainActivity : Activity
     {
