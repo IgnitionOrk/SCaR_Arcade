@@ -9,7 +9,12 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-
+/// <summary>
+/// Date created: 21-Mar-2017
+/// Created by: Ryan Cunneen
+/// Student no: 3179234
+/// Date modified: 21-Mar-2017
+/// </summary>
 namespace SCaR_Arcade
 {
     [Activity(Label = "GameMenuActivity")]
@@ -47,6 +52,7 @@ namespace SCaR_Arcade
             btnGameSelect.Click += ButtonClickSelect;
             imgBtnIncrease.Click += ImageButtonIncrease;
             imgBtnDecrease.Click += ImageButtonDecrease;
+            imgBtnDecrease.SetImageResource(Resource.Drawable.ArrowDecrease);
         }
         //--------------------------------------------------------------------
         protected void ButtonClickStart(Object sender, EventArgs args)
