@@ -28,7 +28,7 @@ namespace SCaR_Arcade
             btnLeaderBoard = FindViewById<Button>(Resource.Id.btnLeaderBoard);
             btnGameSelect = FindViewById<Button>(Resource.Id.btnGameSelect);
             gameChoice = Convert.ToInt32(Intent.GetStringExtra("gameChoice"));
-
+            gameChoice += 1;
             //--------------------------------------------------------------------
             btnStart.Click += Button_Click_Start;
             btnGameSelect.Click += Button_Click_Select;
