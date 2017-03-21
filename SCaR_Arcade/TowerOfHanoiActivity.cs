@@ -14,8 +14,7 @@ using Android.Content.PM;
 namespace SCaR_Arcade
 {
     [Activity(
-        Label = "TowerOfHanoiActivity",
-        MainLauncher = true)
+        Label = "TowerOfHanoiActivity")
     ]
     public class TowerOfHanoiActivity : Activity
     {

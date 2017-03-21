@@ -10,7 +10,7 @@ using Android.Content.PM;
 namespace SCaR_Arcade
 {
     [Activity(Label = "SCaR_Arcade",
-        /*MainLauncher = true,*/
+        MainLauncher = true,
         Icon = "@drawable/icon",
         ScreenOrientation = Android.Content.PM.ScreenOrientation.Landscape,
         Theme = "@android:style/Theme.NoTitleBar")]
