@@ -16,7 +16,7 @@ namespace SCaR_Arcade
     [Activity(
         Label = "Tower Of Hanoi",
         ScreenOrientation = ScreenOrientation.Landscape,
-        Theme = "@android:style/Theme.NoTitle")
+        Theme = "@android:style/Theme.NoTitleBar")
     ]
     public class TowerOfHanoiActivity : Activity
     {

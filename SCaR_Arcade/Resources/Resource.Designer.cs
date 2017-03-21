@@ -84,11 +84,11 @@ namespace SCaR_Arcade
 			// aapt resource value: 0x7f050007
 			public const int btnStart = 2131034119;
 			
-			// aapt resource value: 0x7f050010
-			public const int button1 = 2131034128;
-			
 			// aapt resource value: 0x7f050011
-			public const int button2 = 2131034129;
+			public const int button1 = 2131034129;
+			
+			// aapt resource value: 0x7f050012
+			public const int button2 = 2131034130;
 			
 			// aapt resource value: 0x7f05000b
 			public const int gvGameList = 2131034123;
@@ -105,14 +105,17 @@ namespace SCaR_Arcade
 			// aapt resource value: 0x7f050003
 			public const int linearLayout2 = 2131034115;
 			
-			// aapt resource value: 0x7f05000d
-			public const int linearLayout3 = 2131034125;
-			
 			// aapt resource value: 0x7f05000e
-			public const int textView1 = 2131034126;
+			public const int linearLayout3 = 2131034126;
+			
+			// aapt resource value: 0x7f05000d
+			public const int linearLayout4 = 2131034125;
 			
 			// aapt resource value: 0x7f05000f
-			public const int textView2 = 2131034127;
+			public const int textView1 = 2131034127;
+			
+			// aapt resource value: 0x7f050010
+			public const int textView2 = 2131034128;
 			
 			// aapt resource value: 0x7f05000a
 			public const int tvGameTitle = 2131034122;
