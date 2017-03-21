@@ -52,7 +52,6 @@ namespace SCaR_Arcade
             btnGameSelect.Click += ButtonClickSelect;
             imgBtnIncrease.Click += ImageButtonIncrease;
             imgBtnDecrease.Click += ImageButtonDecrease;
-            imgBtnDecrease.SetImageResource(Resource.Drawable.ArrowDecrease);
         }
         //--------------------------------------------------------------------
         protected void ButtonClickStart(Object sender, EventArgs args)
