@@ -14,19 +14,18 @@ using Android.Content.PM;
 namespace SCaR_Arcade
 {
     [Activity(
-        Label = "TowerOfHanoiActivity")
+        Label = "Tower Of Hanoi",
+        ScreenOrientation = ScreenOrientation.Landscape,
+        Theme = "@android:style/Theme.NoTitleBar")
     ]
     public class TowerOfHanoiActivity : Activity
     {
-        private ImageButton img;
         //---------------------------------------------------------------------
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             // Set our view from the "Tower of Hanoi" layout resource
             SetContentView(Resource.Layout.TowerOfHanoi);
-            img = FindViewById<ImageButton>(Resource.Id.imgBtn);
-            img.LongClick += Button_Long_Click;
         }
         //-------------------------------------------------------------------------------------------------
         protected void Button_Long_Click(Object sender, View.LongClickEventArgs lg) {

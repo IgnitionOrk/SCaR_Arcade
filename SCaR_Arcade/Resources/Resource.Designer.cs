@@ -87,9 +87,6 @@ namespace SCaR_Arcade
 			// aapt resource value: 0x7f05000b
 			public const int gvGameList = 2131034123;
 			
-			// aapt resource value: 0x7f05000d
-			public const int imgBtn = 2131034125;
-			
 			// aapt resource value: 0x7f050004
 			public const int imgBtnDecrease = 2131034116;
 			
