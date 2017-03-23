@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minWidth="25px"
+    android:minHeight="25px"
+    android:backgroundTint="#00000000"
+    android:background="@android:color/holo_orange_dark">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout1">
+        <TextView
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtGameTitle"
+            android:gravity="center"
+            android:textSize="40sp" />
+        <TextView
+            android:text="SELECT LEVEL"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtSltGame"
+            android:textAlignment="center"
+            android:gravity="center" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/linearLayout2"
+            android:gravity="center">
+            <ImageButton
+                android:src="@android:drawable/ic_menu_gallery"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/imgBtnDecrease" />
+            <TextView
+                android:text="1"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_width="50.0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/txtDifficulty"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:textSize="30sp" />
+            <ImageButton
+                android:src="@android:drawable/ic_menu_gallery"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/imgBtnIncrease" />
+        </LinearLayout>
+        <Button
+            android:text="START GAME"
+            android:layout_width="235.0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnStart"
+            android:layout_gravity="center"
+            android:textSize="30sp" />
+        <Button
+            android:text="LEADERBOARD"
+            android:layout_width="237.5dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnLeaderBoard"
+            android:layout_gravity="center"
+            android:textSize="30sp" />
+        <Button
+            android:text="GAME SELECT"
+            android:layout_width="237.5dp"
+            android:layout_height="match_parent"
+            android:id="@+id/btnGameSelect"
+            android:layout_gravity="center"
+            android:textSize="30sp" />
+    </LinearLayout>
+    <TextView
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtErrorMessage"
+        android:gravity="center"
+        android:maxWidth="237.5dp"
+        android:layout_gravity="center" />
+</LinearLayout>

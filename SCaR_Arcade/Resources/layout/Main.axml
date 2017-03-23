@@ -9,7 +9,7 @@
         android:gravity="center"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:text="SCaR Arcade"
+        android:text="S.C.a.R. arcade"
         android:textColor="@android:color/holo_blue_bright"
         android:textSize="40sp" />
     <GridView

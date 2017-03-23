@@ -12,7 +12,7 @@ namespace SCaR_Arcade
     [Activity(Label = "SCaR_Arcade",
         MainLauncher = true,
         Icon = "@drawable/icon",
-        ScreenOrientation = Android.Content.PM.ScreenOrientation.Landscape,
+        ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait,
         Theme = "@android:style/Theme.NoTitleBar")]
     public class MainActivity : Activity
     {
@@ -27,32 +27,16 @@ namespace SCaR_Arcade
 
             gvGameList.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)
             {
-                //beginGame(args);
-
+                MoveToGameMenu(args);
                 Toast.MakeText(this, args.Position.ToString(), ToastLength.Short).Show();
             };
         }
 
-        private void beginGame(AdapterView.ItemClickEventArgs args)
+        private void MoveToGameMenu(AdapterView.ItemClickEventArgs args)
         {
-            /*
-              var game;
-              Each case will correspond to a particular game. 
-              switch(args.Position){
-                 case 0:
-                 game = new Intent(this, typeof(TowerOfHanoi));
-                 StartActivity(game);
-                 break;
-                 case 1:
-                 game = new Intent(this, typeof(MemoryChallenge));
-                 StartActivity(game);
-                 break;
-                 case 2:
-                 game = new Intent(this, typeof(BallMaze));
-                 StartActivity(game);
-                 break;
-              }
-              */
+            Intent intent = new Intent(this,typeof(GameMenuActivity));
+            intent.PutExtra("gameChoice", args.Position);
+            StartActivity(intent);
         }
     }
 }
