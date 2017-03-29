@@ -21,7 +21,7 @@ namespace SCaR_Arcade
             base.OnCreate(bundle);
             // Set our view from the "main" layout resource
             SetContentView (Resource.Layout.Main);
-
+/*
             GridView gvGameList = FindViewById<GridView>(Resource.Id.gvGameList);
             gvGameList.Adapter = new ImageAdapter(this);
 
@@ -29,7 +29,7 @@ namespace SCaR_Arcade
             {
                 MoveToGameMenu(args);
                 Toast.MakeText(this, args.Position.ToString(), ToastLength.Short).Show();
-            };
+            };*/
         }
 
         private void MoveToGameMenu(AdapterView.ItemClickEventArgs args)
