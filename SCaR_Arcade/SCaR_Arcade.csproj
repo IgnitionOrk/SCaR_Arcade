@@ -56,7 +56,6 @@
     <Compile Include="Game.cs" />
     <Compile Include="GameAdapter.cs" />
     <Compile Include="GameMenuActivity.cs" />
-    <Compile Include="GetImage.cs" />
     <Compile Include="ImageAdapter.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
