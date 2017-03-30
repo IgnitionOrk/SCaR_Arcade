@@ -14,25 +14,29 @@ namespace SCaR_Arcade
         Icon = "@drawable/icon",
         ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait,
         Theme = "@android:style/Theme.NoTitleBar")]
+
+
+
     public class MainActivity : Activity
     {
+        /*sources
+        * http://blog.atavisticsoftware.com/2014/02/listview-using-activitylistitem-style.html
+        * http://blog.atavisticsoftware.com/2014/01/listview-basics-for-xamarain-android.html
+       */
+        private ListView lvGameList;
+
         protected override void OnCreate(Bundle bundle)
         {
-            base.OnCreate(bundle);
-            // Set our view from the "main" layout resource
+           base.OnCreate(bundle);
+            
+
             SetContentView (Resource.Layout.Main);
+            lvGameList = FindViewById<ListView>(Resource.Id.lvGameList);
 
-            ListView lvGameList = FindViewById<ListView>(Resource.Id.lvGameList);
+            lvGameList.Adapter = new GameAdapter(this);
             
-            lvGameList.Adapter = new ImageAdapter(this);
-
             
-        
-            lvGameList.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)
-            {
-                MoveToGameMenu(args);
-                Toast.MakeText(this, args.Position.ToString(), ToastLength.Short).Show();
-            };
+            
         }
 
         private void MoveToGameMenu(AdapterView.ItemClickEventArgs args)
