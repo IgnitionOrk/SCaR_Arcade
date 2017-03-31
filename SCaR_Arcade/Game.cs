@@ -18,7 +18,7 @@ namespace SCaR_Arcade
 
         public string gTitle { get; set; }
         public int gLogo { get; set; }
-        public string gFileURL { get; set; }
+        public string gStartFileURL { get; set; }
         public string gLeaderboardURL { get; set; }
 
 

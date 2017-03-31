@@ -75,8 +75,8 @@ namespace SCaR_Arcade
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f05000d
-			public const int absoluteLayout1 = 2131034125;
+			// aapt resource value: 0x7f05000f
+			public const int absoluteLayout1 = 2131034127;
 			
 			// aapt resource value: 0x7f050009
 			public const int btnGameSelect = 2131034121;
@@ -87,11 +87,11 @@ namespace SCaR_Arcade
 			// aapt resource value: 0x7f050007
 			public const int btnStart = 2131034119;
 			
-			// aapt resource value: 0x7f050012
-			public const int button1 = 2131034130;
+			// aapt resource value: 0x7f050014
+			public const int button1 = 2131034132;
 			
-			// aapt resource value: 0x7f050013
-			public const int button2 = 2131034131;
+			// aapt resource value: 0x7f050015
+			public const int button2 = 2131034133;
 			
 			// aapt resource value: 0x7f050004
 			public const int imgBtnDecrease = 2131034116;
@@ -105,20 +105,26 @@ namespace SCaR_Arcade
 			// aapt resource value: 0x7f050003
 			public const int linearLayout2 = 2131034115;
 			
-			// aapt resource value: 0x7f05000f
-			public const int linearLayout3 = 2131034127;
+			// aapt resource value: 0x7f050011
+			public const int linearLayout3 = 2131034129;
 			
-			// aapt resource value: 0x7f05000e
-			public const int linearLayout4 = 2131034126;
+			// aapt resource value: 0x7f050010
+			public const int linearLayout4 = 2131034128;
+			
+			// aapt resource value: 0x7f05000d
+			public const int logo = 2131034125;
 			
 			// aapt resource value: 0x7f05000c
 			public const int lvGameList = 2131034124;
 			
-			// aapt resource value: 0x7f050010
-			public const int textView1 = 2131034128;
+			// aapt resource value: 0x7f050012
+			public const int textView1 = 2131034130;
 			
-			// aapt resource value: 0x7f050011
-			public const int textView2 = 2131034129;
+			// aapt resource value: 0x7f050013
+			public const int textView2 = 2131034131;
+			
+			// aapt resource value: 0x7f05000e
+			public const int titletxt = 2131034126;
 			
 			// aapt resource value: 0x7f05000b
 			public const int tvGameTitle = 2131034123;
@@ -155,7 +161,10 @@ namespace SCaR_Arcade
 			public const int Main = 2130903041;
 			
 			// aapt resource value: 0x7f030002
-			public const int TowerOfHanoi = 2130903042;
+			public const int Row = 2130903042;
+			
+			// aapt resource value: 0x7f030003
+			public const int TowerOfHanoi = 2130903043;
 			
 			static Layout()
 			{

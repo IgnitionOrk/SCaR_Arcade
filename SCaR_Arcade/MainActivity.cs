@@ -7,6 +7,7 @@ using Android.Widget;
 using Android.OS;
 using Android.Content.PM;
 
+
 namespace SCaR_Arcade
 {
     [Activity(Label = "SCaR_Arcade",
@@ -32,7 +33,6 @@ namespace SCaR_Arcade
 
             SetContentView (Resource.Layout.Main);
             lvGameList = FindViewById<ListView>(Resource.Id.lvGameList);
-
             lvGameList.Adapter = new GameAdapter(this);
             
             

@@ -49,29 +49,41 @@ namespace SCaR_Arcade
 
 
             var view = rowView;
+
             if (view == null)
             {
-
-                view = context.LayoutInflater.Inflate(Android.Resource.Layout.ActivityListItem, null);
+                view = context.LayoutInflater.Inflate(SCaR_Arcade.Resource.Layout.Row, null);
             }
 
             var game = data[position];
 
-            view.FindViewById<TextView>(Android.Resource.Id.Text1).Text = game.gTitle;
-            ImageView img = view.FindViewById<ImageView>(Android.Resource.Id.Icon);
+
+
+            
+            
+           
+            TextView txt = view.FindViewById<TextView>(SCaR_Arcade.Resource.Id.titletxt);
+            txt.Text = game.gTitle;
+            
+            ImageView img = view.FindViewById<ImageView>(SCaR_Arcade.Resource.Id.logo);
             img.SetImageResource(game.gLogo);
+           
+            
+
+
+
             return view;
         }
 
-        //TODO: list into and fill with proper data
+        //TODO: move list and fill with proper data
         private List<Game> PopulateGameData()
         {
             return new List<Game>()
             {   
 
-                new Game { gTitle = "Game 1", gLogo = Resource.Drawable.game1 },
-                new Game { gTitle = "Game 2", gLogo = Resource.Drawable.game2 },
-                new Game { gTitle = "Game 3", gLogo = Resource.Drawable.game3 },
+                new Game { gTitle = "Tower of Hanoi", gLogo = Resource.Drawable.game1 },
+                new Game { gTitle = "Memory test", gLogo = Resource.Drawable.game2 },
+                new Game { gTitle = "A Game with a long name", gLogo = Resource.Drawable.game3 },
             };
 
         }
