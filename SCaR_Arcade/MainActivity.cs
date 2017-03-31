@@ -34,9 +34,15 @@ namespace SCaR_Arcade
             SetContentView (Resource.Layout.Main);
             lvGameList = FindViewById<ListView>(Resource.Id.lvGameList);
             lvGameList.Adapter = new GameAdapter(this);
-            
-            
-            
+
+            //on row click begin game menu
+            lvGameList.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)
+            {
+                MoveToGameMenu(args);
+                Toast.MakeText(this, args.Position.ToString(), ToastLength.Short).Show();
+            };
+
+
         }
 
         private void MoveToGameMenu(AdapterView.ItemClickEventArgs args)

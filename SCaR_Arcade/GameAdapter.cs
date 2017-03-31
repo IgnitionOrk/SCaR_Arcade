@@ -14,7 +14,7 @@ namespace SCaR_Arcade
 {
     class GameAdapter:BaseAdapter<Game>
     {
-
+       
         /*sources
          * http://blog.atavisticsoftware.com/2014/02/listview-using-activitylistitem-style.html
          * http://blog.atavisticsoftware.com/2014/01/listview-basics-for-xamarain-android.html
@@ -59,7 +59,7 @@ namespace SCaR_Arcade
 
 
 
-            
+            //add text and images down list
             
            
             TextView txt = view.FindViewById<TextView>(SCaR_Arcade.Resource.Id.titletxt);

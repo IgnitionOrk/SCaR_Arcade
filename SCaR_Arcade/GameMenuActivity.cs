@@ -45,7 +45,7 @@ namespace SCaR_Arcade
             btnGameSelect = FindViewById<Button>(Resource.Id.btnGameSelect);
             imgBtnIncrease = FindViewById<ImageButton>(Resource.Id.imgBtnIncrease);
             imgBtnDecrease = FindViewById<ImageButton>(Resource.Id.imgBtnDecrease);
-            gameChoice = Convert.ToInt32(Intent.GetStringExtra("gameChoice"));
+            gameChoice = Intent.GetIntExtra("gameChoice",0);
             difficulty = 1;
             txtDifficulty.Text = String.Format("{0}", difficulty);
             txtGameTitle.Text = GetGameTitle();
@@ -103,8 +103,15 @@ namespace SCaR_Arcade
             string title = "";
             switch (gameChoice)
             {
+                //TODO: change these to run of Game class
                 case 0:
                     title = "Tower of Hanoi";
+                    break;
+                case 1:
+                    title = "Memory test";
+                    break;
+                case 2:
+                    title = "A game with a long name";
                     break;
             }
             return title;
