@@ -60,6 +60,7 @@ namespace SCaR_Arcade
         }
 
         //--------------------------------------------------------------------
+        //Start button
         protected void ButtonClickStart(Object sender, EventArgs args)
         {
             try
@@ -69,10 +70,14 @@ namespace SCaR_Arcade
                 {
                     case 0:
                         intent = new Intent(this, typeof(TowerOfHanoiActivity));
+                        intent.PutExtra("gameDifficulty", difficulty);
                         StartActivity(intent);
                         break;
                     case 1:
                         //implement the memory card game;
+                        //intent = new Intent(this, typeof(MemoryTestActivity));
+                        //intent.PutExtra("gameDifficulty", difficulty);
+                        //StartActivity(intent);
                         break;
                 }
             }
@@ -83,6 +88,7 @@ namespace SCaR_Arcade
         }
 
         //--------------------------------------------------------------------
+        //Back button
         protected void ButtonClickSelect(Object sender, EventArgs args)
         {
             try

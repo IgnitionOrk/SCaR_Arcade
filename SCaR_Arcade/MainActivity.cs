@@ -39,7 +39,7 @@ namespace SCaR_Arcade
             lvGameList.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)
             {
                 MoveToGameMenu(args);
-                Toast.MakeText(this, args.Position.ToString(), ToastLength.Short).Show();
+                //Toast.MakeText(this, args.Position.ToString(), ToastLength.Short).Show();
             };
 
 
