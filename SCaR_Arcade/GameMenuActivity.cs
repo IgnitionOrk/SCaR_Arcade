@@ -17,9 +17,13 @@ using Android.Widget;
 /// </summary>
 namespace SCaR_Arcade
 {
-    [Activity(Label = "GameMenuActivity")]
+    [Activity(Label = "GameMenuActivity", 
+        MainLauncher = false,
+        ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait,
+        Theme = "@android:style/Theme.NoTitleBar")]
     public class GameMenuActivity : Activity
     {
+        private LinearLayout lL1;
         private TextView txtGameTitle;
         private TextView txtDifficulty;
         private TextView txtErrorMessage;
@@ -37,6 +41,7 @@ namespace SCaR_Arcade
             base.OnCreate(savedInstanceState);
             // Create your application here
             SetContentView(Resource.Layout.GameMenu);
+            lL1 = FindViewById<LinearLayout>(Resource.Id.linearLayout1);
             txtGameTitle = FindViewById<TextView>(Resource.Id.txtGameTitle);
             txtDifficulty = FindViewById<TextView>(Resource.Id.txtDifficulty);
             txtErrorMessage = FindViewById<TextView>(Resource.Id.txtErrorMessage);
@@ -45,10 +50,12 @@ namespace SCaR_Arcade
             btnGameSelect = FindViewById<Button>(Resource.Id.btnGameSelect);
             imgBtnIncrease = FindViewById<ImageButton>(Resource.Id.imgBtnIncrease);
             imgBtnDecrease = FindViewById<ImageButton>(Resource.Id.imgBtnDecrease);
+            
             gameChoice = Intent.GetIntExtra("gameChoice",0);
             difficulty = 1;
             txtDifficulty.Text = String.Format("{0}", difficulty);
             txtGameTitle.Text = GetGameTitle();
+            
 
             //--------------------------------------------------------------------
             // Event handlers.
@@ -112,12 +119,15 @@ namespace SCaR_Arcade
                 //TODO: change these to run of Game class
                 case 0:
                     title = "Tower of Hanoi";
+                    //lL1.SetBackgroundResource(Resource.Drawable.game1);
                     break;
                 case 1:
                     title = "Memory test";
+                   // lL1.SetBackgroundResource(Resource.Drawable.game2);
                     break;
                 case 2:
                     title = "A game with a long name";
+                    //lL1.SetBackgroundResource(Resource.Drawable.game3);
                     break;
             }
             return title;
