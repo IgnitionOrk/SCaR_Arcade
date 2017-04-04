@@ -45,22 +45,25 @@ namespace SCaR_Arcade
 		{
 			
 			// aapt resource value: 0x7f020000
-			public const int game1 = 2130837504;
+			public const int circle = 2130837504;
 			
 			// aapt resource value: 0x7f020001
-			public const int game2 = 2130837505;
+			public const int game1 = 2130837505;
 			
 			// aapt resource value: 0x7f020002
-			public const int game3 = 2130837506;
+			public const int game2 = 2130837506;
 			
 			// aapt resource value: 0x7f020003
-			public const int gameBase = 2130837507;
+			public const int game3 = 2130837507;
 			
 			// aapt resource value: 0x7f020004
-			public const int Icon = 2130837508;
+			public const int gameBase = 2130837508;
 			
 			// aapt resource value: 0x7f020005
-			public const int info = 2130837509;
+			public const int Icon = 2130837509;
+			
+			// aapt resource value: 0x7f020006
+			public const int info = 2130837510;
 			
 			static Drawable()
 			{
@@ -75,8 +78,8 @@ namespace SCaR_Arcade
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f05000f
-			public const int absoluteLayout1 = 2131034127;
+			// aapt resource value: 0x7f050010
+			public const int absoluteLayout1 = 2131034128;
 			
 			// aapt resource value: 0x7f050009
 			public const int btnGameSelect = 2131034121;
@@ -87,11 +90,14 @@ namespace SCaR_Arcade
 			// aapt resource value: 0x7f050007
 			public const int btnStart = 2131034119;
 			
-			// aapt resource value: 0x7f050014
-			public const int button1 = 2131034132;
-			
 			// aapt resource value: 0x7f050015
-			public const int button2 = 2131034133;
+			public const int button1 = 2131034133;
+			
+			// aapt resource value: 0x7f050016
+			public const int button2 = 2131034134;
+			
+			// aapt resource value: 0x7f05000f
+			public const int circle = 2131034127;
 			
 			// aapt resource value: 0x7f050004
 			public const int imgBtnDecrease = 2131034116;
@@ -105,11 +111,11 @@ namespace SCaR_Arcade
 			// aapt resource value: 0x7f050003
 			public const int linearLayout2 = 2131034115;
 			
-			// aapt resource value: 0x7f050011
-			public const int linearLayout3 = 2131034129;
+			// aapt resource value: 0x7f050012
+			public const int linearLayout3 = 2131034130;
 			
-			// aapt resource value: 0x7f050010
-			public const int linearLayout4 = 2131034128;
+			// aapt resource value: 0x7f050011
+			public const int linearLayout4 = 2131034129;
 			
 			// aapt resource value: 0x7f05000d
 			public const int logo = 2131034125;
@@ -117,11 +123,11 @@ namespace SCaR_Arcade
 			// aapt resource value: 0x7f05000c
 			public const int lvGameList = 2131034124;
 			
-			// aapt resource value: 0x7f050012
-			public const int textView1 = 2131034130;
-			
 			// aapt resource value: 0x7f050013
-			public const int textView2 = 2131034131;
+			public const int textView1 = 2131034131;
+			
+			// aapt resource value: 0x7f050014
+			public const int textView2 = 2131034132;
 			
 			// aapt resource value: 0x7f05000e
 			public const int titletxt = 2131034126;

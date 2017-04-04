@@ -26,6 +26,10 @@ namespace SCaR_Arcade
             base.OnCreate(savedInstanceState);
             // Set our view from the "Tower of Hanoi" layout resource
             SetContentView(Resource.Layout.TowerOfHanoi);
+
+            StartGame();
+
+
         }
         //-------------------------------------------------------------------------------------------------
         protected void Button_Long_Click(Object sender, View.LongClickEventArgs lg) {
@@ -33,6 +37,33 @@ namespace SCaR_Arcade
             var data = ClipData.NewPlainText("name", "Element 1");
             // Start dragging and pass data
             ((sender) as ImageButton).StartDrag(data, new View.DragShadowBuilder(((sender) as ImageButton)), null, 0);
+        }
+        //--------------------------------------------
+        void StartGame()
+        {
+            //setup game
+            bool gameOn = true;
+            
+
+
+
+            //run game
+            while (gameOn)
+            {
+
+
+
+
+
+
+
+                //end game
+                gameOn = false;
+
+
+            }
+
+
         }
     }
 }

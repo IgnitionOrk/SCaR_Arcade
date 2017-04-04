@@ -13,6 +13,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/titletxt"
         android:textSize="25sp"
-        android:paddingStart="50px"
-        android:paddingTop="40px" />
+        android:paddingStart="15.5dp"
+        android:paddingTop="15.5dp" />
 </LinearLayout>
