@@ -49,7 +49,7 @@ namespace SCaR_Arcade
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
             ImageView imageView;
-
+         
             if(convertView == null) // If the view isn't recycled, initialize some attributes:
             {
                 imageView = new ImageView(context);
