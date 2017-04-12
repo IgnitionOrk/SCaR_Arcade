@@ -35,8 +35,8 @@ namespace SCaR_Arcade
         private ImageButton imgBtnDecrease;
         private int gameChoice;
         private int difficulty;
-        private const int MAXDIFFICULTY = 5;
-        private const int MINDIFFICULTY = 1;
+        private int MAXDIFFICULTY = 5;
+        private int MINDIFFICULTY = 1;
 
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -82,7 +82,7 @@ namespace SCaR_Arcade
                 {
                     case 0:
                         intent = new Intent(this, typeof(TowersOfHanoiActivity));
-                        intent.PutExtra("gameDifficulty", 3);
+                        intent.PutExtra("gameDifficulty", difficulty);
                         StartActivity(intent);
                         break;
                     case 1:
