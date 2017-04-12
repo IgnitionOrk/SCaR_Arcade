@@ -83,6 +83,8 @@ namespace SCaR_Arcade
 
             // Begin the timer;
             chronometer.Start();
+
+            System.Diagnostics.Debug.WriteLine("HAHAHAHAHAHAHAHAAHHERE " + Intent.GetStringExtra("gameDifficulty"));
         }
         // ----------------------------------------------------------------------------------------------------------------
         // builds the game that the user will interact with at runtime. 
