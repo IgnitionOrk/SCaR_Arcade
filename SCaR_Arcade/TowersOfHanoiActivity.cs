@@ -17,13 +17,15 @@ using Android.Views;
 namespace SCaR_Arcade
 {
     [Activity(
+        Label = "TowersOfHanoiActivity",
+        MainLauncher = false,
         ScreenOrientation = Android.Content.PM.ScreenOrientation.Landscape,
         Theme = "@android:style/Theme.NoTitleBar"
     )]
     public class TowersOfHanoiActivity :  Activity, View.IOnLongClickListener, View.IOnDragListener
     {
         // ----------------------------------------------------------------------------------------------------------------
-        // Instances of MainActivity;
+        // Instances of TowersOfHanoiActivity;
         private Player player;
         private GameLogic logic;
         private Chronometer chronometer;
@@ -49,11 +51,12 @@ namespace SCaR_Arcade
         // Used when a drag and drop event has occured to store data. 
         private View disk;
         private LinearLayout removedFromLinearLayout;
+
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Main);
-
+            
             // Set our view from the "main" layout resource
             Button btnReplay = FindViewById<Button>(Resource.Id.btnReplay);
             Button btnQuit = FindViewById<Button>(Resource.Id.btnQuit);
@@ -62,7 +65,10 @@ namespace SCaR_Arcade
             elapsedTime = FindViewById<TextView>(Resource.Id.txtVElapsedTime);
             txtVScore = FindViewById<TextView>(Resource.Id.txtVScore);
             gameDisplay = FindViewById<LinearLayout>(Resource.Id.linLayGameDisplay);
+            //^^nothing seems to have been initiated^^
 
+            gameDisplay.SetBackgroundColor(Color.Red);
+            
             // Build the game display that the user will interact with;
             Game();
 
@@ -105,6 +111,7 @@ namespace SCaR_Arcade
                 LinearLayout.LayoutParams.MatchParent,
                 1
             );
+
 
             for (int i = 0; i < MAXCOMPONENTS; i++)
             {

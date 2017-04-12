@@ -6,6 +6,7 @@ using System.Text;
 using Android.App;
 using Android.Content;
 using Android.OS;
+using Android.Graphics;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
@@ -36,6 +37,8 @@ namespace SCaR_Arcade
         private int difficulty;
         private const int MAXDIFFICULTY = 5;
         private const int MINDIFFICULTY = 1;
+
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -50,7 +53,9 @@ namespace SCaR_Arcade
             btnGameSelect = FindViewById<Button>(Resource.Id.btnGameSelect);
             imgBtnIncrease = FindViewById<ImageButton>(Resource.Id.imgBtnIncrease);
             imgBtnDecrease = FindViewById<ImageButton>(Resource.Id.imgBtnDecrease);
-            
+
+            lL1.SetBackgroundColor(Color.Red);
+
             gameChoice = Intent.GetIntExtra("gameChoice",0);
             difficulty = 1;
             txtDifficulty.Text = String.Format("{0}", difficulty);
@@ -118,7 +123,7 @@ namespace SCaR_Arcade
             {
                 //TODO: change these to run of Game class
                 case 0:
-                    title = "Tower of Hanoi";
+                    title = "Towers of Hanoi";
                     //lL1.SetBackgroundResource(Resource.Drawable.game1);
                     break;
                 case 1:
