@@ -69,7 +69,7 @@ namespace SCaR_Arcade
             // Initializing data for the game.
             player = new Player();
             logic = new GameLogic(Convert.ToInt32(Intent.GetStringExtra("numberOfDisks")));
-            txtOptimalNoOfMoves.Text = string.Format("{0}", "Optimal no. of moves: " + logic.calOptimalNoOfMoves(Convert.ToInt32(Intent.GetStringExtra("numberOfDisks"))));
+            txtOptimalNoOfMoves.Text = string.Format("{0}", "Optimal no. of moves: " + logic.calOptimalNoOfMoves(Convert.ToInt32(Intent.GetStringExtra("gameDifficulty"))));
             txtVScore.Text = "No. of moves: " + 0;
             chronometer.Visibility = Android.Views.ViewStates.Invisible;
 
@@ -163,7 +163,7 @@ namespace SCaR_Arcade
         // Builds all the disks, and adds then into the first LinearLayout;
         private void createDisks()
         {
-            int numberOfDisks = Convert.ToInt32(Intent.GetStringExtra("numberOfDisks"));
+            int numberOfDisks = Convert.ToInt32(Intent.GetStringExtra("gameDifficulty"));
             for (int i = 0; i < numberOfDisks; i++)
             {
                 ImageView imgView = getResizedImage(i);
@@ -208,7 +208,7 @@ namespace SCaR_Arcade
         // Particularly if there are alot of them.
         private Bitmap addNumbersToBitMap(Bitmap bMapDiskScaled, int count)
         {
-            int number = Convert.ToInt32(Intent.GetStringExtra("numberOfDisks")) - count;
+            int number = Convert.ToInt32(Intent.GetStringExtra("gameDifficulty")) - count;
             // The top left hand corner of the image of the number is specified by the (x,y)
             // the number will not be placed exactly in the middle, instead it will be slightly off centre. 
             // The 0.15 (15%), and 0.10 (10%) have been determined by testing different values
@@ -451,7 +451,7 @@ namespace SCaR_Arcade
             if (isReplay)
             {
                 intent = new Intent(this, typeof(TowersOfHanoiActivity));
-                intent.PutExtra("numberOfDisks", Intent.GetStringExtra("numberOfDisks"));
+                intent.PutExtra("numberOfDisks", Intent.GetStringExtra("gameDifficulty"));
             }
             else
             {
