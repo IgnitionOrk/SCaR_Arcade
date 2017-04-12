@@ -82,7 +82,7 @@ namespace SCaR_Arcade
                 {
                     case 0:
                         intent = new Intent(this, typeof(TowersOfHanoiActivity));
-                        intent.PutExtra("gameDifficulty", difficulty);
+                        intent.PutExtra("gameDifficulty", 3);
                         StartActivity(intent);
                         break;
                     case 1:

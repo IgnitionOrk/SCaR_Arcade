@@ -55,9 +55,8 @@ namespace SCaR_Arcade
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            SetContentView(Resource.Layout.Main);
+            SetContentView(Resource.Layout.TowersOfHanoi);
             
-            // Set our view from the "main" layout resource
             Button btnReplay = FindViewById<Button>(Resource.Id.btnReplay);
             Button btnQuit = FindViewById<Button>(Resource.Id.btnQuit);
             TextView txtOptimalNoOfMoves = FindViewById<TextView>(Resource.Id.txtViewOptNoOfMoves);
@@ -65,16 +64,13 @@ namespace SCaR_Arcade
             elapsedTime = FindViewById<TextView>(Resource.Id.txtVElapsedTime);
             txtVScore = FindViewById<TextView>(Resource.Id.txtVScore);
             gameDisplay = FindViewById<LinearLayout>(Resource.Id.linLayGameDisplay);
-            //^^nothing seems to have been initiated^^
 
-            gameDisplay.SetBackgroundColor(Color.Red);
-            
             // Build the game display that the user will interact with;
             Game();
 
             // Initializing data for the game.
             player = new Player();
-            logic = new GameLogic(Convert.ToInt32(Intent.GetStringExtra("numberOfDisks")));
+            logic = new GameLogic(Convert.ToInt32(Intent.GetStringExtra("gameDifficulty")));
             txtOptimalNoOfMoves.Text = string.Format("{0}", "Optimal no. of moves: " + logic.calOptimalNoOfMoves(Convert.ToInt32(Intent.GetStringExtra("gameDifficulty"))));
             txtVScore.Text = "No. of moves: " + 0;
             chronometer.Visibility = Android.Views.ViewStates.Invisible;
@@ -458,7 +454,7 @@ namespace SCaR_Arcade
             if (isReplay)
             {
                 intent = new Intent(this, typeof(TowersOfHanoiActivity));
-                intent.PutExtra("numberOfDisks", Intent.GetStringExtra("gameDifficulty"));
+                intent.PutExtra("gameDifficulty", Intent.GetStringExtra("gameDifficulty"));
             }
             else
             {
