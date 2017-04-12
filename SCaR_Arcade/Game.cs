@@ -22,6 +22,7 @@ namespace SCaR_Arcade
         public string gLeaderboardURL { get; set; }
         public int minDifficulty { get; set; }
         public int maxDifficulty { get; set; }
+        public Activity gameActivity { get; set; }
 
         /*
          * Things to add  
