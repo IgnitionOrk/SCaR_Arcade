@@ -450,7 +450,7 @@ namespace SCaR_Arcade
             Intent intent = null;
             if (isReplay)
             {
-                intent = new Intent(this, typeof(MainActivity));
+                intent = new Intent(this, typeof(TowersOfHanoiActivity));
                 intent.PutExtra("numberOfDisks", Intent.GetStringExtra("numberOfDisks"));
             }
             else
