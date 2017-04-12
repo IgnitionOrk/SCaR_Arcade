@@ -76,7 +76,7 @@ namespace SCaR_Arcade
                 switch (gameChoice)
                 {
                     case 0:
-                        intent = new Intent(this, typeof(TowerOfHanoiActivity));
+                        intent = new Intent(this, typeof(TowersOfHanoiActivity));
                         intent.PutExtra("gameDifficulty", difficulty);
                         StartActivity(intent);
                         break;
