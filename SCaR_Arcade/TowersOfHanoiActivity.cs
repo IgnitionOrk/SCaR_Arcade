@@ -295,6 +295,7 @@ namespace SCaR_Arcade
         // Reference: https://forums.xamarin.com/discussion/63590/drag-and-drop-in-android-c
         public bool OnDrag(View v, DragEvent args)
         {
+            
             switch (args.Action)
             {
                 case DragAction.Entered:
@@ -304,8 +305,17 @@ namespace SCaR_Arcade
                     v.SetBackgroundColor(Color.Blue);
                     return true;
                 case DragAction.Ended:
-                    //might want to Disk check here 
-                    System.Diagnostics.Debug.Write("HAHAHHERE");
+                    //Check validity of Disk placement 
+
+
+                    
+                    v.SetBackgroundColor(Color.AliceBlue);
+                    if (!args.Result)
+                    {
+                        invalidMove(1);
+                        System.Diagnostics.Debug.Write("HERE------------HERE");
+                    }
+                    
                     return true;
                 case DragAction.Started:
                     return true;
@@ -313,6 +323,7 @@ namespace SCaR_Arcade
                     // Parameter v is of type LinearLayout and is defined as the dropzone
                     // the new disk will be added to. 
                     allowableMove(v);
+                    
                     return true;
                 default:
                     
@@ -331,6 +342,8 @@ namespace SCaR_Arcade
             if (droppedOutsideGameScreen(view as LinearLayout))
             {
                 invalidMove(1);
+                // Adding the disk, that was just removed back into the linearlayout it came from at the top of the stack;
+                removedFromLinearLayout.AddView(disk, 0);
             }
             else if (logic.canDropDisk(indexFrom, indexTo))
             {
@@ -352,6 +365,8 @@ namespace SCaR_Arcade
             {
                 // Show an alert.
                 invalidMove(0);
+                // Adding the disk, that was just removed back into the linearlayout it came from at the top of the stack;
+                removedFromLinearLayout.AddView(disk, 0);
             }
 
             if (logic.ifWon())
@@ -393,8 +408,7 @@ namespace SCaR_Arcade
             }
             
             adb.Show();
-            // Adding the disk, that was just removed back into the linearlayout it came from at the top of the stack;
-            removedFromLinearLayout.AddView(disk, 0);
+            
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Determines which @param lin is referring to. 
