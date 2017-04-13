@@ -70,8 +70,8 @@ namespace SCaR_Arcade
 
             // Initializing data for the game.
             player = new Player();
-            logic = new GameLogic(Convert.ToInt32(Intent.GetStringExtra("gameDifficulty")));
-            txtOptimalNoOfMoves.Text = string.Format("{0}", "Optimal no. of moves: " + logic.calOptimalNoOfMoves(Convert.ToInt32(Intent.GetStringExtra("gameDifficulty"))));
+            logic = new GameLogic(Intent.GetIntExtra("gameDifficulty",1));
+            txtOptimalNoOfMoves.Text = string.Format("{0}", "Optimal no. of moves: " + logic.calOptimalNoOfMoves(Intent.GetIntExtra("gameDifficulty", 1)));
             txtVScore.Text = "No. of moves: " + 0;
             chronometer.Visibility = Android.Views.ViewStates.Invisible;
 
@@ -84,7 +84,7 @@ namespace SCaR_Arcade
             // Begin the timer;
             chronometer.Start();
 
-            System.Diagnostics.Debug.WriteLine("HAHAHAHAHAHAHAHAAHHERE " + Intent.GetStringExtra("gameDifficulty"));
+            
         }
         // ----------------------------------------------------------------------------------------------------------------
         // builds the game that the user will interact with at runtime. 
@@ -158,7 +158,7 @@ namespace SCaR_Arcade
                 linearLayout[i].SetGravity(Android.Views.GravityFlags.Bottom);
                 linearLayout[i].SetHorizontalGravity(Android.Views.GravityFlags.Center);
                 linearLayout[i].SetOnDragListener(this);
-                linearLayout[i].SetPadding(0, 0, 0, 100);
+                linearLayout[i].SetPadding(0, 0, 0, 250);
                 linearParameters.SetMargins(0, 0, 0, 50);
                 linearLayout[i].LayoutParameters = linearParameters;
                 frameLayout[i].AddView(linearLayout[i], linearParameters);
@@ -168,7 +168,7 @@ namespace SCaR_Arcade
         // Builds all the disks, and adds then into the first LinearLayout;
         private void createDisks()
         {
-            int numberOfDisks = Convert.ToInt32(Intent.GetStringExtra("gameDifficulty"));
+            int numberOfDisks = Intent.GetIntExtra("gameDifficulty",1);
             for (int i = 0; i < numberOfDisks; i++)
             {
                 ImageView imgView = getResizedImage(i);
@@ -197,8 +197,7 @@ namespace SCaR_Arcade
 
             // Scale the Bitmap image to the desired specs;
             Bitmap bMapDiskScaled = Bitmap.CreateScaledBitmap(bMapDisk, newWidth, bMapDisk.Height, true);
-
-
+            
             //Add the numbers to each Bitmap so the player can differentiate between disks, particularly if there are a large number of them.
             bMapDiskScaled = addNumbersToBitMap(bMapDiskScaled, count);
 
@@ -213,7 +212,7 @@ namespace SCaR_Arcade
         // Particularly if there are alot of them.
         private Bitmap addNumbersToBitMap(Bitmap bMapDiskScaled, int count)
         {
-            int number = Convert.ToInt32(Intent.GetStringExtra("gameDifficulty")) - count;
+            int number = Intent.GetIntExtra("gameDifficulty",1) - count;
             // The top left hand corner of the image of the number is specified by the (x,y)
             // the number will not be placed exactly in the middle, instead it will be slightly off centre. 
             // The 0.15 (15%), and 0.10 (10%) have been determined by testing different values
@@ -448,15 +447,21 @@ namespace SCaR_Arcade
         // Determines the appropriate response if a particular button has been pressed. 
         private void determineResponse(bool isReplay)
         {
-            chronometer.Stop();
-            chronometer = null;
-            logic.deleteBoard();
-            logic = null;
+            if (chronometer != null)
+            {
+                chronometer.Stop();
+                chronometer = null;
+            }
+            if (logic != null)
+            {
+                logic.deleteBoard();
+                logic = null;
+            }
             Intent intent = null;
             if (isReplay)
             {
                 intent = new Intent(this, typeof(TowersOfHanoiActivity));
-                intent.PutExtra("gameDifficulty", Intent.GetStringExtra("gameDifficulty"));
+                intent.PutExtra("gameDifficulty", Intent.GetIntExtra("gameDifficulty",1));
             }
             else
             {
