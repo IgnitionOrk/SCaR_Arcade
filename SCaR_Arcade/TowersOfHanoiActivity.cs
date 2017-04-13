@@ -158,8 +158,8 @@ namespace SCaR_Arcade
                 linearLayout[i].SetGravity(Android.Views.GravityFlags.Bottom);
                 linearLayout[i].SetHorizontalGravity(Android.Views.GravityFlags.Center);
                 linearLayout[i].SetOnDragListener(this);
-                linearLayout[i].SetPadding(0, 0, 0, 250);
-                linearParameters.SetMargins(0, 0, 0, 50);
+                linearLayout[i].SetPadding(0, 0, 0, 100);
+                //linearParameters.SetMargins(0, 0, 0, 50);
                 linearLayout[i].LayoutParameters = linearParameters;
                 frameLayout[i].AddView(linearLayout[i], linearParameters);
             }
@@ -299,23 +299,21 @@ namespace SCaR_Arcade
             switch (args.Action)
             {
                 case DragAction.Entered:
-                    v.SetBackgroundColor(Color.Red);
                     return true;
                 case DragAction.Exited:
-                    v.SetBackgroundColor(Color.Blue);
                     return true;
                 case DragAction.Ended:
                     //Check validity of Disk placement 
-
-
-                    
-                    v.SetBackgroundColor(Color.AliceBlue);
                     if (!args.Result)
                     {
-                        invalidMove(1);
-                        System.Diagnostics.Debug.Write("HERE------------HERE");
+                        if(disk.Parent != null)
+                        {
+                            (disk.Parent as ViewGroup).RemoveView(disk);
+                        }
+                        removedFromLinearLayout.AddView(disk, 0);
+                        disk.Invalidate();
+                        removedFromLinearLayout.Invalidate();
                     }
-                    
                     return true;
                 case DragAction.Started:
                     return true;
@@ -323,10 +321,8 @@ namespace SCaR_Arcade
                     // Parameter v is of type LinearLayout and is defined as the dropzone
                     // the new disk will be added to. 
                     allowableMove(v);
-                    
                     return true;
                 default:
-                    
                     return false;
             }
         }
@@ -338,14 +334,7 @@ namespace SCaR_Arcade
         {
             int indexFrom = findLinearLayoutIndex(removedFromLinearLayout);
             int indexTo = findLinearLayoutIndex((view as LinearLayout));
-
-            if (droppedOutsideGameScreen(view as LinearLayout))
-            {
-                invalidMove(1);
-                // Adding the disk, that was just removed back into the linearlayout it came from at the top of the stack;
-                removedFromLinearLayout.AddView(disk, 0);
-            }
-            else if (logic.canDropDisk(indexFrom, indexTo))
+            if (logic.canDropDisk(indexFrom, indexTo))
             {
                 //Essentially we now save the moves into the game logic object 'logic' for further use.
                 logic.finalizeMove(indexFrom, indexTo);
@@ -373,19 +362,6 @@ namespace SCaR_Arcade
             {
                 determineResponse(false);
             }
-        }
-        // ----------------------------------------------------------------------------------------------------------------
-        private bool droppedOutsideGameScreen(LinearLayout view)
-        {
-            int iFind = 0;
-            for (int i = 0; i < linearLayout.Length; i++)
-            {
-                if (linearLayout[i] == view)
-                {
-                    iFind++;
-                }
-            }
-            return iFind == 0;
         }
         //--------------------------------------
         //return disk
