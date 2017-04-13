@@ -298,8 +298,14 @@ namespace SCaR_Arcade
             switch (args.Action)
             {
                 case DragAction.Entered:
+                    v.SetBackgroundColor(Color.Red);
                     return true;
                 case DragAction.Exited:
+                    v.SetBackgroundColor(Color.Blue);
+                    return true;
+                case DragAction.Ended:
+                    //might want to Disk check here 
+                    System.Diagnostics.Debug.Write("HAHAHHERE");
                     return true;
                 case DragAction.Started:
                     return true;
@@ -309,6 +315,7 @@ namespace SCaR_Arcade
                     allowableMove(v);
                     return true;
                 default:
+                    
                     return false;
             }
         }
@@ -320,17 +327,10 @@ namespace SCaR_Arcade
         {
             int indexFrom = findLinearLayoutIndex(removedFromLinearLayout);
             int indexTo = findLinearLayoutIndex((view as LinearLayout));
+
             if (droppedOutsideGameScreen(view as LinearLayout))
             {
-                // The player has accidentally dropped the disk outside of the game screen.
-                // If they have the game will automatically remove the disk.
-                // Therefore, we must save it back into the LinearLayout from whence it came.
-                removedFromLinearLayout.AddView(disk, 0);
-                // Show an alert.
-                AlertDialog.Builder adb = new AlertDialog.Builder(this);
-                adb.SetTitle("Dropzone not allowed!");
-                adb.SetMessage("You have dropped the disk outside of the game screen.");
-                adb.Show();
+                invalidMove(1);
             }
             else if (logic.canDropDisk(indexFrom, indexTo))
             {
@@ -351,12 +351,7 @@ namespace SCaR_Arcade
             else
             {
                 // Show an alert.
-                AlertDialog.Builder adb = new AlertDialog.Builder(this);
-                adb.SetTitle("Move not allowed!");
-                adb.SetMessage("You cannot place larger disks on top of smaller disks");
-                adb.Show();
-                // Adding the disk, that was just removed back into the linearlayout it came from at the top of the stack;
-                removedFromLinearLayout.AddView(disk, 0);
+                invalidMove(0);
             }
 
             if (logic.ifWon())
@@ -376,6 +371,30 @@ namespace SCaR_Arcade
                 }
             }
             return iFind == 0;
+        }
+        //--------------------------------------
+        //return disk
+        private void invalidMove(int msg)
+        {
+            // Show an alert.
+            AlertDialog.Builder adb = new AlertDialog.Builder(this);
+            adb.SetTitle("Move not allowed!");
+            switch (msg)
+            {
+                case 0:
+                    adb.SetMessage("You cannot place larger disks on top of smaller disks");
+                    break;
+                case 1:
+                    adb.SetMessage("You have dropped the disk outside of the game screen.");
+                    break;
+                default:
+                    adb.SetMessage("Unkown Error");
+                    break;
+            }
+            
+            adb.Show();
+            // Adding the disk, that was just removed back into the linearlayout it came from at the top of the stack;
+            removedFromLinearLayout.AddView(disk, 0);
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Determines which @param lin is referring to. 
