@@ -8,6 +8,7 @@ using Android.Graphics;
 using System.Collections.Generic;
 using Android.Runtime;
 using Android.Views;
+using System.Threading.Tasks;
 /// <summary>
 /// Creator: Ryan Cunneen
 /// Student number: 3179234
@@ -55,6 +56,9 @@ namespace SCaR_Arcade
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
+
+           
+
             SetContentView(Resource.Layout.TowersOfHanoi);
             
             Button btnReplay = FindViewById<Button>(Resource.Id.btnReplay);
@@ -86,11 +90,14 @@ namespace SCaR_Arcade
 
             
         }
-        // ----------------------------------------------------------------------------------------------------------------
-        // builds the game that the user will interact with at runtime. 
-        // Initially the game had multiple instance variables for each ImageViews (Poles), and LinearLayouts (vertical)
-        // By removing them from the axml file, and bulding them at runtime the Activity file's simplicity, and readability has been enhanced.
-        private void Game()
+
+       
+
+            // ----------------------------------------------------------------------------------------------------------------
+            // builds the game that the user will interact with at runtime. 
+            // Initially the game had multiple instance variables for each ImageViews (Poles), and LinearLayouts (vertical)
+            // By removing them from the axml file, and bulding them at runtime the Activity file's simplicity, and readability has been enhanced.
+            private void Game()
         {
             createFrameLayouts();   // Will Allow both ImageViews (Poles) and ImageView (Disks) to be placed on top of eachother.
             createImageViews();       // Images of the poles that are displayed. 
@@ -320,7 +327,9 @@ namespace SCaR_Arcade
                 case DragAction.Drop:
                     // Parameter v is of type LinearLayout and is defined as the dropzone
                     // the new disk will be added to. 
-                    allowableMove(v);
+                    if(logic != null){
+                        allowableMove(v);
+                    }
                     return true;
                 default:
                     return false;
@@ -334,6 +343,8 @@ namespace SCaR_Arcade
         {
             int indexFrom = findLinearLayoutIndex(removedFromLinearLayout);
             int indexTo = findLinearLayoutIndex((view as LinearLayout));
+
+
             if (logic.canDropDisk(indexFrom, indexTo))
             {
                 //Essentially we now save the moves into the game logic object 'logic' for further use.
@@ -360,8 +371,50 @@ namespace SCaR_Arcade
 
             if (logic.ifWon())
             {
+                System.Diagnostics.Debug.Write("You won");
+                System.Diagnostics.Debug.Write(player.getNumberOfMoves());
+                endScreen(player.getNumberOfMoves());
+                
                 determineResponse(false);
             }
+        }
+        private void endScreen(int score)
+        {
+            // Show an alert.
+            AlertDialog.Builder adb = new AlertDialog.Builder(this);
+            adb.SetTitle("You Won");
+
+            int isPB = -1;
+            if (addToLeaderBoard(score))
+            {
+                isPB++;
+            }
+
+            switch (isPB)
+            {
+                case 0:
+                    adb.SetMessage("Congratulations on a new personal best of " + score);
+                    break;
+                default:
+                    adb.SetMessage("You scored " + score);
+                    break;
+            }
+
+            adb.Show();
+            
+            
+        }
+
+        private bool addToLeaderBoard(int score)
+        {
+            bool scoreAdded = false;
+
+            //add score to leaderBoard if(score<lbScore)
+            //if added
+            scoreAdded = true;
+
+
+            return scoreAdded;
         }
         //--------------------------------------
         //return disk

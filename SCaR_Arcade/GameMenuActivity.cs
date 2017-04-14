@@ -101,6 +101,22 @@ namespace SCaR_Arcade
 
         //--------------------------------------------------------------------
         //Back button
+        public override void OnBackPressed()
+        {
+            try
+            {
+                Intent intent = new Intent(this, typeof(MainActivity));
+                StartActivity(intent);
+            }
+            catch
+            {
+                txtErrorMessage.Text = "Oops something went wrong with trying to go back.";
+
+            }
+        }
+
+        //--------------------------------------------------------------------
+        //Back button
         protected void ButtonClickSelect(Object sender, EventArgs args)
         {
             try
