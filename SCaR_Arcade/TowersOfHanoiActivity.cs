@@ -165,7 +165,7 @@ namespace SCaR_Arcade
                 linearLayout[i].SetGravity(Android.Views.GravityFlags.Bottom);
                 linearLayout[i].SetHorizontalGravity(Android.Views.GravityFlags.Center);
                 linearLayout[i].SetOnDragListener(this);
-                linearLayout[i].SetPadding(0, 0, 0, 100);
+                linearLayout[i].SetPadding(0, 0, 0, 250);
                 //linearParameters.SetMargins(0, 0, 0, 50);
                 linearLayout[i].LayoutParameters = linearParameters;
                 frameLayout[i].AddView(linearLayout[i], linearParameters);
@@ -412,7 +412,21 @@ namespace SCaR_Arcade
             
             
         }
+        //--------------------------------------------------------------------
+        //Back button
+        public override void OnBackPressed()
+        {
+            try
+            {
+                Intent intent = new Intent(this, typeof(GameMenuActivity));
+                StartActivity(intent);
+            }
+            catch
+            {
+                invalidMove(2); 
 
+            }
+        }
         private bool addToLeaderBoard(int score)
         {
             bool scoreAdded = false;
@@ -438,6 +452,9 @@ namespace SCaR_Arcade
                     break;
                 case 1:
                     adb.SetMessage("You have dropped the disk outside of the game screen.");
+                    break;
+                case 2:
+                    adb.SetMessage("Oops something went wrong with trying to go back.");
                     break;
                 default:
                     adb.SetMessage("Unkown Error");
