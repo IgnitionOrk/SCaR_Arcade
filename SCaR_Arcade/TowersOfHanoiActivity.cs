@@ -353,7 +353,7 @@ namespace SCaR_Arcade
                 int indexTo = findLinearLayoutIndex((view as LinearLayout));
                 if (logic.canDropDisk(indexFrom, indexTo))
                 {
-                    //Essentially we now save the moves into the game logic object 'logic' for further use.
+                    //Essentially we now save the moves into the game logic object 'logic' for further use. 
                     logic.finalizeMove(indexFrom, indexTo);
 
                     // Add the new disk into the @param view.
