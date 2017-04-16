@@ -2,14 +2,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-
+/// <summary>
+/// Student name: Ryan Cunneen.
+/// Student Number: 3179234
+/// Date created 4-Apr-2017
+/// Date Modified 4-Apr-2017
+/// </summary>
 namespace SCaR_Arcade.GameLogic
 {
     class TowersOfHanoiLogic
