@@ -310,17 +310,9 @@ namespace SCaR_Arcade
                 case DragAction.Exited:
                     return true;
                 case DragAction.Ended:
-                    //Check validity of Disk placement 
-                    if (!args.Result)
-                    {
-                        if(disk.Parent != null)
-                        {
-                            (disk.Parent as ViewGroup).RemoveView(disk);
-                        }
-                        removedFromLinearLayout.AddView(disk, 0);
-                        disk.Invalidate();
-                        removedFromLinearLayout.Invalidate();
-                    }
+                    // Essentially if the Player moves the disk out of the game screen
+                    // the disk will disappear;
+                    returnDiskToPlacement(args);
                     return true;
                 case DragAction.Started:
                     return true;
@@ -333,6 +325,22 @@ namespace SCaR_Arcade
                     return true;
                 default:
                     return false;
+            }
+        }
+        // ----------------------------------------------------------------------------------------------------------------
+        // Reloads the disk back on the pole;
+        private void returnDiskToPlacement(DragEvent args)
+        {
+            //Check validity of Disk placement 
+            if (!args.Result)
+            {
+                if (disk.Parent != null)
+                {
+                    (disk.Parent as ViewGroup).RemoveView(disk);
+                }
+                removedFromLinearLayout.AddView(disk, 0);
+                disk.Invalidate();
+                removedFromLinearLayout.Invalidate();
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
