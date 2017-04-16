@@ -87,9 +87,6 @@ namespace SCaR_Arcade
             };
 
         }
-
-        
-
     }
 
 }

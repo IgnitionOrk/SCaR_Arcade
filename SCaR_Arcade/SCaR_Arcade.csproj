@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Game.cs" />
     <Compile Include="GameAdapter.cs" />
+    <Compile Include="GameLogic\TowersOfHanoiLogic.cs" />
     <Compile Include="GameMenuActivity.cs" />
     <Compile Include="ImageAdapter.cs" />
     <Compile Include="MainActivity.cs" />
@@ -113,6 +114,10 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\Pole.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="GameActivities\" />
+    <Folder Include="Resources\layout\Games\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
