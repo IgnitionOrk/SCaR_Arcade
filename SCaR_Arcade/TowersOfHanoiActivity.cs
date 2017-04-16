@@ -560,39 +560,5 @@ namespace SCaR_Arcade
         {
             elapsedTime.Text = String.Format("{0}", "Time: " + chronometer.Text);
         }
-   
-        /// <summary>
-        /// Creator: Ryan Cunneen
-        /// Student number: 3179234
-        /// Date created: 25-Mar-17
-        /// Date modified: 10-Apr-17
-        /// </summary>
-        private class Player
-        {
-            private int numberOfMoves;
-            private string time;
-            // ----------------------------------------------------------------------------------------------------------------
-            // Constructor:
-            public Player()
-            {
-                this.numberOfMoves = 0;
-                this.time = "00:00";
-            }
-            // ----------------------------------------------------------------------------------------------------------------
-            public int getNumberOfMoves()
-            {
-                return this.numberOfMoves;
-            }
-            // ----------------------------------------------------------------------------------------------------------------
-            public void incrementNumberOfMoves()
-            {
-                this.numberOfMoves++;
-            }
-            // ----------------------------------------------------------------------------------------------------------------
-            public void timed(string time)
-            {
-                this.time = time;
-            }
-        }
     }
 }
