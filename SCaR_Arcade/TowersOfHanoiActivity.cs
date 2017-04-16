@@ -319,9 +319,7 @@ namespace SCaR_Arcade
                 case DragAction.Drop:
                     // Parameter v is of type LinearLayout and is defined as the dropzone
                     // the new disk will be added to. 
-                    if(logic != null){
                         allowableMove(v);
-                    }
                     return true;
                 default:
                     return false;
@@ -349,41 +347,42 @@ namespace SCaR_Arcade
         // Otherwise return the disk back from whence it came (removedFromLinearLayout).  
         private void allowableMove(View view)
         {
-            int indexFrom = findLinearLayoutIndex(removedFromLinearLayout);
-            int indexTo = findLinearLayoutIndex((view as LinearLayout));
-
-
-            if (logic.canDropDisk(indexFrom, indexTo))
+            if (logic != null)
             {
-                //Essentially we now save the moves into the game logic object 'logic' for further use.
-                logic.finalizeMove(indexFrom, indexTo);
+                int indexFrom = findLinearLayoutIndex(removedFromLinearLayout);
+                int indexTo = findLinearLayoutIndex((view as LinearLayout));
+                if (logic.canDropDisk(indexFrom, indexTo))
+                {
+                    //Essentially we now save the moves into the game logic object 'logic' for further use.
+                    logic.finalizeMove(indexFrom, indexTo);
 
-                // Add the new disk into the @param view.
-                addToNewDropzone(view);
+                    // Add the new disk into the @param view.
+                    addToNewDropzone(view);
 
-                // Now we set the appropriate properties of the disks for each LinearLayout.
-                topDiskIsOnlyClickable();
+                    // Now we set the appropriate properties of the disks for each LinearLayout.
+                    topDiskIsOnlyClickable();
 
-                // If all goes well when dropping the disk into the LinearLayout,
-                // increment the number of moves the user has made;
-                player.incrementNumberOfMoves();
-                txtVScore.Text = "No. of moves: " + player.getNumberOfMoves();
-            }
-            else
-            {
-                // Show an alert.
-                invalidMove(0);
-                // Adding the disk, that was just removed back into the linearlayout it came from at the top of the stack;
-                removedFromLinearLayout.AddView(disk, 0);
-            }
+                    // If all goes well when dropping the disk into the LinearLayout,
+                    // increment the number of moves the user has made;
+                    player.incrementNumberOfMoves();
+                    txtVScore.Text = "No. of moves: " + player.getNumberOfMoves();
+                }
+                else
+                {
+                    // Show an alert.
+                    invalidMove(0);
+                    // Adding the disk, that was just removed back into the linearlayout it came from at the top of the stack;
+                    removedFromLinearLayout.AddView(disk, 0);
+                }
 
-            if (logic.ifWon())
-            {
-                System.Diagnostics.Debug.Write("You won");
-                System.Diagnostics.Debug.Write(player.getNumberOfMoves());
-                endScreen(player.getNumberOfMoves());
-                
-                determineResponse(false);
+                if (logic.ifWon())
+                {
+                    System.Diagnostics.Debug.Write("You won");
+                    System.Diagnostics.Debug.Write(player.getNumberOfMoves());
+                    endScreen(player.getNumberOfMoves());
+
+                    determineResponse(false);
+                }
             }
         }
         private void endScreen(int score)
