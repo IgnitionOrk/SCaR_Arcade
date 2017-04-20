@@ -27,11 +27,18 @@ namespace SCaR_Arcade
     static class GlobalGame
     {
         private static string gDifficultyName = "gameDifficulty";
+        private static string gChoice = "gameChoice";
         // ----------------------------------------------------------------------------------------------------------------
-        // Returns the name of the variable.
-        public static string getVariableName()
+        // Returns the value of the variables (value represents the name).
+        public static string getVariableDifficultyName()
         {
             return gDifficultyName;
+        }
+        // ----------------------------------------------------------------------------------------------------------------
+        // Returns the value of the variables (value represents the name).
+        public static string getVariableChoiceName()
+        {
+            return gChoice;
         }
     }
 }

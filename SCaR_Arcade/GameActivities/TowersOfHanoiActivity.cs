@@ -74,8 +74,8 @@ namespace SCaR_Arcade
 
             // Initializing data for the game.
             player = new Player();
-            logic = new GameLogic.TowersOfHanoiLogic(MAXCOMPONENTS, Intent.GetIntExtra(GlobalGame.getVariableName(), 1));
-            txtOptimalNoOfMoves.Text = string.Format("{0}", "Optimal no. of moves: " + logic.calOptimalNoOfMoves(Intent.GetIntExtra(GlobalGame.getVariableName(), 1)));
+            logic = new GameLogic.TowersOfHanoiLogic(MAXCOMPONENTS, Intent.GetIntExtra(GlobalGame.getVariableDifficultyName(), 1));
+            txtOptimalNoOfMoves.Text = string.Format("{0}", "Optimal no. of moves: " + logic.calOptimalNoOfMoves(Intent.GetIntExtra(GlobalGame.getVariableDifficultyName(), 1)));
             txtVScore.Text = "No. of moves: " + 0;
             chronometer.Visibility = Android.Views.ViewStates.Invisible;
 

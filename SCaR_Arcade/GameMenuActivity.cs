@@ -55,9 +55,7 @@ namespace SCaR_Arcade
             imgBtnIncrease = FindViewById<ImageButton>(Resource.Id.imgBtnIncrease);
             imgBtnDecrease = FindViewById<ImageButton>(Resource.Id.imgBtnDecrease);
 
-            lL1.SetBackgroundColor(Color.Red);
-
-            gameChoice = Intent.GetIntExtra("gameChoice",0);
+            gameChoice = Intent.GetIntExtra(GlobalGame.getVariableChoiceName(),0);
 
             if (game == null)
             {
@@ -89,7 +87,7 @@ namespace SCaR_Arcade
             {
                 Type type = game.activity.GetType();
                 Intent intent = new Intent(this, type);
-                intent.PutExtra(GlobalGame.getVariableName(), difficulty);
+                intent.PutExtra(GlobalGame.getVariableDifficultyName(), difficulty);
                 StartActivity(intent);
             }
             catch

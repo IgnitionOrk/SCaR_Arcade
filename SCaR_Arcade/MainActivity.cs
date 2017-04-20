@@ -43,8 +43,7 @@ namespace SCaR_Arcade
         private void listViewItemClick(Object sender, AdapterView.ItemClickEventArgs args)
         {
             Intent intent = new Intent(this, typeof(GameMenuActivity));
-            intent.PutExtra("gameChoice", args.Position);
-            intent.PutExtra("gameMaxDif", 8);
+            intent.PutExtra(GlobalGame.getVariableChoiceName(), args.Position);
             StartActivity(intent);
         }
     }
