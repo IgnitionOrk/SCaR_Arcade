@@ -283,7 +283,6 @@ namespace SCaR_Arcade
 
             //Remove the view (disk) from its Parent. 
             removedFromLinearLayout.RemoveView(view);
-
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Executes after the user initiates a Drag event.
@@ -378,7 +377,7 @@ namespace SCaR_Arcade
            // determineResponse(false);
         }
         // ----------------------------------------------------------------------------------------------------------------
-        //Back button
+        // Event Handler: Will direct the player to the Game menu.
         public override void OnBackPressed()
         {
             try
@@ -392,10 +391,10 @@ namespace SCaR_Arcade
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
-
-        //return disk
+        // Display an error message for the invalid move.
         private void invalidMoveMessage(int msg)
         {
+            // The boolean parameter determines if the Error message displayed is an application or game error.
             GlobalApp.Alert(this, true, msg);
         }
         // ----------------------------------------------------------------------------------------------------------------
@@ -457,7 +456,6 @@ namespace SCaR_Arcade
         {
             determineResponse(true);
         }
-
         // ----------------------------------------------------------------------------------------------------------------
         // Event handler: Triggered when the user pressed the quit button;
         protected void btnQuitOnClick(Object sender, EventArgs args)
@@ -494,6 +492,8 @@ namespace SCaR_Arcade
             }
             catch
             {
+                // The boolean parameter determines if the Error message displayed is an application or game error.
+                // In this case it is an application error.
                 GlobalApp.Alert(this, false, 0);
             }
         }

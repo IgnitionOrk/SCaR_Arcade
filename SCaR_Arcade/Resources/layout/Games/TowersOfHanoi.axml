@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:p1="http://schemas.android.com/apk/res/android"
+    p1:minWidth="25px"
+    p1:minHeight="25px"
+    p1:layout_width="match_parent"
+    p1:layout_height="match_parent"
+    p1:id="@+id/relativeLayout1">
+    <LinearLayout
+        p1:orientation="vertical"
+        p1:layout_width="match_parent"
+        p1:layout_height="match_parent"
+        p1:id="@+id/linearLayout1">
+        <LinearLayout
+            p1:paddingTop="10dp"
+            p1:orientation="horizontal"
+            p1:layout_width="match_parent"
+            p1:layout_height="wrap_content"
+            p1:id="@+id/linLayGameDisplay"
+            p1:layout_weight="30"
+            p1:gravity="center"
+            p1:layout_gravity="center"
+            p1:minWidth="25px"
+            p1:minHeight="25px" />
+        <LinearLayout
+            p1:orientation="horizontal"
+            p1:layout_width="match_parent"
+            p1:layout_height="wrap_content"
+            p1:id="@+id/linearLayout2"
+            p1:layout_weight="3">
+            <LinearLayout
+                p1:orientation="vertical"
+                p1:layout_width="wrap_content"
+                p1:layout_height="match_parent"
+                p1:id="@+id/linearLayout3"
+                p1:layout_gravity="center_horizontal"
+                p1:gravity="center_vertical">
+                <LinearLayout
+                    p1:orientation="horizontal"
+                    p1:layout_width="match_parent"
+                    p1:layout_height="wrap_content"
+                    p1:id="@+id/linearLayout5">
+                    <TextView
+                        p1:text="Large Text"
+                        p1:textAppearance="?android:attr/textAppearanceLarge"
+                        p1:id="@+id/txtVScore"
+                        p1:layout_width="188.5dp"
+                        p1:layout_height="match_parent" />
+                    <TextView
+                        p1:text="Large Text"
+                        p1:textAppearance="?android:attr/textAppearanceLarge"
+                        p1:layout_width="wrap_content"
+                        p1:layout_height="match_parent"
+                        p1:id="@+id/txtVElapsedTime" />
+                    <Chronometer
+                        p1:layout_width="match_parent"
+                        p1:layout_height="match_parent"
+                        p1:id="@+id/cTimer"
+                        p1:gravity="center" />
+                </LinearLayout>
+                <TextView
+                    p1:text="Large Text"
+                    p1:textAppearance="?android:attr/textAppearanceLarge"
+                    p1:layout_width="match_parent"
+                    p1:layout_height="wrap_content"
+                    p1:id="@+id/txtViewOptNoOfMoves" />
+            </LinearLayout>
+            <LinearLayout
+                p1:orientation="horizontal"
+                p1:layout_width="match_parent"
+                p1:layout_height="match_parent"
+                p1:id="@+id/linearLayout4"
+                p1:gravity="center"
+                p1:layout_gravity="center_horizontal">
+                <Button
+                    p1:text="REPLAY"
+                    p1:layout_width="wrap_content"
+                    p1:layout_height="wrap_content"
+                    p1:id="@+id/btnReplay"
+                    p1:minWidth="100dp" />
+                <Button
+                    p1:text="QUIT"
+                    p1:layout_width="wrap_content"
+                    p1:layout_height="wrap_content"
+                    p1:id="@+id/btnQuit"
+                    p1:minWidth="100dp" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

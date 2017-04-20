@@ -105,9 +105,8 @@ namespace SCaR_Arcade
             imgBtnIn.SetScaleType(ImageView.ScaleType.FitCenter);
 
         }
-        // ----------------------------------------------------------------------------------------------------------------
-
-        //Start button
+        // ---------------------------------------------------------------------------------------------------------------
+        // Begins the game selected.
         protected void ButtonClickStart(Object sender, EventArgs args)
         {
             try
@@ -122,30 +121,14 @@ namespace SCaR_Arcade
                 GlobalApp.Alert(this, false, 0);
             }
         }
-
         // ----------------------------------------------------------------------------------------------------------------
-
-        //Back button
-        public override void OnBackPressed()
-        {
-            try
-            {
-                returnToMainActivity();
-            }
-            catch
-            {
-                GlobalApp.Alert(this, false, 0);
-            }
-        }
-
-        // ----------------------------------------------------------------------------------------------------------------
-
-        //Back button
+        // Returns to the Main Activity of the application.
         protected void ButtonClickSelect(Object sender, EventArgs args)
         {
             try
             {
-                returnToMainActivity();
+                Intent intent = new Intent(this, typeof(MainActivity));
+                StartActivity(intent);
             }
             catch
             {
@@ -153,28 +136,19 @@ namespace SCaR_Arcade
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
-
-        private void returnToMainActivity()
-        {
-            Intent intent = new Intent(this, typeof(MainActivity));
-            StartActivity(intent);
-        }
-
-        // ----------------------------------------------------------------------------------------------------------------
-
+        // Event handler: that increases the difficulty level for the game selected.
         protected void ImageButtonIncrease(Object sender, EventArgs args)
         {
             updateDifficulty(true);
         }
-
         // ----------------------------------------------------------------------------------------------------------------
-
+        // Event handler: that decreases the difficulty level for the game selected.
         protected void ImageButtonDecrease(Object sender, EventArgs args)
         {
             updateDifficulty(false);
         }
         // ----------------------------------------------------------------------------------------------------------------
-
+        // Updates the difficulty level determined by pressing the 'plus' or 'minus' buttons.
         private void updateDifficulty(bool isIncrease)
         {
             if (isIncrease)
@@ -195,7 +169,7 @@ namespace SCaR_Arcade
         }
 
         // ----------------------------------------------------------------------------------------------------------------
-
+        // Event Handler: Will direct the user to the Leaderboard. 
         protected void ButtonClickLeaderboard(Object sender, EventArgs ev)
         {
 

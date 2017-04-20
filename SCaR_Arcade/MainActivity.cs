@@ -46,6 +46,8 @@ namespace SCaR_Arcade
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
+        // Event handler: Determines which item was selected in the list of games
+        // and moves to GameMenuActivity.
         private void listViewItemClick(Object sender, AdapterView.ItemClickEventArgs args)
         {
             try

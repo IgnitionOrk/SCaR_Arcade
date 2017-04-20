@@ -20,13 +20,15 @@ namespace SCaR_Arcade
     class GameAdapter:BaseAdapter<Game>
     {
        
-        /*sources
+        /*
+         * sources
          * http://blog.atavisticsoftware.com/2014/02/listview-using-activitylistitem-style.html
          * http://blog.atavisticsoftware.com/2014/01/listview-basics-for-xamarain-android.html
         */
         private List<Game> data;
         private Activity context;
-
+        // ----------------------------------------------------------------------------------------------------------------
+        // Constructor:
         public GameAdapter (Activity activity)
         {
             context = activity;
@@ -36,22 +38,25 @@ namespace SCaR_Arcade
                 data = PopulateGameData();
             }
         }
-
+        // ----------------------------------------------------------------------------------------------------------------
+        // Defined method signature by BaseAdapter interface.
         public override Game this[int position]
         {
             get { return data[position]; } 
         }
-
+        // ----------------------------------------------------------------------------------------------------------------
+        // Defined method signature by BaseAdapter interface.
         public override long GetItemId(int position)
         {
             return position; 
         }
-
+        // ----------------------------------------------------------------------------------------------------------------
+        // Defined method signature by BaseAdapter interface.
         public override int Count
         {
             get { return data.Count; } 
         }
-
+        // ----------------------------------------------------------------------------------------------------------------
         public override View GetView(int position, View rowView, ViewGroup parent)
         {
             var view = rowView;
@@ -72,7 +77,7 @@ namespace SCaR_Arcade
 
             return view;
         }
-
+        // ----------------------------------------------------------------------------------------------------------------
         //TODO: move list and fill with proper data
         private List<Game> PopulateGameData()
         {
