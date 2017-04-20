@@ -120,9 +120,7 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\Pole.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\layout\Games\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\minus.png" />
   </ItemGroup>

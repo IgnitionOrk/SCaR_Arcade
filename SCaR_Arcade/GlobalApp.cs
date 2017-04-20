@@ -52,23 +52,25 @@ namespace SCaR_Arcade
             return gChoice;
         }
         // ----------------------------------------------------------------------------------------------------------------
-        public static void Alert(Context c, bool isGameError, int iMsg)
+        // Issues the appropriate alert is something has gone wrong in the application.
+        public static void Alert(Context c, string iMsg)
         {
             // Show an alert.
             AlertDialog.Builder adb = new AlertDialog.Builder(c);
-            if (isGameError)
-            {
-                adb.SetMessage(getGameErrorMessage(iMsg));
-                adb.SetTitle("Move not allowed");
-            }
-            else
-            {
-                adb.SetMessage(getApplicationErrorMessage(iMsg));
-                adb.SetTitle("Application failed");
-            }
+            adb.SetMessage(iMsg);
+            adb.SetTitle("Move not allowed");
             adb.Show();
         }
         // ----------------------------------------------------------------------------------------------------------------
+        public static void Alert(Context c, int iApp)
+        {
+            AlertDialog.Builder adb = new AlertDialog.Builder(c);
+            adb.SetMessage(getApplicationErrorMessage(iApp));
+            adb.SetTitle("Application failed");
+            adb.Show();
+        }
+        // ----------------------------------------------------------------------------------------------------------------
+        // Issues an alert when the player has won the game.
         public static void Alert(Context c,int score, string time)
         {
             // Show an alert.
@@ -76,24 +78,6 @@ namespace SCaR_Arcade
             adb.SetTitle("Congratulations You Won");
             adb.SetMessage("Your score " + score + " finished in " + time);
             adb.Show();
-        }
-        // ----------------------------------------------------------------------------------------------------------------
-        private static string getGameErrorMessage(int iMsg)
-        {
-            string message = "";
-            switch (iMsg)
-            {
-                case 0:
-                    message = "You cannot place larger disks on top of smaller disks";
-                    break;
-                case 1:
-                    message = "You have dropped the disk outside of the game screen.";
-                    break;
-                default:
-                    message = "Unkown Error";
-                    break;
-            }
-            return message;
         }
         // ----------------------------------------------------------------------------------------------------------------
         private static string getApplicationErrorMessage(int iMsg)

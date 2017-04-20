@@ -84,7 +84,7 @@ namespace SCaR_Arcade
             }
             catch
             {
-                GlobalApp.Alert(this, false, 0);
+                GlobalApp.Alert(this, 0);
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
@@ -118,7 +118,7 @@ namespace SCaR_Arcade
             }
             catch
             {
-                GlobalApp.Alert(this, false, 0);
+                GlobalApp.Alert(this, 0);
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
@@ -132,7 +132,7 @@ namespace SCaR_Arcade
             }
             catch
             {
-                GlobalApp.Alert(this, false, 0);
+                GlobalApp.Alert(this, 0);
             }
         }
         // ----------------------------------------------------------------------------------------------------------------

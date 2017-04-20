@@ -394,9 +394,29 @@ namespace SCaR_Arcade
         // Display an error message for the invalid move.
         private void invalidMoveMessage(int msg)
         {
-            // The boolean parameter determines if the Error message displayed is an application or game error.
-            GlobalApp.Alert(this, true, msg);
+            string message = this.getGameErrorMessage(msg);
+            GlobalApp.Alert(this, message);
         }
+        // ----------------------------------------------------------------------------------------------------------------
+        // Determines what Game message is needed. 
+        private string getGameErrorMessage(int iMsg)
+        {
+            string message = "";
+            switch (iMsg)
+            {
+                case 0:
+                    message = "You cannot place larger disks on top of smaller disks";
+                    break;
+                case 1:
+                    message = "You have dropped the disk outside of the game screen.";
+                    break;
+                default:
+                    message = "Unkown Error";
+                    break;
+            }
+            return message;
+        }
+
         // ----------------------------------------------------------------------------------------------------------------
         // Determines which @param lin is referring to. 
         // This method is vital for determining if the move is allowed or not. 
@@ -494,7 +514,7 @@ namespace SCaR_Arcade
             {
                 // The boolean parameter determines if the Error message displayed is an application or game error.
                 // In this case it is an application error.
-                GlobalApp.Alert(this, false, 0);
+                GlobalApp.Alert(this, 0);
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
