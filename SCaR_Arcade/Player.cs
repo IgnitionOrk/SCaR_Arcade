@@ -25,8 +25,20 @@ namespace SCaR_Arcade
         // Constructor:
         public Player()
         {
-            this.numberOfMoves = 0;
-            this.time = "00:00";
+            name = "";
+        }
+        public Player(string newName)
+        {
+            this.name = newName;
+        }
+        public void setName(string newName)
+        {
+            this.name = newName;
+        }
+
+        public  string getName()
+        {
+            return this.name;
         }
     }
 }

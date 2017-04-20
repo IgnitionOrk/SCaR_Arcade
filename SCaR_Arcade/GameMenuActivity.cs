@@ -42,41 +42,48 @@ namespace SCaR_Arcade
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
-            base.OnCreate(savedInstanceState);
-            // Create your application here
-            SetContentView(Resource.Layout.GameMenu);
-            lL1 = FindViewById<LinearLayout>(Resource.Id.linearLayout1);
-            txtGameTitle = FindViewById<TextView>(Resource.Id.txtGameTitle);
-            txtDifficulty = FindViewById<TextView>(Resource.Id.txtDifficulty);
-            txtErrorMessage = FindViewById<TextView>(Resource.Id.txtErrorMessage);
-            btnStart = FindViewById<Button>(Resource.Id.btnStart);
-            btnLeaderBoard = FindViewById<Button>(Resource.Id.btnLeaderBoard);
-            btnGameSelect = FindViewById<Button>(Resource.Id.btnGameSelect);
-            imgBtnIncrease = FindViewById<ImageButton>(Resource.Id.imgBtnIncrease);
-            imgBtnDecrease = FindViewById<ImageButton>(Resource.Id.imgBtnDecrease);
-
-            gameChoice = Intent.GetIntExtra(GlobalGame.getVariableChoiceName(),0);
-
-            if (game == null)
+          try
             {
-                game = GameInterface.getGameAt(gameChoice);
+                base.OnCreate(savedInstanceState);
+                // Create your application here
+                SetContentView(Resource.Layout.GameMenu);
+                lL1 = FindViewById<LinearLayout>(Resource.Id.linearLayout1);
+                txtGameTitle = FindViewById<TextView>(Resource.Id.txtGameTitle);
+                txtDifficulty = FindViewById<TextView>(Resource.Id.txtDifficulty);
+                txtErrorMessage = FindViewById<TextView>(Resource.Id.txtErrorMessage);
+                btnStart = FindViewById<Button>(Resource.Id.btnStart);
+                btnLeaderBoard = FindViewById<Button>(Resource.Id.btnLeaderBoard);
+                btnGameSelect = FindViewById<Button>(Resource.Id.btnGameSelect);
+                imgBtnIncrease = FindViewById<ImageButton>(Resource.Id.imgBtnIncrease);
+                imgBtnDecrease = FindViewById<ImageButton>(Resource.Id.imgBtnDecrease);
+
+                gameChoice = Intent.GetIntExtra(GlobalApp.getVariableChoiceName(), 0);
+
+                if (game == null)
+                {
+                    game = GameInterface.getGameAt(gameChoice);
+                }
+
+
+                difficulty = game.minDifficulty;
+                minDifficulty = game.minDifficulty;
+                maxDifficulty = game.maxDifficulty;
+                txtDifficulty.Text = String.Format("{0}", difficulty);
+                txtGameTitle.Text = GetGameTitle();
+
+
+                //--------------------------------------------------------------------
+                // Event handlers.
+                btnStart.Click += ButtonClickStart;
+                btnGameSelect.Click += ButtonClickSelect;
+                btnLeaderBoard.Click += ButtonClickLeaderboard;
+                imgBtnIncrease.Click += ImageButtonIncrease;
+                imgBtnDecrease.Click += ImageButtonDecrease;
             }
-
-
-            difficulty = game.minDifficulty;
-            minDifficulty = game.minDifficulty;
-            maxDifficulty = game.maxDifficulty;
-            txtDifficulty.Text = String.Format("{0}", difficulty);
-            txtGameTitle.Text = GetGameTitle();
-            
-
-            //--------------------------------------------------------------------
-            // Event handlers.
-            btnStart.Click += ButtonClickStart;
-            btnGameSelect.Click += ButtonClickSelect;
-            btnLeaderBoard.Click += ButtonClickLeaderboard;
-            imgBtnIncrease.Click += ImageButtonIncrease;
-            imgBtnDecrease.Click += ImageButtonDecrease;
+            catch
+            {
+                GlobalApp.Alert(this, false, 0);
+            }
         }
 
         //--------------------------------------------------------------------
@@ -87,12 +94,12 @@ namespace SCaR_Arcade
             {
                 Type type = game.activity.GetType();
                 Intent intent = new Intent(this, type);
-                intent.PutExtra(GlobalGame.getVariableDifficultyName(), difficulty);
+                intent.PutExtra(GlobalApp.getVariableDifficultyName(), difficulty);
                 StartActivity(intent);
             }
             catch
             {
-                txtErrorMessage.Text = "Oops game wouldn't start. Try again later.";
+                GlobalApp.Alert(this, false, 0);
             }
         }
 
@@ -106,7 +113,7 @@ namespace SCaR_Arcade
             }
             catch
             {
-                txtErrorMessage.Text = "Oops something went wrong with trying to go back.";
+                GlobalApp.Alert(this, false, 0);
             }
         }
 
@@ -120,9 +127,10 @@ namespace SCaR_Arcade
             }
             catch
             {
-                txtErrorMessage.Text = "Oops something went wrong with trying to go back.";
+                GlobalApp.Alert(this, false, 0);
             }
         }
+        //--------------------------------------------------------------------
         private void returnToMainActivity()
         {
             Intent intent = new Intent(this, typeof(MainActivity));

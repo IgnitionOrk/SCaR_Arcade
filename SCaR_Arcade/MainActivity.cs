@@ -31,20 +31,36 @@ namespace SCaR_Arcade
         // ----------------------------------------------------------------------------------------------------------------
         protected override void OnCreate(Bundle bundle)
         {
-           base.OnCreate(bundle);
-            SetContentView (Resource.Layout.Main);
-            lvGameList = FindViewById<ListView>(Resource.Id.lvGameList);
-            lvGameList.Adapter = new GameAdapter(this);
+           try
+            {
+                base.OnCreate(bundle);
+                SetContentView(Resource.Layout.Main);
+                lvGameList = FindViewById<ListView>(Resource.Id.lvGameList);
 
-            //on row click begin game menu
-            lvGameList.ItemClick += listViewItemClick;
+
+                lvGameList.Adapter = new GameAdapter(this);
+
+                //on row click begin game menu
+                lvGameList.ItemClick += listViewItemClick;
+            }
+            catch
+            {
+                GlobalApp.Alert(this, false, 0);
+            }
         }
         // ----------------------------------------------------------------------------------------------------------------
         private void listViewItemClick(Object sender, AdapterView.ItemClickEventArgs args)
         {
-            Intent intent = new Intent(this, typeof(GameMenuActivity));
-            intent.PutExtra(GlobalGame.getVariableChoiceName(), args.Position);
-            StartActivity(intent);
+            try
+            {
+                Intent intent = new Intent(this, typeof(GameMenuActivity));
+                intent.PutExtra(GlobalApp.getVariableChoiceName(), args.Position);
+                StartActivity(intent);
+            }
+            catch
+            {
+                GlobalApp.Alert(this, false, 0);
+            }
         }
     }
 }

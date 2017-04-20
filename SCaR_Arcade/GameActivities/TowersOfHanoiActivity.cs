@@ -27,7 +27,6 @@ namespace SCaR_Arcade
     {
         // ----------------------------------------------------------------------------------------------------------------
         // Instances of TowersOfHanoiActivity;
-        private Player player;
         private GameLogic.TowersOfHanoiLogic logic;
         private Chronometer chronometer;
         private TextView elapsedTime;
@@ -73,9 +72,8 @@ namespace SCaR_Arcade
             Game();
 
             // Initializing data for the game.
-            player = new Player();
-            logic = new GameLogic.TowersOfHanoiLogic(MAXCOMPONENTS, Intent.GetIntExtra(GlobalGame.getVariableDifficultyName(), 1));
-            txtOptimalNoOfMoves.Text = string.Format("{0}", "Optimal no. of moves: " + logic.calOptimalNoOfMoves(Intent.GetIntExtra(GlobalGame.getVariableDifficultyName(), 1)));
+            logic = new GameLogic.TowersOfHanoiLogic(MAXCOMPONENTS, Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1));
+            txtOptimalNoOfMoves.Text = string.Format("{0}", "Optimal no. of moves: " + logic.calOptimalNoOfMoves(Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1)));
             txtVScore.Text = "No. of moves: " + 0;
             chronometer.Visibility = Android.Views.ViewStates.Invisible;
 
@@ -169,7 +167,7 @@ namespace SCaR_Arcade
         // Builds all the disks, and adds then into the first LinearLayout;
         private void createDisks()
         {
-            int numberOfDisks = Intent.GetIntExtra("gameDifficulty",1);
+            int numberOfDisks = Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(),1);
             for (int i = 0; i < numberOfDisks; i++)
             {
                 ImageView imgView = getResizedImage(i);
@@ -213,7 +211,7 @@ namespace SCaR_Arcade
         // Particularly if there are alot of them.
         private Bitmap addNumbersToBitMap(Bitmap bMapDiskScaled, int count)
         {
-            int number = Intent.GetIntExtra(GlobalGame.getVariableDifficultyName(),1) - count;
+            int number = Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(),1) - count;
             // The top left hand corner of the image of the number is specified by the (x,y)
             // the number will not be placed exactly in the middle, instead it will be slightly off centre. 
             // The 0.15 (15%), and 0.10 (10%) have been determined by testing different values
@@ -358,24 +356,20 @@ namespace SCaR_Arcade
 
                     // If all goes well when dropping the disk into the LinearLayout,
                     // increment the number of moves the user has made;
-                    player.incrementNumberOfMoves();
-                    txtVScore.Text = "No. of moves: " + player.getNumberOfMoves();
+                    txtVScore.Text = "No. of moves: " + numberOfMoves++;
+                    if (logic.ifWon())
+                    {
+                        endScreen(numberOfMoves);
+
+                        determineResponse(false);
+                    }
                 }
                 else
                 {
                     // Show an alert.
-                    invalidMove(0);
+                    invalidMoveMessage(0);
                     // Adding the disk, that was just removed back into the linearlayout it came from at the top of the stack;
                     removedFromLinearLayout.AddView(disk, 0);
-                }
-
-                if (logic.ifWon())
-                {
-                    System.Diagnostics.Debug.Write("You won");
-                    System.Diagnostics.Debug.Write(player.getNumberOfMoves());
-                    endScreen(player.getNumberOfMoves());
-
-                    determineResponse(false);
                 }
             }
         }
@@ -402,8 +396,6 @@ namespace SCaR_Arcade
             }
 
             adb.Show();
-            
-            
         }
         //--------------------------------------------------------------------
         //Back button
@@ -416,7 +408,7 @@ namespace SCaR_Arcade
             }
             catch
             {
-                invalidMove(2); 
+                invalidMoveMessage(2); 
 
             }
         }
@@ -433,29 +425,9 @@ namespace SCaR_Arcade
         }
         //--------------------------------------
         //return disk
-        private void invalidMove(int msg)
+        private void invalidMoveMessage(int msg)
         {
-            // Show an alert.
-            AlertDialog.Builder adb = new AlertDialog.Builder(this);
-            adb.SetTitle("Move not allowed!");
-            switch (msg)
-            {
-                case 0:
-                    adb.SetMessage("You cannot place larger disks on top of smaller disks");
-                    break;
-                case 1:
-                    adb.SetMessage("You have dropped the disk outside of the game screen.");
-                    break;
-                case 2:
-                    adb.SetMessage("Oops something went wrong with trying to go back.");
-                    break;
-                default:
-                    adb.SetMessage("Unkown Error");
-                    break;
-            }
-            
-            adb.Show();
-            
+            GlobalApp.Alert(this, true, msg);
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Determines which @param lin is referring to. 
@@ -527,27 +499,34 @@ namespace SCaR_Arcade
         // Determines the appropriate response if a particular button has been pressed. 
         private void determineResponse(bool isReplay)
         {
-            if (chronometer != null)
+            try
             {
-                chronometer.Stop();
-                chronometer = null;
+                if (chronometer != null)
+                {
+                    chronometer.Stop();
+                    chronometer = null;
+                }
+                if (logic != null)
+                {
+                    logic.deleteBoard();
+                    logic = null;
+                }
+                Intent intent = null;
+                if (isReplay)
+                {
+                    intent = new Intent(this, typeof(TowersOfHanoiActivity));
+                    intent.PutExtra(GlobalApp.getVariableDifficultyName(), Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1));
+                }
+                else
+                {
+                    intent = new Intent(this, typeof(GameMenuActivity));
+                }
+                StartActivity(intent);
             }
-            if (logic != null)
+            catch
             {
-                logic.deleteBoard();
-                logic = null;
+                GlobalApp.Alert(this, false, 0);
             }
-            Intent intent = null;
-            if (isReplay)
-            {
-                intent = new Intent(this, typeof(TowersOfHanoiActivity));
-                intent.PutExtra(GlobalGame.getVariableDifficultyName(), Intent.GetIntExtra(GlobalGame.getVariableDifficultyName(), 1));
-            }
-            else
-            {
-                intent = new Intent(this, typeof(GameMenuActivity));
-            }
-            StartActivity(intent);
         }
         // ----------------------------------------------------------------------------------------------------------------
         protected void chronometerOnTick(Object sender, EventArgs arg)
