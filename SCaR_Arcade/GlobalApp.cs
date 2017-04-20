@@ -123,12 +123,9 @@ namespace SCaR_Arcade
         private static bool addToLeaderBoard(int score)
         {
             bool scoreAdded = false;
-
             //add score to leaderBoard if(score<lbScore)
             //if added
             scoreAdded = true;
-
-
             return scoreAdded;
         }
 
