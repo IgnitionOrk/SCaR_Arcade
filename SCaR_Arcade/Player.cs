@@ -20,29 +20,13 @@ namespace SCaR_Arcade
 { 
     class Player
     {
-        private int numberOfMoves;
-        private string time;
+        private string name;
         // ----------------------------------------------------------------------------------------------------------------
         // Constructor:
         public Player()
         {
             this.numberOfMoves = 0;
             this.time = "00:00";
-        }
-        // ----------------------------------------------------------------------------------------------------------------
-        public int getNumberOfMoves()
-        {
-            return this.numberOfMoves;
-        }
-        // ----------------------------------------------------------------------------------------------------------------
-        public void incrementNumberOfMoves()
-        {
-            this.numberOfMoves++;
-        }
-        // ----------------------------------------------------------------------------------------------------------------
-        public void timed(string time)
-        {
-            this.time = time;
         }
     }
 }
