@@ -30,6 +30,7 @@ namespace SCaR_Arcade
         private static string gDifficultyName = "gameDifficulty";
         private static string gChoice = "gameChoice";
         // ----------------------------------------------------------------------------------------------------------------
+        // Sets the name of the current player;
         public static void setName(string name)
         {
             if (player == null)
