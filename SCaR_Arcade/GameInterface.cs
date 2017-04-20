@@ -41,16 +41,15 @@ namespace SCaR_Arcade
             if (gList == null)
             {
                 gList = new List<Game>();
+                // Here we
+                // We can dynamically had the games the user has added.
+                // by connecting to the cloud
+                // ------------------------
+                // but for now well just add these three.
+                gList.Add(new Game { gTitle = "Tower of Hanoi", gLogo = Resource.Drawable.game1, minDifficulty = 3, maxDifficulty = 8, activity = new TowersOfHanoiActivity() });
+                gList.Add(new Game { gTitle = "Memory test", gLogo = Resource.Drawable.game2 });
+                gList.Add(new Game { gTitle = "A Game with a long name", gLogo = Resource.Drawable.game3 });
             }
-
-            // Here we
-            // We can dynamically had the games the user has added.
-            // by connecting to the cloud
-            // ------------------------
-            // but for now well just add these three.
-            gList.Add(new Game { gTitle = "Tower of Hanoi", gLogo = Resource.Drawable.game1, minDifficulty = 3, maxDifficulty = 8, activity = new TowersOfHanoiActivity() });
-            gList.Add(new Game { gTitle = "Memory test", gLogo = Resource.Drawable.game2 });
-            gList.Add(new Game { gTitle = "A Game with a long name", gLogo = Resource.Drawable.game3 });
         }
     }
 }

@@ -26,7 +26,10 @@ namespace SCaR_Arcade
         {
             context = activity;
 
-            data = PopulateGameData();
+            if (data == null)
+            {
+                data = PopulateGameData();
+            }
         }
 
         public override Game this[int position]
@@ -67,10 +70,6 @@ namespace SCaR_Arcade
             
             ImageView img = view.FindViewById<ImageView>(SCaR_Arcade.Resource.Id.logo);
             img.SetImageResource(game.gLogo);
-           
-            
-
-
 
             return view;
         }
