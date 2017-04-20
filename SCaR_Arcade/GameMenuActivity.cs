@@ -11,10 +11,10 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 /// <summary>
-/// Date created: 21-Mar-2017
 /// Created by: Ryan Cunneen
 /// Student no: 3179234
 /// Date modified: 21-Mar-2017
+/// /// Date created: 21-Mar-2017
 /// </summary>
 namespace SCaR_Arcade
 {
@@ -57,20 +57,21 @@ namespace SCaR_Arcade
                 imgBtnIncrease = FindViewById<ImageButton>(Resource.Id.imgBtnIncrease);
                 imgBtnDecrease = FindViewById<ImageButton>(Resource.Id.imgBtnDecrease);
 
+
+                // get the index of the item the player has chosen.
                 gameChoice = Intent.GetIntExtra(GlobalApp.getVariableChoiceName(), 0);
 
                 if (game == null)
                 {
+                    // Return the game from the list.
                     game = GameInterface.getGameAt(gameChoice);
                 }
-
 
                 difficulty = game.minDifficulty;
                 minDifficulty = game.minDifficulty;
                 maxDifficulty = game.maxDifficulty;
                 txtDifficulty.Text = String.Format("{0}", difficulty);
-                txtGameTitle.Text = GetGameTitle();
-
+                txtGameTitle.Text = game.gTitle;
 
                 //--------------------------------------------------------------------
                 // Event handlers.
@@ -135,11 +136,6 @@ namespace SCaR_Arcade
         {
             Intent intent = new Intent(this, typeof(MainActivity));
             StartActivity(intent);
-        }
-        //--------------------------------------------------------------------
-        protected string GetGameTitle()
-        {
-            return game.gTitle;
         }
 
         //--------------------------------------------------------------------

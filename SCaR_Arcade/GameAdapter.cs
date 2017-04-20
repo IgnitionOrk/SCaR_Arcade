@@ -9,7 +9,12 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-
+/// <summary>
+/// Created by: Martin O'Connell
+/// Student number: 3279660
+/// Date modified: 21-Mar-2017
+/// /// Date created: 21-Mar-2017
+/// </summary>
 namespace SCaR_Arcade
 {
     class GameAdapter:BaseAdapter<Game>
@@ -49,8 +54,6 @@ namespace SCaR_Arcade
 
         public override View GetView(int position, View rowView, ViewGroup parent)
         {
-
-
             var view = rowView;
 
             if (view == null)
@@ -60,11 +63,7 @@ namespace SCaR_Arcade
 
             var game = data[position];
 
-
-
             //add text and images down list
-            
-           
             TextView txt = view.FindViewById<TextView>(SCaR_Arcade.Resource.Id.titletxt);
             txt.Text = game.gTitle;
             
