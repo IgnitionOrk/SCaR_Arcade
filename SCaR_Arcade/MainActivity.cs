@@ -6,8 +6,14 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using Android.Content.PM;
-
-
+/// <summary>
+/// Creator: Ryan Cunneen
+/// Creator: Martin O'Connell
+/// Student number: 3179234
+/// Student number: 3279660
+/// Date created: 18-Mar-17
+/// Date modified: 20-Apr-17
+/// </summary>
 namespace SCaR_Arcade
 {
     [Activity(Label = "SCaR_Arcade",
@@ -15,9 +21,6 @@ namespace SCaR_Arcade
         Icon = "@drawable/icon",
         ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait,
         Theme = "@android:style/Theme.NoTitleBar")]
-
-
-
     public class MainActivity : Activity
     {
         /*sources
@@ -25,29 +28,21 @@ namespace SCaR_Arcade
         * http://blog.atavisticsoftware.com/2014/01/listview-basics-for-xamarain-android.html
        */
         private ListView lvGameList;
-
+        // ----------------------------------------------------------------------------------------------------------------
         protected override void OnCreate(Bundle bundle)
         {
            base.OnCreate(bundle);
-            
-
             SetContentView (Resource.Layout.Main);
             lvGameList = FindViewById<ListView>(Resource.Id.lvGameList);
             lvGameList.Adapter = new GameAdapter(this);
 
             //on row click begin game menu
-            lvGameList.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)
-            {
-                MoveToGameMenu(args);
-                //Toast.MakeText(this, args.Position.ToString(), ToastLength.Short).Show();
-            };
-
-
+            lvGameList.ItemClick += listViewItemClick;
         }
-
-        private void MoveToGameMenu(AdapterView.ItemClickEventArgs args)
+        // ----------------------------------------------------------------------------------------------------------------
+        private void listViewItemClick(Object sender, AdapterView.ItemClickEventArgs args)
         {
-            Intent intent = new Intent(this,typeof(GameMenuActivity));
+            Intent intent = new Intent(this, typeof(GameMenuActivity));
             intent.PutExtra("gameChoice", args.Position);
             StartActivity(intent);
         }

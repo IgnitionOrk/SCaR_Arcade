@@ -35,8 +35,9 @@ namespace SCaR_Arcade
         private ImageButton imgBtnDecrease;
         private int gameChoice;
         private int difficulty;
-        private int MAXDIFFICULTY = 5;
-        private int MINDIFFICULTY = 1;
+        private int maxDifficulty = 5;
+        private int minDifficulty = 1;
+        private Game game;
 
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -57,7 +58,16 @@ namespace SCaR_Arcade
             lL1.SetBackgroundColor(Color.Red);
 
             gameChoice = Intent.GetIntExtra("gameChoice",0);
-            difficulty = 1;
+
+            if (game == null)
+            {
+                game = GameInterface.getGameAt(gameChoice);
+            }
+
+
+            difficulty = game.minDifficulty;
+            minDifficulty = game.minDifficulty;
+            maxDifficulty = game.maxDifficulty;
             txtDifficulty.Text = String.Format("{0}", difficulty);
             txtGameTitle.Text = GetGameTitle();
             
@@ -77,21 +87,10 @@ namespace SCaR_Arcade
         {
             try
             {
-                Intent intent = null;
-                switch (gameChoice)
-                {
-                    case 0:
-                        intent = new Intent(this, typeof(TowersOfHanoiActivity));
-                        intent.PutExtra("gameDifficulty", difficulty);
-                        StartActivity(intent);
-                        break;
-                    case 1:
-                        //implement the memory card game;
-                        //intent = new Intent(this, typeof(MemoryTestActivity));
-                        //intent.PutExtra("gameDifficulty", difficulty);
-                        //StartActivity(intent);
-                        break;
-                }
+                Type type = game.activity.GetType();
+                Intent intent = new Intent(this, type);
+                intent.PutExtra(GlobalGame.getVariableName(), difficulty);
+                StartActivity(intent);
             }
             catch
             {
@@ -105,8 +104,7 @@ namespace SCaR_Arcade
         {
             try
             {
-                Intent intent = new Intent(this, typeof(MainActivity));
-                StartActivity(intent);
+                returnToMainActivity();
             }
             catch
             {
@@ -121,8 +119,7 @@ namespace SCaR_Arcade
         {
             try
             {
-                Intent intent = new Intent(this, typeof(MainActivity));
-                StartActivity(intent);
+                returnToMainActivity();
             }
             catch
             {
@@ -130,56 +127,46 @@ namespace SCaR_Arcade
 
             }
         }
-
+        private void returnToMainActivity()
+        {
+            Intent intent = new Intent(this, typeof(MainActivity));
+            StartActivity(intent);
+        }
         //--------------------------------------------------------------------
         protected string GetGameTitle()
         {
-            string title = "";
-            switch (gameChoice)
-            {
-                //TODO: change these to run of Game class
-                case 0:
-                    title = "Towers of Hanoi";
-                    //lL1.SetBackgroundResource(Resource.Drawable.game1);
-                    break;
-                case 1:
-                    title = "Memory test";
-                   // lL1.SetBackgroundResource(Resource.Drawable.game2);
-                    break;
-                case 2:
-                    title = "A game with a long name";
-                    //lL1.SetBackgroundResource(Resource.Drawable.game3);
-                    break;
-            }
-            return title;
+            return game.gTitle;
         }
 
         //--------------------------------------------------------------------
         protected void ImageButtonIncrease(Object sender, EventArgs args)
         {
-            if (difficulty < MAXDIFFICULTY) {
-                difficulty++;
-                txtDifficulty.Text = String.Format("{0}", difficulty);
-            }
-            else
-            {
-                txtDifficulty.Text = String.Format("{0}", difficulty);
-            }
+            updateDifficulty(true);
         }
 
         //--------------------------------------------------------------------
         protected void ImageButtonDecrease(Object sender, EventArgs args)
         {
-
-            if (difficulty > MINDIFFICULTY)
+            updateDifficulty(false);
+        }
+        //--------------------------------------------------------------------
+        private void updateDifficulty(bool isIncrease)
+        {
+            if (isIncrease)
             {
-                difficulty--;
-                txtDifficulty.Text = String.Format("{0}", difficulty);
+                if (difficulty < maxDifficulty)
+                {
+                    difficulty++;
+                }
             }
             else
             {
-                txtDifficulty.Text = String.Format("{0}", difficulty);
+                if (difficulty > minDifficulty)
+                {
+                    difficulty--;
+                }
             }
+            txtDifficulty.Text = String.Format("{0}", difficulty);
         }
 
         //--------------------------------------------------------------------

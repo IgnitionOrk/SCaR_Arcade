@@ -58,12 +58,12 @@
     <Compile Include="GameInterface.cs" />
     <Compile Include="GameLogic\TowersOfHanoiLogic.cs" />
     <Compile Include="GameMenuActivity.cs" />
-    <Compile Include="ImageAdapter.cs" />
+    <Compile Include="GlobalGame.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TowersOfHanoiActivity.cs" />
+    <Compile Include="GameActivities\TowersOfHanoiActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="GettingStarted.Xamarin" />
@@ -76,6 +76,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\TowersOfHanoi.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\Leaderboard.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -118,7 +121,6 @@
     <AndroidResource Include="Resources\drawable\Pole.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="GameActivities\" />
     <Folder Include="Resources\layout\Games\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

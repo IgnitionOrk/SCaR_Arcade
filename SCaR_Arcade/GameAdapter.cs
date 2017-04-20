@@ -78,15 +78,7 @@ namespace SCaR_Arcade
         //TODO: move list and fill with proper data
         private List<Game> PopulateGameData()
         {
-            return new List<Game>()
-            {   
-
-                new Game { gTitle = "Tower of Hanoi", gLogo = Resource.Drawable.game1 },
-                new Game { gTitle = "Memory test", gLogo = Resource.Drawable.game2 },
-                new Game { gTitle = "A Game with a long name", gLogo = Resource.Drawable.game3 },
-            };
-
+            return GameInterface.getGames();
         }
     }
-
 }

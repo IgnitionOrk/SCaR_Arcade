@@ -74,8 +74,8 @@ namespace SCaR_Arcade
 
             // Initializing data for the game.
             player = new Player();
-            logic = new GameLogic.TowersOfHanoiLogic(MAXCOMPONENTS, Intent.GetIntExtra("gameDifficulty",1));
-            txtOptimalNoOfMoves.Text = string.Format("{0}", "Optimal no. of moves: " + logic.calOptimalNoOfMoves(Intent.GetIntExtra("gameDifficulty", 1)));
+            logic = new GameLogic.TowersOfHanoiLogic(MAXCOMPONENTS, Intent.GetIntExtra(GlobalGame.getVariableName(), 1));
+            txtOptimalNoOfMoves.Text = string.Format("{0}", "Optimal no. of moves: " + logic.calOptimalNoOfMoves(Intent.GetIntExtra(GlobalGame.getVariableName(), 1)));
             txtVScore.Text = "No. of moves: " + 0;
             chronometer.Visibility = Android.Views.ViewStates.Invisible;
 
@@ -91,13 +91,11 @@ namespace SCaR_Arcade
             
         }
 
-       
-
-            // ----------------------------------------------------------------------------------------------------------------
-            // builds the game that the user will interact with at runtime. 
-            // Initially the game had multiple instance variables for each ImageViews (Poles), and LinearLayouts (vertical)
-            // By removing them from the axml file, and bulding them at runtime the Activity file's simplicity, and readability has been enhanced.
-            private void Game()
+        // ----------------------------------------------------------------------------------------------------------------
+        // builds the game that the user will interact with at runtime. 
+        // Initially the game had multiple instance variables for each ImageViews (Poles), and LinearLayouts (vertical)
+        // By removing them from the axml file, and bulding them at runtime the Activity file's simplicity, and readability has been enhanced.
+        private void Game()
         {
             createFrameLayouts();   // Will Allow both ImageViews (Poles) and ImageView (Disks) to be placed on top of eachother.
             createImageViews();       // Images of the poles that are displayed. 
