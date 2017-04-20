@@ -36,7 +36,7 @@ namespace SCaR_Arcade
             {
                 player = new Player();
             }
-            player.setName(name);
+            player.name = name;
         }
 
         // ----------------------------------------------------------------------------------------------------------------
@@ -58,18 +58,27 @@ namespace SCaR_Arcade
             AlertDialog.Builder adb = new AlertDialog.Builder(c);
             if (isGameError)
             {
-                adb.SetMessage(getGameMessage(iMsg));
+                adb.SetMessage(getGameErrorMessage(iMsg));
                 adb.SetTitle("Move not allowed");
             }
             else
             {
-                adb.SetMessage(getApplicationMessage(iMsg));
+                adb.SetMessage(getApplicationErrorMessage(iMsg));
                 adb.SetTitle("Application failed");
             }
             adb.Show();
         }
         // ----------------------------------------------------------------------------------------------------------------
-        private static string getGameMessage(int iMsg)
+        public static void Alert(Context c,int score, string time)
+        {
+            // Show an alert.
+            AlertDialog.Builder adb = new AlertDialog.Builder(c);
+            adb.SetTitle("Congratulations You Won");
+            adb.SetMessage("Your score " + score + " finished in " + time);
+            adb.Show();
+        }
+        // ----------------------------------------------------------------------------------------------------------------
+        private static string getGameErrorMessage(int iMsg)
         {
             string message = "";
             switch (iMsg)
@@ -87,7 +96,7 @@ namespace SCaR_Arcade
             return message;
         }
         // ----------------------------------------------------------------------------------------------------------------
-        private static string getApplicationMessage(int iMsg)
+        private static string getApplicationErrorMessage(int iMsg)
         {
             string message = "";
             switch (iMsg)
@@ -101,5 +110,42 @@ namespace SCaR_Arcade
             }
             return message;
         }
+        // ----------------------------------------------------------------------------------------------------------------
+        public static void endScreen(Context c, int iGame, int score, string time)
+        {
+            // Show an alert.
+            AlertDialog.Builder adb = new AlertDialog.Builder(c);
+            adb.SetTitle("You Won");
+
+            int isPB = -1;
+            if (addToLeaderBoard(score))
+            {
+                isPB++;
+            }
+
+            switch (isPB)
+            {
+                case 0:
+                    adb.SetMessage("Congratulations on a new personal best of " + score);
+                    break;
+                default:
+                    adb.SetMessage("You scored " + score);
+                    break;
+            }
+
+            adb.Show();
+        }
+        private static bool addToLeaderBoard(int score)
+        {
+            bool scoreAdded = false;
+
+            //add score to leaderBoard if(score<lbScore)
+            //if added
+            scoreAdded = true;
+
+
+            return scoreAdded;
+        }
+
     }
 }

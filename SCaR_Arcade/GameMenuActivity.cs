@@ -31,12 +31,12 @@ namespace SCaR_Arcade
         private Button btnStart;
         private Button btnLeaderBoard;
         private Button btnGameSelect;
-        private ImageButton imgBtnIncrease;
-        private ImageButton imgBtnDecrease;
+        private ImageButton imgBtnIn;
+        private ImageButton imgBtnDe;
         private int gameChoice;
         private int difficulty;
-        private int maxDifficulty = 5;
-        private int minDifficulty = 1;
+        private int maxDifficulty;
+        private int minDifficulty;
         private Game game;
 
 
@@ -54,18 +54,16 @@ namespace SCaR_Arcade
                 btnStart = FindViewById<Button>(Resource.Id.btnStart);
                 btnLeaderBoard = FindViewById<Button>(Resource.Id.btnLeaderBoard);
                 btnGameSelect = FindViewById<Button>(Resource.Id.btnGameSelect);
-                imgBtnIncrease = FindViewById<ImageButton>(Resource.Id.imgBtnIncrease);
-                imgBtnDecrease = FindViewById<ImageButton>(Resource.Id.imgBtnDecrease);
+                imgBtnIn = FindViewById<ImageButton>(Resource.Id.imgBtnIncrease);
+                imgBtnDe = FindViewById<ImageButton>(Resource.Id.imgBtnDecrease);
+
 
 
                 // get the index of the item the player has chosen.
                 gameChoice = Intent.GetIntExtra(GlobalApp.getVariableChoiceName(), 0);
 
-                if (game == null)
-                {
-                    // Return the game from the list.
-                    game = GameInterface.getGameAt(gameChoice);
-                }
+                // Return the game from the list.
+                game = GameInterface.getGameAt(gameChoice);
 
                 difficulty = game.minDifficulty;
                 minDifficulty = game.minDifficulty;
@@ -78,16 +76,37 @@ namespace SCaR_Arcade
                 btnStart.Click += ButtonClickStart;
                 btnGameSelect.Click += ButtonClickSelect;
                 btnLeaderBoard.Click += ButtonClickLeaderboard;
-                imgBtnIncrease.Click += ImageButtonIncrease;
-                imgBtnDecrease.Click += ImageButtonDecrease;
+                imgBtnIn.Click += ImageButtonIncrease;
+                imgBtnDe.Click += ImageButtonDecrease;
+
+
+                addPlusAndMinus();
             }
             catch
             {
                 GlobalApp.Alert(this, false, 0);
             }
         }
+        // ----------------------------------------------------------------------------------------------------------------
+        // Add plus, and minus bitmap images to image buttons 
+        // so players can increase, or decrease the difficulty for the selected game.
+        private void addPlusAndMinus()
+        {
+            Bitmap minus = BitmapFactory.DecodeResource(Resources, Resource.Drawable.minus);
+            Bitmap plus = BitmapFactory.DecodeResource(Resources, Resource.Drawable.plus);
 
-        //--------------------------------------------------------------------
+            Bitmap minusScaled = Bitmap.CreateScaledBitmap(minus,50, 50, true);
+            Bitmap plusScaled = Bitmap.CreateScaledBitmap(plus, 50, 50, true);
+
+            imgBtnDe.SetImageBitmap(minusScaled);
+            imgBtnIn.SetImageBitmap(plusScaled);
+
+            imgBtnDe.SetScaleType(ImageView.ScaleType.FitCenter);
+            imgBtnIn.SetScaleType(ImageView.ScaleType.FitCenter);
+
+        }
+        // ----------------------------------------------------------------------------------------------------------------
+
         //Start button
         protected void ButtonClickStart(Object sender, EventArgs args)
         {
@@ -104,7 +123,8 @@ namespace SCaR_Arcade
             }
         }
 
-        //--------------------------------------------------------------------
+        // ----------------------------------------------------------------------------------------------------------------
+
         //Back button
         public override void OnBackPressed()
         {
@@ -118,7 +138,8 @@ namespace SCaR_Arcade
             }
         }
 
-        //--------------------------------------------------------------------
+        // ----------------------------------------------------------------------------------------------------------------
+
         //Back button
         protected void ButtonClickSelect(Object sender, EventArgs args)
         {
@@ -131,25 +152,29 @@ namespace SCaR_Arcade
                 GlobalApp.Alert(this, false, 0);
             }
         }
-        //--------------------------------------------------------------------
+        // ----------------------------------------------------------------------------------------------------------------
+
         private void returnToMainActivity()
         {
             Intent intent = new Intent(this, typeof(MainActivity));
             StartActivity(intent);
         }
 
-        //--------------------------------------------------------------------
+        // ----------------------------------------------------------------------------------------------------------------
+
         protected void ImageButtonIncrease(Object sender, EventArgs args)
         {
             updateDifficulty(true);
         }
 
-        //--------------------------------------------------------------------
+        // ----------------------------------------------------------------------------------------------------------------
+
         protected void ImageButtonDecrease(Object sender, EventArgs args)
         {
             updateDifficulty(false);
         }
-        //--------------------------------------------------------------------
+        // ----------------------------------------------------------------------------------------------------------------
+
         private void updateDifficulty(bool isIncrease)
         {
             if (isIncrease)
@@ -169,7 +194,8 @@ namespace SCaR_Arcade
             txtDifficulty.Text = String.Format("{0}", difficulty);
         }
 
-        //--------------------------------------------------------------------
+        // ----------------------------------------------------------------------------------------------------------------
+
         protected void ButtonClickLeaderboard(Object sender, EventArgs ev)
         {
 

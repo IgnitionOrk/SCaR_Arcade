@@ -198,7 +198,6 @@ namespace SCaR_Arcade
             //Add the numbers to each Bitmap so the player can differentiate between disks, particularly if there are a large number of them.
             bMapDiskScaled = addNumbersToBitMap(bMapDiskScaled, count);
 
-
             img.SetImageBitmap(bMapDiskScaled);
             img.SetScaleType(ImageView.ScaleType.Center);
 
@@ -351,16 +350,9 @@ namespace SCaR_Arcade
 
                     // Now we set the appropriate properties of the disks for each LinearLayout.
                     topDiskIsOnlyClickable();
+                    numberOfMoves++;
+                    txtVScore.Text = "No. of moves: " + numberOfMoves;
 
-                    // If all goes well when dropping the disk into the LinearLayout,
-                    // increment the number of moves the user has made;
-                    txtVScore.Text = "No. of moves: " + numberOfMoves++;
-                    if (logic.ifWon())
-                    {
-                        endScreen(numberOfMoves);
-
-                        determineResponse(false);
-                    }
                 }
                 else
                 {
@@ -369,33 +361,23 @@ namespace SCaR_Arcade
                     // Adding the disk, that was just removed back into the linearlayout it came from at the top of the stack;
                     removedFromLinearLayout.AddView(disk, 0);
                 }
+
+                if (logic.ifWon())
+                {
+                    txtVScore.Text = "No. of moves: " + numberOfMoves;
+                    end();
+                }
             }
         }
-        private void endScreen(int score)
+        // ----------------------------------------------------------------------------------------------------------------
+        // The game has ended.
+        private void end()
         {
-            // Show an alert.
-            AlertDialog.Builder adb = new AlertDialog.Builder(this);
-            adb.SetTitle("You Won");
-
-            int isPB = -1;
-            if (addToLeaderBoard(score))
-            {
-                isPB++;
-            }
-
-            switch (isPB)
-            {
-                case 0:
-                    adb.SetMessage("Congratulations on a new personal best of " + score);
-                    break;
-                default:
-                    adb.SetMessage("You scored " + score);
-                    break;
-            }
-
-            adb.Show();
+            chronometer.Stop();
+            GlobalApp.Alert(this, numberOfMoves, chronometer.Text.ToString());
+           // determineResponse(false);
         }
-        //--------------------------------------------------------------------
+        // ----------------------------------------------------------------------------------------------------------------
         //Back button
         public override void OnBackPressed()
         {
@@ -406,22 +388,11 @@ namespace SCaR_Arcade
             }
             catch
             {
-                invalidMoveMessage(2); 
-
+                invalidMoveMessage(0); 
             }
         }
-        private bool addToLeaderBoard(int score)
-        {
-            bool scoreAdded = false;
+        // ----------------------------------------------------------------------------------------------------------------
 
-            //add score to leaderBoard if(score<lbScore)
-            //if added
-            scoreAdded = true;
-
-
-            return scoreAdded;
-        }
-        //--------------------------------------
         //return disk
         private void invalidMoveMessage(int msg)
         {
@@ -527,6 +498,7 @@ namespace SCaR_Arcade
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
+        // Continuously update the displayed time.
         protected void chronometerOnTick(Object sender, EventArgs arg)
         {
             elapsedTime.Text = String.Format("{0}", "Time: " + chronometer.Text);
