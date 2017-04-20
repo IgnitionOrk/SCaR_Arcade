@@ -35,7 +35,7 @@ namespace SCaR_Arcade
         private ImageButton imgBtnDecrease;
         private int gameChoice;
         private int difficulty;
-        private int MAXDIFFICULTY = 5;
+        private int MAXDIFFICULTY;
         private int MINDIFFICULTY = 1;
 
 
@@ -60,11 +60,12 @@ namespace SCaR_Arcade
             difficulty = 1;
             txtDifficulty.Text = String.Format("{0}", difficulty);
             txtGameTitle.Text = GetGameTitle();
-            
+            MAXDIFFICULTY = Intent.GetIntExtra("gameMaxDif", 5);
 
-            //--------------------------------------------------------------------
-            // Event handlers.
-            btnStart.Click += ButtonClickStart;
+
+//--------------------------------------------------------------------
+// Event handlers.
+btnStart.Click += ButtonClickStart;
             btnGameSelect.Click += ButtonClickSelect;
             btnLeaderBoard.Click += ButtonClickLeaderboard;
             imgBtnIncrease.Click += ImageButtonIncrease;

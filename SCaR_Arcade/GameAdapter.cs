@@ -81,9 +81,9 @@ namespace SCaR_Arcade
             return new List<Game>()
             {   
 
-                new Game { gTitle = "Tower of Hanoi", gLogo = Resource.Drawable.game1 },
-                new Game { gTitle = "Memory test", gLogo = Resource.Drawable.game2 },
-                new Game { gTitle = "A Game with a long name", gLogo = Resource.Drawable.game3 },
+                new Game { gTitle = "Tower of Hanoi", gLogo = Resource.Drawable.game1, gmaxDifficulty =8},
+                new Game { gTitle = "Memory test", gLogo = Resource.Drawable.game2, gmaxDifficulty =5 },
+                new Game { gTitle = "A Game with a long name", gLogo = Resource.Drawable.game3, gmaxDifficulty =10 },
             };
 
         }

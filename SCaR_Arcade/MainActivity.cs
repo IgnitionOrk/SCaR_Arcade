@@ -49,6 +49,7 @@ namespace SCaR_Arcade
         {
             Intent intent = new Intent(this,typeof(GameMenuActivity));
             intent.PutExtra("gameChoice", args.Position);
+            intent.PutExtra("gameMaxDif", 8);
             StartActivity(intent);
         }
     }
