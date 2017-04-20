@@ -66,7 +66,6 @@ namespace SCaR_Arcade
                 adb.SetMessage(getApplicationMessage(iMsg));
                 adb.SetTitle("Application failed");
             }
-
             adb.Show();
         }
         // ----------------------------------------------------------------------------------------------------------------
