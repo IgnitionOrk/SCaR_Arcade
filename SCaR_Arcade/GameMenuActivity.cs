@@ -107,7 +107,6 @@ namespace SCaR_Arcade
             catch
             {
                 txtErrorMessage.Text = "Oops something went wrong with trying to go back.";
-
             }
         }
 
@@ -122,7 +121,6 @@ namespace SCaR_Arcade
             catch
             {
                 txtErrorMessage.Text = "Oops something went wrong with trying to go back.";
-
             }
         }
         private void returnToMainActivity()

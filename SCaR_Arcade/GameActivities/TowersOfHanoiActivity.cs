@@ -37,6 +37,7 @@ namespace SCaR_Arcade
         private LinearLayout[] linearLayout;
         private ImageView[] poles;
         private const int MAXCOMPONENTS = 3;
+        private int numberOfMoves = 0;
 
         private Color[] cPalette ={
             Color.AliceBlue,
@@ -57,8 +58,7 @@ namespace SCaR_Arcade
         {
             base.OnCreate(bundle);
 
-           
-
+          
             SetContentView(Resource.Layout.TowersOfHanoi);
             
             Button btnReplay = FindViewById<Button>(Resource.Id.btnReplay);
@@ -114,8 +114,6 @@ namespace SCaR_Arcade
                 LinearLayout.LayoutParams.MatchParent,
                 1
             );
-
-
             for (int i = 0; i < MAXCOMPONENTS; i++)
             {
                 frameLayout[i] = new FrameLayout(this);
@@ -131,9 +129,7 @@ namespace SCaR_Arcade
                 LinearLayout.LayoutParams.MatchParent,
                 LinearLayout.LayoutParams.MatchParent
             );
-
             poles = new ImageView[MAXCOMPONENTS];
-
             for (int i = 0; i < MAXCOMPONENTS; i++)
             {
                 poles[i] = new ImageView(this);
@@ -217,7 +213,7 @@ namespace SCaR_Arcade
         // Particularly if there are alot of them.
         private Bitmap addNumbersToBitMap(Bitmap bMapDiskScaled, int count)
         {
-            int number = Intent.GetIntExtra("gameDifficulty",1) - count;
+            int number = Intent.GetIntExtra(GlobalGame.getVariableDifficultyName(),1) - count;
             // The top left hand corner of the image of the number is specified by the (x,y)
             // the number will not be placed exactly in the middle, instead it will be slightly off centre. 
             // The 0.15 (15%), and 0.10 (10%) have been determined by testing different values
@@ -545,7 +541,7 @@ namespace SCaR_Arcade
             if (isReplay)
             {
                 intent = new Intent(this, typeof(TowersOfHanoiActivity));
-                intent.PutExtra("gameDifficulty", Intent.GetIntExtra("gameDifficulty",1));
+                intent.PutExtra(GlobalGame.getVariableDifficultyName(), Intent.GetIntExtra(GlobalGame.getVariableDifficultyName(), 1));
             }
             else
             {
