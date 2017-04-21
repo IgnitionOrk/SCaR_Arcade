@@ -136,6 +136,20 @@ namespace SCaR_Arcade
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
+        // Event Handler: Will direct the player to the Main menu.
+        public override void OnBackPressed()
+        {
+            try
+            {
+                Intent intent = new Intent(this, typeof(MainActivity));
+                StartActivity(intent);
+            }
+            catch
+            {
+                GlobalApp.Alert(this, "Error 101");
+            }
+        }
+        // ----------------------------------------------------------------------------------------------------------------
         // Event handler: that increases the difficulty level for the game selected.
         protected void ImageButtonIncrease(Object sender, EventArgs args)
         {

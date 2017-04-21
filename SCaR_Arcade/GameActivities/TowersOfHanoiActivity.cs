@@ -161,9 +161,9 @@ namespace SCaR_Arcade
                 frameLayout[i].AddView(linearLayout[i], linearParameters);
             }
         }
-        // ----------------------------------------------------------------------------------------------------------------
-        // Builds all the disks, and adds then into the first LinearLayout;
-        private void createDisks()
+    // ----------------------------------------------------------------------------------------------------------------
+    // Builds all the disks, and adds then into the first LinearLayout;
+    private void createDisks()
         {
             int numberOfDisks = Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(),1);
             for (int i = 0; i < numberOfDisks; i++)
