@@ -70,7 +70,7 @@ namespace SCaR_Arcade
                 maxDifficulty = game.maxDifficulty;
                 txtDifficulty.Text = String.Format("{0}", difficulty);
                 txtGameTitle.Text = game.gTitle;
-
+                lL1.SetBackgroundResource(Resource.Drawable.game1bg);
                 //--------------------------------------------------------------------
                 // Event handlers.
                 btnStart.Click += ButtonClickStart;
