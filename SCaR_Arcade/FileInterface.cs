@@ -19,7 +19,6 @@ namespace SCaR_Arcade
         private static string filePath = @"SCaR_Arcade\ScoreFiles";
         private static Game game;
         private const int MAXNUMBEROFLINES = 20;
-
         /*
          * IMPORTANT NOTE:
          * We need to create a method that determines if the file has the MAXNUMBEROFLINES;
@@ -32,6 +31,7 @@ namespace SCaR_Arcade
         }
 
         // ----------------------------------------------------------------------------------------------------------------
+        // Adds the @param to the Local (.txt) file.
         public static void addScoreToLocal(string score)
         {
             try
@@ -61,6 +61,7 @@ namespace SCaR_Arcade
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
+        // Adds the @param to the Online (.txt) file.
         public static void addScoreToOnline(string score)
         {
             try
@@ -90,42 +91,85 @@ namespace SCaR_Arcade
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
+        // Will create the Local (.txt), and Online(.txt) file for a particular game (instance variable),
+        // And saves the file path into the instance variable game.
         private static void createFilesForGame(bool isLocal, bool isOnline)
         {                
             try
             {
-                // Note when you read this 
-                /*
-                 *      IMPORTANT MARTIN, AND SAXON:
-                 *      We must trim all the whitespace but .Trim()
-                 *      only trims the beginning, and the end of a string. 
-                 *      So good idea is to make a method that removes all whitespace in a string.            
-                 */
-
-                // gTitle is the title of the game without spaces
-                // So we can save it as a path for two files.
-                string gTitleTrimmed = game.gTitle.Trim();
-                
-                // Create a Local (.txt) file;
-                if (isLocal)
+                if (game != null)
                 {
-                    string localPath = @"\Local\" + gTitleTrimmed + "Local.txt";
-                    File.CreateText(localPath);
-                    game.gLocalFileURL = localPath;
-                }
+                    // Note when you read this 
+                    /*
+                     *      IMPORTANT MARTIN, AND SAXON:
+                     *      We must trim all the whitespace but .Trim()
+                     *      only trims the beginning, and the end of a string. 
+                     *      So good idea is to make a method that removes all whitespace in a string.            
+                     */
 
-                // Create an Online (.txt) file.
-                if (isOnline)
-                {
-                    string onlinePath = @"\Online\" + gTitleTrimmed + "Online.txt";
-                    File.CreateText(onlinePath);
-                    game.gOnlineFileURL = onlinePath;
+                    // gTitle is the title of the game without spaces
+                    // So we can save it as a path for two files.
+                    string gTitleTrimmed = game.gTitle.Trim();
+
+                    // Create a Local (.txt) file;
+                    if (isLocal)
+                    {
+                        string localPath = @"\Local\" + gTitleTrimmed + "Local.txt";
+                        File.CreateText(localPath);
+                        game.gLocalFileURL = localPath;
+                    }
+
+                    // Create an Online (.txt) file.
+                    if (isOnline)
+                    {
+                        string onlinePath = @"\Online\" + gTitleTrimmed + "Online.txt";
+                        File.CreateText(onlinePath);
+                        game.gOnlineFileURL = onlinePath;
+                    }
                 }
             }
             catch
             {
 
             }
+        }
+        // ----------------------------------------------------------------------------------------------------------------
+        // Reads a particular line (determine by the @param count), and returns it.
+        // Line will come from the Local file of the game.
+        public static string readFromLocalFile(int count)
+        {
+            string lineScore = "";
+            // Determine if there is not a Local (.txt) file.
+            if (File.Exists(game.gOnlineFileURL))
+            {
+                using (StreamReader sr = File.OpenText(game.gLocalFileURL))
+                {
+                    for (int i = 0; i < count && sr.Peek() > -1; i++)
+                    {
+                        lineScore = sr.ReadLine();
+                    }
+                }
+            }
+            return lineScore;
+        }
+        // ----------------------------------------------------------------------------------------------------------------
+        // Reads a particular line (determine by the @param count), and returns it.
+        // Line will come from the Online file of the game.
+        public static string readFromOnlineFile(int count)
+        {
+            string lineScore = "";
+            // Determine if there is not a Local (.txt) file.
+            if (File.Exists(game.gOnlineFileURL))
+            {
+                using (StreamReader sr = File.OpenText(game.gOnlineFileURL))
+                {
+                    for (int i = 0; i < count && sr.Peek() > -1; i++)
+                    {
+                        lineScore = sr.ReadLine();
+                    }
+                }
+            }
+            return lineScore;
         }
     }
 }
