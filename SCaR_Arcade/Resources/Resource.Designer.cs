@@ -120,8 +120,8 @@ namespace SCaR_Arcade
 			// aapt resource value: 0x7f050007
 			public const int imgBtnIncrease = 2131034119;
 			
-			// aapt resource value: 0x7f050011
-			public const int linLayGameDisplay = 2131034129;
+			// aapt resource value: 0x7f050012
+			public const int linLayGameDisplay = 2131034130;
 			
 			// aapt resource value: 0x7f050001
 			public const int linearLayout1 = 2131034113;
@@ -129,8 +129,8 @@ namespace SCaR_Arcade
 			// aapt resource value: 0x7f050004
 			public const int linearLayout2 = 2131034116;
 			
-			// aapt resource value: 0x7f050012
-			public const int linearLayout3 = 2131034130;
+			// aapt resource value: 0x7f05000c
+			public const int linearLayout3 = 2131034124;
 			
 			// aapt resource value: 0x7f050018
 			public const int linearLayout4 = 2131034136;
@@ -138,20 +138,20 @@ namespace SCaR_Arcade
 			// aapt resource value: 0x7f050013
 			public const int linearLayout5 = 2131034131;
 			
-			// aapt resource value: 0x7f05000e
-			public const int logo = 2131034126;
+			// aapt resource value: 0x7f05000f
+			public const int logo = 2131034127;
 			
-			// aapt resource value: 0x7f05000d
-			public const int lvGameList = 2131034125;
+			// aapt resource value: 0x7f05000e
+			public const int lvGameList = 2131034126;
+			
+			// aapt resource value: 0x7f050011
+			public const int relativeLayout1 = 2131034129;
 			
 			// aapt resource value: 0x7f050010
-			public const int relativeLayout1 = 2131034128;
+			public const int titletxt = 2131034128;
 			
-			// aapt resource value: 0x7f05000f
-			public const int titletxt = 2131034127;
-			
-			// aapt resource value: 0x7f05000c
-			public const int tvGameTitle = 2131034124;
+			// aapt resource value: 0x7f05000d
+			public const int tvGameTitle = 2131034125;
 			
 			// aapt resource value: 0x7f050006
 			public const int txtDifficulty = 2131034118;
