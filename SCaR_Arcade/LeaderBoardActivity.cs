@@ -48,7 +48,7 @@ namespace SCaR_Arcade
                 // Return the game from the list.
                 game = GameInterface.getGameAt(gameChoice);
                 LeaderBoard.SetBackgroundColor(Color.Gray);
-                //FullScreen.SetBackgroundResource(game.gMenuBackground);
+                FullScreen.SetBackgroundResource(game.gMenuBackground);
                 
 
                 //--------------------------------------------------------------------
