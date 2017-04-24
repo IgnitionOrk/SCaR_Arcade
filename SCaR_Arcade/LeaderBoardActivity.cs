@@ -24,6 +24,8 @@ namespace SCaR_Arcade
         Theme = "@android:style/Theme.NoTitleBar")]
     public class LeaderBoardActivity : Activity
     {
+        private LinearLayout FullScreen;
+        private LinearLayout LeaderBoard;
         private Button btnBack;
         private int gameChoice;
         private Game game;
@@ -37,18 +39,21 @@ namespace SCaR_Arcade
                 // Create your application here
                 SetContentView(Resource.Layout.Leaderboard);
                 btnBack = FindViewById<Button>(Resource.Id.btnGameSelect);
-                
-
+                FullScreen = FindViewById<LinearLayout>(Resource.Id.FullScreenLinLay);
+                LeaderBoard = FindViewById<LinearLayout>(Resource.Id.LeaderBoardLinLay);
 
                 // get the index of the item the player has chosen.
                 gameChoice = Intent.GetIntExtra(GlobalApp.getVariableChoiceName(), 0);
 
                 // Return the game from the list.
                 game = GameInterface.getGameAt(gameChoice);
+                LeaderBoard.SetBackgroundColor(Color.Gray);
+                //FullScreen.SetBackgroundResource(game.gMenuBackground);
                 
+
                 //--------------------------------------------------------------------
                 // Event handlers.
-               btnBack.Click += ButtonClickSelect;
+                btnBack.Click += ButtonClickSelect;
                 
             }
             catch
