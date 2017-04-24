@@ -22,8 +22,8 @@ namespace SCaR_Arcade
         public string gTitle { get; set; }
         public int gLogo { get; set; }
         public int gMenuBackground { get; set; }
-        public string gStartFileURL { get; set; }
-        public string gLeaderboardURL { get; set; }
+        public string gLocalFileURL { get; set; }
+        public string gOnlineFileURL { get; set; }
         public int minDifficulty { get; set; }
         public int maxDifficulty { get; set; }
         public Activity activity { get; set; }
