@@ -69,6 +69,7 @@ namespace SCaR_Arcade
             try
             {
                 Intent intent = new Intent(this, typeof(GameMenuActivity));
+                intent.PutExtra(GlobalApp.getVariableChoiceName(), gameChoice);
                 StartActivity(intent);
             }
             catch
@@ -83,7 +84,9 @@ namespace SCaR_Arcade
             try
             {
                 Intent intent = new Intent(this, typeof(GameMenuActivity));
+                intent.PutExtra(GlobalApp.getVariableChoiceName(), gameChoice);
                 StartActivity(intent);
+            
             }
             catch
             {
