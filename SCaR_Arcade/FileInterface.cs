@@ -41,7 +41,7 @@ namespace SCaR_Arcade
                 {
                     // Create the Files that will be used to score data on scores from the player.
                     // For this instance we are creating a Local (.txt) file, and not an Online (.txt).
-                    createFilesForGame(true, false);
+                    createFilesForGame(true);
 
                     // Retry to add the score into the Files (if needed) because we have created the new .txt files
                     addScoreToLocal(score);
@@ -71,7 +71,7 @@ namespace SCaR_Arcade
                 {
                     // Create the Files that will be used to score data on scores from the player.
                     // For this instance we are creating a Local (.txt) file, and not an Online (.txt).
-                    createFilesForGame(false, true);
+                    createFilesForGame(false);
 
                     // Retry to add the score into the Files (if needed) because we have created the new .txt files
                     addScoreToLocal(score);
@@ -93,7 +93,7 @@ namespace SCaR_Arcade
         // ----------------------------------------------------------------------------------------------------------------
         // Will create the Local (.txt), and Online(.txt) file for a particular game (instance variable),
         // And saves the file path into the instance variable game.
-        private static void createFilesForGame(bool isLocal, bool isOnline)
+        private static void createFilesForGame(bool isLocal)
         {                
             try
             {
@@ -118,10 +118,8 @@ namespace SCaR_Arcade
                         File.CreateText(localPath);
                         game.gLocalFileURL = localPath;
                     }
-
-                    // Create an Online (.txt) file.
-                    if (isOnline)
-                    {
+                    else
+                    { 
                         string onlinePath = @"\Online\" + gTitleTrimmed + "Online.txt";
                         File.CreateText(onlinePath);
                         game.gOnlineFileURL = onlinePath;
