@@ -24,7 +24,7 @@ namespace SCaR_Arcade
         Theme = "@android:style/Theme.NoTitleBar")]
     public class GameMenuActivity : Activity
     {
-        private LinearLayout lL1;
+        private LinearLayout FullScreen;
         private TextView txtGameTitle;
         private TextView txtDifficulty;
         private TextView txtErrorMessage;
@@ -47,7 +47,7 @@ namespace SCaR_Arcade
                 base.OnCreate(savedInstanceState);
                 // Create your application here
                 SetContentView(Resource.Layout.GameMenu);
-                lL1 = FindViewById<LinearLayout>(Resource.Id.linearLayout1);
+                FullScreen = FindViewById<LinearLayout>(Resource.Id.FullScreenLinLay);
                 txtGameTitle = FindViewById<TextView>(Resource.Id.txtGameTitle);
                 txtDifficulty = FindViewById<TextView>(Resource.Id.txtDifficulty);
                 txtErrorMessage = FindViewById<TextView>(Resource.Id.txtErrorMessage);
@@ -70,7 +70,8 @@ namespace SCaR_Arcade
                 maxDifficulty = game.maxDifficulty;
                 txtDifficulty.Text = String.Format("{0}", difficulty);
                 txtGameTitle.Text = game.gTitle;
-                lL1.SetBackgroundResource(game.gMenuBackground);
+                FullScreen.SetBackgroundResource(game.gMenuBackground);
+                
                 //--------------------------------------------------------------------
                 // Event handlers.
                 btnStart.Click += ButtonClickStart;
