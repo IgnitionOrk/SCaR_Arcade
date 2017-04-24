@@ -55,7 +55,8 @@
   <ItemGroup>
     <Compile Include="FileInterface.cs" />
     <Compile Include="Game.cs" />
-    <Compile Include="GameAdapter.cs" />
+    <Compile Include="LeaderBoardActivity.cs" />
+    <Compile Include="RowAdapter.cs" />
     <Compile Include="GameInterface.cs" />
     <Compile Include="GameLogic\TowersOfHanoiLogic.cs" />
     <Compile Include="GameMenuActivity.cs" />

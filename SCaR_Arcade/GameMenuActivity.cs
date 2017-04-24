@@ -30,7 +30,7 @@ namespace SCaR_Arcade
         private TextView txtErrorMessage;
         private Button btnStart;
         private Button btnLeaderBoard;
-        private Button btnGameSelect;
+        private Button btnBack;
         private ImageButton imgBtnIn;
         private ImageButton imgBtnDe;
         private int gameChoice;
@@ -53,7 +53,7 @@ namespace SCaR_Arcade
                 txtErrorMessage = FindViewById<TextView>(Resource.Id.txtErrorMessage);
                 btnStart = FindViewById<Button>(Resource.Id.btnStart);
                 btnLeaderBoard = FindViewById<Button>(Resource.Id.btnLeaderBoard);
-                btnGameSelect = FindViewById<Button>(Resource.Id.btnGameSelect);
+                btnBack = FindViewById<Button>(Resource.Id.btnGameSelect);
                 imgBtnIn = FindViewById<ImageButton>(Resource.Id.imgBtnIncrease);
                 imgBtnDe = FindViewById<ImageButton>(Resource.Id.imgBtnDecrease);
 
@@ -75,7 +75,7 @@ namespace SCaR_Arcade
                 //--------------------------------------------------------------------
                 // Event handlers.
                 btnStart.Click += ButtonClickStart;
-                btnGameSelect.Click += ButtonClickSelect;
+                btnBack.Click += ButtonClickSelect;
                 btnLeaderBoard.Click += ButtonClickLeaderboard;
                 imgBtnIn.Click += ImageButtonIncrease;
                 imgBtnDe.Click += ImageButtonDecrease;
@@ -140,6 +140,7 @@ namespace SCaR_Arcade
         // Event Handler: Will direct the player to the Main menu.
         public override void OnBackPressed()
         {
+            //TODO: add if statement to back into leaderboardactivity if that was the last place visited, maybe
             try
             {
                 Intent intent = new Intent(this, typeof(MainActivity));
@@ -187,7 +188,16 @@ namespace SCaR_Arcade
         // Event Handler: Will direct the user to the Leaderboard. 
         protected void ButtonClickLeaderboard(Object sender, EventArgs ev)
         {
-
+            try
+            {
+                Intent intent = new Intent(this, typeof(LeaderBoardActivity));
+                intent.PutExtra(GlobalApp.getVariableChoiceName(), gameChoice);
+                StartActivity(intent);
+            }
+            catch
+            {
+                GlobalApp.Alert(this, 0);
+            }
         }
     }
 }

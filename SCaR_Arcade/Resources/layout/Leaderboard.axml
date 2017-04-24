@@ -23,5 +23,13 @@
         android:minHeight="240px"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/linearLayout3" />
+        android:id="@+id/linearLayout3">
+        <Button
+            android:text="BACK"
+            android:layout_width="237.5dp"
+            android:layout_height="match_parent"
+            android:id="@+id/btnGameSelect"
+            android:layout_gravity="center"
+            android:textSize="30sp" />
+    </LinearLayout>
 </LinearLayout>
