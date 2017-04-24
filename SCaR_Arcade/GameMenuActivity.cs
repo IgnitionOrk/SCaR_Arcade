@@ -112,7 +112,7 @@ namespace SCaR_Arcade
         {
             try
             {
-                Type type = game.activity.GetType();
+                Type type = game.gStart.GetType();
                 Intent intent = new Intent(this, type);
                 intent.PutExtra(GlobalApp.getVariableDifficultyName(), difficulty);
                 StartActivity(intent);
