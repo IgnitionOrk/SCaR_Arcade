@@ -22,11 +22,17 @@ namespace SCaR_Arcade
         public string gTitle { get; set; }
         public int gLogo { get; set; }
         public int gMenuBackground { get; set; }
+<<<<<<< HEAD
         public string gLocalFileURL { get; set; }
         public string gOnlineFileURL { get; set; }
+=======
+        public Activity gStart { get; set; }
+        public string gLocalLeaderboardURL { get; set; }
+        public string gOnlineLeaderboardURL { get; set; }
+>>>>>>> origin/master
         public int minDifficulty { get; set; }
         public int maxDifficulty { get; set; }
-        public Activity activity { get; set; }
+        
         /*
          * Things to add  
          * -------------

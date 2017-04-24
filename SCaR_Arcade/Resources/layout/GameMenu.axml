@@ -7,6 +7,13 @@
     android:minHeight="8.5dp"
     android:backgroundTint="#00000000"
     android:background="@android:color/holo_orange_dark">
+    
+  <LinearLayout
+       android:orientation="vertical"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:id="@+id/FullScreenLinLay">
+  
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -83,4 +90,5 @@
         android:gravity="center"
         android:maxWidth="237.5dp"
         android:layout_gravity="center" />
+  </LinearLayout>
 </LinearLayout>
