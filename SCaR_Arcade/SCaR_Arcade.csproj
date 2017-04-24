@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FileInterface.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GameAdapter.cs" />
     <Compile Include="GameInterface.cs" />
@@ -128,6 +129,10 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\plus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ScoreFiles\Local\" />
+    <Folder Include="ScoreFiles\Online\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
