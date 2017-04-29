@@ -36,7 +36,7 @@ namespace SCaR_Arcade
                 base.OnCreate(bundle);
                 SetContentView(Resource.Layout.Main);
                 lvGameList = FindViewById<ListView>(Resource.Id.lvGameList);
-                lvGameList.Adapter = new RowAdapter(this);
+                lvGameList.Adapter = new MainRowAdapter(this);
                 //on row click begin game menu
                 lvGameList.ItemClick += listViewItemClick;
             }

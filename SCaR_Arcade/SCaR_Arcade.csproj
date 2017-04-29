@@ -57,7 +57,8 @@
     <Compile Include="Game.cs" />
     <Compile Include="GameActivities\MemoryTestActivity.cs" />
     <Compile Include="LeaderBoardActivity.cs" />
-    <Compile Include="RowAdapter.cs" />
+    <Compile Include="LeaderBoardRowAdapter.cs" />
+    <Compile Include="MainRowAdapter.cs" />
     <Compile Include="GameInterface.cs" />
     <Compile Include="GameLogic\TowersOfHanoiLogic.cs" />
     <Compile Include="GameMenuActivity.cs" />
@@ -75,9 +76,6 @@
     <AndroidResource Include="Resources\layout\GameMenu.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\Row.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
     <AndroidResource Include="Resources\layout\TowersOfHanoi.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
@@ -87,6 +85,8 @@
     <AndroidResource Include="Resources\layout\MemoryTest.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\LeaderBoardRow.axml" />
+    <AndroidResource Include="Resources\layout\MainRow.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml">

@@ -17,7 +17,7 @@ using Android.Widget;
 /// </summary>
 namespace SCaR_Arcade
 {
-    class RowAdapter:BaseAdapter<Game>
+    class LeaderBoardRowAdapter:BaseAdapter<Game>
     {
        
         /*
@@ -29,7 +29,7 @@ namespace SCaR_Arcade
         private Activity context;
         // ----------------------------------------------------------------------------------------------------------------
         // Constructor:
-        public RowAdapter (Activity activity)
+        public LeaderBoardRowAdapter (Activity activity)
         {
             context = activity;
 

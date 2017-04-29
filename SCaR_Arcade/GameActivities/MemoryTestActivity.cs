@@ -35,7 +35,7 @@ namespace SCaR_Arcade.GameActivities
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-
+            
             SetContentView(Resource.Layout.MemoryTest);
 
             var gridview = FindViewById<GridView>(Resource.Id.gridview);

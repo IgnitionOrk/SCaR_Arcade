@@ -10,14 +10,14 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 /// <summary>
-/// Created by: Martin O'Connell
+/// Created by: Martin O'Conner
 /// Student number: 3279660
 /// Date modified: 21-Mar-2017
 /// /// Date created: 21-Mar-2017
 /// </summary>
 namespace SCaR_Arcade
 {
-    class LeaderBoardRowAdapter:BaseAdapter<Game>
+    class MainRowAdapter:BaseAdapter<Game>
     {
        
         /*
@@ -29,7 +29,7 @@ namespace SCaR_Arcade
         private Activity context;
         // ----------------------------------------------------------------------------------------------------------------
         // Constructor:
-        public LeaderBoardRowAdapter (Activity activity)
+        public MainRowAdapter (Activity activity)
         {
             context = activity;
 
