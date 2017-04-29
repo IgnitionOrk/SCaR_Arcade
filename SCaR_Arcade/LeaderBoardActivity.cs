@@ -29,7 +29,7 @@ namespace SCaR_Arcade
         private Button btnBack;
         private int gameChoice;
         private Game game;
-
+        private ListView LeaderBoardListView;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -41,6 +41,9 @@ namespace SCaR_Arcade
                 btnBack = FindViewById<Button>(Resource.Id.btnGameSelect);
                 FullScreen = FindViewById<LinearLayout>(Resource.Id.FullScreenLinLay);
                 LeaderBoard = FindViewById<LinearLayout>(Resource.Id.LeaderBoardLinLay);
+
+                LeaderBoardListView = FindViewById<ListView>(Resource.Id.LeaderBoardListView);
+                LeaderBoardListView.Adapter = new LeaderBoardRowAdapter(this);
 
                 // get the index of the item the player has chosen.
                 gameChoice = Intent.GetIntExtra(GlobalApp.getVariableChoiceName(), 0);
