@@ -9,24 +9,34 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+
 /// <summary>
-/// Created by: Martin O'Connell
+/// Created by: Martin O'Connor
 /// Student number: 3279660
 /// Date modified: 21-Mar-2017
 /// /// Date created: 21-Mar-2017
 /// </summary>
+
 namespace SCaR_Arcade
 {
     class LeaderBoardRowAdapter:BaseAdapter<Game>
     {
-       
+        // ----------------------------------------------------------------------------------------------------------------
+
         /*
+         * 
          * sources
          * http://blog.atavisticsoftware.com/2014/02/listview-using-activitylistitem-style.html
          * http://blog.atavisticsoftware.com/2014/01/listview-basics-for-xamarain-android.html
+         * 
         */
+
+        // ----------------------------------------------------------------------------------------------------------------
+
+        //insatiation for class
         private List<Game> data;
         private Activity context;
+
         // ----------------------------------------------------------------------------------------------------------------
         // Constructor:
         public LeaderBoardRowAdapter (Activity activity)
@@ -35,6 +45,7 @@ namespace SCaR_Arcade
 
             if (data == null)
             {
+
                 data = PopulateGameData();
             }
         }
@@ -68,16 +79,16 @@ namespace SCaR_Arcade
 
             var game = data[position];
 
-            //add text down list
+            //add text colom details down list
             TextView leaderboardPosition = view.FindViewById<TextView>(SCaR_Arcade.Resource.Id.positiontxt);
             leaderboardPosition.Text = "P#"+position;
-            System.Diagnostics.Debug.Write(position);
+
             TextView name = view.FindViewById<TextView>(SCaR_Arcade.Resource.Id.nametxt);
             name.Text = "N#"+game.maxDifficulty;
-            System.Diagnostics.Debug.Write(position);
+
             TextView score = view.FindViewById<TextView>(SCaR_Arcade.Resource.Id.scoretxt);
             score.Text = "S#"+game.minDifficulty;
-            System.Diagnostics.Debug.Write(position);
+
 
             return view;
         }

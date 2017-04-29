@@ -8,12 +8,14 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+
 /// <summary>
 /// Created by: Ryan Cunneen
 /// Student no: 3179234
 /// Date modified: 13-Apr-2017
 /// /// Date created: 20-Apr-2017
 /// </summary>
+
 namespace SCaR_Arcade
 {
     static class GameInterface

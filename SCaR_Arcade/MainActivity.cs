@@ -6,14 +6,16 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using Android.Content.PM;
+
 /// <summary>
 /// Creator: Ryan Cunneen
-/// Creator: Martin O'Connell
+/// Creator: Martin O'Connor
 /// Student number: 3179234
 /// Student number: 3279660
 /// Date created: 18-Mar-17
 /// Date modified: 20-Apr-17
 /// </summary>
+
 namespace SCaR_Arcade
 {
     [Activity(Label = "SCaR_Arcade",
@@ -23,21 +25,44 @@ namespace SCaR_Arcade
         Theme = "@android:style/Theme.NoTitleBar")]
     public class MainActivity : Activity
     {
-        /*sources
-        * http://blog.atavisticsoftware.com/2014/02/listview-using-activitylistitem-style.html
-        * http://blog.atavisticsoftware.com/2014/01/listview-basics-for-xamarain-android.html
-       */
+
+
+        // ----------------------------------------------------------------------------------------------------------------
+       
+        /*
+         * 
+         * sources 
+         * http://blog.atavisticsoftware.com/2014/02/listview-using-activitylistitem-style.html
+         * http://blog.atavisticsoftware.com/2014/01/listview-basics-for-xamarain-android.html
+         * 
+         */
+
+        // ----------------------------------------------------------------------------------------------------------------
+
+        //insatiation for class
         private ListView lvGameList;
+
         // ----------------------------------------------------------------------------------------------------------------
         protected override void OnCreate(Bundle bundle)
         {
            try
             {
                 base.OnCreate(bundle);
+
+                //--------------------------------------------------------------------
+
+                //Set Layout and its views, buttons, text
                 SetContentView(Resource.Layout.Main);
+
                 lvGameList = FindViewById<ListView>(Resource.Id.lvGameList);
+
+                //--------------------------------------------------------------------
+                
+                //intiate rows into lvGameList
                 lvGameList.Adapter = new MainRowAdapter(this);
-                //on row click begin game menu
+
+                //--------------------------------------------------------------------
+                // Event handlers.
                 lvGameList.ItemClick += listViewItemClick;
             }
             catch

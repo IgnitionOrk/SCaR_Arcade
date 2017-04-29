@@ -9,24 +9,35 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+
 /// <summary>
-/// Created by: Martin O'Conner
+/// Created by: Martin O'Connor
 /// Student number: 3279660
 /// Date modified: 21-Mar-2017
 /// /// Date created: 21-Mar-2017
 /// </summary>
+
 namespace SCaR_Arcade
 {
     class MainRowAdapter:BaseAdapter<Game>
     {
-       
+
+        // ----------------------------------------------------------------------------------------------------------------
+        
         /*
+         * 
          * sources
          * http://blog.atavisticsoftware.com/2014/02/listview-using-activitylistitem-style.html
          * http://blog.atavisticsoftware.com/2014/01/listview-basics-for-xamarain-android.html
-        */
+         * 
+         */
+
+        // ----------------------------------------------------------------------------------------------------------------
+
+        //insatiation for class
         private List<Game> data;
         private Activity context;
+
         // ----------------------------------------------------------------------------------------------------------------
         // Constructor:
         public MainRowAdapter (Activity activity)

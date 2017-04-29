@@ -10,12 +10,16 @@ using Android.Graphics;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+
 /// <summary>
-/// Created by: Ryan Cunneen
-/// Student no: 3179234
+/// Creator: Ryan Cunneen
+/// Creator: Martin O'Connor
+/// Student number: 3179234
+/// Student number: 3279660
 /// Date modified: 21-Mar-2017
 /// /// Date created: 21-Mar-2017
 /// </summary>
+
 namespace SCaR_Arcade
 {
     [Activity(Label = "GameMenuActivity", 
@@ -24,6 +28,10 @@ namespace SCaR_Arcade
         Theme = "@android:style/Theme.NoTitleBar")]
     public class GameMenuActivity : Activity
     {
+
+        // ----------------------------------------------------------------------------------------------------------------
+
+        //insatiation for class
         private LinearLayout FullScreen;
         private TextView txtGameTitle;
         private TextView txtDifficulty;
@@ -39,25 +47,33 @@ namespace SCaR_Arcade
         private int minDifficulty;
         private Game game;
 
+        // ----------------------------------------------------------------------------------------------------------------
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
           try
             {
                 base.OnCreate(savedInstanceState);
-                // Create your application here
+
+                //--------------------------------------------------------------------
+
+                //Set Layout and its views, buttons, text
                 SetContentView(Resource.Layout.GameMenu);
+
                 FullScreen = FindViewById<LinearLayout>(Resource.Id.FullScreenLinLay);
+
                 txtGameTitle = FindViewById<TextView>(Resource.Id.txtGameTitle);
                 txtDifficulty = FindViewById<TextView>(Resource.Id.txtDifficulty);
                 txtErrorMessage = FindViewById<TextView>(Resource.Id.txtErrorMessage);
+
                 btnStart = FindViewById<Button>(Resource.Id.btnStart);
                 btnLeaderBoard = FindViewById<Button>(Resource.Id.btnLeaderBoard);
                 btnBack = FindViewById<Button>(Resource.Id.btnGameSelect);
+
                 imgBtnIn = FindViewById<ImageButton>(Resource.Id.imgBtnIncrease);
                 imgBtnDe = FindViewById<ImageButton>(Resource.Id.imgBtnDecrease);
-
-
+                
+                //--------------------------------------------------------------------
 
                 // get the index of the item the player has chosen.
                 gameChoice = Intent.GetIntExtra(GlobalApp.getVariableChoiceName(), 0);

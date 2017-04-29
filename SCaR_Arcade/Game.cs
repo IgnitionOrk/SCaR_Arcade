@@ -9,12 +9,16 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+
 /// <summary>
-/// Created by: Martin O'Connell
+/// Creator: Ryan Cunneen
+/// Creator: Martin O'Connor
+/// Student number: 3179234
 /// Student number: 3279660
 /// Date modified: 21-Mar-2017
 /// /// Date created: 21-Mar-2017
 /// </summary>
+
 namespace SCaR_Arcade
 {
     class Game
