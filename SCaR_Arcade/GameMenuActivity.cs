@@ -19,7 +19,6 @@ using Android.Widget;
 /// Date modified: 21-Mar-2017
 /// /// Date created: 21-Mar-2017
 /// </summary>
-
 namespace SCaR_Arcade
 {
     [Activity(Label = "GameMenuActivity", 
@@ -28,14 +27,9 @@ namespace SCaR_Arcade
         Theme = "@android:style/Theme.NoTitleBar")]
     public class GameMenuActivity : Activity
     {
-
-        // ----------------------------------------------------------------------------------------------------------------
-
-        //insatiation for class
         private LinearLayout FullScreen;
         private TextView txtGameTitle;
         private TextView txtDifficulty;
-        private TextView txtErrorMessage;
         private Button btnStart;
         private Button btnLeaderBoard;
         private Button btnBack;
@@ -48,39 +42,27 @@ namespace SCaR_Arcade
         private Game game;
 
         // ----------------------------------------------------------------------------------------------------------------
-
+        // Predefined method to the create to build the Activity GameMenu.axml executes. 
         protected override void OnCreate(Bundle savedInstanceState)
         {
           try
             {
                 base.OnCreate(savedInstanceState);
-
-                //--------------------------------------------------------------------
-
-                //Set Layout and its views, buttons, text
                 SetContentView(Resource.Layout.GameMenu);
-
                 FullScreen = FindViewById<LinearLayout>(Resource.Id.FullScreenLinLay);
-
                 txtGameTitle = FindViewById<TextView>(Resource.Id.txtGameTitle);
                 txtDifficulty = FindViewById<TextView>(Resource.Id.txtDifficulty);
-                txtErrorMessage = FindViewById<TextView>(Resource.Id.txtErrorMessage);
-
                 btnStart = FindViewById<Button>(Resource.Id.btnStart);
                 btnLeaderBoard = FindViewById<Button>(Resource.Id.btnLeaderBoard);
                 btnBack = FindViewById<Button>(Resource.Id.btnGameSelect);
-
                 imgBtnIn = FindViewById<ImageButton>(Resource.Id.imgBtnIncrease);
                 imgBtnDe = FindViewById<ImageButton>(Resource.Id.imgBtnDecrease);
-                
-                //--------------------------------------------------------------------
 
                 // get the index of the item the player has chosen.
                 gameChoice = Intent.GetIntExtra(GlobalApp.getVariableChoiceName(), 0);
 
                 // Return the game from the list.
                 game = GameInterface.getGameAt(gameChoice);
-
                 difficulty = game.minDifficulty;
                 minDifficulty = game.minDifficulty;
                 maxDifficulty = game.maxDifficulty;
@@ -88,7 +70,6 @@ namespace SCaR_Arcade
                 txtGameTitle.Text = game.gTitle;
                 FullScreen.SetBackgroundResource(game.gMenuBackground);
                 
-                //--------------------------------------------------------------------
                 // Event handlers.
                 btnStart.Click += ButtonClickStart;
                 btnBack.Click += ButtonClickSelect;
@@ -96,7 +77,8 @@ namespace SCaR_Arcade
                 imgBtnIn.Click += ImageButtonIncrease;
                 imgBtnDe.Click += ImageButtonDecrease;
 
-
+                // Add the plus and minus pictures to the two image buttons, 
+                // that can increase or decrease the difficulty level.
                 addPlusAndMinus();
             }
             catch
@@ -105,8 +87,8 @@ namespace SCaR_Arcade
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
-        // Add plus, and minus bitmap images to image buttons 
-        // so players can increase, or decrease the difficulty for the selected game.
+        // Plus, and minus bitmap images are added to the image buttons 
+        // so players can determine how to increase, or decrease the difficulty. 
         private void addPlusAndMinus()
         {
             Bitmap minus = BitmapFactory.DecodeResource(Resources, Resource.Drawable.minus);
@@ -123,15 +105,13 @@ namespace SCaR_Arcade
 
         }
         // ---------------------------------------------------------------------------------------------------------------
-        // Begins the game selected.
+        // Begins the game selected from the Main menu.
         protected void ButtonClickStart(Object sender, EventArgs args)
         {
             try
             {
-                Type type = game.gStart.GetType();
-                Intent intent = new Intent(this, type);
-                intent.PutExtra(GlobalApp.getVariableDifficultyName(), difficulty);
-                StartActivity(intent);
+                // Begin the game Activity specifed by type
+                BeginActivity(game.gType, GlobalApp.getVariableDifficultyName(), difficulty);
             }
             catch
             {
@@ -144,8 +124,8 @@ namespace SCaR_Arcade
         {
             try
             {
-                Intent intent = new Intent(this, typeof(MainActivity));
-                StartActivity(intent);
+                // Begin the Main Activity
+                BeginActivity(typeof(MainActivity), null, 0);
             }
             catch
             {
@@ -159,8 +139,8 @@ namespace SCaR_Arcade
             //TODO: add if statement to back into leaderboardactivity if that was the last place visited, maybe
             try
             {
-                Intent intent = new Intent(this, typeof(MainActivity));
-                StartActivity(intent);
+                // Begin the Main Activity
+                BeginActivity(typeof(MainActivity), null, 0);
             }
             catch
             {
@@ -168,19 +148,47 @@ namespace SCaR_Arcade
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
+        // Event Handler: Will direct the user to the Leaderboard. 
+        protected void ButtonClickLeaderboard(Object sender, EventArgs ev)
+        {
+            try
+            {
+                // Begin the Leaderboard Activity
+                BeginActivity(typeof(LeaderBoardActivity), GlobalApp.getVariableChoiceName(), gameChoice);
+            }
+            catch
+            {
+                GlobalApp.Alert(this, 0);
+            }
+        }
+        // ----------------------------------------------------------------------------------------------------------------
+        // Begins the Activity specified by @param type.
+        private void BeginActivity(Type type, string variableName, int value)
+        {
+            Intent intent = new Intent(this, type);
+            if (type != typeof(MainActivity))
+            {
+                intent.PutExtra(variableName, value);
+            }
+            StartActivity(intent);
+        }
+        // ----------------------------------------------------------------------------------------------------------------
         // Event handler: that increases the difficulty level for the game selected.
         protected void ImageButtonIncrease(Object sender, EventArgs args)
         {
+            // the bool parameter determines if the we increase or decrease the difficulty.
             updateDifficulty(true);
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Event handler: that decreases the difficulty level for the game selected.
         protected void ImageButtonDecrease(Object sender, EventArgs args)
         {
+            // the bool parameter determines if the we increase or decrease the difficulty.
             updateDifficulty(false);
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Updates the difficulty level determined by pressing the 'plus' or 'minus' buttons.
+        // Will either increases, or decreases the difficulty. 
         private void updateDifficulty(bool isIncrease)
         {
             if (isIncrease)
@@ -198,22 +206,6 @@ namespace SCaR_Arcade
                 }
             }
             txtDifficulty.Text = String.Format("{0}", difficulty);
-        }
-
-        // ----------------------------------------------------------------------------------------------------------------
-        // Event Handler: Will direct the user to the Leaderboard. 
-        protected void ButtonClickLeaderboard(Object sender, EventArgs ev)
-        {
-            try
-            {
-                Intent intent = new Intent(this, typeof(LeaderBoardActivity));
-                intent.PutExtra(GlobalApp.getVariableChoiceName(), gameChoice);
-                StartActivity(intent);
-            }
-            catch
-            {
-                GlobalApp.Alert(this, 0);
-            }
         }
     }
 }

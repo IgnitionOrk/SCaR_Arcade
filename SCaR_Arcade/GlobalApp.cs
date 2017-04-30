@@ -39,7 +39,6 @@ namespace SCaR_Arcade
             }
             player.name = name;
         }
-
         // ----------------------------------------------------------------------------------------------------------------
         // Returns the value of the variables (value represents the name).
         public static string getVariableDifficultyName()
@@ -120,6 +119,7 @@ namespace SCaR_Arcade
 
             adb.Show();
         }
+        // ----------------------------------------------------------------------------------------------------------------
         private static bool addToLeaderBoard(int score)
         {
             bool scoreAdded = false;
@@ -128,6 +128,5 @@ namespace SCaR_Arcade
             scoreAdded = true;
             return scoreAdded;
         }
-
     }
 }

@@ -22,18 +22,11 @@ namespace SCaR_Arcade
     class LeaderBoardRowAdapter:BaseAdapter<Game>
     {
         // ----------------------------------------------------------------------------------------------------------------
-
         /*
-         * 
          * sources
          * http://blog.atavisticsoftware.com/2014/02/listview-using-activitylistitem-style.html
          * http://blog.atavisticsoftware.com/2014/01/listview-basics-for-xamarain-android.html
-         * 
         */
-
-        // ----------------------------------------------------------------------------------------------------------------
-
-        //insatiation for class
         private List<Game> data;
         private Activity context;
 

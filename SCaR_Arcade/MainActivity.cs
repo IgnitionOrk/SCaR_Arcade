@@ -15,54 +15,33 @@ using Android.Content.PM;
 /// Date created: 18-Mar-17
 /// Date modified: 20-Apr-17
 /// </summary>
-
 namespace SCaR_Arcade
 {
-    [Activity(Label = "SCaR_Arcade",
+    [Activity(
+        Label = "SCaR_Arcade",
         MainLauncher = true,
         Icon = "@drawable/icon",
         ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait,
         Theme = "@android:style/Theme.NoTitleBar")]
     public class MainActivity : Activity
     {
-
-
-        // ----------------------------------------------------------------------------------------------------------------
-       
         /*
-         * 
-         * sources 
+         * Sources:
          * http://blog.atavisticsoftware.com/2014/02/listview-using-activitylistitem-style.html
          * http://blog.atavisticsoftware.com/2014/01/listview-basics-for-xamarain-android.html
-         * 
          */
-
-        // ----------------------------------------------------------------------------------------------------------------
-
-        //insatiation for class
         private ListView lvGameList;
-
         // ----------------------------------------------------------------------------------------------------------------
+        // Predefined method to the create to build the Activity Main.axml executes. 
         protected override void OnCreate(Bundle bundle)
         {
            try
             {
+                // Bind, and create all Views, and data for the Main.axml
                 base.OnCreate(bundle);
-
-                //--------------------------------------------------------------------
-
-                //Set Layout and its views, buttons, text
                 SetContentView(Resource.Layout.Main);
-
                 lvGameList = FindViewById<ListView>(Resource.Id.lvGameList);
-
-                //--------------------------------------------------------------------
-                
-                //intiate rows into lvGameList
                 lvGameList.Adapter = new MainRowAdapter(this);
-
-                //--------------------------------------------------------------------
-                // Event handlers.
                 lvGameList.ItemClick += listViewItemClick;
             }
             catch
@@ -77,14 +56,23 @@ namespace SCaR_Arcade
         {
             try
             {
-                Intent intent = new Intent(this, typeof(GameMenuActivity));
-                intent.PutExtra(GlobalApp.getVariableChoiceName(), args.Position);
-                StartActivity(intent);
+                BeginActivity(typeof(GameMenuActivity), GlobalApp.getVariableChoiceName(), args.Position);
             }
             catch
             {
                 GlobalApp.Alert(this, 0);
             }
+        }
+        // ----------------------------------------------------------------------------------------------------------------
+        // Begins the Activity specified by @param type.
+        private void BeginActivity(Type type, string variableName, int value)
+        {
+            Intent intent = new Intent(this, type);
+            if (type != typeof(MainActivity))
+            {
+                intent.PutExtra(variableName, value);
+            }
+            StartActivity(intent);
         }
     }
 }

@@ -31,18 +31,5 @@ namespace SCaR_Arcade
         public Activity gStart { get; set; }
         public int minDifficulty { get; set; }
         public int maxDifficulty { get; set; }
-        
-        /*
-         * Things to add  
-         * -------------
-         * Game title
-         * logo location
-         * game location
-         * leaderboard location
-         * getters
-         * -------------
-         * 
-         * This will help when calling upon info for multiple games through multiple layers of menus.
-         */
     }
 }
