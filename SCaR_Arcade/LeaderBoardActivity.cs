@@ -22,16 +22,13 @@ using Android.Widget;
 
 namespace SCaR_Arcade
 {
-    [Activity(Label = "LeaderBoardActivity", 
+    [Activity(
+        Label = "LeaderBoardActivity", 
         MainLauncher = false,
         ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait,
         Theme = "@android:style/Theme.NoTitleBar")]
     public class LeaderBoardActivity : Activity
     {
-
-        // ----------------------------------------------------------------------------------------------------------------
-
-        //insatiation for class
         private LinearLayout FullScreen;
         private LinearLayout LeaderBoard;
         private Button btnBack;
@@ -45,22 +42,11 @@ namespace SCaR_Arcade
           try
             {
                 base.OnCreate(savedInstanceState);
-                
-                //--------------------------------------------------------------------
-
-                //Set Layout and its views, buttons, text
-                SetContentView(Resource.Layout.Leaderboard);
-                
+                SetContentView(Resource.Layout.Leaderboard);             
                 FullScreen = FindViewById<LinearLayout>(Resource.Id.FullScreenLinLay);
                 LeaderBoard = FindViewById<LinearLayout>(Resource.Id.LeaderBoardLinLay);
-
                 LeaderBoardListView = FindViewById<ListView>(Resource.Id.LeaderBoardListView);
-
                 btnBack = FindViewById<Button>(Resource.Id.btnGameSelect);
-
-                //--------------------------------------------------------------------
-
-                //intiate rows into LeaderBoardListView
                 LeaderBoardListView.Adapter = new LeaderBoardRowAdapter(this);
 
                 // get the index of the item the player has chosen.
@@ -71,27 +57,21 @@ namespace SCaR_Arcade
                 LeaderBoard.SetBackgroundColor(Color.Gray);
                 FullScreen.SetBackgroundResource(game.gMenuBackground);
                 
-
-                //--------------------------------------------------------------------
                 // Event handlers.
-                btnBack.Click += ButtonClickSelect;
-                
+                btnBack.Click += ButtonClickSelect;           
             }
             catch
             {
                 GlobalApp.Alert(this, 0);
             }
-        }
-        
+        } 
         // ----------------------------------------------------------------------------------------------------------------
         // Returns to the Game Menu Activity of the application.
         protected void ButtonClickSelect(Object sender, EventArgs args)
         {
             try
             {
-                Intent intent = new Intent(this, typeof(GameMenuActivity));
-                intent.PutExtra(GlobalApp.getVariableChoiceName(), gameChoice);
-                StartActivity(intent);
+                BeginActivity(typeof(GameMenuActivity), GlobalApp.getVariableChoiceName(), gameChoice);
             }
             catch
             {
@@ -104,16 +84,23 @@ namespace SCaR_Arcade
         {
             try
             {
-                Intent intent = new Intent(this, typeof(GameMenuActivity));
-                intent.PutExtra(GlobalApp.getVariableChoiceName(), gameChoice);
-                StartActivity(intent);
-            
+                BeginActivity(typeof(GameMenuActivity), GlobalApp.getVariableChoiceName(), gameChoice);        
             }
             catch
             {
                 GlobalApp.Alert(this, "Error 101");
             }
         }
-        
+        // ----------------------------------------------------------------------------------------------------------------
+        // Begins the Activity specified by @param type.
+        private void BeginActivity(Type type, string variableName, int value)
+        {
+            Intent intent = new Intent(this, type);
+            if (type != typeof(MainActivity))
+            {
+                intent.PutExtra(variableName, value);
+            }
+            StartActivity(intent);
+        }
     }
 }
