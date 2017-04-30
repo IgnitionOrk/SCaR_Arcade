@@ -19,10 +19,9 @@ namespace SCaR_Arcade
 {
     [Activity(
         Label = "SCaR_Arcade",
-        MainLauncher = true,
         Icon = "@drawable/icon",
-        ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait,
-        Theme = "@android:style/Theme.NoTitleBar")]
+        ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait
+        )]
     public class MainActivity : Activity
     {
         /*

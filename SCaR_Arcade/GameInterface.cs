@@ -57,12 +57,6 @@ namespace SCaR_Arcade
                 // We can dynamically had the games the user has added.
                 // by connecting to the cloud
                 // but for now well just add these three.
-<<<<<<< HEAD
-                gList.Add(new Game { gTitle = "Tower of Hanoi", gLogo = Resource.Drawable.game1, gMenuBackground = Resource.Drawable.game1bg, minDifficulty = 3, maxDifficulty = 8, gType = typeof(GameActivities.TowersOfHanoiActivity) });
-                gList.Add(new Game { gTitle = "Memory test", gLogo = Resource.Drawable.game2, gType = typeof(GameActivities.MemoryTestActivity) });
-                gList.Add(new Game { gTitle = "A game with a long name", gLogo = Resource.Drawable.game3 });
-=======
-
                 gList.Add(new Game { gTitle = "Tower of Hanoi",
                                      gLogo = Resource.Drawable.game1,
                                      gMenuBackground = Resource.Drawable.game1bg,
@@ -76,14 +70,13 @@ namespace SCaR_Arcade
                 gList.Add(new Game { gTitle = "Memory test",
                                      gLogo = Resource.Drawable.game2,
                                      gType = typeof(GameActivities.TowersOfHanoiActivity)
-                                    }
+                                   }
                 );
 
                 gList.Add(new Game { gTitle = "A game with a long name",
                                      gLogo = Resource.Drawable.game3
                                     }
                 );
->>>>>>> origin/master
             }
         }
     }
