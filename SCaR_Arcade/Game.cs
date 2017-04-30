@@ -27,12 +27,8 @@ namespace SCaR_Arcade
         public int gMenuBackground { get; set; }
         // The path to the location of the local.txt file that contains the scores of the player
         public string gLocalFileURL { get; set; }
-<<<<<<< HEAD
         // The path to the location of the local.txt file that contains the scores of global players. 
         public string gOnlineFileURL { get; set; }
-=======
-        public string gOnlineFileURL { get; set; } 
->>>>>>> origin/master
         public Type gType { get; set; }
         public int minDifficulty { get; set; }
         public int maxDifficulty { get; set; }
