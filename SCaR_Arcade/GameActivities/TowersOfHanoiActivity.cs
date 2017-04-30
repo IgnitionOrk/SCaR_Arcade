@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 /// Date created: 25-Mar-17
 /// Date modified: 10-Apr-17
 /// </summary>
-namespace SCaR_Arcade
+namespace SCaR_Arcade.GameActivities
 {
     [Activity(
         Label = "TowersOfHanoiActivity",
