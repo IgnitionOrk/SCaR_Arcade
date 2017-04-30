@@ -28,11 +28,7 @@ namespace SCaR_Arcade
         public int gMenuBackground { get; set; }
         public string gLocalFileURL { get; set; }
         public string gOnlineFileURL { get; set; } 
-<<<<<<< HEAD
         public Type gType { get; set; }
-=======
-        public Type gStart { get; set; }
->>>>>>> origin/master
         public int minDifficulty { get; set; }
         public int maxDifficulty { get; set; }
     }
