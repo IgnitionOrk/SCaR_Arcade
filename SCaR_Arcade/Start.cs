@@ -41,6 +41,7 @@ namespace SCaR_Arcade
                 timer = new System.Timers.Timer();
                 timer.Interval = 3000;
                 timer.Start();
+
                 BeginActivity(typeof(MainActivity), "", 0);
             }
             catch
