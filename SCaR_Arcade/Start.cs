@@ -27,7 +27,6 @@ namespace SCaR_Arcade
     {
         private ImageView appLogoImgView;
         private ProgressBar progress;
-        private System.Timers.Timer timer;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             try
@@ -38,9 +37,6 @@ namespace SCaR_Arcade
                 progress = FindViewById<ProgressBar>(Resource.Id.startProgress);
                 Bitmap appLogo = BitmapFactory.DecodeResource(Resources, Resource.Drawable.SCaRARCADE);
                 appLogoImgView.SetImageBitmap(appLogo);
-                timer = new System.Timers.Timer();
-                timer.Interval = 3000;
-                timer.Start();
 
                 //BeginActivity(typeof(MainActivity), "", 0);
             }
