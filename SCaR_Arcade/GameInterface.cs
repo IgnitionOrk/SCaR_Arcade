@@ -16,7 +16,7 @@ using Android.Widget;
 /// /// Date created: 20-Apr-2017
 /// </summary>
 
-namespace SCaR_Arcade.GameActivites
+namespace SCaR_Arcade
 {
     static class GameInterface
     {
