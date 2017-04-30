@@ -60,8 +60,8 @@ namespace SCaR_Arcade
                 // by connecting to the cloud
                 // ------------------------
                 // but for now well just add these three.
-                gList.Add(new Game { gTitle = "Tower of Hanoi", gLogo = Resource.Drawable.game1, gMenuBackground = Resource.Drawable.game1bg, minDifficulty = 3, maxDifficulty = 8, gStart = new GameActivities.TowersOfHanoiActivity() });
-                gList.Add(new Game { gTitle = "Memory test", gLogo = Resource.Drawable.game2, gStart = new GameActivities.MemoryTestActivity() });
+                gList.Add(new Game { gTitle = "Tower of Hanoi", gLogo = Resource.Drawable.game1, gMenuBackground = Resource.Drawable.game1bg, minDifficulty = 3, maxDifficulty = 8, gType = typeof(GameActivities.TowersOfHanoiActivity) });
+                gList.Add(new Game { gTitle = "Memory test", gLogo = Resource.Drawable.game2, gType = typeof(GameActivities.TowersOfHanoiActivity) });
                 gList.Add(new Game { gTitle = "A game with a long name", gLogo = Resource.Drawable.game3 });
             }
         }
