@@ -142,7 +142,6 @@
     <Folder Include="ScoreFiles\Online\" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <AndroidResource Include="Resources\drawable\SCaRARCADE.png" />
     <Content Include="ScoreFiles\Local\TestLocalLeaderBoard.txt" />
   </ItemGroup>
