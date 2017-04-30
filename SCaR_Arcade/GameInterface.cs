@@ -69,7 +69,7 @@ namespace SCaR_Arcade
 
                 gList.Add(new Game { gTitle = "Memory test",
                                      gLogo = Resource.Drawable.game2,
-                                     gType = typeof(GameActivities.TowersOfHanoiActivity)
+                                     gType = typeof(GameActivities.MemoryTestActivity)
                                     }
                 );
 
