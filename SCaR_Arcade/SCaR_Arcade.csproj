@@ -144,9 +144,7 @@
   <ItemGroup>
 <<<<<<< HEAD
     <AndroidResource Include="Resources\drawable\SCaRARCADE.png" />
-=======
     <Content Include="ScoreFiles\Local\TestLocalLeaderBoard.txt" />
->>>>>>> origin/master
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
