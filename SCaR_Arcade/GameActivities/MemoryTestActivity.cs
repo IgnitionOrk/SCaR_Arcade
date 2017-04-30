@@ -34,17 +34,24 @@ namespace SCaR_Arcade.GameActivities
     
         protected override void OnCreate(Bundle bundle)
         {
-            base.OnCreate(bundle);
-            
-            SetContentView(Resource.Layout.MemoryTest);
+            try
+            {
+                base.OnCreate(bundle);
 
-            var gridview = FindViewById<GridView>(Resource.Id.gridview);
-            gridview.Adapter = new ImageAdapter(this);
+                SetContentView(Resource.Layout.MemoryTest);
 
-            gridview.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args) {
-                Toast.MakeText(this, args.Position.ToString(), ToastLength.Short).Show();
+                var gridview = FindViewById<GridView>(Resource.Id.gridview);
+                gridview.Adapter = new ImageAdapter(this);
 
-            };
+                gridview.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args) {
+                    Toast.MakeText(this, args.Position.ToString(), ToastLength.Short).Show();
+
+                };
+            }
+            catch
+            {
+                GlobalApp.Alert(this, 0);
+            }
         }
 
         public class ImageAdapter : BaseAdapter

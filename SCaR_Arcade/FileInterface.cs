@@ -114,13 +114,13 @@ namespace SCaR_Arcade
                     // Create a Local (.txt) file;
                     if (isLocal)
                     {
-                        string localPath = @"\Local\" + gTitleTrimmed + "Local.txt";
+                        string localPath = filePath+@"\Local\" + gTitleTrimmed + "Local.txt";
                         File.CreateText(localPath);
                         game.gLocalFileURL = localPath;
                     }
                     else
                     { 
-                        string onlinePath = @"\Online\" + gTitleTrimmed + "Online.txt";
+                        string onlinePath = filePath + @"\Online\" + gTitleTrimmed + "Online.txt";
                         File.CreateText(onlinePath);
                         game.gOnlineFileURL = onlinePath;
                     }

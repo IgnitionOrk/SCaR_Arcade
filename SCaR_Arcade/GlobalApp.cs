@@ -15,7 +15,6 @@ using Android.Widget;
 /// Date created: 20-Apr-2017
 /// Date modified: 20-Apr-2017
 /// </summary>
-
 // This class can be somewhat confusing as to why it has been created.
 // The answer is quite simple. In the original protoypes of the application,
 // when we called e.g.  Intent.GetIntExtra("gameDifficulty",1) in our games, there was a small chance
@@ -52,16 +51,7 @@ namespace SCaR_Arcade
             return gChoice;
         }
         // ----------------------------------------------------------------------------------------------------------------
-        // Issues the appropriate alert is something has gone wrong in the application.
-        public static void Alert(Context c, string iMsg)
-        {
-            // Show an alert.
-            AlertDialog.Builder adb = new AlertDialog.Builder(c);
-            adb.SetMessage(iMsg);
-            adb.SetTitle("Move not allowed");
-            adb.Show();
-        }
-        // ----------------------------------------------------------------------------------------------------------------
+        // Displays an Alert (most definitely an error that has occured at the application level).
         public static void Alert(Context c, int iApp)
         {
             AlertDialog.Builder adb = new AlertDialog.Builder(c);
@@ -70,23 +60,14 @@ namespace SCaR_Arcade
             adb.Show();
         }
         // ----------------------------------------------------------------------------------------------------------------
-        // Issues an alert when the player has won the game.
-        public static void Alert(Context c,int score, string time)
-        {
-            // Show an alert.
-            AlertDialog.Builder adb = new AlertDialog.Builder(c);
-            adb.SetTitle("Congratulations You Won");
-            adb.SetMessage("Your score " + score + " finished in " + time);
-            adb.Show();
-        }
-        // ----------------------------------------------------------------------------------------------------------------
+        // Determines what particular error that has occured.
         private static string getApplicationErrorMessage(int iMsg)
         {
             string message = "";
             switch (iMsg)
             {
                 case 0:
-                    message = "Oops something went wrong";
+                    message = "Oops something went wrong, and have contacted IT support";
                     break;
                 default:
                     message = "Unkown Error";

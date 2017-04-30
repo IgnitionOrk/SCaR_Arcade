@@ -21,20 +21,18 @@ namespace SCaR_Arcade
     static class GameInterface
     {
         private static List<Game> gList;
-        /*
-            When functionality of adding, and deleting games methods AddGame, and removeAt wil be implemented:
-             // ----------------------------------------------------------------------------------------------------------------
-            public static void addGame(Game g)
-            {
-                gList.Add(g);
-            }
-            // ----------------------------------------------------------------------------------------------------------------
-            // Removes the Game in the List @param position.
-            public static void removeAt(int position)
-            {
-                gList.RemoveAt(position);
-            } 
-        */
+        // When functionality of adding, and deleting games methods AddGame, and removeAt wil be implemented:
+        // ----------------------------------------------------------------------------------------------------------------
+        public static void addGame(Game g)
+        {
+            gList.Add(g);
+        }
+        // ----------------------------------------------------------------------------------------------------------------
+        // Removes the Game in the List @param position.
+        public static void removeAt(int position)
+        {
+            gList.RemoveAt(position);
+        } 
         // ----------------------------------------------------------------------------------------------------------------
         // Returns the Game in the list @param position
         public static Game getGameAt(int position)
@@ -58,10 +56,9 @@ namespace SCaR_Arcade
                 // Here we
                 // We can dynamically had the games the user has added.
                 // by connecting to the cloud
-                // ------------------------
                 // but for now well just add these three.
                 gList.Add(new Game { gTitle = "Tower of Hanoi", gLogo = Resource.Drawable.game1, gMenuBackground = Resource.Drawable.game1bg, minDifficulty = 3, maxDifficulty = 8, gType = typeof(GameActivities.TowersOfHanoiActivity) });
-                gList.Add(new Game { gTitle = "Memory test", gLogo = Resource.Drawable.game2, gType = typeof(GameActivities.TowersOfHanoiActivity) });
+                gList.Add(new Game { gTitle = "Memory test", gLogo = Resource.Drawable.game2, gType = typeof(GameActivities.MemoryTestActivity) });
                 gList.Add(new Game { gTitle = "A game with a long name", gLogo = Resource.Drawable.game3 });
             }
         }

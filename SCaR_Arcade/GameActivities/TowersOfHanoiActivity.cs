@@ -25,8 +25,6 @@ namespace SCaR_Arcade.GameActivities
     )]
     public class TowersOfHanoiActivity :  Activity, View.IOnLongClickListener, View.IOnDragListener
     {
-        // ----------------------------------------------------------------------------------------------------------------
-        // Instances of TowersOfHanoiActivity;
         private GameLogic.TowersOfHanoiLogic logic;
         private Chronometer chronometer;
         private TextView elapsedTime;
@@ -37,54 +35,45 @@ namespace SCaR_Arcade.GameActivities
         private ImageView[] poles;
         private const int MAXCOMPONENTS = 3;
         private int numberOfMoves = 0;
-
-        private Color[] cPalette ={
-            Color.AliceBlue,
-            Color.Coral,
-            Color.Gold,
-            Color.Honeydew,
-            Color.Pink,
-            Color.Tan,
-            Color.WhiteSmoke,
-            Color.Blue
-        };
-
         // Used when a drag and drop event has occured to store data. 
         private View disk;
         private LinearLayout removedFromLinearLayout;
 
         protected override void OnCreate(Bundle bundle)
         {
-            base.OnCreate(bundle);
+            try
+            {
+                base.OnCreate(bundle);
+                SetContentView(Resource.Layout.TowersOfHanoi);
+                Button btnReplay = FindViewById<Button>(Resource.Id.btnReplay);
+                Button btnQuit = FindViewById<Button>(Resource.Id.btnQuit);
+                TextView txtOptimalNoOfMoves = FindViewById<TextView>(Resource.Id.txtViewOptNoOfMoves);
+                chronometer = FindViewById<Chronometer>(Resource.Id.cTimer);
+                elapsedTime = FindViewById<TextView>(Resource.Id.txtVElapsedTime);
+                txtVScore = FindViewById<TextView>(Resource.Id.txtVScore);
+                gameDisplay = FindViewById<LinearLayout>(Resource.Id.linLayGameDisplay);
 
-          
-            SetContentView(Resource.Layout.TowersOfHanoi);
-            
-            Button btnReplay = FindViewById<Button>(Resource.Id.btnReplay);
-            Button btnQuit = FindViewById<Button>(Resource.Id.btnQuit);
-            TextView txtOptimalNoOfMoves = FindViewById<TextView>(Resource.Id.txtViewOptNoOfMoves);
-            chronometer = FindViewById<Chronometer>(Resource.Id.cTimer);
-            elapsedTime = FindViewById<TextView>(Resource.Id.txtVElapsedTime);
-            txtVScore = FindViewById<TextView>(Resource.Id.txtVScore);
-            gameDisplay = FindViewById<LinearLayout>(Resource.Id.linLayGameDisplay);
+                // Build the game display that the user will interact with;
+                Game();
 
-            // Build the game display that the user will interact with;
-            Game();
+                // Initializing data for the game.
+                logic = new GameLogic.TowersOfHanoiLogic(MAXCOMPONENTS, Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1));
+                txtOptimalNoOfMoves.Text = string.Format("{0}", "Optimal no. of moves: " + logic.calOptimalNoOfMoves(Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1)));
+                txtVScore.Text = "No. of moves: " + 0;
+                chronometer.Visibility = Android.Views.ViewStates.Invisible;
 
-            // Initializing data for the game.
-            logic = new GameLogic.TowersOfHanoiLogic(MAXCOMPONENTS, Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1));
-            txtOptimalNoOfMoves.Text = string.Format("{0}", "Optimal no. of moves: " + logic.calOptimalNoOfMoves(Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1)));
-            txtVScore.Text = "No. of moves: " + 0;
-            chronometer.Visibility = Android.Views.ViewStates.Invisible;
+                // Event handlers:
+                btnReplay.Click += btnReplayOnClick;
+                btnQuit.Click += btnQuitOnClick;
+                chronometer.ChronometerTick += chronometerOnTick;
 
-
-            // Event handlers:
-            btnReplay.Click += btnReplayOnClick;
-            btnQuit.Click += btnQuitOnClick;
-            chronometer.ChronometerTick += chronometerOnTick;
-
-            // Begin the timer;
-            chronometer.Start();
+                // Begin the timer;
+                chronometer.Start();
+            }
+            catch
+            {
+                GlobalApp.Alert(this, 0);
+            }
         }
 
         // ----------------------------------------------------------------------------------------------------------------
@@ -94,9 +83,9 @@ namespace SCaR_Arcade.GameActivities
         private void Game()
         {
             createFrameLayouts();   // Will Allow both ImageViews (Poles) and ImageView (Disks) to be placed on top of eachother.
-            createImageViews();       // Images of the poles that are displayed. 
-            createLinearLayouts();   // (Vertical) Stacks that will hold the disks. 
-            createDisks();                 //  Movable disks that the user interacts with;
+            createImageViews();     // Images of the poles that are displayed. 
+            createLinearLayouts();  // (Vertical) Stacks that will hold the disks. 
+            createDisks();          //  Movable disks that the user interacts with;
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Initialize Layout manager (FrameLayout) as so to group an ImageView, and LinearLayout;
@@ -230,18 +219,6 @@ namespace SCaR_Arcade.GameActivities
             return bMapDiskScaled;
         }
         // ----------------------------------------------------------------------------------------------------------------
-        private Bitmap changeBitmapColour(Bitmap bit, int index)
-        {
-            for (int xCoord = 0; xCoord < bit.Width; xCoord++)
-            {
-                for (int yCoord = 0; yCoord < bit.Height; yCoord++)
-                {
-                    bit.SetPixel(xCoord, yCoord, cPalette[index]);
-                }
-            }
-            return bit;
-        }
-        // ----------------------------------------------------------------------------------------------------------------
         // Calculate the new width for a Bitmap image;
         // the image will be 5% shorter, than its predecessor;
         private int determineNewWidth(int currentWidth, int count)
@@ -289,8 +266,7 @@ namespace SCaR_Arcade.GameActivities
         // Whilst the drag is still in progress
         // Reference: https://forums.xamarin.com/discussion/63590/drag-and-drop-in-android-c
         public bool OnDrag(View v, DragEvent args)
-        {
-            
+        {          
             switch (args.Action)
             {
                 case DragAction.Entered:
@@ -351,16 +327,14 @@ namespace SCaR_Arcade.GameActivities
                     topDiskIsOnlyClickable();
                     numberOfMoves++;
                     txtVScore.Text = "No. of moves: " + numberOfMoves;
-
                 }
                 else
                 {
                     // Show an alert.
-                    invalidMoveMessage(0);
+                    Alert(0, 0);
                     // Adding the disk, that was just removed back into the linearlayout it came from at the top of the stack;
                     removedFromLinearLayout.AddView(disk, 0);
                 }
-
                 if (logic.ifWon())
                 {
                     txtVScore.Text = "No. of moves: " + numberOfMoves;
@@ -369,37 +343,52 @@ namespace SCaR_Arcade.GameActivities
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
-        // The game has ended.
+        // The game has ended so the score, and time will be displayed.
         private void end()
         {
             chronometer.Stop();
-            GlobalApp.Alert(this, numberOfMoves, chronometer.Text.ToString());
-           // determineResponse(false);
+            Alert(1, 1);
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Event Handler: Will direct the player to the Game menu.
         public override void OnBackPressed()
         {
-            try
-            {
-                Intent intent = new Intent(this, typeof(GameMenuActivity));
-                StartActivity(intent);
-            }
-            catch
-            {
-                invalidMoveMessage(0); 
-            }
+            BeginActivity(typeof(GameMenuActivity),"", 0);
         }
         // ----------------------------------------------------------------------------------------------------------------
+        /*
+            INTERNAL ALERTS FOR TOWERS OF HANOI.        
+        */
         // Display an error message for the invalid move.
-        private void invalidMoveMessage(int msg)
+        private void Alert(int iTitle, int iMessage)
         {
-            string message = this.getGameErrorMessage(msg);
-            GlobalApp.Alert(this, message);
+            string title = this.getAlertTitle(iTitle);
+            string message = this.getAlertMessage(iMessage);
+            // Show an alert.
+            AlertDialog.Builder adb = new AlertDialog.Builder(this);
+            adb.SetMessage(message);
+            adb.SetTitle(title);
+            adb.Show();
         }
         // ----------------------------------------------------------------------------------------------------------------
-        // Determines what Game message is needed. 
-        private string getGameErrorMessage(int iMsg)
+        // Determines, and returns the correct title for an alert about to be executed.
+        private string getAlertTitle(int iMsg)
+        {
+            string title = "";
+            switch (iMsg)
+            {
+                case 0:
+                    title = "Incorrect move.";
+                    break;
+                case 1:
+                    title = "You've won!!";
+                    break;
+            }
+            return title;
+        }
+        // ----------------------------------------------------------------------------------------------------------------
+        // Determines, and returns the correct message for an alert about to be executed.
+        private string getAlertMessage(int iMsg)
         {
             string message = "";
             switch (iMsg)
@@ -408,15 +397,11 @@ namespace SCaR_Arcade.GameActivities
                     message = "You cannot place larger disks on top of smaller disks";
                     break;
                 case 1:
-                    message = "You have dropped the disk outside of the game screen.";
-                    break;
-                default:
-                    message = "Unkown Error";
+                    message = "Your score " + numberOfMoves + " finished in " + chronometer.Text;
                     break;
             }
             return message;
         }
-
         // ----------------------------------------------------------------------------------------------------------------
         // Determines which @param lin is referring to. 
         // This method is vital for determining if the move is allowed or not. 
@@ -486,35 +471,43 @@ namespace SCaR_Arcade.GameActivities
         // Determines the appropriate response if a particular button has been pressed. 
         private void determineResponse(bool isReplay)
         {
+            if (chronometer != null)
+            {
+                chronometer.Stop();
+                chronometer = null;
+            }
+            if (logic != null)
+            {
+                logic.deleteBoard();
+                logic = null;
+            }
+            if (isReplay)
+            {
+                BeginActivity(typeof(TowersOfHanoiActivity), GlobalApp.getVariableDifficultyName(), Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1));
+            }
+            else
+            {
+                BeginActivity(typeof(GameMenuActivity), "", 0);
+            }
+        }
+        // ----------------------------------------------------------------------------------------------------------------
+        // Begins the Activity specified by @param type.
+        private void BeginActivity(Type type, string variableName, int value)
+        {
             try
             {
-                if (chronometer != null)
+                Intent intent = new Intent(this, type);
+                if (type != typeof(MainActivity))
                 {
-                    chronometer.Stop();
-                    chronometer = null;
-                }
-                if (logic != null)
-                {
-                    logic.deleteBoard();
-                    logic = null;
-                }
-                Intent intent = null;
-                if (isReplay)
-                {
-                    intent = new Intent(this, typeof(TowersOfHanoiActivity));
-                    intent.PutExtra(GlobalApp.getVariableDifficultyName(), Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1));
-                }
-                else
-                {
-                    intent = new Intent(this, typeof(GameMenuActivity));
+                    intent.PutExtra(variableName, value);
                 }
                 StartActivity(intent);
             }
             catch
             {
-                // The boolean parameter determines if the Error message displayed is an application or game error.
-                // In this case it is an application error.
-                GlobalApp.Alert(this, 0);
+                // because an error has happend at the Application level
+                // We delegate the responsibility to the GlobalApp class.
+                GlobalApp.Alert(this, 2);
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
