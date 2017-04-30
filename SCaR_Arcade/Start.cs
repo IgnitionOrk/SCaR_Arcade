@@ -42,7 +42,7 @@ namespace SCaR_Arcade
                 timer.Interval = 3000;
                 timer.Start();
 
-                BeginActivity(typeof(MainActivity), "", 0);
+                //BeginActivity(typeof(MainActivity), "", 0);
             }
             catch
             {
