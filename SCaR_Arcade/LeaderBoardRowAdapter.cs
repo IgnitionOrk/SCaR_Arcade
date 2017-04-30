@@ -88,7 +88,19 @@ namespace SCaR_Arcade
         // ----------------------------------------------------------------------------------------------------------------
         private List<Game> PopulateGameData()
         {
+
+            for (int i = 0; i > 19; i++) {
+
+                System.Diagnostics.Debug.Write(FileInterface.readFromLocalFile(i));
+                //TODO: Seperate the line by "-"
+                // can add a funchtion that uses the count of "-", to detirmine type of leaderboard.
+                // maybe a leaderboard class that can handle adding things better like the Game.cs so not much change has to made to the adapter.
+
+            }
+
+            //will return a LeaderBoard List instead of Game if class is made
             return GameInterface.getGames();
+
         }
     }
 }

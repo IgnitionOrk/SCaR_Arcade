@@ -138,7 +138,7 @@ namespace SCaR_Arcade
         {
             string lineScore = "";
             // Determine if there is not a Local (.txt) file.
-            if (File.Exists(game.gOnlineFileURL))
+            if (File.Exists(game.gLocalFileURL))
             {
                 using (StreamReader sr = File.OpenText(game.gLocalFileURL))
                 {
