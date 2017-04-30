@@ -80,6 +80,9 @@ namespace SCaR_Arcade
 			// aapt resource value: 0x7f02000b
 			public const int Pole = 2130837515;
 			
+			// aapt resource value: 0x7f02000c
+			public const int SCaRARCADE = 2130837516;
+			
 			static Drawable()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
@@ -236,7 +239,10 @@ namespace SCaR_Arcade
 			public const int MemoryTest = 2130903045;
 			
 			// aapt resource value: 0x7f030006
-			public const int TowersOfHanoi = 2130903046;
+			public const int Start = 2130903046;
+			
+			// aapt resource value: 0x7f030007
+			public const int TowersOfHanoi = 2130903047;
 			
 			static Layout()
 			{
