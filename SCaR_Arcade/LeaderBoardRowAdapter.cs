@@ -36,11 +36,11 @@ namespace SCaR_Arcade
         {
             context = activity;
 
-            if (data == null)
-            {
+            //if (data == null)
+            //{
 
                 data = PopulateGameData();
-            }
+            //}
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Defined method signature by BaseAdapter interface.
@@ -88,16 +88,16 @@ namespace SCaR_Arcade
         // ----------------------------------------------------------------------------------------------------------------
         private List<Game> PopulateGameData()
         {
+            System.Diagnostics.Debug.Write("HAHAHAHAH");
+            for (int i = 0; i < 19; i++) {
 
-            for (int i = 0; i > 19; i++) {
-
-                System.Diagnostics.Debug.Write(FileInterface.readFromLocalFile(i));
+                System.Diagnostics.Debug.Write(FileInterface.readFromLocalFile(i+1));
                 //TODO: Seperate the line by "-"
                 // can add a funchtion that uses the count of "-", to detirmine type of leaderboard.
                 // maybe a leaderboard class that can handle adding things better like the Game.cs so not much change has to made to the adapter.
 
             }
-
+            System.Diagnostics.Debug.Write("HAHAHAHAH");
             //will return a LeaderBoard List instead of Game if class is made
             return GameInterface.getGames();
 
