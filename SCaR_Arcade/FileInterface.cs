@@ -137,8 +137,11 @@ namespace SCaR_Arcade
         public static string readFromLocalFile(int line)
         {
             try {
-                String path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+                
                 string fileName = Path.Combine(path, game.gLocalFileURL);
+
+                System.Diagnostics.Debug.WriteLine(fileName);
+
                 string lineScore = "8";
                 // Determine if there is not a Local (.txt) file.
                 if (fileName != null && File.Exists(fileName))

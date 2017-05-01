@@ -65,7 +65,7 @@ namespace SCaR_Arcade
                     minDifficulty = 3,
                     maxDifficulty = 8,
                     gType = typeof(GameActivities.TowersOfHanoiActivity),
-                    gLocalFileURL = "SCaR_Arcade/ScoreFiles/Local/TestLocalLeaderBoard.txt"
+                    gLocalFileURL = "TestLocalLeaderBoard.txt"
                 }
                 );
 
