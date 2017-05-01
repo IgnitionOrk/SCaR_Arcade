@@ -134,22 +134,32 @@ namespace SCaR_Arcade
         // ----------------------------------------------------------------------------------------------------------------
         // Reads a particular line (determine by the @param count), and returns it.
         // Line will come from the Local file of the game.
-        public static string readFromLocalFile(int count)
+        public static string readFromLocalFile(int line)
         {
-            string lineScore = "";
-            // Determine if there is not a Local (.txt) file.
-            if (File.Exists(game.gLocalFileURL))
-            {
-                using (StreamReader sr = File.OpenText(game.gLocalFileURL))
+            try {
+                String path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+                string fileName = Path.Combine(path, game.gLocalFileURL);
+                string lineScore = "8";
+                // Determine if there is not a Local (.txt) file.
+                if (fileName != null && File.Exists(fileName))
                 {
-                    for (int i = 0; i < count && sr.Peek() > -1; i++)
+                    lineScore = "10";
+                    using (StreamReader sr = File.OpenText(fileName))
                     {
-                        lineScore = sr.ReadLine();
+                        for (int i = 0; i < line && sr.Peek() > -1; i++)
+                        {
+                            System.Diagnostics.Debug.WriteLine("HERE");
+                            lineScore = sr.ReadLine();
+                        }
                     }
                 }
+                return lineScore;
             }
-            return lineScore;
-        }
+            catch
+            {
+                return "9";
+            }
+ }
         // ----------------------------------------------------------------------------------------------------------------
         // Reads a particular line (determine by the @param count), and returns it.
         // Line will come from the Online file of the game.

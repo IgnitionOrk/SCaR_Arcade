@@ -91,7 +91,7 @@ namespace SCaR_Arcade
             System.Diagnostics.Debug.Write("HAHAHAHAH");
             for (int i = 0; i < 19; i++) {
 
-               // System.Diagnostics.Debug.Write(FileInterface.readFromLocalFile(i+1));
+               System.Diagnostics.Debug.Write(FileInterface.readFromLocalFile(i));
                 //TODO: Seperate the line by "-"
                 // can add a funchtion that uses the count of "-", to detirmine type of leaderboard.
                 // maybe a leaderboard class that can handle adding things better like the Game.cs so not much change has to made to the adapter.

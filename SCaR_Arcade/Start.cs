@@ -32,7 +32,7 @@ namespace SCaR_Arcade
        * sources
        * http://stackoverflow.com/questions/27196590/i-want-create-timer-thread-for-android-with-xamarin
        * https://developer.xamarin.com/guides/android/user_interface/creating_a_splash_screen/
-       * https://forums.xamarin.com/discussion/58925/how-can-i-set-a-progressbar-in-android-using-c
+       * https://forums.xamarin.com/discussion/58925/how-can-i-set-a-progressbar-in-android-using-cq
       */
         private ImageView appLogoImgView;
         private ProgressBar progress;

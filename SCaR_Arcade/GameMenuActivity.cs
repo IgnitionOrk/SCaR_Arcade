@@ -80,6 +80,7 @@ namespace SCaR_Arcade
                 // Add the plus and minus pictures to the two image buttons, 
                 // that can increase or decrease the difficulty level.
                 addPlusAndMinus();
+                FileInterface.addCurrentGame(game);
             }
             catch
             {
