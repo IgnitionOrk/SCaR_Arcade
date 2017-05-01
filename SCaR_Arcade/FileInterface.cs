@@ -138,6 +138,7 @@ namespace SCaR_Arcade
         {
             try {
                 
+                string path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
                 string fileName = Path.Combine(path, game.gLocalFileURL);
 
                 System.Diagnostics.Debug.WriteLine(fileName);
