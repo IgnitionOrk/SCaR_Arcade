@@ -1,74 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="25px"
+    android:minHeight="25px"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/FullScreenLinLay">
-    <LinearLayout
-        android:orientation="horizontal"
-        android:minWidth="25px"
-        android:minHeight="240px"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/UpperLinLay"
-        android:layout_marginLeft="160px"
-        android:layout_marginRight="160px"
-        android:paddingTop="40px">
-        <Button
-            android:text="Local"
-            android:layout_width="160dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:textSize="30sp"
-            android:id="@+id/btnLocal" />
-        <Button
-            android:text="Online"
-            android:layout_width="160dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:textSize="30sp"
-            android:id="@+id/btnOnline" />
-    </LinearLayout>
+    android:layout_height="wrap_content"
+    android:id="@+id/relativeLayout1">
     <LinearLayout
         android:orientation="vertical"
-        android:minWidth="25px"
-        android:minHeight="1800px"
         android:layout_width="match_parent"
-        android:id="@+id/MiddleLinLay"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:id="@+id/FullScreenLinLay">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:minWidth="25px"
+            android:minHeight="240px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/UpperLinLay"
+            android:layout_marginLeft="160px"
+            android:layout_marginRight="160px"
+            android:paddingTop="40px">
+            <Button
+                android:text="Local"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:textSize="30sp"
+                android:id="@+id/btnLocal" />
+            <Button
+                android:text="Online"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textSize="30sp"
+                android:id="@+id/btnOnline" />
+        </LinearLayout>
         <LinearLayout
             android:orientation="vertical"
             android:minWidth="25px"
             android:minHeight="1800px"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/LeaderBoardLinLay"
-            android:layout_marginLeft="160px"
-            android:layout_marginRight="160px">
-            <ListView
+            android:id="@+id/MiddleLinLay"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="vertical"
                 android:minWidth="25px"
                 android:minHeight="1800px"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/LeaderBoardListView" />
+                android:id="@+id/LeaderBoardLinLay"
+                android:layout_marginLeft="160px"
+                android:layout_marginRight="160px">
+                <ListView
+                    android:minWidth="25px"
+                    android:minHeight="1800px"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/LeaderBoardListView" />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:minWidth="25px"
+            android:minHeight="240px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/LowerLinLay"
+            android:layout_marginLeft="160px"
+            android:layout_marginRight="160px">
+            <Button
+                android:text="BACK"
+                android:layout_width="237.5dp"
+                android:layout_height="match_parent"
+                android:id="@+id/btnGameSelect"
+                android:layout_gravity="center"
+                android:textSize="30sp"
+                android:layout_marginTop="40px" />
         </LinearLayout>
     </LinearLayout>
-    <LinearLayout
-        android:orientation="vertical"
-        android:minWidth="25px"
-        android:minHeight="240px"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/LowerLinLay"
-        android:layout_marginLeft="160px"
-        android:layout_marginRight="160px">
-        <Button
-            android:text="BACK"
-            android:layout_width="237.5dp"
-            android:layout_height="match_parent"
-            android:id="@+id/btnGameSelect"
-            android:layout_gravity="center"
-            android:textSize="30sp"
-            android:layout_marginTop="40px" />
-    </LinearLayout>
-</LinearLayout>
+</RelativeLayout>
