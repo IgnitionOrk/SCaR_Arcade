@@ -404,7 +404,8 @@ namespace SCaR_Arcade.GameActivities
                             + "\n\nPress outside of the box to continue.";
                     break;
                 case 1:
-                    message = "Score: " + numberOfMoves + ".\nTime: " + chronometer.Text;
+                    message = "Moves: " + numberOfMoves + ".\nTime: " + chronometer.Text
+                            + "\n\nPress outside of the box.";
                     break;
             }
             return message;

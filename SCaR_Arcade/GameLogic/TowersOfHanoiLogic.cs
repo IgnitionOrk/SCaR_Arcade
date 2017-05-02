@@ -65,9 +65,7 @@ namespace SCaR_Arcade.GameLogic
         // Determines the optimal number of moves the player can beat the game in.
         public int calOptimalNoOfMoves(int number)
         {
-            int optimalNoOfMoves = (int)Math.Pow(2, number);
-            optimalNoOfMoves -= 1;
-            return optimalNoOfMoves;
+            return ((int)Math.Pow(2, number)) - 1;
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Determines if the game was been won.
