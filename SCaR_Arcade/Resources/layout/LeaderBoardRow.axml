@@ -7,7 +7,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/positiontxt"
-        android:textSize="25sp"
+        android:textSize="18sp"
         android:paddingStart="15.5dp"
         android:paddingTop="15.5dp" />
     <TextView
@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/nametxt"
-        android:textSize="25sp"
+        android:textSize="18sp"
         android:paddingStart="15.5dp"
         android:paddingTop="15.5dp" />
     <TextView
@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/timetxt"
-        android:textSize="25sp"
+        android:textSize="18sp"
         android:paddingStart="15.5dp"
         android:paddingTop="15.5dp" />
   <TextView
@@ -31,7 +31,7 @@
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:id="@+id/scoretxt"
-       android:textSize="25sp"
+       android:textSize="18sp"
        android:paddingStart="15.5dp"
        android:paddingTop="15.5dp" />
 </LinearLayout>
