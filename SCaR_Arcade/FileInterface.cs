@@ -131,6 +131,19 @@ namespace SCaR_Arcade
 
             }
         }
+
+        public static string readFromFile(bool isOnlineFile)
+        {
+            if (isOnlineFile)
+            {
+
+            }
+            else
+            {
+
+            }
+            return "";
+        }
         // ----------------------------------------------------------------------------------------------------------------
         // Reads a particular line (determine by the @param count), and returns it.
         // Line will come from the Local file of the game.

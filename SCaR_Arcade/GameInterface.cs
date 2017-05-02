@@ -69,15 +69,22 @@ namespace SCaR_Arcade
                 }
                 );
 
-                gList.Add(new Game { gTitle = "Memory test",
-                                     gLogo = Resource.Drawable.game2,
-                                     gType = typeof(GameActivities.MemoryTestActivity)
-                                   }
+                gList.Add(new Game
+                {
+                    gTitle = "Memory test",
+                    gLogo = Resource.Drawable.game2,
+                    gMenuBackground = Resource.Drawable.game1bg,
+                    minDifficulty = 3,
+                    maxDifficulty = 8,
+                    gType = typeof(GameActivities.MemoryTestActivity)
+                }
                 );
 
-                gList.Add(new Game { gTitle = "A game with a long name",
-                                     gLogo = Resource.Drawable.game3
-                                    }
+                gList.Add(new Game
+                {
+                    gTitle = "A game with a long name",
+                    gLogo = Resource.Drawable.game3
+                }
                 );
             }
         }

@@ -47,6 +47,8 @@ namespace SCaR_Arcade
                 LeaderBoard = FindViewById<LinearLayout>(Resource.Id.LeaderBoardLinLay);
                 LeaderBoardListView = FindViewById<ListView>(Resource.Id.LeaderBoardListView);
                 btnBack = FindViewById<Button>(Resource.Id.btnGameSelect);
+
+
                 LeaderBoardListView.Adapter = new LeaderBoardRowAdapter(this);
 
                 // get the index of the item the player has chosen.

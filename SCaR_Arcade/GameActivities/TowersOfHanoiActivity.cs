@@ -372,9 +372,14 @@ namespace SCaR_Arcade.GameActivities
         {
             string title = this.getAlertTitle(iTitle);
             string message = this.getAlertMessage(iMessage);
-            // Show an alert.
+
+            // Stop the chronometer or the player will be timed for actually not playing the game.
             chronometer.Stop();
+
+            // Say that time the chronometer was stopped so we can restart it. 
             pausedAt = chronometer.Base - SystemClock.ElapsedRealtime(); 
+
+            // Now we build the Alert that will show the error message.
             AlertDialog.Builder adb = new AlertDialog.Builder(this);
             adb.SetMessage(message);
             adb.SetTitle(title);

@@ -97,10 +97,8 @@ namespace SCaR_Arcade
                 // maybe a leaderboard class that can handle adding things better like the Game.cs so not much change has to made to the adapter.
 
             }
-            System.Diagnostics.Debug.Write("HAHAHAHAH");
             //will return a LeaderBoard List instead of Game if class is made
             return GameInterface.getGames();
-
         }
     }
 }
