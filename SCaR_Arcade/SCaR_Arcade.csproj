@@ -56,6 +56,7 @@
     <Compile Include="FileInterface.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GameActivities\MemoryTestActivity.cs" />
+    <Compile Include="LeaderBoard.cs" />
     <Compile Include="LeaderBoardActivity.cs" />
     <Compile Include="LeaderBoardRowAdapter.cs" />
     <Compile Include="MainRowAdapter.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Start.cs" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidAsset Include="Assets\Symbols1.ttf" />
     <None Include="GettingStarted.Xamarin" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />

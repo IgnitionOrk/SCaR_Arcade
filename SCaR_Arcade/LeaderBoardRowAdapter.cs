@@ -19,7 +19,7 @@ using Android.Widget;
 
 namespace SCaR_Arcade
 {
-    class LeaderBoardRowAdapter:BaseAdapter<Game>
+    class LeaderBoardRowAdapter:BaseAdapter<LeaderBoard>
     {
         // ----------------------------------------------------------------------------------------------------------------
         /*
@@ -27,7 +27,7 @@ namespace SCaR_Arcade
          * http://blog.atavisticsoftware.com/2014/02/listview-using-activitylistitem-style.html
          * http://blog.atavisticsoftware.com/2014/01/listview-basics-for-xamarain-android.html
         */
-        private List<Game> data;
+        private List<LeaderBoard> data;
         private Activity context;
 
         // ----------------------------------------------------------------------------------------------------------------
@@ -36,15 +36,15 @@ namespace SCaR_Arcade
         {
             context = activity;
 
-            //if (data == null)
-            //{
+            if (data == null)
+            {
 
-                data = PopulateGameData();
-            //}
+                data = PopulateLeaderBoardData();
+            }
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Defined method signature by BaseAdapter interface.
-        public override Game this[int position]
+        public override LeaderBoard this[int position]
         {
             get { return data[position]; } 
         }
@@ -70,35 +70,87 @@ namespace SCaR_Arcade
                 view = context.LayoutInflater.Inflate(SCaR_Arcade.Resource.Layout.LeaderBoardRow, null);
             }
 
-            var game = data[position];
+            var row = data[position];
 
+            
             //add text colom details down list
             TextView leaderboardPosition = view.FindViewById<TextView>(SCaR_Arcade.Resource.Id.positiontxt);
-            leaderboardPosition.Text = "P#"+position;
+            leaderboardPosition.Text = "P#"+ row.lbPosition; ;
 
             TextView name = view.FindViewById<TextView>(SCaR_Arcade.Resource.Id.nametxt);
-            name.Text = "N#"+game.maxDifficulty;
+            name.Text = "N#"+row.lbName;
+
+            TextView time = view.FindViewById<TextView>(SCaR_Arcade.Resource.Id.timetxt);
+            time.Text = "T#" + row.lbTime;
 
             TextView score = view.FindViewById<TextView>(SCaR_Arcade.Resource.Id.scoretxt);
-            score.Text = "S#"+game.minDifficulty;
+            score.Text = "S#"+row.lbScore;
 
 
             return view;
         }
         // ----------------------------------------------------------------------------------------------------------------
-        private List<Game> PopulateGameData()
+        private List<LeaderBoard> PopulateLeaderBoardData()
         {
-            System.Diagnostics.Debug.Write("HAHAHAHAH");
-            for (int i = 0; i < 19; i++) {
 
-               System.Diagnostics.Debug.Write(FileInterface.readFromLocalFile(i));
-                //TODO: Seperate the line by "-"
-                // can add a funchtion that uses the count of "-", to detirmine type of leaderboard.
-                // maybe a leaderboard class that can handle adding things better like the Game.cs so not much change has to made to the adapter.
+            bool testing = true;
 
+<<<<<<< HEAD
             }
             //will return a LeaderBoard List instead of Game if class is made
             return GameInterface.getGames();
+=======
+            List<LeaderBoard> lbList = new List<LeaderBoard>();
+
+
+            if (testing)
+            {
+                System.Diagnostics.Debug.Write("HAHAHAHAH");
+                if (lbList != null) {
+                    System.Diagnostics.Debug.Write("LOLOLOLOLO");
+                    lbList.Add(new LeaderBoard
+                    {
+                    lbPosition = "1",
+                    lbName = "AAA",
+                    lbTime = "07.10",
+                    lbScore = "13"
+                     }
+                    );
+                    lbList.Add(new LeaderBoard
+                    {
+                        lbPosition = "2",
+                        lbName = "DAD",
+                        lbTime = "08.10",
+                        lbScore = "12"
+                    }
+                    );
+                    lbList.Add(new LeaderBoard
+                    {
+                        lbPosition = "3",
+                        lbName = "LOL",
+                        lbTime = "09.10",
+                        lbScore = "11"
+                    }
+                    );
+                }
+            }
+            else
+            { 
+                System.Diagnostics.Debug.Write("HAHAHAHAH");
+                for (int i = 0; i < 19; i++)
+                {
+
+                    System.Diagnostics.Debug.Write(FileInterface.readFromLocalFile(i));
+                    //TODO: Seperate the line by "-"
+                    // can add a funchtion that uses the count of "-", to detirmine type of leaderboard.
+                    // maybe a leaderboard class that can handle adding things better like the Game.cs so not much change has to made to the adapter.
+
+                }
+                System.Diagnostics.Debug.Write("HAHAHAHAH");
+                //will return a LeaderBoard List instead of Game if class is made
+             }
+            return lbList;
+>>>>>>> origin/master
         }
     }
 }
