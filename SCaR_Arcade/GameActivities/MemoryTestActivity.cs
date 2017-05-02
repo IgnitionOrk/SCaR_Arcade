@@ -40,10 +40,10 @@ namespace SCaR_Arcade.GameActivities
 
                 SetContentView(Resource.Layout.MemoryTest);
 
-                var gridview = FindViewById<GridView>(Resource.Id.gridview);
-                gridview.Adapter = new ImageAdapter(this);
+                var GameBoard = FindViewById<GridView>(Resource.Id.GameBoard);
+                GameBoard.Adapter = new ImageAdapter(this);
 
-                gridview.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args) {
+                GameBoard.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args) {
                     Toast.MakeText(this, args.Position.ToString(), ToastLength.Short).Show();
 
                 };
@@ -114,7 +114,7 @@ namespace SCaR_Arcade.GameActivities
         //Resource.Drawable.sample_2, Resource.Drawable.sample_3,
         //Resource.Drawable.sample_4, Resource.Drawable.sample_5,
         //Resource.Drawable.sample_6, Resource.Drawable.sample_7
-    };
+                            };
         }
 
     }
