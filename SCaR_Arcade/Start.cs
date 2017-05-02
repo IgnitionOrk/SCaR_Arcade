@@ -21,7 +21,7 @@ using Android.Graphics;
 namespace SCaR_Arcade
 {
     [Activity(
-        Label = "Start",
+        Label = "SCaR Arcade",
         MainLauncher = true,
         Icon = "@drawable/SCaRARCADE",
         Theme = "@android:style/Theme.NoTitleBar"
@@ -59,7 +59,7 @@ namespace SCaR_Arcade
                 GlobalApp.Alert(this, 1);
             }
         }
-        // Initiates a timer. 
+        // Initiates a timer, used to simulate the application loading. 
         private void CountDown()
         {
             timer = new System.Timers.Timer();            
@@ -92,7 +92,7 @@ namespace SCaR_Arcade
             }
             catch
             {
-                // because an error has happend at the Application level
+                // Because an error has happend at the application level
                 // We delegate the responsibility to the GlobalApp class.
                 GlobalApp.Alert(this, 2);
             }

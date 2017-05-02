@@ -45,6 +45,7 @@ namespace SCaR_Arcade.GameActivities
             {
                 base.OnCreate(bundle);
                 SetContentView(Resource.Layout.TowersOfHanoi);
+
                 Button btnReplay = FindViewById<Button>(Resource.Id.btnReplay);
                 Button btnQuit = FindViewById<Button>(Resource.Id.btnQuit);
                 TextView txtOptimalNoOfMoves = FindViewById<TextView>(Resource.Id.txtViewOptNoOfMoves);
@@ -52,7 +53,6 @@ namespace SCaR_Arcade.GameActivities
                 elapsedTime = FindViewById<TextView>(Resource.Id.txtVElapsedTime);
                 txtVScore = FindViewById<TextView>(Resource.Id.txtVScore);
                 gameDisplay = FindViewById<LinearLayout>(Resource.Id.linLayGameDisplay);
-
                 // Build the game display that the user will interact with;
                 Game();
 
@@ -75,7 +75,6 @@ namespace SCaR_Arcade.GameActivities
                 GlobalApp.Alert(this, 0);
             }
         }
-
         // ----------------------------------------------------------------------------------------------------------------
         // builds the game that the user will interact with at runtime. 
         // Initially the game had multiple instance variables for each ImageViews (Poles), and LinearLayouts (vertical)
@@ -118,23 +117,32 @@ namespace SCaR_Arcade.GameActivities
             for (int i = 0; i < MAXCOMPONENTS; i++)
             {
                 poles[i] = new ImageView(this);
-                poles[i].SetImageResource(Resource.Drawable.Pole);
                 poles[i].SetScaleType(ImageView.ScaleType.FitCenter);
                 poles[i].Enabled = false;
                 frameLayout[i].AddView(poles[i], imageViewParameters);
+                if (i == MAXCOMPONENTS - 1)
+                {
+                    // Make the target pole a different colour.
+                    // As so the player can differentiate which is the target pole. 
+                    poles[i].SetImageResource(Resource.Drawable.TargetPole);
+                }
+                else
+                {
+                    poles[i].SetImageResource(Resource.Drawable.Pole);
+                }
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Creates the LinearLayouts (vertical) that will hold the ImageViews (disks).
         private void createLinearLayouts()
         {
-            linearLayout = new LinearLayout[MAXCOMPONENTS];
+            int paddingHeight = Resources.DisplayMetrics.HeightPixels / 6;
 
+            linearLayout = new LinearLayout[MAXCOMPONENTS];
             LinearLayout.LayoutParams linearParameters = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MatchParent,
                 LinearLayout.LayoutParams.MatchParent
             );
-
             for (int i = 0; i < MAXCOMPONENTS; i++)
             {
                 linearLayout[i] = new LinearLayout(this);
@@ -144,9 +152,7 @@ namespace SCaR_Arcade.GameActivities
                 linearLayout[i].SetGravity(Android.Views.GravityFlags.Bottom);
                 linearLayout[i].SetHorizontalGravity(Android.Views.GravityFlags.Center);
                 linearLayout[i].SetOnDragListener(this);
-                linearLayout[i].SetPadding(0, 0, 0, 250);
-                //linearParameters.SetMargins(0, 0, 0, 50);
-                linearLayout[i].LayoutParameters = linearParameters;
+                linearLayout[i].SetPadding(0, 0, 0, paddingHeight);
                 frameLayout[i].AddView(linearLayout[i], linearParameters);
             }
         }
@@ -394,10 +400,11 @@ namespace SCaR_Arcade.GameActivities
             switch (iMsg)
             {
                 case 0:
-                    message = "You cannot place larger disks on top of smaller disks";
+                    message = "You cannot place larger disks on top of smaller disks."
+                            + "\n\nPress outside of the box to continue.";
                     break;
                 case 1:
-                    message = "Your score " + numberOfMoves + " finished in " + chronometer.Text;
+                    message = "Score: " + numberOfMoves + ".\nTime: " + chronometer.Text;
                     break;
             }
             return message;

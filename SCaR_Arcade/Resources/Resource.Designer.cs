@@ -83,6 +83,9 @@ namespace SCaR_Arcade
 			// aapt resource value: 0x7f02000c
 			public const int SCaRARCADE = 2130837516;
 			
+			// aapt resource value: 0x7f02000d
+			public const int TargetPole = 2130837517;
+			
 			static Drawable()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
