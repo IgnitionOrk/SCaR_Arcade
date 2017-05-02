@@ -18,12 +18,11 @@ using System.Threading.Tasks;
 namespace SCaR_Arcade.GameActivities
 {
     [Activity(
-        Label = "TowersOfHanoiActivity",
-        MainLauncher = false,
+        Label = "",
         ScreenOrientation = Android.Content.PM.ScreenOrientation.Landscape,
         Theme = "@android:style/Theme.NoTitleBar"
     )]
-    public class TowersOfHanoiActivity :  Activity, View.IOnLongClickListener, View.IOnDragListener
+    public class TowersOfHanoiActivity :  Activity, View.IOnLongClickListener, View.IOnDragListener, IDialogInterfaceOnDismissListener
     {
         private GameLogic.TowersOfHanoiLogic logic;
         private Chronometer chronometer;
@@ -38,7 +37,7 @@ namespace SCaR_Arcade.GameActivities
         // Used when a drag and drop event has occured to store data. 
         private View disk;
         private LinearLayout removedFromLinearLayout;
-
+        private long pausedAt = 0;
         protected override void OnCreate(Bundle bundle)
         {
             try
@@ -366,15 +365,32 @@ namespace SCaR_Arcade.GameActivities
             INTERNAL ALERTS FOR TOWERS OF HANOI.        
         */
         // Display an error message for the invalid move.
+        // Also stops the chronometer from continuing to count up.
+        // http://stackoverflow.com/questions/42006181/chronometer-is-still-running-after-calling-stop
+        // Helped with how to stop, and start the chronometer.s
         private void Alert(int iTitle, int iMessage)
         {
             string title = this.getAlertTitle(iTitle);
             string message = this.getAlertMessage(iMessage);
             // Show an alert.
+            chronometer.Stop();
+            pausedAt = chronometer.Base - SystemClock.ElapsedRealtime(); 
             AlertDialog.Builder adb = new AlertDialog.Builder(this);
             adb.SetMessage(message);
             adb.SetTitle(title);
+            adb.SetOnDismissListener(this);
             adb.Show();
+
+
+        }
+        // ----------------------------------------------------------------------------------------------------------------
+        // When the alert is dismissed by the player. The chronometer will continue the game clock.
+        public void OnDismiss(IDialogInterface dialog)
+        {
+            chronometer.Base = SystemClock.ElapsedRealtime() + pausedAt;
+
+            // Continue the chronometer.
+            chronometer.Start();
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Determines, and returns the correct title for an alert about to be executed.

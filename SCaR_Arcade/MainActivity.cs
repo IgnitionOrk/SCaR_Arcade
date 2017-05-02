@@ -39,9 +39,7 @@ namespace SCaR_Arcade
                 base.OnCreate(bundle);
                 SetContentView(Resource.Layout.Main);
                 lvGameList = FindViewById<ListView>(Resource.Id.lvGameList);
-
                 lvGameList.Adapter = new MainRowAdapter(this);
-
                 lvGameList.ItemClick += listViewItemClick;
             }
             catch
@@ -54,25 +52,25 @@ namespace SCaR_Arcade
         // and moves to GameMenuActivity.
         private void listViewItemClick(Object sender, AdapterView.ItemClickEventArgs args)
         {
-            try
-            {
-                BeginActivity(typeof(GameMenuActivity), GlobalApp.getVariableChoiceName(), args.Position);
-            }
-            catch
-            {
-                GlobalApp.Alert(this, 0);
-            }
+            BeginActivity(typeof(GameMenuActivity), GlobalApp.getVariableChoiceName(), args.Position);
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Begins the Activity specified by @param type.
         private void BeginActivity(Type type, string variableName, int value)
         {
-            Intent intent = new Intent(this, type);
-            if (type != typeof(MainActivity))
+            try
             {
-                intent.PutExtra(variableName, value);
+                Intent intent = new Intent(this, type);
+                if (type != typeof(MainActivity))
+                {
+                    intent.PutExtra(variableName, value);
+                }
+                StartActivity(intent);
             }
-            StartActivity(intent);
+            catch
+            {
+                GlobalApp.Alert(this, 0);
+            }
         }
     }
 }
