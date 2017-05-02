@@ -2,11 +2,12 @@
 <GridLayout xmlns:p1="http://schemas.android.com/apk/res/android"
     p1:layout_width="match_parent"
     p1:layout_height="match_parent"
-    p1:id="@+id/GameBoard">
+    p1:id="@+id/GameBoard"
+    p1:backgroundTint="#ff6495ed">
     <Button
-        p1:text="c"
+        p1:text="C"
         p1:id="@+id/button1"
         p1:backgroundTint="#ff6495ed"
         p1:textAlignment="center"
-        p1:fontFamily="webdings" />
+        p1:fontFamily="Assets/Symbols1.ttf" />
 </GridLayout>
