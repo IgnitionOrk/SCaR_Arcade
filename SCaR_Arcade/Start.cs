@@ -45,7 +45,7 @@ namespace SCaR_Arcade
             try
             {
                 base.OnCreate(savedInstanceState);
-
+                base.
                 SetContentView(Resource.Layout.Start);
                 appLogoImgView = FindViewById<ImageView>(Resource.Id.ApplicationLogoImgView);
                 progress = FindViewById<ProgressBar>(Resource.Id.startProgress);
