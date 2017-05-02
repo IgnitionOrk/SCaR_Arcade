@@ -95,11 +95,7 @@ namespace SCaR_Arcade
 
             bool testing = true;
 
-<<<<<<< HEAD
-            }
-            //will return a LeaderBoard List instead of Game if class is made
-            return GameInterface.getGames();
-=======
+
             List<LeaderBoard> lbList = new List<LeaderBoard>();
 
 
@@ -150,7 +146,7 @@ namespace SCaR_Arcade
                 //will return a LeaderBoard List instead of Game if class is made
              }
             return lbList;
->>>>>>> origin/master
+
         }
     }
 }
