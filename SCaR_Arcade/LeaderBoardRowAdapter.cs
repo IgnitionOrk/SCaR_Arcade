@@ -136,10 +136,27 @@ namespace SCaR_Arcade
                 for (int i = 0; i < 19; i++)
                 {
 
-                    System.Diagnostics.Debug.Write(FileInterface.readFromLocalFile(i));
-                    //TODO: Seperate the line by "-"
-                    // can add a funchtion that uses the count of "-", to detirmine type of leaderboard.
-                    // maybe a leaderboard class that can handle adding things better like the Game.cs so not much change has to made to the adapter.
+                    System.Diagnostics.Debug.Write(FileInterface.readFromLocalFile(i+1));
+                    /*
+                     
+                       string line = FileInterface.readFromLocalFile(i+1);
+                      
+                       split line by "-"
+                       string pos = 1st split;
+                       string name = 2nd split;
+                       string time = 3rd split;
+                       string score = 4th split;     
+
+                       lbList.Add(new LeaderBoard
+                       {
+                            lbPosition = pos,
+                            lbName = name,
+                            lbTime = time,
+                            lbScore = score"
+                       }
+                       );
+                      
+                     */
 
                 }
                 System.Diagnostics.Debug.Write("HAHAHAHAH");
