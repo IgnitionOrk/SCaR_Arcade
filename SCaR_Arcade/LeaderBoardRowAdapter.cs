@@ -137,26 +137,23 @@ namespace SCaR_Arcade
                 {
 
                     System.Diagnostics.Debug.Write(FileInterface.readFromLocalFile(i+1));
-                    /*
+                    
                      
-                       string line = FileInterface.readFromLocalFile(i+1);
+                    string line = FileInterface.readFromLocalFile(i+1);
                       
-                       split line by "-"
-                       string pos = 1st split;
-                       string name = 2nd split;
-                       string time = 3rd split;
-                       string score = 4th split;     
-
-                       lbList.Add(new LeaderBoard
-                       {
-                            lbPosition = pos,
-                            lbName = name,
-                            lbTime = time,
-                            lbScore = score"
-                       }
-                       );
+                    Char delimiter = '-';
+                    String[] subStrings = line.Split(delimiter);
+                       
+                    lbList.Add(new LeaderBoard
+                    {
+                        lbPosition = subStrings[0],
+                        lbName = subStrings[1],
+                        lbTime = subStrings[2],
+                        lbScore = subStrings[3]
+                    }
+                    );
                       
-                     */
+                     
 
                 }
                 System.Diagnostics.Debug.Write("HAHAHAHAH");
