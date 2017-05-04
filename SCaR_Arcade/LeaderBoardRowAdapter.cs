@@ -94,11 +94,11 @@ namespace SCaR_Arcade
                 List<string> unsortList = FileInterface.readFromFile(false);
 
                 // This list will be sorted;
-                List<LeaderBoard> lbList = new List<LeaderBoard>();
+                List<LeaderBoard> unsortedLb = new List<LeaderBoard>();
 
                 if (!testing)
                 {
-                    lbList = initializeData(lbList);
+                    unsortedLb = initializeData(unsortedLb);
                 }
                 else
                 {
@@ -110,7 +110,7 @@ namespace SCaR_Arcade
                         Char delimiter = '-';
                         String[] subStrings = line.Split(delimiter);
 
-                        lbList.Add(new LeaderBoard
+                        unsortedLb.Add(new LeaderBoard
                         {
                             lbPosition = subStrings[0],
                             lbName = subStrings[1],
@@ -121,7 +121,7 @@ namespace SCaR_Arcade
                     }
                 }
                 // Return a sorted Leaderboard list. 
-                data = sort(lbList);
+                data = sort(unsortedLb);
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
