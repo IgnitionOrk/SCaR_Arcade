@@ -62,10 +62,12 @@ namespace SCaR_Arcade
                     gTitle = "Tower of Hanoi",
                     gLogo = Resource.Drawable.game1,
                     gMenuBackground = Resource.Drawable.game1bg,
-                    minDifficulty = 3,
-                    maxDifficulty = 8,
+                    gMinDifficulty = 3,
+                    gMaxDifficulty = 8,
                     gType = typeof(GameActivities.TowersOfHanoiActivity),
-                    gLocalFileURL = "TestLocalLeaderBoard.txt"
+                    gLocalFileURL = "TestLocalLeaderBoard.txt",
+                    gDiscription = "ToH_GameDiscription.txt"
+                    
                 }
                 );
 
@@ -74,8 +76,8 @@ namespace SCaR_Arcade
                     gTitle = "Memory test",
                     gLogo = Resource.Drawable.game2,
                     gMenuBackground = Resource.Drawable.game1bg,
-                    minDifficulty = 3,
-                    maxDifficulty = 8,
+                    gMinDifficulty = 3,
+                    gMaxDifficulty = 8,
                     gType = typeof(GameActivities.MemoryTestActivity)
                 }
                 );

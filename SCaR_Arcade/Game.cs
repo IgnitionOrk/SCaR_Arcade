@@ -30,7 +30,8 @@ namespace SCaR_Arcade
         // The path to the location of the local.txt file that contains the scores of global players. 
         public string gOnlineFileURL { get; set; } 
         public Type gType { get; set; }
-        public int minDifficulty { get; set; }
-        public int maxDifficulty { get; set; }
+        public int gMinDifficulty { get; set; }
+        public int gMaxDifficulty { get; set; }
+        public string gDiscription { get; set; }
     }
 }

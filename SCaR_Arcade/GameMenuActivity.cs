@@ -10,6 +10,8 @@ using Android.Graphics;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Android.Content.Res;
+using System.IO;
 
 /// <summary>
 /// Creator: Ryan Cunneen
@@ -30,6 +32,8 @@ namespace SCaR_Arcade
         private LinearLayout FullScreen;
         private TextView txtGameTitle;
         private TextView txtDifficulty;
+        private TextView discrptionTitle;
+        private TextView gameDiscrption;
         private Button btnStart;
         private Button btnLeaderBoard;
         private Button btnBack;
@@ -57,15 +61,24 @@ namespace SCaR_Arcade
                 btnBack = FindViewById<Button>(Resource.Id.btnGameSelect);
                 imgBtnIn = FindViewById<ImageButton>(Resource.Id.imgBtnIncrease);
                 imgBtnDe = FindViewById<ImageButton>(Resource.Id.imgBtnDecrease);
-
+                gameDiscrption = FindViewById<TextView>(Resource.Id.discrption);
+                discrptionTitle = FindViewById<TextView>(Resource.Id.textView1);
                 // get the index of the item the player has chosen.
                 gameChoice = Intent.GetIntExtra(GlobalApp.getVariableChoiceName(), 0);
 
+                string content = "Blah blah blah,Blah blah blah,Blah blah blah,Blah blah blah,Blah blah blah,Blah blah blah,Blah blah blah,Blah blah blah,";
+               /* AssetManager assets = Assets;
+                using (StreamReader sr = new StreamReader(assets.Open("/GameDiscription/"+game.gDiscription)))
+                {
+                    content = sr.ReadToEnd();
+                }*/
+
                 // Return the game from the list.
+                gameDiscrption.Text = content;
                 game = GameInterface.getGameAt(gameChoice);
-                difficulty = game.minDifficulty;
-                minDifficulty = game.minDifficulty;
-                maxDifficulty = game.maxDifficulty;
+                difficulty = game.gMinDifficulty;
+                minDifficulty = game.gMinDifficulty;
+                maxDifficulty = game.gMaxDifficulty;
                 txtDifficulty.Text = String.Format("{0}", difficulty);
                 txtGameTitle.Text = game.gTitle;
                 FullScreen.SetBackgroundResource(game.gMenuBackground);

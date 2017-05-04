@@ -93,10 +93,20 @@ namespace SCaR_Arcade
         private List<LeaderBoard> PopulateLeaderBoardData()
         {
 
+<<<<<<< HEAD
             bool testing = true;
             //will return a LeaderBoard List instead of Game if class is made
             List<LeaderBoard> lbList = new List<LeaderBoard>();
             if (testing)
+=======
+            bool testing = false;
+
+
+            List<LeaderBoard> lbList = new List<LeaderBoard>();
+
+
+            if (!testing)
+>>>>>>> origin/master
             {
                 System.Diagnostics.Debug.Write("HAHAHAHAH");
                 if (lbList != null) {
@@ -133,16 +143,34 @@ namespace SCaR_Arcade
                 for (int i = 0; i < 19; i++)
                 {
 
-                    System.Diagnostics.Debug.Write(FileInterface.readFromLocalFile(i));
-                    //TODO: Seperate the line by "-"
-                    // can add a funchtion that uses the count of "-", to detirmine type of leaderboard.
-                    // maybe a leaderboard class that can handle adding things better like the Game.cs so not much change has to made to the adapter.
+                    System.Diagnostics.Debug.Write(FileInterface.readFromLocalFile(i+1));
+                    
+                     
+                    string line = FileInterface.readFromLocalFile(i+1);
+                      
+                    Char delimiter = '-';
+                    String[] subStrings = line.Split(delimiter);
+                       
+                    lbList.Add(new LeaderBoard
+                    {
+                        lbPosition = subStrings[0],
+                        lbName = subStrings[1],
+                        lbTime = subStrings[2],
+                        lbScore = subStrings[3]
+                    }
+                    );
+                      
+                     
 
                 }
                 System.Diagnostics.Debug.Write("HAHAHAHAH");
                 //will return a LeaderBoard List instead of Game if class is made
              }
             return lbList;
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
         }
     }
 }
