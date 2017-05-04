@@ -35,12 +35,7 @@ namespace SCaR_Arcade
         public LeaderBoardRowAdapter (Activity activity)
         {
             context = activity;
-
-            if (data == null)
-            {
-
-                data = PopulateLeaderBoardData();
-            }
+            PopulateLeaderBoardData();
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Defined method signature by BaseAdapter interface.
@@ -90,75 +85,62 @@ namespace SCaR_Arcade
             return view;
         }
         // ----------------------------------------------------------------------------------------------------------------
-        private List<LeaderBoard> PopulateLeaderBoardData()
+        private void PopulateLeaderBoardData()
         {
-
-            bool testing = false;
-
-
-            List<LeaderBoard> lbList = new List<LeaderBoard>();
-
-            FileInterface.readFromLocalFile();
-
-            if (!testing)
+            if (data == null)
             {
-                System.Diagnostics.Debug.Write("HAHAHAHAH");
-                if (lbList != null) {
-                    System.Diagnostics.Debug.Write("LOLOLOLOLO");
-                    lbList.Add(new LeaderBoard
+                bool testing = false;
+                List<LeaderBoard> lbList = new List<LeaderBoard>();
+                // Local file is determine by the boolean parameter.
+                FileInterface.readFromFile(false);
+                if (!testing)
+                {
+                    if (lbList != null)
                     {
-                    lbPosition = "1",
-                    lbName = "AAA",
-                    lbTime = "07.10",
-                    lbScore = "13"
-                     }
-                    );
-                    lbList.Add(new LeaderBoard
-                    {
-                        lbPosition = "2",
-                        lbName = "DAD",
-                        lbTime = "08.10",
-                        lbScore = "12"
+                        lbList.Add(new LeaderBoard
+                        {
+                            lbPosition = "1",
+                            lbName = "AAA",
+                            lbTime = "07.10",
+                            lbScore = "13"
+                        }
+                        );
+                        lbList.Add(new LeaderBoard
+                        {
+                            lbPosition = "2",
+                            lbName = "DAD",
+                            lbTime = "08.10",
+                            lbScore = "12"
+                        }
+                        );
+                        lbList.Add(new LeaderBoard
+                        {
+                            lbPosition = "3",
+                            lbName = "LOL",
+                            lbTime = "09.10",
+                            lbScore = "11"
+                        }
+                        );
                     }
-                    );
-                    lbList.Add(new LeaderBoard
+                }
+                else
+                {
+                    for (int i = 0; i < 19; i++)
                     {
-                        lbPosition = "3",
-                        lbName = "LOL",
-                        lbTime = "09.10",
-                        lbScore = "11"
+                        string line = FileInterface.readFromFile(false);
+                        Char delimiter = '-';
+                        String[] subStrings = line.Split(delimiter);
+                        lbList.Add(new LeaderBoard
+                        {
+                            lbPosition = subStrings[0],
+                            lbName = subStrings[1],
+                            lbTime = subStrings[2],
+                            lbScore = subStrings[3]
+                        }
+                        );
                     }
-                    );
                 }
             }
-            else
-            { 
-                for (int i = 0; i < 19; i++)
-                {
-
-                    
-                     
-                    string line = FileInterface.readFromLocalFile();
-                      
-                    Char delimiter = '-';
-                    String[] subStrings = line.Split(delimiter);
-                       
-                    lbList.Add(new LeaderBoard
-                    {
-                        lbPosition = subStrings[0],
-                        lbName = subStrings[1],
-                        lbTime = subStrings[2],
-                        lbScore = subStrings[3]
-                    }
-                    );
-                      
-                     
-
-                }
-                //will return a LeaderBoard List instead of Game if class is made
-             }
-            return lbList;
-
         }
     }
 }

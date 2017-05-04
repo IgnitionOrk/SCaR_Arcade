@@ -132,42 +132,33 @@ namespace SCaR_Arcade
             }
         }
 
-        public static string readFromFile(bool isOnlineFile)
+        public static string readFromFile(bool isOnline)
         {
-            if (isOnlineFile)
+            try
             {
-
-            }
-            else
-            {
-
-            }
-            return "";
-        }
-        // ----------------------------------------------------------------------------------------------------------------
-        // Reads a particular line (determine by the @param count), and returns it.
-        // Line will come from the Local file of the game.
-        public static string readFromLocalFile()
-        {
-            try {
-                System.Diagnostics.Debug.WriteLine("HEREREREREEJGOGHo");
-                System.Diagnostics.Debug.WriteLine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments));
-                string dir = Path.GetFullPath(Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments), @"/ScoreFiles/Local/TestLocalLeaderBoard.txt"));
-                System.Diagnostics.Debug.WriteLine(dir);
-                string filePath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments), @"/ScoreFiles/Local/TestLocalLeaderBoard.txt");
-                System.Diagnostics.Debug.WriteLine(File.Exists(filePath));
+                List<string> scoreLines = new List<string>();
+                string path = "";
+                if (isOnline)
+                {
+                    path = @"/ScoreFiles/Online/";
+                }
+                else
+                {
+                    path = @"/ScoreFiles/Local/";
+                }
                 string lineScore = "8";
                 // Determine if there is not a Local (.txt) file.
                 if (File.Exists(filePath))
                 {
-                    
-                    lineScore = "10";
+
                     using (StreamReader sr = File.OpenText(filePath))
                     {
                         for (int i = 0; i < 10 && sr.Peek() > -1; i++)
                         {
-                            System.Diagnostics.Debug.WriteLine(sr.ReadLine());
-                            
+                            lineScore = sr.ReadLine();
+                            System.Diagnostics.Debug.WriteLine(lineScore);
+                            scoreLines.Add(lineScore);
+
                         }
                     }
                 }
@@ -175,27 +166,8 @@ namespace SCaR_Arcade
             }
             catch
             {
-                return "9";
+                return null;
             }
- }
-        // ----------------------------------------------------------------------------------------------------------------
-        // Reads a particular line (determine by the @param count), and returns it.
-        // Line will come from the Online file of the game.
-        public static string readFromOnlineFile(int count)
-        {
-            string lineScore = "";
-            // Determine if there is not a Local (.txt) file.
-            if (File.Exists(game.gOnlineFileURL))
-            {
-                using (StreamReader sr = File.OpenText(game.gOnlineFileURL))
-                {
-                    for (int i = 0; i < count && sr.Peek() > -1; i++)
-                    {
-                        lineScore = sr.ReadLine();
-                    }
-                }
-            }
-            return lineScore;
         }
     }
 }
