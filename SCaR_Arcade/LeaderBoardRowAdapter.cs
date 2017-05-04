@@ -93,12 +93,6 @@ namespace SCaR_Arcade
         private List<LeaderBoard> PopulateLeaderBoardData()
         {
 
-<<<<<<< HEAD
-            bool testing = true;
-            //will return a LeaderBoard List instead of Game if class is made
-            List<LeaderBoard> lbList = new List<LeaderBoard>();
-            if (testing)
-=======
             bool testing = false;
 
 
@@ -106,7 +100,6 @@ namespace SCaR_Arcade
 
 
             if (!testing)
->>>>>>> origin/master
             {
                 System.Diagnostics.Debug.Write("HAHAHAHAH");
                 if (lbList != null) {
@@ -167,10 +160,7 @@ namespace SCaR_Arcade
                 //will return a LeaderBoard List instead of Game if class is made
              }
             return lbList;
-<<<<<<< HEAD
-=======
 
->>>>>>> origin/master
         }
     }
 }
