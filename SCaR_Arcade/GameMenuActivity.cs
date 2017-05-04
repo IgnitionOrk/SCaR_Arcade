@@ -63,12 +63,13 @@ namespace SCaR_Arcade
                 imgBtnDe = FindViewById<ImageButton>(Resource.Id.imgBtnDecrease);
                 gameDiscrption = FindViewById<TextView>(Resource.Id.discrption);
                 discrptionTitle = FindViewById<TextView>(Resource.Id.textView1);
+
                 // get the index of the item the player has chosen.
                 gameChoice = Intent.GetIntExtra(GlobalApp.getVariableChoiceName(), 0);
 
                 string content = "Blah blah blah,Blah blah blah,Blah blah blah,Blah blah blah,Blah blah blah,Blah blah blah,Blah blah blah,Blah blah blah,";
-               /* AssetManager assets = Assets;
-                using (StreamReader sr = new StreamReader(assets.Open("/GameDiscription/"+game.gDiscription)))
+              /* AssetManager assets = Assets;
+                using (StreamReader sr = new StreamReader(assets.Open("GameDiscription/"+game.gDiscription)))
                 {
                     content = sr.ReadToEnd();
                 }*/
