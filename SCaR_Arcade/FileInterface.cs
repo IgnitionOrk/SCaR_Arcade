@@ -131,13 +131,15 @@ namespace SCaR_Arcade
 
             }
         }
-
+        // ----------------------------------------------------------------------------------------------------------------
         public static List<string> readFromFile(bool isOnline)
         {
             try
             {
                 List<string> scoreLines = new List<string>();
                 string path = "";
+                string lineScore = "";
+
                 if (isOnline)
                 {
                     path = @"/ScoreFiles/Online/";
@@ -146,7 +148,6 @@ namespace SCaR_Arcade
                 {
                     path = @"/ScoreFiles/Local/";
                 }
-                string lineScore = "8";
                 // Determine if there is not a Local (.txt) file.
                 if (File.Exists(filePath))
                 {
