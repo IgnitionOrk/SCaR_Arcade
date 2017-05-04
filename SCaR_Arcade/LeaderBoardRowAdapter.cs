@@ -90,46 +90,26 @@ namespace SCaR_Arcade
             if (data == null)
             {
                 bool testing = false;
+                // Local file is determined by the boolean parameter.
+                List<string> unsortList = FileInterface.readFromFile(false);
+
+                // This list will be sorted;
                 List<LeaderBoard> lbList = new List<LeaderBoard>();
-                // Local file is determine by the boolean parameter.
-                FileInterface.readFromFile(false);
+
                 if (!testing)
                 {
-                    if (lbList != null)
-                    {
-                        lbList.Add(new LeaderBoard
-                        {
-                            lbPosition = "1",
-                            lbName = "AAA",
-                            lbTime = "07.10",
-                            lbScore = "13"
-                        }
-                        );
-                        lbList.Add(new LeaderBoard
-                        {
-                            lbPosition = "2",
-                            lbName = "DAD",
-                            lbTime = "08.10",
-                            lbScore = "12"
-                        }
-                        );
-                        lbList.Add(new LeaderBoard
-                        {
-                            lbPosition = "3",
-                            lbName = "LOL",
-                            lbTime = "09.10",
-                            lbScore = "11"
-                        }
-                        );
-                    }
+                    lbList = initializeData(lbList);
                 }
                 else
                 {
-                    for (int i = 0; i < 19; i++)
+                    for (int i = 0; i < unsortList.Count; i++)
                     {
-                        string line = FileInterface.readFromFile(false);
+                        // Return the data (string) and index i;
+                        string line = unsortList[i];
+
                         Char delimiter = '-';
                         String[] subStrings = line.Split(delimiter);
+
                         lbList.Add(new LeaderBoard
                         {
                             lbPosition = subStrings[0],
@@ -140,7 +120,47 @@ namespace SCaR_Arcade
                         );
                     }
                 }
+                // Return a sorted Leaderboard list. 
+                data = sort(lbList);
             }
+        }
+        // ----------------------------------------------------------------------------------------------------------------
+        private List<LeaderBoard> initializeData(List<LeaderBoard> lbList)
+        {
+            if (lbList != null)
+            {
+                lbList.Add(new LeaderBoard
+                {
+                    lbPosition = "1",
+                    lbName = "AAA",
+                    lbTime = "07.10",
+                    lbScore = "13"
+                }
+                );
+                lbList.Add(new LeaderBoard
+                {
+                    lbPosition = "2",
+                    lbName = "DAD",
+                    lbTime = "08.10",
+                    lbScore = "12"
+                }
+                );
+                lbList.Add(new LeaderBoard
+                {
+                    lbPosition = "3",
+                    lbName = "LOL",
+                    lbTime = "09.10",
+                    lbScore = "11"
+                }
+                );
+            }
+            return lbList;
+        }
+        // ----------------------------------------------------------------------------------------------------------------
+        // We will sort the entire list here. 
+        private List<LeaderBoard> sort(List<LeaderBoard> sortedList)
+        {
+            return sortedList;
         }
     }
 }

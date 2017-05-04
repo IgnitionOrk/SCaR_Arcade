@@ -132,7 +132,7 @@ namespace SCaR_Arcade
             }
         }
 
-        public static string readFromFile(bool isOnline)
+        public static List<string> readFromFile(bool isOnline)
         {
             try
             {
@@ -162,7 +162,7 @@ namespace SCaR_Arcade
                         }
                     }
                 }
-                return lineScore;
+                return scoreLines;
             }
             catch
             {
