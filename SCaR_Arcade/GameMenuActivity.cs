@@ -77,6 +77,8 @@ namespace SCaR_Arcade
                 // Return the game from the list.
                 gameDiscrption.Text = content;
                 game = GameInterface.getGameAt(gameChoice);
+
+
                 difficulty = game.gMinDifficulty;
                 minDifficulty = game.gMinDifficulty;
                 maxDifficulty = game.gMaxDifficulty;
@@ -94,6 +96,8 @@ namespace SCaR_Arcade
                 // Add the plus and minus pictures to the two image buttons, 
                 // that can increase or decrease the difficulty level.
                 addPlusAndMinus();
+
+                // Add the current game to the Interface
                 FileInterface.addCurrentGame(game);
             }
             catch

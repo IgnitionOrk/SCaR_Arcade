@@ -49,13 +49,14 @@ namespace SCaR_Arcade
                 btnBack = FindViewById<Button>(Resource.Id.btnGameSelect);
 
 
+                // Return the game from the list.
+                game = GameInterface.getGameAt(gameChoice);
+
                 LeaderBoardListView.Adapter = new LeaderBoardRowAdapter(this);
 
                 // get the index of the item the player has chosen.
                 gameChoice = Intent.GetIntExtra(GlobalApp.getVariableChoiceName(), 0);
 
-                // Return the game from the list.
-                game = GameInterface.getGameAt(gameChoice);
                 LeaderBoard.SetBackgroundColor(Color.Gray);
                 FullScreen.SetBackgroundResource(game.gMenuBackground);
                 

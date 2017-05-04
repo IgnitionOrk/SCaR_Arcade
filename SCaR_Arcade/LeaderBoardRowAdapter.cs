@@ -98,6 +98,7 @@ namespace SCaR_Arcade
 
             List<LeaderBoard> lbList = new List<LeaderBoard>();
 
+            FileInterface.readFromLocalFile();
 
             if (!testing)
             {
@@ -132,14 +133,12 @@ namespace SCaR_Arcade
             }
             else
             { 
-                System.Diagnostics.Debug.Write("HAHAHAHAH");
                 for (int i = 0; i < 19; i++)
                 {
 
-                    System.Diagnostics.Debug.Write(FileInterface.readFromLocalFile(i+1));
                     
                      
-                    string line = FileInterface.readFromLocalFile(i+1);
+                    string line = FileInterface.readFromLocalFile();
                       
                     Char delimiter = '-';
                     String[] subStrings = line.Split(delimiter);
@@ -156,7 +155,6 @@ namespace SCaR_Arcade
                      
 
                 }
-                System.Diagnostics.Debug.Write("HAHAHAHAH");
                 //will return a LeaderBoard List instead of Game if class is made
              }
             return lbList;

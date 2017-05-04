@@ -147,27 +147,27 @@ namespace SCaR_Arcade
         // ----------------------------------------------------------------------------------------------------------------
         // Reads a particular line (determine by the @param count), and returns it.
         // Line will come from the Local file of the game.
-        public static string readFromLocalFile(int line)
+        public static string readFromLocalFile()
         {
             try {
-                
-                string path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
-                string fileName = Path.Combine(path, "ScoreFiles/Local/"+game.gLocalFileURL);
-
-                System.Diagnostics.Debug.WriteLine(fileName);
-
+                System.Diagnostics.Debug.WriteLine("HEREREREREEJGOGHo");
+                System.Diagnostics.Debug.WriteLine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments));
+                string dir = Path.GetFullPath(Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments), @"/ScoreFiles/Local/TestLocalLeaderBoard.txt"));
+                System.Diagnostics.Debug.WriteLine(dir);
+                string filePath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments), @"/ScoreFiles/Local/TestLocalLeaderBoard.txt");
+                System.Diagnostics.Debug.WriteLine(File.Exists(filePath));
                 string lineScore = "8";
                 // Determine if there is not a Local (.txt) file.
-                if (fileName != null && File.Exists(fileName))
+                if (File.Exists(filePath))
                 {
                     
                     lineScore = "10";
-                    using (StreamReader sr = File.OpenText(fileName))
+                    using (StreamReader sr = File.OpenText(filePath))
                     {
-                        for (int i = 0; i < line && sr.Peek() > -1; i++)
+                        for (int i = 0; i < 10 && sr.Peek() > -1; i++)
                         {
-                            System.Diagnostics.Debug.WriteLine("HERE");
-                            lineScore = sr.ReadLine();
+                            System.Diagnostics.Debug.WriteLine(sr.ReadLine());
+                            
                         }
                     }
                 }
