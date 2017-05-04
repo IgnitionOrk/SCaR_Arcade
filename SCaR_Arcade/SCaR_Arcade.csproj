@@ -144,6 +144,7 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\SCaRARCADE.png" />
     <AndroidResource Include="Resources\drawable\TargetPole.png" />
+    <AndroidAsset Include="Assets\GameDiscriptions\ToH_GameDiscription.txt" />
     <Content Include="ScoreFiles\Local\TestLocalLeaderBoard.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

@@ -93,13 +93,13 @@ namespace SCaR_Arcade
         private List<LeaderBoard> PopulateLeaderBoardData()
         {
 
-            bool testing = true;
+            bool testing = false;
 
 
             List<LeaderBoard> lbList = new List<LeaderBoard>();
 
 
-            if (testing)
+            if (!testing)
             {
                 System.Diagnostics.Debug.Write("HAHAHAHAH");
                 if (lbList != null) {

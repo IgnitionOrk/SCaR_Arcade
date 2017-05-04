@@ -152,7 +152,7 @@ namespace SCaR_Arcade
             try {
                 
                 string path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
-                string fileName = Path.Combine(path, game.gLocalFileURL);
+                string fileName = Path.Combine(path, "ScoreFiles/Local/"+game.gLocalFileURL);
 
                 System.Diagnostics.Debug.WriteLine(fileName);
 
@@ -160,6 +160,7 @@ namespace SCaR_Arcade
                 // Determine if there is not a Local (.txt) file.
                 if (fileName != null && File.Exists(fileName))
                 {
+                    
                     lineScore = "10";
                     using (StreamReader sr = File.OpenText(fileName))
                     {
