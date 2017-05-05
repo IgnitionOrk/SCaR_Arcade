@@ -89,13 +89,13 @@ namespace SCaR_Arcade
         {
             if (data == null)
             {
-                bool testing = false;
+                bool testing = true;
                 // Local file is determined by the boolean parameter.
                 List<string> unsortList = FileInterface.readFromFile(false);
 
                 // This list will be sorted;
                 List<LeaderBoard> unsortedLb = new List<LeaderBoard>();
-
+                FileInterface.createFilesForGame(false);
                 if (!testing)
                 {
                     unsortedLb = initializeData(unsortedLb);

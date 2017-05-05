@@ -93,7 +93,7 @@ namespace SCaR_Arcade
         // ----------------------------------------------------------------------------------------------------------------
         // Will create the Local (.txt), and Online(.txt) file for a particular game (instance variable),
         // And saves the file path into the instance variable game.
-        private static void createFilesForGame(bool isLocal)
+        public static void createFilesForGame(bool isLocal)
         {                
             try
             {
@@ -142,17 +142,17 @@ namespace SCaR_Arcade
 
                 if (isOnline)
                 {
-                    path = @"/ScoreFiles/Online/";
+                    path = @"/ScoreFiles/Online/"+ game.gOnlineFileURL;
                 }
                 else
                 {
-                    path = @"/ScoreFiles/Local/";
+                    path = @"/ScoreFiles/Local/" + game.gLocalFileURL;
                 }
                 // Determine if there is not a Local (.txt) file.
-                if (File.Exists(filePath))
+                if (File.Exists(path))
                 {
 
-                    using (StreamReader sr = File.OpenText(filePath))
+                    using (StreamReader sr = File.OpenText(path))
                     {
                         for (int i = 0; i < 10 && sr.Peek() > -1; i++)
                         {
