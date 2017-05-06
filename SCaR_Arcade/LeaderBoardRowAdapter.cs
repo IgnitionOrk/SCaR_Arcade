@@ -29,12 +29,14 @@ namespace SCaR_Arcade
         */
         private List<LeaderBoard> data;
         private Activity context;
+        private Android.Content.Res.AssetManager assest;
 
         // ----------------------------------------------------------------------------------------------------------------
         // Constructor:
-        public LeaderBoardRowAdapter (Activity activity)
+        public LeaderBoardRowAdapter (Activity activity, Android.Content.Res.AssetManager assest)
         {
             context = activity;
+            this.assest = assest;
             PopulateLeaderBoardData();
         }
         // ----------------------------------------------------------------------------------------------------------------
@@ -91,7 +93,7 @@ namespace SCaR_Arcade
             {
                 bool testing = false;
                 // Local file is determined by the boolean parameter.
-                List<string> unsortList = FileInterface.readFromFile(false);
+                List<string> unsortList = FileInterface.readFromFile(false, assest);
 
                 // This list will be sorted;
                 List<LeaderBoard> unsortedLb = new List<LeaderBoard>();

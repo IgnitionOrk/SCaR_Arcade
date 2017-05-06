@@ -139,13 +139,13 @@
     <AndroidResource Include="Resources\drawable\plus.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ScoreFiles\Online\" />
+    <Folder Include="Assets\ScoreFiles\Online\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\SCaRARCADE.png" />
     <AndroidResource Include="Resources\drawable\TargetPole.png" />
     <AndroidAsset Include="Assets\GameDescriptions\ToH_GameDescription.txt" />
-    <Content Include="ScoreFiles\Local\TestLocalLeaderBoard.txt" />
+    <AndroidAsset Include="Assets\ScoreFiles\Local\test.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

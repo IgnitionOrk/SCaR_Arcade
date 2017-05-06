@@ -16,7 +16,7 @@ namespace SCaR_Arcade
 {
     static class FileInterface
     {
-        private static string filePath = @"SCaR_Arcade\ScoreFiles";
+        private static string filePath = "SCaR_Arcade/ScoreFiles";
         private static Game game;
         private const int MAXNUMBEROFLINES = 20;
         /*
@@ -132,27 +132,27 @@ namespace SCaR_Arcade
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
-        public static List<string> readFromFile(bool isOnline)
+        public static List<string> readFromFile(bool isOnline, Android.Content.Res.AssetManager assest)
         {
             try
             {
                 List<string> scoreLines = new List<string>();
                 string path = "";
                 string lineScore = "";
-
                 if (isOnline)
                 {
-                    path = @"/ScoreFiles/Online/";
+                    path = filePath + game.gOnlineFileURL;
                 }
                 else
                 {
-                    path = @"/ScoreFiles/Local/";
+
+                    path = filePath + game.gLocalFileURL;
                 }
                 // Determine if there is not a Local (.txt) file.
                 if (File.Exists(filePath))
                 {
 
-                    using (StreamReader sr = File.OpenText(filePath))
+                    using (StreamReader sr = new StreamReader(assest.Open(path)))
                     {
                         for (int i = 0; i < 10 && sr.Peek() > -1; i++)
                         {

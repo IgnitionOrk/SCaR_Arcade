@@ -52,7 +52,7 @@ namespace SCaR_Arcade
                 // Return the game from the list.
                 game = GameInterface.getGameAt(gameChoice);
 
-                LeaderBoardListView.Adapter = new LeaderBoardRowAdapter(this);
+                LeaderBoardListView.Adapter = new LeaderBoardRowAdapter(this, Assets);
 
                 // get the index of the item the player has chosen.
                 gameChoice = Intent.GetIntExtra(GlobalApp.getVariableChoiceName(), 0);
