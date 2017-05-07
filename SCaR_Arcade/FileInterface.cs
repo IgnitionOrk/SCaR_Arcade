@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using Android.Net;
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -22,6 +22,7 @@ namespace SCaR_Arcade
         private const string SCOREFILESPATH = "ScoreFiles/";
         private const string GAMEDESCRIPTIONSPATH = "GameDescriptions/";
         private static string saveFileLocation = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments);
+        private static ConnectivityManager connection = (ConnectivityManager)Get
         /*
          * IMPORTANT NOTE:
          * We need to create a method that determines if the file has the MAXNUMBEROFLINES;
