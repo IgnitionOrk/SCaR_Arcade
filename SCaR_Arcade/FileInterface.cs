@@ -56,30 +56,22 @@ namespace SCaR_Arcade
                 gTitleTrimmed = gTitleTrimmed.Replace(" ", String.Empty);
                 if (!Directory.Exists(game.gOnlineDirectory) || !Directory.Exists(game.gLocalDirectory))
                 {
-                    if (isOnline && !Directory.Exists(game.gOnlineDirectory))
-                    {
-                        game.gOnlineFileName = gTitleTrimmed + "Online.txt";
+                    if (!Directory.Exists(game.gOnlineDirectory)) { 
+                        if (isOnline)
+                        {
+                            game.gOnlineFileName = gTitleTrimmed + "Online.txt";
 
-                        // Create a path that contains the (.txt) file.
-                        directory = SCOREFILESPATH + "Online/";
-                        directory = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), directory);
-                        game.gOnlineDirectory = directory;
+                            // Create a path that contains the (.txt) file.
+                            directory = SCOREFILESPATH + "Online/";
+                        }
+                        else
+                        {
+                            game.gLocalFileName = gTitleTrimmed + "Local.txt";
 
-                        // Create the directory 
-                        Directory.CreateDirectory(directory);
+                            // Create a path that contains the (.txt) file.
+                            directory = SCOREFILESPATH + "Local/";
+                        }
 
-                        //Used to create the path in which the .txt file will be located.
-                        path = directory + game.gOnlineFileName;
-
-                        // Create the .txt file at the specified location (directory).
-                        File.Create(path);
-                    }
-                    else
-                    {
-                        game.gLocalFileName = gTitleTrimmed + "Local.txt";
-
-                        // Create a path that contains the (.txt) file.
-                        directory = SCOREFILESPATH + "Local/";
                         directory = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), directory);
                         game.gLocalDirectory = directory;
 
@@ -87,7 +79,7 @@ namespace SCaR_Arcade
                         Directory.CreateDirectory(directory);
 
                         //Used to create the path in which the .txt file will be located.
-                        path = directory + game.gLocalFileName;
+                        path = directory + game.gOnlineFileName;
 
                         // Create the .txt file at the specified location (directory).
                         File.Create(path);
