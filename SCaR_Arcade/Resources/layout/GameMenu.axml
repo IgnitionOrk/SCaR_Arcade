@@ -80,15 +80,26 @@
                 android:layout_gravity="center"
                 android:textSize="30sp" />
         </LinearLayout>
-        <TextView
-            android:text=""
+        <LinearLayout
+            android:orientation="vertical"
+            android:minWidth="25px"
+            android:minHeight="25px"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/desTextView" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/description"
-            android:layout_marginBottom="219.5dp" />
+            android:id="@+id/linearLayout3"
+            android:layout_marginBottom="80dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginLeft="50dp">
+            <TextView
+                android:text=""
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/desTextView" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/description"
+                android:layout_marginBottom="219.5dp" />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

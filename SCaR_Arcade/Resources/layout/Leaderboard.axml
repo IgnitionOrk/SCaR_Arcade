@@ -49,8 +49,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/LeaderBoardLinLay"
-                android:layout_marginLeft="160px"
-                android:layout_marginRight="160px">
+                android:layout_marginLeft="80dp"
+                android:layout_marginRight="80dp"
+                android:layout_marginBottom="60dp">
                 <ListView
                     android:minWidth="25px"
                     android:minHeight="1800px"
