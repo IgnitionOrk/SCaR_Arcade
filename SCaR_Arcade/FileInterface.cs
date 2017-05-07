@@ -21,6 +21,7 @@ namespace SCaR_Arcade
         private static Android.Content.Res.AssetManager assets;
         private const string SCOREFILESPATH = "ScoreFiles/";
         private const string GAMEDESCRIPTIONSPATH = "GameDescriptions/";
+        private static string saveFileLocation = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments);
         /*
          * IMPORTANT NOTE:
          * We need to create a method that determines if the file has the MAXNUMBEROFLINES;
@@ -48,9 +49,6 @@ namespace SCaR_Arcade
 
                 if (!Directory.Exists(game.gOnlineDirectory) && isOnline || !Directory.Exists(game.gLocalDirectory) && !isOnline)
                 {
-                    string filePath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments);
-                    System.Diagnostics.Debug.Write(filePath);
-
                     string directory = "";
                     string path = "";
                     // gTitle is the title of the game without spaces
@@ -61,6 +59,12 @@ namespace SCaR_Arcade
                     // Then we replace all whitespaces in between with empty;
                     gTitleTrimmed = gTitleTrimmed.Replace(" ", String.Empty);
 
+                    System.Diagnostics.Debug.WriteLine("Check Point One *Begining*------------------------------------------------------");
+                    System.Diagnostics.Debug.WriteLine("Does Directory exist?--:  " + Directory.Exists(directory));
+                    System.Diagnostics.Debug.WriteLine("Directory pathway------:  " + directory);
+                    System.Diagnostics.Debug.WriteLine("Does File exist?-------:  " + File.Exists(path));
+                    System.Diagnostics.Debug.WriteLine("File pathway-----------:  " + path);
+                    System.Diagnostics.Debug.WriteLine("--------------------------------------------------------------------------------");
 
                     if (isOnline)
                     {
@@ -77,22 +81,44 @@ namespace SCaR_Arcade
                         directory = SCOREFILESPATH + "Local/";
                     }
 
-                    directory = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), directory);
+                    directory = Path.Combine(saveFileLocation, directory);
                     game.gLocalDirectory = directory;
+
+                    System.Diagnostics.Debug.WriteLine("Check Point Two *Directory Path Set*-------------------------------------------");
+                    System.Diagnostics.Debug.WriteLine("Does Directory exist?--:  " + Directory.Exists(directory));
+                    System.Diagnostics.Debug.WriteLine("Directory pathway------:  " + directory);
+                    System.Diagnostics.Debug.WriteLine("Does File exist?-------:  " + File.Exists(path));
+                    System.Diagnostics.Debug.WriteLine("File pathway-----------:  " + path);
+                    System.Diagnostics.Debug.WriteLine("--------------------------------------------------------------------------------");
+
 
                     // Create the directory 
                     Directory.CreateDirectory(directory);
 
+                    System.Diagnostics.Debug.WriteLine("Check Point Three *Directory Created*-------------------------------------------");
+                    System.Diagnostics.Debug.WriteLine("Does Directory exist?--:  " + Directory.Exists(directory));
+                    System.Diagnostics.Debug.WriteLine("Directory pathway------:  " + directory);
+                    System.Diagnostics.Debug.WriteLine("Does File exist?-------:  " + File.Exists(path));
+                    System.Diagnostics.Debug.WriteLine("File pathway-----------:  " + path);
+                    System.Diagnostics.Debug.WriteLine("--------------------------------------------------------------------------------");
+
                     //Used to create the path in which the .txt file will be located.
                     path = directory + game.gOnlineFileName;
-
+                    System.Diagnostics.Debug.WriteLine("Check Point Four *File path Set*------------------------------------------------");
+                    System.Diagnostics.Debug.WriteLine("Does Directory exist?--:  " + Directory.Exists(directory));
+                    System.Diagnostics.Debug.WriteLine("Directory pathway------:  " + directory);
+                    System.Diagnostics.Debug.WriteLine("Does File exist?-------:  " + File.Exists(path));
+                    System.Diagnostics.Debug.WriteLine("File pathway-----------:  " + path);
+                    System.Diagnostics.Debug.WriteLine("--------------------------------------------------------------------------------");
                     // Create the .txt file at the specified location (directory).
                     File.Create(path);
 
-
-                    System.Diagnostics.Debug.WriteLine("HEREREREEREREREREREERER:  " + Directory.Exists(directory));
-                    System.Diagnostics.Debug.WriteLine("HEREREREEREREREREREERER:  " + path);
-                    System.Diagnostics.Debug.WriteLine("HEREREREEREREREREREERER:  " + File.Exists(path));
+                    System.Diagnostics.Debug.WriteLine("Check Point Five *File Created*-------------------------------------------------");
+                    System.Diagnostics.Debug.WriteLine("Does Directory exist?--:  " + Directory.Exists(directory));
+                    System.Diagnostics.Debug.WriteLine("Directory pathway------:  " + directory);
+                    System.Diagnostics.Debug.WriteLine("Does File exist?-------:  " + File.Exists(path));
+                    System.Diagnostics.Debug.WriteLine("File pathway-----------:  " + path);
+                    System.Diagnostics.Debug.WriteLine("--------------------------------------------------------------------------------");
 
                 }
             }

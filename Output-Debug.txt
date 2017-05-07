@@ -1,0 +1,31 @@
+﻿[0:] Check Point One *Begining*------------------------------------------------------
+[0:] Does Directory exist?--:  False
+[0:] Directory pathway------:  
+[0:] Does File exist?-------:  False
+[0:] File pathway-----------:  
+[0:] --------------------------------------------------------------------------------
+[0:] Check Point Two *Directory Path Set*-------------------------------------------
+[0:] Does Directory exist?--:  True
+[0:] Directory pathway------:  /data/user/0/SCaR_Arcade.SCaR_Arcade/files/ScoreFiles/Online/
+[0:] Does File exist?-------:  False
+[0:] File pathway-----------:  
+[0:] --------------------------------------------------------------------------------
+[0:] Check Point Three *Directory Created*-------------------------------------------
+[0:] Does Directory exist?--:  True
+[0:] Directory pathway------:  /data/user/0/SCaR_Arcade.SCaR_Arcade/files/ScoreFiles/Online/
+[0:] Does File exist?-------:  False
+[0:] File pathway-----------:  
+[0:] --------------------------------------------------------------------------------
+[0:] Check Point Four *File path Set*------------------------------------------------
+[0:] Does Directory exist?--:  True
+[0:] Directory pathway------:  /data/user/0/SCaR_Arcade.SCaR_Arcade/files/ScoreFiles/Online/
+[0:] Does File exist?-------:  True
+[0:] File pathway-----------:  /data/user/0/SCaR_Arcade.SCaR_Arcade/files/ScoreFiles/Online/TowersofHanoiOnline.txt
+[0:] --------------------------------------------------------------------------------
+[0:] Check Point Five *File Created*-------------------------------------------------
+[0:] Does Directory exist?--:  True
+[0:] Directory pathway------:  /data/user/0/SCaR_Arcade.SCaR_Arcade/files/ScoreFiles/Online/
+[0:] Does File exist?-------:  True
+[0:] File pathway-----------:  /data/user/0/SCaR_Arcade.SCaR_Arcade/files/ScoreFiles/Online/TowersofHanoiOnline.txt
+[0:] --------------------------------------------------------------------------------
+
