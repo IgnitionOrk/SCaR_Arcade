@@ -31,100 +31,115 @@ namespace SCaR_Arcade
         {
             game = g;
         }
-
-        // ----------------------------------------------------------------------------------------------------------------
-        // Adds the @param to the Local (.txt) file.
-        public static void addScoreToLocal(string score)
-        {
-            try
-            {
-                // Determine if there is not a Local (.txt) file.
-                if (!File.Exists(game.gLocalFileName))
-                {
-                    // Create the Files that will be used to score data on scores from the player.
-                    // For this instance we are creating a Local (.txt) file, and not an Online (.txt).
-                    createFilesForGame(true);
-
-                    // Retry to add the score into the Files (if needed) because we have created the new .txt files
-                    addScoreToLocal(score);
-                }
-                else
-                {
-                    // Write to the Local file containing scores.
-                    using (StreamWriter sw = File.AppendText(game.gLocalFileName))
-                    {
-                        sw.WriteLine(score);
-                    }
-                }
-            }
-            catch
-            {
-
-            }
-        }
-        // ----------------------------------------------------------------------------------------------------------------
-        // Adds the @param to the Online (.txt) file.
-        public static void addScoreToOnline(string score)
-        {
-            try
-            {
-                // Determine if there is not a Local (.txt) file.
-                if (!File.Exists(game.gLocalFileName))
-                {
-                    // Create the Files that will be used to score data on scores from the player.
-                    // For this instance we are creating a Local (.txt) file, and not an Online (.txt).
-                    createFilesForGame(false);
-
-                    // Retry to add the score into the Files (if needed) because we have created the new .txt files
-                    addScoreToLocal(score);
-                }
-                else
-                {
-                    // Write to the Online file containing scores.
-                    using (StreamWriter sw = File.AppendText(game.gOnlineFileName))
-                    {
-                        sw.WriteLine(score);
-                    }
-                }
-            }
-            catch
-            {
-
-            }
-        }
         // ----------------------------------------------------------------------------------------------------------------
         // Will create the Local (.txt), and Online(.txt) file for a particular game (instance variable),
-        // And saves the file path into the instance variable game.
-        private static void createFilesForGame(bool isLocal)
+        // And saves the file path, and name into the instance variables of game.
+        private static void createFilesForGame(bool isOnline)
         {                
             try
             {
                 if (game != null)
                 {
-                    // Note when you read this 
-                    /*
-                     *      IMPORTANT MARTIN, AND SAXON:
-                     *      We must trim all the whitespace but .Trim()
-                     *      only trims the beginning, and the end of a string. 
-                     *      So good idea is to make a method that removes all whitespace in a string.            
-                     */
-
+                    string directory = "";
+                    string path = "";
                     // gTitle is the title of the game without spaces
                     // So we can save it as a path for two files.
+                    // We first remove any leading, and end whitespaces using Trim().
                     string gTitleTrimmed = game.gTitle.Trim();
 
-                    // Create a Local (.txt) file;
-                    if (isLocal)
+                    // Then we replace all whitespaces in between with empty;
+                    gTitleTrimmed = gTitleTrimmed.Replace(" ", String.Empty);
+                    if (!Directory.Exists(game.gOnlineDirectory) || !Directory.Exists(game.gLocalDirectory))
                     {
-                        string localPath =@"\Local\" + gTitleTrimmed + "Local.txt";
-                        File.CreateText(localPath);
-                        game.gLocalFileName = localPath;
+                        if (isOnline && !Directory.Exists(game.gOnlineDirectory))
+                        {
+                            game.gOnlineFileName = gTitleTrimmed + "Online.txt";
+
+                            // Create a path that contains the (.txt) file.
+                            directory = SCOREFILESPATH + "Online/";
+                            directory = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), directory);
+                            game.gOnlineDirectory = directory;
+
+                            // Create the directory 
+                            Directory.CreateDirectory(directory);
+
+                            //Used to create the path in which the .txt file will be located.
+                            path = directory + game.gOnlineFileName;
+
+                            // Create the .txt file at the specified location (directory).
+                            File.Create(path);
+                        }
+                        else
+                        {
+                            game.gLocalFileName = gTitleTrimmed + "Local.txt";
+
+                            // Create a path that contains the (.txt) file.
+                            directory = SCOREFILESPATH + "Local/";
+                            directory = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), directory);
+                            game.gLocalDirectory = directory;
+
+                            // Create the directory 
+                            Directory.CreateDirectory(directory);
+
+                            //Used to create the path in which the .txt file will be located.
+                            path = directory + game.gLocalFileName;
+
+                            // Create the .txt file at the specified location (directory).
+                            File.Create(path);
+                        }
+                        
+                    }            
+                    System.Diagnostics.Debug.WriteLine("HEREREREEREREREREREERER:  "+ Directory.Exists(directory));
+                    System.Diagnostics.Debug.WriteLine("HEREREREEREREREREREERER:  "+ path);
+                    System.Diagnostics.Debug.WriteLine("HEREREREEREREREREREERER:  "+ File.Exists(path));
+                }
+            }
+            catch
+            {
+            }
+        }
+        // ----------------------------------------------------------------------------------------------------------------
+        // 
+        public static void addScoreToFile(bool isOnline, string score)
+        {
+            try
+            {
+                string path = "";
+                if (isOnline)
+                {
+                    path = game.gOnlineDirectory + game.gOnlineFileName;
+                    // Determine if there is not a Local (.txt) file.
+                    if (!File.Exists(path))
+                    {
+                        // Create the Files that will be used to score data on scores from the player.
+                        // For this instance we are creating a Online (.txt) file, and not an Local (.txt).
+
+                        //This is determined by the boolean parameter true is for Online, false for Local
+                        createFilesForGame(true);
                     }
-                    else
-                    { 
-                        string onlinePath = @"\Online\" + gTitleTrimmed + "Online.txt";
-                        File.CreateText(onlinePath);
-                        game.gOnlineFileName = onlinePath;
+                    // Write to the Local file containing scores.
+                    using (StreamWriter sw = File.AppendText(path))
+                    {
+                        sw.WriteLine(score);
+                    }
+            
+                }
+                else
+                {
+                    path = game.gLocalDirectory + game.gLocalFileName;
+                    // Determine if there is not a Local (.txt) file.
+                    if (!File.Exists(path))
+                    {
+                        // Create the Files that will be used to score data on scores from the player.
+                        // For this instance we are creating a Local (.txt) file, and not an Online (.txt).
+
+                        //This is determined by the boolean parameter true is for Online, false for Local
+                        createFilesForGame(false);
+                    }
+                    // Write to the Local file containing scores.
+                    using (StreamWriter sw = File.AppendText(path))
+                    {
+                        sw.WriteLine(score);
                     }
                 }
             }
@@ -134,6 +149,7 @@ namespace SCaR_Arcade
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
+        // 
         public static string readFromDescription(Android.Content.Res.AssetManager assets)
         {
             try
@@ -153,6 +169,7 @@ namespace SCaR_Arcade
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
+        // 
         public static List<string> readFromScoreFile(bool isOnline, Android.Content.Res.AssetManager assets)
         {
             try
@@ -185,6 +202,7 @@ namespace SCaR_Arcade
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
+        //
         private static void initializeAssests(Android.Content.Res.AssetManager a)
         {
             if(assets == null)

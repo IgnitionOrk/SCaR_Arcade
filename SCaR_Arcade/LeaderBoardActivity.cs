@@ -66,7 +66,7 @@ namespace SCaR_Arcade
                 // Event handlers.
                 btnBack.Click += ButtonClickSelect;
                 localBtn.Click += ButtonLocalClick;
-                onlineBtn.Click += ButtonOnlineClick;           
+                onlineBtn.Click += ButtonOnlineClick;
             }
             catch
             {

@@ -59,7 +59,7 @@ namespace SCaR_Arcade
                 // but for now well just add these three.
                 gList.Add(new Game
                 {
-                    gTitle = "Tower of Hanoi",
+                    gTitle = "Towers of Hanoi",
                     gLogo = Resource.Drawable.game1,
                     gMenuBackground = Resource.Drawable.game1bg,
                     gMinDifficulty = 3,
