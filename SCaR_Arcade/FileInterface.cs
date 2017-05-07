@@ -35,7 +35,7 @@ namespace SCaR_Arcade
             createFilesForGame(false);
 
             // Add the predefined data from the Assets folder.
-            addPredefinedScores(true, game.gOnlineDirectory + game.gOnlineFileName, assets );
+            addPredefinedScores(true, game.gOnlineDirectory + game.gOnlineFileName, assets);
             addPredefinedScores(false, game.gLocalDirectory + game.gLocalFileName, assets);
         }
         // ----------------------------------------------------------------------------------------------------------------
@@ -45,49 +45,56 @@ namespace SCaR_Arcade
         {
             if (game != null)
             {
-                string directory = "";
-                string path = "";
-                // gTitle is the title of the game without spaces
-                // So we can save it as a path for two files.
-                // We first remove any leading, and end whitespaces using Trim().
-                string gTitleTrimmed = game.gTitle.Trim();
 
-                // Then we replace all whitespaces in between with empty;
-                gTitleTrimmed = gTitleTrimmed.Replace(" ", String.Empty);
-                if (!Directory.Exists(game.gOnlineDirectory) || !Directory.Exists(game.gLocalDirectory))
+                if (!Directory.Exists(game.gOnlineDirectory) && isOnline || !Directory.Exists(game.gLocalDirectory) && !isOnline)
                 {
-                    if (!Directory.Exists(game.gOnlineDirectory)) { 
-                        if (isOnline)
-                        {
-                            game.gOnlineFileName = gTitleTrimmed + "Online.txt";
+                    string filePath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments);
+                    System.Diagnostics.Debug.Write(filePath);
 
-                            // Create a path that contains the (.txt) file.
-                            directory = SCOREFILESPATH + "Online/";
-                        }
-                        else
-                        {
-                            game.gLocalFileName = gTitleTrimmed + "Local.txt";
+                    string directory = "";
+                    string path = "";
+                    // gTitle is the title of the game without spaces
+                    // So we can save it as a path for two files.
+                    // We first remove any leading, and end whitespaces using Trim().
+                    string gTitleTrimmed = game.gTitle.Trim();
 
-                            // Create a path that contains the (.txt) file.
-                            directory = SCOREFILESPATH + "Local/";
-                        }
+                    // Then we replace all whitespaces in between with empty;
+                    gTitleTrimmed = gTitleTrimmed.Replace(" ", String.Empty);
 
-                        directory = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), directory);
-                        game.gLocalDirectory = directory;
 
-                        // Create the directory 
-                        Directory.CreateDirectory(directory);
+                    if (isOnline)
+                    {
+                        game.gOnlineFileName = gTitleTrimmed + "Online.txt";
 
-                        //Used to create the path in which the .txt file will be located.
-                        path = directory + game.gOnlineFileName;
-
-                        // Create the .txt file at the specified location (directory).
-                        File.Create(path);
+                        // Create a path that contains the (.txt) file.
+                        directory = SCOREFILESPATH + "Online/";
                     }
+                    else
+                    {
+                        game.gLocalFileName = gTitleTrimmed + "Local.txt";
+
+                        // Create a path that contains the (.txt) file.
+                        directory = SCOREFILESPATH + "Local/";
+                    }
+
+                    directory = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), directory);
+                    game.gLocalDirectory = directory;
+
+                    // Create the directory 
+                    Directory.CreateDirectory(directory);
+
+                    //Used to create the path in which the .txt file will be located.
+                    path = directory + game.gOnlineFileName;
+
+                    // Create the .txt file at the specified location (directory).
+                    File.Create(path);
+
+
+                    System.Diagnostics.Debug.WriteLine("HEREREREEREREREREREERER:  " + Directory.Exists(directory));
+                    System.Diagnostics.Debug.WriteLine("HEREREREEREREREREREERER:  " + path);
+                    System.Diagnostics.Debug.WriteLine("HEREREREEREREREREREERER:  " + File.Exists(path));
+
                 }
-                System.Diagnostics.Debug.WriteLine("HEREREREEREREREREREERER:  " + Directory.Exists(directory));
-                System.Diagnostics.Debug.WriteLine("HEREREREEREREREREREERER:  " + path);
-                System.Diagnostics.Debug.WriteLine("HEREREREEREREREREREERER:  " + File.Exists(path));
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
@@ -283,7 +290,7 @@ namespace SCaR_Arcade
         //
         private static void initializeAssests(Android.Content.Res.AssetManager a)
         {
-            if(assets == null)
+            if (assets == null)
             {
                 assets = a;
             }
