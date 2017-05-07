@@ -35,6 +35,8 @@ namespace SCaR_Arcade
         private int gameChoice;
         private Game game;
         private ListView LeaderBoardListView;
+        private Button localBtn;
+        private Button onlineBtn;
 
         // ----------------------------------------------------------------------------------------------------------------
         protected override void OnCreate(Bundle savedInstanceState)
@@ -47,7 +49,8 @@ namespace SCaR_Arcade
                 LeaderBoard = FindViewById<LinearLayout>(Resource.Id.LeaderBoardLinLay);
                 LeaderBoardListView = FindViewById<ListView>(Resource.Id.LeaderBoardListView);
                 btnBack = FindViewById<Button>(Resource.Id.btnGameSelect);
-
+                localBtn = FindViewById<Button>(Resource.Id.btnLocal);
+                onlineBtn = FindViewById<Button>(Resource.Id.btnOnline);
 
                 // Return the game from the list.
                 game = GameInterface.getGameAt(gameChoice);
@@ -61,7 +64,9 @@ namespace SCaR_Arcade
                 FullScreen.SetBackgroundResource(game.gMenuBackground);
                 
                 // Event handlers.
-                btnBack.Click += ButtonClickSelect;           
+                btnBack.Click += ButtonClickSelect;
+                localBtn.Click += ButtonLocalClick;
+                onlineBtn.Click += ButtonOnlineClick;           
             }
             catch
             {
@@ -75,6 +80,36 @@ namespace SCaR_Arcade
             try
             {
                 BeginActivity(typeof(GameMenuActivity), GlobalApp.getVariableChoiceName(), gameChoice);
+            }
+            catch
+            {
+                GlobalApp.Alert(this, 0);
+            }
+        }
+        // ----------------------------------------------------------------------------------------------------------------
+        protected void ButtonLocalClick(Object sender, EventArgs args)
+        {
+            try
+            {
+                // Delete the current Adpater
+                LeaderBoardListView.Adapter = null;
+                // And store a new one.
+                LeaderBoardListView.Adapter = new LeaderBoardRowAdapter(this, Assets, false);
+            }
+            catch
+            {
+                GlobalApp.Alert(this, 0);
+            }
+        }
+        // ----------------------------------------------------------------------------------------------------------------
+        protected void ButtonOnlineClick(Object sender, EventArgs args)
+        {
+            try
+            {
+                // Delete the current Adpater
+                LeaderBoardListView.Adapter = null;
+                // And store a new one.
+                LeaderBoardListView.Adapter = new LeaderBoardRowAdapter(this, Assets, true);
             }
             catch
             {

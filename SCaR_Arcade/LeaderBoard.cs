@@ -20,7 +20,7 @@ namespace SCaR_Arcade
 {
     class LeaderBoard
     {
-        public string lbPosition { get; set; }
+        public int lbPosition { get; set; }
         public string lbName { get; set; }
         public string lbTime { get; set; }
         public string lbScore { get; set; }

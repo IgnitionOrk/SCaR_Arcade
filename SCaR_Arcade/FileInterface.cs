@@ -16,11 +16,11 @@ namespace SCaR_Arcade
 {
     static class FileInterface
     {
-        private static string filePath = "ScoreFiles/";
         private static Game game;
         private const int MAXNUMBEROFLINES = 20;
         private static Android.Content.Res.AssetManager assets;
-
+        private const string SCOREFILESPATH = "ScoreFiles/";
+        private const string GAMEDESCRIPTIONSPATH = "GameDescriptions/";
         /*
          * IMPORTANT NOTE:
          * We need to create a method that determines if the file has the MAXNUMBEROFLINES;
@@ -116,13 +116,13 @@ namespace SCaR_Arcade
                     // Create a Local (.txt) file;
                     if (isLocal)
                     {
-                        string localPath = filePath+@"\Local\" + gTitleTrimmed + "Local.txt";
+                        string localPath =@"\Local\" + gTitleTrimmed + "Local.txt";
                         File.CreateText(localPath);
                         game.gLocalFileName = localPath;
                     }
                     else
                     { 
-                        string onlinePath = filePath + @"\Online\" + gTitleTrimmed + "Online.txt";
+                        string onlinePath = @"\Online\" + gTitleTrimmed + "Online.txt";
                         File.CreateText(onlinePath);
                         game.gOnlineFileName = onlinePath;
                     }
@@ -134,7 +134,26 @@ namespace SCaR_Arcade
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
-        public static List<string> readFromFile(bool isOnline, Android.Content.Res.AssetManager assets)
+        public static string readFromDescription(Android.Content.Res.AssetManager assets)
+        {
+            try
+            {
+                initializeAssests(assets);
+                string path = GAMEDESCRIPTIONSPATH + game.gDiscription;
+                string content = "";
+                using (StreamReader sr = new StreamReader(assets.Open(path)))
+                {
+                    content = sr.ReadToEnd();
+                }
+                return content;
+            }
+            catch
+            {
+                return "";
+            }
+        }
+        // ----------------------------------------------------------------------------------------------------------------
+        public static List<string> readFromScoreFile(bool isOnline, Android.Content.Res.AssetManager assets)
         {
             try
             {
@@ -144,11 +163,11 @@ namespace SCaR_Arcade
                 string lineScore = "";
                 if (isOnline)
                 {
-                    path = filePath +"Online/" +game.gOnlineFileName;
+                    path = SCOREFILESPATH +"Online/" + game.gOnlineFileName;
                 }
                 else
                 {
-                    path = filePath +"Local/" + game.gLocalFileName;
+                    path = SCOREFILESPATH + "Local/" + game.gLocalFileName;
                 }
                 using (StreamReader sr = new StreamReader(assets.Open(path)))
                 {

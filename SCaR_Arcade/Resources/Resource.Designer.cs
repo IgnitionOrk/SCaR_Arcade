@@ -147,8 +147,11 @@ namespace SCaR_Arcade
 			// aapt resource value: 0x7f050027
 			public const int cTimer = 2131034151;
 			
+			// aapt resource value: 0x7f05000b
+			public const int desTextView = 2131034123;
+			
 			// aapt resource value: 0x7f05000c
-			public const int discrption = 2131034124;
+			public const int description = 2131034124;
 			
 			// aapt resource value: 0x7f050005
 			public const int imgBtnDecrease = 2131034117;
@@ -194,9 +197,6 @@ namespace SCaR_Arcade
 			
 			// aapt resource value: 0x7f050021
 			public const int startProgress = 2131034145;
-			
-			// aapt resource value: 0x7f05000b
-			public const int textView1 = 2131034123;
 			
 			// aapt resource value: 0x7f050017
 			public const int timetxt = 2131034135;

@@ -29,13 +29,29 @@ namespace SCaR_Arcade
         */
         private List<LeaderBoard> data;
         private Activity context;
+        private Android.Content.Res.AssetManager assets;
 
         // ----------------------------------------------------------------------------------------------------------------
         // Constructor:
         public LeaderBoardRowAdapter (Activity activity, Android.Content.Res.AssetManager assets)
         {
             context = activity;
-            PopulateLeaderBoardData(assets);
+            this.assets = assets; 
+
+            // the boolean parameter determines if we are using the local, or online .text files.
+            // Here we are working with the default which is local (false).
+            PopulateLeaderBoardData(false);
+        }
+        // ----------------------------------------------------------------------------------------------------------------
+        // Constructor:
+        public LeaderBoardRowAdapter(Activity activity, Android.Content.Res.AssetManager assets, bool isOnline)
+        {
+            context = activity;
+            this.assets = assets;
+
+            // the boolean parameter determines if we are using the local, or online .text files.
+            // Here we are working with the default which is local (false).
+            PopulateLeaderBoardData(isOnline);
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Defined method signature by BaseAdapter interface.
@@ -85,12 +101,11 @@ namespace SCaR_Arcade
             return view;
         }
         // ----------------------------------------------------------------------------------------------------------------
-        private void PopulateLeaderBoardData(Android.Content.Res.AssetManager assets)
+        public void PopulateLeaderBoardData(bool isOnline)
         {
             if (data == null)
-            {
-                // Local file is determined by the boolean parameter.
-                List<string> unsortList = FileInterface.readFromFile(false, assets);
+            {   // Local file is determined by the boolean parameter.
+                List<string> unsortList = FileInterface.readFromScoreFile(isOnline, assets);
                 // This list will be sorted;
                 List<LeaderBoard> unsortedLb = new List<LeaderBoard>();
                 for (int i = 0; i < unsortList.Count; i++)
@@ -103,20 +118,40 @@ namespace SCaR_Arcade
 
                     unsortedLb.Add(new LeaderBoard
                     {
-                        lbPosition = subStrings[0],
+                        lbPosition = Convert.ToInt32(subStrings[0]),
                         lbName = subStrings[1],
                         lbTime = subStrings[2],
                         lbScore = subStrings[3]
                     });
                 }
                 // Return a sorted Leaderboard list. 
-                data = sort(unsortedLb);
+                data = selectionSort(unsortedLb);
             }
         }
+
         // ----------------------------------------------------------------------------------------------------------------
         // We will sort the entire list here. 
-        private List<LeaderBoard> sort(List<LeaderBoard> sortedList)
+        private List<LeaderBoard> selectionSort(List<LeaderBoard> sortedList)
         {
+            int position = 0;
+            LeaderBoard temp;
+            for (int x = 0; x < sortedList.Count - 1; x++)
+            {
+                position = x;
+                for (int y = x + 1; y < sortedList.Count; y++)
+                {
+                    if (sortedList[y].lbPosition < sortedList[position].lbPosition)
+                    {
+                        position = y;
+                    }
+                }
+                if (position != x)
+                {
+                    temp = sortedList[x];
+                    sortedList[x] = sortedList[position];
+                    sortedList[position] = temp;
+                }
+            }
             return sortedList;
         }
     }

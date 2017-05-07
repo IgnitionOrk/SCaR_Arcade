@@ -32,8 +32,8 @@ namespace SCaR_Arcade
         private LinearLayout FullScreen;
         private TextView txtGameTitle;
         private TextView txtDifficulty;
-        private TextView discrptionTitle;
-        private TextView gameDiscrption;
+        private TextView descriptionTitle;
+        private TextView gameDescription;
         private Button btnStart;
         private Button btnLeaderBoard;
         private Button btnBack;
@@ -61,21 +61,12 @@ namespace SCaR_Arcade
                 btnBack = FindViewById<Button>(Resource.Id.btnGameSelect);
                 imgBtnIn = FindViewById<ImageButton>(Resource.Id.imgBtnIncrease);
                 imgBtnDe = FindViewById<ImageButton>(Resource.Id.imgBtnDecrease);
-                gameDiscrption = FindViewById<TextView>(Resource.Id.discrption);
-                discrptionTitle = FindViewById<TextView>(Resource.Id.textView1);
+                gameDescription = FindViewById<TextView>(Resource.Id.description);
+                descriptionTitle = FindViewById<TextView>(Resource.Id.desTextView);
 
                 // get the index of the item the player has chosen.
                 gameChoice = Intent.GetIntExtra(GlobalApp.getVariableChoiceName(), 0);
 
-                string content = "Blah blah blah,Blah blah blah,Blah blah blah,Blah blah blah,Blah blah blah,Blah blah blah,Blah blah blah,Blah blah blah,";
-              /* AssetManager assets = Assets;
-                using (StreamReader sr = new StreamReader(assets.Open("GameDiscription/"+game.gDiscription)))
-                {
-                    content = sr.ReadToEnd();
-                }*/
-
-                // Return the game from the list.
-                gameDiscrption.Text = content;
                 game = GameInterface.getGameAt(gameChoice);
 
 
@@ -99,6 +90,10 @@ namespace SCaR_Arcade
 
                 // Add the current game to the Interface
                 FileInterface.addCurrentGame(game);
+
+                // Add the description of the game.
+                gameDescription.Text = FileInterface.readFromDescription(Assets);
+
             }
             catch
             {
