@@ -1,5 +1,4 @@
-﻿//Position-Name-NumberOfMoves-TimeTaken//
-1-AAA-7-03.00
+﻿1-AAA-7-03.00
 2-AAB-7-03.15
 3-AAC-8-03.30
 4-AAD-8-03.45

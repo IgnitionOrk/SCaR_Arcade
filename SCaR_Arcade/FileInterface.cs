@@ -16,9 +16,11 @@ namespace SCaR_Arcade
 {
     static class FileInterface
     {
-        private static string filePath = "SCaR_Arcade/ScoreFiles";
+        private static string filePath = "ScoreFiles/";
         private static Game game;
         private const int MAXNUMBEROFLINES = 20;
+        private static Android.Content.Res.AssetManager assets;
+
         /*
          * IMPORTANT NOTE:
          * We need to create a method that determines if the file has the MAXNUMBEROFLINES;
@@ -37,7 +39,7 @@ namespace SCaR_Arcade
             try
             {
                 // Determine if there is not a Local (.txt) file.
-                if (!File.Exists(game.gLocalFileURL))
+                if (!File.Exists(game.gLocalFileName))
                 {
                     // Create the Files that will be used to score data on scores from the player.
                     // For this instance we are creating a Local (.txt) file, and not an Online (.txt).
@@ -49,7 +51,7 @@ namespace SCaR_Arcade
                 else
                 {
                     // Write to the Local file containing scores.
-                    using (StreamWriter sw = File.AppendText(game.gLocalFileURL))
+                    using (StreamWriter sw = File.AppendText(game.gLocalFileName))
                     {
                         sw.WriteLine(score);
                     }
@@ -67,7 +69,7 @@ namespace SCaR_Arcade
             try
             {
                 // Determine if there is not a Local (.txt) file.
-                if (!File.Exists(game.gLocalFileURL))
+                if (!File.Exists(game.gLocalFileName))
                 {
                     // Create the Files that will be used to score data on scores from the player.
                     // For this instance we are creating a Local (.txt) file, and not an Online (.txt).
@@ -79,7 +81,7 @@ namespace SCaR_Arcade
                 else
                 {
                     // Write to the Online file containing scores.
-                    using (StreamWriter sw = File.AppendText(game.gOnlineFileURL))
+                    using (StreamWriter sw = File.AppendText(game.gOnlineFileName))
                     {
                         sw.WriteLine(score);
                     }
@@ -116,13 +118,13 @@ namespace SCaR_Arcade
                     {
                         string localPath = filePath+@"\Local\" + gTitleTrimmed + "Local.txt";
                         File.CreateText(localPath);
-                        game.gLocalFileURL = localPath;
+                        game.gLocalFileName = localPath;
                     }
                     else
                     { 
                         string onlinePath = filePath + @"\Online\" + gTitleTrimmed + "Online.txt";
                         File.CreateText(onlinePath);
-                        game.gOnlineFileURL = onlinePath;
+                        game.gOnlineFileName = onlinePath;
                     }
                 }
             }
@@ -132,35 +134,28 @@ namespace SCaR_Arcade
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
-        public static List<string> readFromFile(bool isOnline, Android.Content.Res.AssetManager assest)
+        public static List<string> readFromFile(bool isOnline, Android.Content.Res.AssetManager assets)
         {
             try
             {
+                initializeAssests(assets);
                 List<string> scoreLines = new List<string>();
                 string path = "";
                 string lineScore = "";
                 if (isOnline)
                 {
-                    path = filePath + game.gOnlineFileURL;
+                    path = filePath +"Online/" +game.gOnlineFileName;
                 }
                 else
                 {
-
-                    path = filePath + game.gLocalFileURL;
+                    path = filePath +"Local/" + game.gLocalFileName;
                 }
-                // Determine if there is not a Local (.txt) file.
-                if (File.Exists(filePath))
+                using (StreamReader sr = new StreamReader(assets.Open(path)))
                 {
-
-                    using (StreamReader sr = new StreamReader(assest.Open(path)))
+                    while (sr.Peek() > -1)
                     {
-                        for (int i = 0; i < 10 && sr.Peek() > -1; i++)
-                        {
-                            lineScore = sr.ReadLine();
-                            System.Diagnostics.Debug.WriteLine(lineScore);
-                            scoreLines.Add(lineScore);
-
-                        }
+                        lineScore = sr.ReadLine();
+                        scoreLines.Add(lineScore);
                     }
                 }
                 return scoreLines;
@@ -168,6 +163,14 @@ namespace SCaR_Arcade
             catch
             {
                 return null;
+            }
+        }
+        // ----------------------------------------------------------------------------------------------------------------
+        private static void initializeAssests(Android.Content.Res.AssetManager a)
+        {
+            if(assets == null)
+            {
+                assets = a;
             }
         }
     }

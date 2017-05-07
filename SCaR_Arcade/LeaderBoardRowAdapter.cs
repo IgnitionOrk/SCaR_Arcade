@@ -29,15 +29,13 @@ namespace SCaR_Arcade
         */
         private List<LeaderBoard> data;
         private Activity context;
-        private Android.Content.Res.AssetManager assest;
 
         // ----------------------------------------------------------------------------------------------------------------
         // Constructor:
-        public LeaderBoardRowAdapter (Activity activity, Android.Content.Res.AssetManager assest)
+        public LeaderBoardRowAdapter (Activity activity, Android.Content.Res.AssetManager assets)
         {
             context = activity;
-            this.assest = assest;
-            PopulateLeaderBoardData();
+            PopulateLeaderBoardData(assets);
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Defined method signature by BaseAdapter interface.
@@ -87,76 +85,33 @@ namespace SCaR_Arcade
             return view;
         }
         // ----------------------------------------------------------------------------------------------------------------
-        private void PopulateLeaderBoardData()
+        private void PopulateLeaderBoardData(Android.Content.Res.AssetManager assets)
         {
             if (data == null)
             {
-                bool testing = false;
                 // Local file is determined by the boolean parameter.
-                List<string> unsortList = FileInterface.readFromFile(false, assest);
-
+                List<string> unsortList = FileInterface.readFromFile(false, assets);
                 // This list will be sorted;
                 List<LeaderBoard> unsortedLb = new List<LeaderBoard>();
+                for (int i = 0; i < unsortList.Count; i++)
+                {
+                    // Return the data (string) and index i;
+                    string line = unsortList[i];
 
-                if (!testing)
-                {
-                    unsortedLb = initializeData(unsortedLb);
-                }
-                else
-                {
-                    for (int i = 0; i < unsortList.Count; i++)
+                    Char delimiter = '-';
+                    String[] subStrings = line.Split(delimiter);
+
+                    unsortedLb.Add(new LeaderBoard
                     {
-                        // Return the data (string) and index i;
-                        string line = unsortList[i];
-
-                        Char delimiter = '-';
-                        String[] subStrings = line.Split(delimiter);
-
-                        unsortedLb.Add(new LeaderBoard
-                        {
-                            lbPosition = subStrings[0],
-                            lbName = subStrings[1],
-                            lbTime = subStrings[2],
-                            lbScore = subStrings[3]
-                        }
-                        );
-                    }
+                        lbPosition = subStrings[0],
+                        lbName = subStrings[1],
+                        lbTime = subStrings[2],
+                        lbScore = subStrings[3]
+                    });
                 }
                 // Return a sorted Leaderboard list. 
                 data = sort(unsortedLb);
             }
-        }
-        // ----------------------------------------------------------------------------------------------------------------
-        private List<LeaderBoard> initializeData(List<LeaderBoard> lbList)
-        {
-            if (lbList != null)
-            {
-                lbList.Add(new LeaderBoard
-                {
-                    lbPosition = "1",
-                    lbName = "AAA",
-                    lbTime = "07.10",
-                    lbScore = "13"
-                }
-                );
-                lbList.Add(new LeaderBoard
-                {
-                    lbPosition = "2",
-                    lbName = "DAD",
-                    lbTime = "08.10",
-                    lbScore = "12"
-                }
-                );
-                lbList.Add(new LeaderBoard
-                {
-                    lbPosition = "3",
-                    lbName = "LOL",
-                    lbTime = "09.10",
-                    lbScore = "11"
-                }
-                );
-            }
-            return lbList;
         }
         // ----------------------------------------------------------------------------------------------------------------
         // We will sort the entire list here. 
