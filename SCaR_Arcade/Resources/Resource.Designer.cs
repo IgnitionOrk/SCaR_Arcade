@@ -132,11 +132,11 @@ namespace SCaR_Arcade
 			// aapt resource value: 0x7f050011
 			public const int btnOnline = 2131034129;
 			
-			// aapt resource value: 0x7f05002b
-			public const int btnQuit = 2131034155;
+			// aapt resource value: 0x7f05002c
+			public const int btnQuit = 2131034156;
 			
-			// aapt resource value: 0x7f05002a
-			public const int btnReplay = 2131034154;
+			// aapt resource value: 0x7f05002b
+			public const int btnReplay = 2131034155;
 			
 			// aapt resource value: 0x7f050008
 			public const int btnStart = 2131034120;
@@ -144,14 +144,17 @@ namespace SCaR_Arcade
 			// aapt resource value: 0x7f05001f
 			public const int button1 = 2131034143;
 			
-			// aapt resource value: 0x7f050027
-			public const int cTimer = 2131034151;
+			// aapt resource value: 0x7f050028
+			public const int cTimer = 2131034152;
 			
 			// aapt resource value: 0x7f05000c
 			public const int desTextView = 2131034124;
 			
 			// aapt resource value: 0x7f05000d
 			public const int description = 2131034125;
+			
+			// aapt resource value: 0x7f05000b
+			public const int descriptionLinLay = 2131034123;
 			
 			// aapt resource value: 0x7f050005
 			public const int imgBtnDecrease = 2131034117;
@@ -168,14 +171,14 @@ namespace SCaR_Arcade
 			// aapt resource value: 0x7f050004
 			public const int linearLayout2 = 2131034116;
 			
-			// aapt resource value: 0x7f05000b
-			public const int linearLayout3 = 2131034123;
-			
-			// aapt resource value: 0x7f050029
-			public const int linearLayout4 = 2131034153;
-			
 			// aapt resource value: 0x7f050024
-			public const int linearLayout5 = 2131034148;
+			public const int linearLayout3 = 2131034148;
+			
+			// aapt resource value: 0x7f05002a
+			public const int linearLayout4 = 2131034154;
+			
+			// aapt resource value: 0x7f050025
+			public const int linearLayout5 = 2131034149;
 			
 			// aapt resource value: 0x7f05001c
 			public const int logo = 2131034140;
@@ -216,17 +219,17 @@ namespace SCaR_Arcade
 			// aapt resource value: 0x7f050003
 			public const int txtSltGame = 2131034115;
 			
-			// aapt resource value: 0x7f050026
-			public const int txtVElapsedTime = 2131034150;
+			// aapt resource value: 0x7f050027
+			public const int txtVElapsedTime = 2131034151;
 			
-			// aapt resource value: 0x7f050025
-			public const int txtVScore = 2131034149;
+			// aapt resource value: 0x7f050026
+			public const int txtVScore = 2131034150;
 			
 			// aapt resource value: 0x7f050021
 			public const int txtViewLoading = 2131034145;
 			
-			// aapt resource value: 0x7f050028
-			public const int txtViewOptNoOfMoves = 2131034152;
+			// aapt resource value: 0x7f050029
+			public const int txtViewOptNoOfMoves = 2131034153;
 			
 			static Id()
 			{

@@ -29,6 +29,7 @@ namespace SCaR_Arcade
         Theme = "@android:style/Theme.NoTitleBar")]
     public class GameMenuActivity : Activity
     {
+        private LinearLayout descriptionBackground;
         private LinearLayout FullScreen;
         private TextView txtGameTitle;
         private TextView txtDifficulty;
@@ -63,6 +64,8 @@ namespace SCaR_Arcade
                 imgBtnDe = FindViewById<ImageButton>(Resource.Id.imgBtnDecrease);
                 gameDescription = FindViewById<TextView>(Resource.Id.description);
                 descriptionTitle = FindViewById<TextView>(Resource.Id.desTextView);
+                descriptionBackground = FindViewById<LinearLayout>(Resource.Id.descriptionLinLay);
+
 
                 // get the index of the item the player has chosen.
                 gameChoice = Intent.GetIntExtra(GlobalApp.getVariableChoiceName(), 0);
@@ -70,6 +73,7 @@ namespace SCaR_Arcade
                 game = GameInterface.getGameAt(gameChoice);
 
 
+                descriptionBackground.SetBackgroundColor(Color.Gray);
                 difficulty = game.gMinDifficulty;
                 minDifficulty = game.gMinDifficulty;
                 maxDifficulty = game.gMaxDifficulty;
