@@ -12,7 +12,9 @@ using Android.Widget;
 
 /// <summary>
 /// Created by: Martin O'Connor
+/// Created by: Ryan Cunneen
 /// Student number: 3279660
+/// Student number: 3179234
 /// Date modified: 21-Mar-2017
 /// /// Date created: 21-Mar-2017
 /// </summary>
