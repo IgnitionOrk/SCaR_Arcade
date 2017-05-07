@@ -30,6 +30,7 @@ namespace SCaR_Arcade
         public static void addCurrentGame(Game g, Android.Content.Res.AssetManager assets)
         {
             game = g;
+
             // Create the Local, and Online txt files.
             createFilesForGame(true);
             createFilesForGame(false);
