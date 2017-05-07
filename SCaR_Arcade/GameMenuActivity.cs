@@ -93,7 +93,7 @@ namespace SCaR_Arcade
                 addPlusAndMinus();
 
                 // Add the current game to the Interface
-                FileInterface.addCurrentGame(game);
+                FileInterface.addCurrentGame(game, Assets);
 
                 // Add the description of the game.
                 gameDescription.Text = FileInterface.readFromDescription(Assets);

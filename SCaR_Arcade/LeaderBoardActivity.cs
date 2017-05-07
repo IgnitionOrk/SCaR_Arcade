@@ -52,13 +52,7 @@ namespace SCaR_Arcade
                 localBtn = FindViewById<Button>(Resource.Id.btnLocal);
                 onlineBtn = FindViewById<Button>(Resource.Id.btnOnline);
 
-                // Return the game from the list.
-                game = GameInterface.getGameAt(gameChoice);
-
                 LeaderBoardListView.Adapter = new LeaderBoardRowAdapter(this, Assets);
-
-                // get the index of the item the player has chosen.
-                gameChoice = Intent.GetIntExtra(GlobalApp.getVariableChoiceName(), 0);
 
                 LeaderBoard.SetBackgroundColor(Color.Gray);
                 FullScreen.SetBackgroundResource(game.gMenuBackground);
