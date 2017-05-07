@@ -63,6 +63,16 @@ namespace SCaR_Arcade
                         // Create a path that contains the (.txt) file.
                         directory = SCOREFILESPATH + "Online/";
                         directory = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), directory);
+                        game.gOnlineDirectory = directory;
+
+                        // Create the directory 
+                        Directory.CreateDirectory(directory);
+
+                        //Used to create the path in which the .txt file will be located.
+                        path = directory + game.gOnlineFileName;
+
+                        // Create the .txt file at the specified location (directory).
+                        File.Create(path);
                     }
                     else
                     {
@@ -71,18 +81,17 @@ namespace SCaR_Arcade
                         // Create a path that contains the (.txt) file.
                         directory = SCOREFILESPATH + "Local/";
                         directory = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), directory);
+                        game.gLocalDirectory = directory;
+
+                        // Create the directory 
+                        Directory.CreateDirectory(directory);
+
+                        //Used to create the path in which the .txt file will be located.
+                        path = directory + game.gLocalFileName;
+
+                        // Create the .txt file at the specified location (directory).
+                        File.Create(path);
                     }
-
-                    game.gOnlineDirectory = directory;
-
-                    // Create the directory 
-                    Directory.CreateDirectory(directory);
-
-                    //Used to create the path in which the .txt file will be located.
-                    path = directory + game.gOnlineFileName;
-
-                    // Create the .txt file at the specified location (directory).
-                    File.Create(path);
                 }
                 System.Diagnostics.Debug.WriteLine("HEREREREEREREREREREERER:  " + Directory.Exists(directory));
                 System.Diagnostics.Debug.WriteLine("HEREREREEREREREREREERER:  " + path);
