@@ -50,8 +50,6 @@ namespace SCaR_Arcade
         // Predefined method to the create to build the Activity GameMenu.axml executes. 
         protected override void OnCreate(Bundle savedInstanceState)
         {
-          try
-            {
                 base.OnCreate(savedInstanceState);
                 SetContentView(Resource.Layout.GameMenu);
                 FullScreen = FindViewById<LinearLayout>(Resource.Id.FullScreenLinLay);
@@ -97,12 +95,6 @@ namespace SCaR_Arcade
 
                 // Add the description of the game.
                 gameDescription.Text = FileInterface.readFromDescription(Assets);
-
-            }
-            catch
-            {
-                GlobalApp.Alert(this, 0);
-            }
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Plus, and minus bitmap images are added to the image buttons 

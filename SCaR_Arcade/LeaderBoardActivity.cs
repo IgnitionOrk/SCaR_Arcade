@@ -41,10 +41,10 @@ namespace SCaR_Arcade
         // ----------------------------------------------------------------------------------------------------------------
         protected override void OnCreate(Bundle savedInstanceState)
         {
-          try
+            try
             {
                 base.OnCreate(savedInstanceState);
-                SetContentView(Resource.Layout.Leaderboard);             
+                SetContentView(Resource.Layout.Leaderboard);
                 FullScreen = FindViewById<LinearLayout>(Resource.Id.FullScreenLinLay);
                 LeaderBoard = FindViewById<LinearLayout>(Resource.Id.LeaderBoardLinLay);
                 LeaderBoardListView = FindViewById<ListView>(Resource.Id.LeaderBoardListView);
@@ -55,8 +55,8 @@ namespace SCaR_Arcade
                 LeaderBoardListView.Adapter = new LeaderBoardRowAdapter(this, Assets);
 
                 LeaderBoard.SetBackgroundColor(Color.Gray);
-                FullScreen.SetBackgroundResource(game.gMenuBackground);
-                
+                // FullScreen.SetBackgroundResource(game.gMenuBackground);
+
                 // Event handlers.
                 btnBack.Click += ButtonClickSelect;
                 localBtn.Click += ButtonLocalClick;

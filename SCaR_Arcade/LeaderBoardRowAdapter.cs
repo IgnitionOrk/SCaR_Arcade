@@ -107,27 +107,30 @@ namespace SCaR_Arcade
         {
             if (data == null)
             {   // Local file is determined by the boolean parameter.
-                List<string> unsortList = FileInterface.readFromScoreFile(isOnline, assets);
+                List<string> unsortedList = FileInterface.readFromScoreFile(isOnline, assets);
                 // This list will be sorted;
                 List<LeaderBoard> unsortedLb = new List<LeaderBoard>();
-                for (int i = 0; i < unsortList.Count; i++)
+                if (unsortedList != null)
                 {
-                    // Return the data (string) and index i;
-                    string line = unsortList[i];
-
-                    Char delimiter = '-';
-                    String[] subStrings = line.Split(delimiter);
-
-                    unsortedLb.Add(new LeaderBoard
+                    for (int i = 0; i < unsortedList.Count; i++)
                     {
-                        lbPosition = Convert.ToInt32(subStrings[0]),
-                        lbName = subStrings[1],
-                        lbTime = subStrings[2],
-                        lbScore = subStrings[3]
-                    });
+                        // Return the data (string) and index i;
+                        string line = unsortedList[i];
+
+                        Char delimiter = '-';
+                        String[] subStrings = line.Split(delimiter);
+
+                        unsortedLb.Add(new LeaderBoard
+                        {
+                            lbPosition = Convert.ToInt32(subStrings[0]),
+                            lbName = subStrings[1],
+                            lbTime = subStrings[2],
+                            lbScore = subStrings[3]
+                        });
+                    }
+                    // Return a sorted Leaderboard list. 
+                    data = selectionSort(unsortedLb);
                 }
-                // Return a sorted Leaderboard list. 
-                data = selectionSort(unsortedLb);
             }
         }
 

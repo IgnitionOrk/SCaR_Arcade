@@ -21,8 +21,7 @@ namespace SCaR_Arcade
         private static Android.Content.Res.AssetManager assets;
         private const string SCOREFILESPATH = "ScoreFiles/";
         private const string GAMEDESCRIPTIONSPATH = "GameDescriptions/";
-        private static string saveFileLocation = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments);
-        private static ConnectivityManager connection = (ConnectivityManager)Get
+        private static string saveFileLocation = Android.App.Application.Context.FilesDir.AbsolutePath;
         /*
          * IMPORTANT NOTE:
          * We need to create a method that determines if the file has the MAXNUMBEROFLINES;
@@ -39,6 +38,7 @@ namespace SCaR_Arcade
             // Add the predefined data from the Assets folder.
             addPredefinedScores(true, game.gOnlineDirectory + game.gOnlineFileName, assets);
             addPredefinedScores(false, game.gLocalDirectory + game.gLocalFileName, assets);
+
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Will create the Local (.txt), and Online(.txt) file for a particular game (instance variable),
@@ -60,19 +60,13 @@ namespace SCaR_Arcade
                     // Then we replace all whitespaces in between with empty;
                     gTitleTrimmed = gTitleTrimmed.Replace(" ", String.Empty);
 
-                    System.Diagnostics.Debug.WriteLine("Check Point One *Begining*------------------------------------------------------");
-                    System.Diagnostics.Debug.WriteLine("Does Directory exist?--:  " + Directory.Exists(directory));
-                    System.Diagnostics.Debug.WriteLine("Directory pathway------:  " + directory);
-                    System.Diagnostics.Debug.WriteLine("Does File exist?-------:  " + File.Exists(path));
-                    System.Diagnostics.Debug.WriteLine("File pathway-----------:  " + path);
-                    System.Diagnostics.Debug.WriteLine("--------------------------------------------------------------------------------");
-
                     if (isOnline)
                     {
                         game.gOnlineFileName = gTitleTrimmed + "Online.txt";
 
                         // Create a path that contains the (.txt) file.
                         directory = SCOREFILESPATH + "Online/";
+
                     }
                     else
                     {
@@ -80,238 +74,160 @@ namespace SCaR_Arcade
 
                         // Create a path that contains the (.txt) file.
                         directory = SCOREFILESPATH + "Local/";
+
                     }
 
-                    directory = Path.Combine(saveFileLocation, directory);
-                    game.gLocalDirectory = directory;
-
-                    System.Diagnostics.Debug.WriteLine("Check Point Two *Directory Path Set*-------------------------------------------");
-                    System.Diagnostics.Debug.WriteLine("Does Directory exist?--:  " + Directory.Exists(directory));
-                    System.Diagnostics.Debug.WriteLine("Directory pathway------:  " + directory);
-                    System.Diagnostics.Debug.WriteLine("Does File exist?-------:  " + File.Exists(path));
-                    System.Diagnostics.Debug.WriteLine("File pathway-----------:  " + path);
-                    System.Diagnostics.Debug.WriteLine("--------------------------------------------------------------------------------");
+                    directory = Path.Combine(saveFileLocation.ToString(), directory);
 
 
                     // Create the directory 
                     Directory.CreateDirectory(directory);
 
-                    System.Diagnostics.Debug.WriteLine("Check Point Three *Directory Created*-------------------------------------------");
-                    System.Diagnostics.Debug.WriteLine("Does Directory exist?--:  " + Directory.Exists(directory));
-                    System.Diagnostics.Debug.WriteLine("Directory pathway------:  " + directory);
-                    System.Diagnostics.Debug.WriteLine("Does File exist?-------:  " + File.Exists(path));
-                    System.Diagnostics.Debug.WriteLine("File pathway-----------:  " + path);
-                    System.Diagnostics.Debug.WriteLine("--------------------------------------------------------------------------------");
-
                     //Used to create the path in which the .txt file will be located.
-                    path = directory + game.gOnlineFileName;
-                    System.Diagnostics.Debug.WriteLine("Check Point Four *File path Set*------------------------------------------------");
-                    System.Diagnostics.Debug.WriteLine("Does Directory exist?--:  " + Directory.Exists(directory));
-                    System.Diagnostics.Debug.WriteLine("Directory pathway------:  " + directory);
-                    System.Diagnostics.Debug.WriteLine("Does File exist?-------:  " + File.Exists(path));
-                    System.Diagnostics.Debug.WriteLine("File pathway-----------:  " + path);
-                    System.Diagnostics.Debug.WriteLine("--------------------------------------------------------------------------------");
                     // Create the .txt file at the specified location (directory).
-                    File.Create(path);
 
-                    System.Diagnostics.Debug.WriteLine("Check Point Five *File Created*-------------------------------------------------");
-                    System.Diagnostics.Debug.WriteLine("Does Directory exist?--:  " + Directory.Exists(directory));
-                    System.Diagnostics.Debug.WriteLine("Directory pathway------:  " + directory);
-                    System.Diagnostics.Debug.WriteLine("Does File exist?-------:  " + File.Exists(path));
-                    System.Diagnostics.Debug.WriteLine("File pathway-----------:  " + path);
-                    System.Diagnostics.Debug.WriteLine("--------------------------------------------------------------------------------");
+                    if (isOnline)
+                    {
+                        path = directory + game.gOnlineFileName;
 
+                        game.gOnlineDirectory = directory;
+
+                    }
+                    else
+                    {
+                        game.gLocalDirectory = directory;
+
+                        path = directory + game.gLocalFileName;
+
+                    }
                 }
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
         private static void addPredefinedScores(bool isOnline, string pathToFile, Android.Content.Res.AssetManager assets)
         {
-            try
+            string path = "";
+            List<string> scoreData = new List<string>();
+            if (isOnline)
             {
-                string path = "";
-                if (isOnline)
-                {
-                    path = SCOREFILESPATH + "Online/onlineTest.txt";
-                }
-                else
-                {
-                    path = SCOREFILESPATH + "Local/localTest.txt";
-                }
-                if (File.Exists(pathToFile))
-                {
-                    System.Diagnostics.Debug.WriteLine(pathToFile);
-                    using (StreamReader sr = new StreamReader(assets.Open(path)))
-                    {
-                        // StreamWriter is the problem and I don't know why!!!
-
-                        // The pathToFile is correct because I've checked if the file exists, and it returns true. 
-                        using (StreamWriter sw = new StreamWriter(pathToFile))
-                        {
-                            try
-                            {
-                                while (sr.Peek() > -1)
-                                {
-
-
-                                    System.Diagnostics.Debug.WriteLine(sr.ReadLine());
-
-
-                                    // For some reason it bugs out here and I can't get it to work.
-
-                                    //sw.WriteLine(sr.ReadLine());
-                                }
-                            }
-                            catch
-                            {
-                                System.Diagnostics.Debug.WriteLine("HERE");
-
-                            }
-                            finally
-                            {
-                                sr.Close();
-                                sw.Close();
-                            }
-                        }
-                    }
-                }
+                path = SCOREFILESPATH + "Online/onlineTest.txt";
             }
-            catch
+            else
             {
+                path = SCOREFILESPATH + "Local/localTest.txt";
+            }
+            using (StreamReader sr = new StreamReader(assets.Open(path)))
+            {
+                while (sr.Peek() > -1)
+                {
+                    scoreData.Add(sr.ReadLine());
+                }
+                sr.Close();
+            }
 
+            // StreamWriter is the problem and I don't know why!!!
+            // The pathToFile is correct because I've checked if the file exists, and it returns true. 
+            using (StreamWriter sw = new StreamWriter(pathToFile))
+            {
+                for (int i = 0; i < scoreData.Count; i++)
+                {
+                    sw.WriteLine(scoreData[i]);
+                }
+                sw.Close();
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
         // 
         public static void addScoreToFile(bool isOnline, string score, Android.Content.Res.AssetManager assets)
         {
-            try
+            initializeAssests(assets);
+            string path = "";
+            if (isOnline)
             {
-                initializeAssests(assets);
-                string path = "";
-                if (isOnline)
+                path = game.gOnlineDirectory + game.gOnlineFileName;
+                // Determine if there is not a Local (.txt) file.
+                if (!File.Exists(path))
                 {
-                    path = game.gOnlineDirectory + game.gOnlineFileName;
-                    // Determine if there is not a Local (.txt) file.
-                    if (!File.Exists(path))
-                    {
-                        // Create the Files that will be used to score data on scores from the player.
-                        // For this instance we are creating a Online (.txt) file, and not an Local (.txt).
+                    // Create the Files that will be used to score data on scores from the player.
+                    // For this instance we are creating a Online (.txt) file, and not an Local (.txt).
 
-                        //This is determined by the boolean parameter true is for Online, false for Local
-                        createFilesForGame(true);
+                    //This is determined by the boolean parameter true is for Online, false for Local
+                    createFilesForGame(true);
 
-                        //Now add the predefine scores into the newly created .txt files.
-                        addPredefinedScores(true, path, assets);
-                    }
-                    // Write to the Local file containing scores.
-                    using (StreamWriter sw = File.AppendText(path))
-                    {
-                        sw.WriteLine(score);
-                    }
-
+                    //Now add the predefine scores into the newly created .txt files.
+                    addPredefinedScores(true, path, assets);
                 }
-                else
+                // Write to the Local file containing scores.
+                using (StreamWriter sw = File.AppendText(path))
                 {
-                    path = game.gLocalDirectory + game.gLocalFileName;
-                    // Determine if there is not a Local (.txt) file.
-                    if (!File.Exists(path))
-                    {
-                        // Create the Files that will be used to score data on scores from the player.
-                        // For this instance we are creating a Local (.txt) file, and not an Online (.txt).
-
-                        //This is determined by the boolean parameter true is for Online, false for Local
-                        createFilesForGame(false);
-
-                        //Now add the predefine scores into the newly created .txt files.
-                        addPredefinedScores(false, path, assets);
-                    }
-                    // Write to the Local file containing scores.
-                    using (StreamWriter sw = File.AppendText(path))
-                    {
-                        sw.WriteLine(score);
-                    }
+                    sw.WriteLine(score);
                 }
+
             }
-            catch
+            else
             {
+                path = game.gLocalDirectory + game.gLocalFileName;
+                // Determine if there is not a Local (.txt) file.
+                if (!File.Exists(path))
+                {
+                    // Create the Files that will be used to score data on scores from the player.
+                    // For this instance we are creating a Local (.txt) file, and not an Online (.txt).
 
+                    //This is determined by the boolean parameter true is for Online, false for Local
+                    createFilesForGame(false);
+
+                    //Now add the predefine scores into the newly created .txt files.
+                    addPredefinedScores(false, path, assets);
+                }
+                // Write to the Local file containing scores.
+                using (StreamWriter sw = File.AppendText(path))
+                {
+                    sw.WriteLine(score);
+                }
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
         // 
         public static string readFromDescription(Android.Content.Res.AssetManager assets)
         {
-            try
+            initializeAssests(assets);
+            string path = GAMEDESCRIPTIONSPATH + game.gDiscription;
+            string content = "";
+            using (StreamReader sr = new StreamReader(assets.Open(path)))
             {
-                initializeAssests(assets);
-                string path = GAMEDESCRIPTIONSPATH + game.gDiscription;
-                string content = "";
-                using (StreamReader sr = new StreamReader(assets.Open(path)))
-                {
-                    try
-                    {
-                        content = sr.ReadToEnd();
-                    }
-                    catch
-                    {
-
-                    }
-                    finally
-                    {
-                        sr.Close();
-                    }
-                }
-                return content;
+                content = sr.ReadToEnd();
             }
-            catch
-            {
-                return "";
-            }
+            return content;
         }
         // ----------------------------------------------------------------------------------------------------------------
         // 
         public static List<string> readFromScoreFile(bool isOnline, Android.Content.Res.AssetManager assets)
         {
-            try
+            initializeAssests(assets);
+            List<string> scoreLines = new List<string>();
+            string path = "";
+            string lineScore = "";
+            if (isOnline)
             {
-                initializeAssests(assets);
-                List<string> scoreLines = new List<string>();
-                string path = "";
-                string lineScore = "";
-                if (isOnline)
-                {
-                    path = game.gOnlineDirectory + game.gOnlineFileName;
-                }
-                else
-                {
-                    path = game.gLocalDirectory + game.gLocalFileName;
-                }
-                using (StreamReader sr = new StreamReader(path))
-                {
-                    try
-                    {
-                        while (sr.Peek() > -1)
-                        {
-                            lineScore = sr.ReadLine();
-                            scoreLines.Add(lineScore);
-                        }
-                    }
-                    catch
-                    {
+                path = game.gOnlineDirectory + game.gOnlineFileName;
+            }
+            else
+            {
+                path = game.gLocalDirectory + game.gLocalFileName;
+            }
 
-                    }
-                    finally
-                    {
-                        sr.Close();
-                    }
-                }
-                return scoreLines;
-            }
-            catch
+                
+            using (StreamReader sr = new StreamReader(path))
             {
-                return null;
+                while (sr.Peek() > -1)
+                {
+                    lineScore = sr.ReadLine();
+                    scoreLines.Add(lineScore);
+                }
+
+                sr.Close();
             }
+            return scoreLines;
         }
         // ----------------------------------------------------------------------------------------------------------------
         //
