@@ -70,14 +70,16 @@ namespace SCaR_Arcade
             return sortedList;
         }
         // ----------------------------------------------------------------------------------------------------------------
-        // Will format the @parameter score into the format Position-Name-Score-Time
+        // Will format the @parameter playersScore into the format Position-Name-Score-Time
         // Position - The position the player is in the list.
         // Name - Name of the player.
         // Score - The number of moves taken to win the game.
         // Time - How long it took to win the game. 
         public static void addNewScore(string playersScore)
         {
-            // The boolean parameter will determine if we are working with the local file, or online file.
+            // @param playersScore will be in the format Name-Score-Time
+
+            // The boolean parameter will determine if we are using with the local file, or online file.
             int localPosition = determinePosition(false, playersScore);
             int onlinePosition = determinePosition(true, playersScore);
            
@@ -89,7 +91,8 @@ namespace SCaR_Arcade
                 FileInterface.removeScoreAtPosition(false, localPosition);
 
                 // Now we can add the new score.
-                FileInterface.addScoreToFile(false, playersScore);
+                // This will be in the format Position-Name-Score-Time
+                FileInterface.addScoreToFile(false, localPosition + "-" + playersScore);
             }
 
             if (onlinePosition <= MAXNUMBEROFONLINESCORES)
@@ -98,7 +101,8 @@ namespace SCaR_Arcade
                 FileInterface.removeScoreAtPosition(false, onlinePosition);
 
                 // Now we can add the new score. 
-                FileInterface.addScoreToFile(true, playersScore);
+                // This will be in the format Position-Name-Score-Time
+                FileInterface.addScoreToFile(true, onlinePosition + "-" + playersScore);
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
