@@ -9,9 +9,14 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-
 using System.IO;
 
+/// <summary>
+/// Created by: Ryan Cunneen
+/// Student no: 3179234
+/// Date modified: 13-Apr-2017
+/// /// Date created: 08-Apr-2017
+/// </summary>
 namespace SCaR_Arcade
 {
     static class FileInterface
@@ -23,116 +28,120 @@ namespace SCaR_Arcade
         private static string saveFileLocation = Android.App.Application.Context.FilesDir.AbsolutePath;
         private static string subFolderLocalPath = "";
         private static string subFolderOnlinePath = ""; 
-        /*
-         * IMPORTANT NOTE:
-         * We need to create a method that determines if the file has the MAXNUMBEROFLINES;
-         * We need to order the files scores into ascending order (probably another method to be implemented). 
-         */
         // ----------------------------------------------------------------------------------------------------------------
+        // Adds the game the player has clicked on. 
         public static void addCurrentGame(Game g, Android.Content.Res.AssetManager assets)
         {
             game = g;
 
+            // Initialize the Assets folder, so we may extract data from it. 
+            initializeAssests(assets);
+
             // Create the Local, and Online txt files.
-            createFilesForGame(true);
-            createFilesForGame(false);
+            createFilesForGame();
 
             // Add the predefined data from the Assets folder.
-            addPredefinedScores(true, assets);
-            addPredefinedScores(false, assets);
+            // These will similar to the scores that are inbuilt for a game at an actual arcade. 
+            addPredefinedScores(true);
+            addPredefinedScores(false);
 
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Will create the Local (.txt), and Online(.txt) file for a particular game (instance variable),
         // And saves the file path, and name into the instance variables of game.
-        private static void createFilesForGame(bool isOnline)
+        private static void createFilesForGame()
         {
             if (game != null)
             {
+                string directory = "";
+                // gTitle is the title of the game without spaces
+                // So we can save it as a path for two files.
+                // We first remove any leading, and end whitespaces using Trim().
+                string gTitleTrimmed = game.gTitle.Trim();
 
-                if (!Directory.Exists(subFolderLocalPath) || !Directory.Exists(subFolderOnlinePath))
+                // Then we replace all whitespaces " " in between with empty;
+                gTitleTrimmed = gTitleTrimmed.Replace(" ", String.Empty);
+
+                if (!Directory.Exists(subFolderLocalPath))
                 {
-                    string directory = "";
-                    string path = "";
-                    // gTitle is the title of the game without spaces
-                    // So we can save it as a path for two files.
-                    // We first remove any leading, and end whitespaces using Trim().
-                    string gTitleTrimmed = game.gTitle.Trim();
+                    // Save the name so to be used later on with extracting, and inserting new data.
+                    game.gLocalFileName = gTitleTrimmed + "Local.txt";
+                    directory = SCOREFILESPATH + "Local/";
 
-                    // Then we replace all whitespaces in between with empty;
-                    gTitleTrimmed = gTitleTrimmed.Replace(" ", String.Empty);
-
-                    if (isOnline)
-                    {
-                        game.gOnlineFileName = gTitleTrimmed + "Online.txt";
-                        directory = SCOREFILESPATH + "Online/";
-                    }
-                    else
-                    {
-                        game.gLocalFileName = gTitleTrimmed + "Local.txt";
-                        directory = SCOREFILESPATH + "Local/";
-                    }
-
+                    // Combine the two strings together.
                     directory = Path.Combine(saveFileLocation.ToString(), directory);
 
+                    subFolderLocalPath = directory;
                     // Create the directory. This directory will contain the subfolder with all the data
                     // of scores by the player, and players around the world.
                     Directory.CreateDirectory(directory);
+                }
 
-                    //Used to create the path in which the .txt file will be located.
-                    // Create the .txt file at the specified location (directory).
-                    if (isOnline)
-                    {
-                        path = directory + game.gOnlineFileName;
-                        subFolderOnlinePath = directory;
-                    }
-                    else
-                    {
-                        path = directory + game.gLocalFileName;
-                        subFolderLocalPath = directory;
-                    }
+
+                if (!Directory.Exists(subFolderOnlinePath))
+                {
+                    // Save the name so to be used later on with extracting, and inserting new data.
+                    game.gOnlineFileName = gTitleTrimmed + "Online.txt";
+                    directory = SCOREFILESPATH + "Online/";
+
+                    // Combine the two strings together.
+                    directory = Path.Combine(saveFileLocation.ToString(), directory);
+
+                    subFolderOnlinePath = directory;
+                    // Create the directory. This directory will contain the subfolder with all the data
+                    // of scores by the player, and players around the world.
+                    Directory.CreateDirectory(directory);
                 }
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
-        private static void addPredefinedScores(bool isOnline, Android.Content.Res.AssetManager assets)
+        // 
+        private static void addPredefinedScores(bool isOnline)
         {
-            string path = "";
-            string pathToFile = "";
+            string assetsPath = "";
+            string gameFilePath = "";
             List<string> scoreData = new List<string>();
+
             if (isOnline)
             {
-                path = SCOREFILESPATH + "Online/onlineTest.txt";
-                pathToFile = subFolderOnlinePath + game.gOnlineFileName;
+                assetsPath = SCOREFILESPATH + "Online/onlineTest.txt";
+                gameFilePath = subFolderOnlinePath + game.gOnlineFileName;
             }
             else
             {
-                path = SCOREFILESPATH + "Local/localTest.txt";
-                pathToFile = subFolderLocalPath + game.gLocalFileName;
+                assetsPath = SCOREFILESPATH + "Local/localTest.txt";
+                gameFilePath = subFolderLocalPath + game.gLocalFileName;
             }
-            using (StreamReader sr = new StreamReader(assets.Open(path)))
+
+            // Open a new connection to the .txt file, so we may extract the data.
+            using (StreamReader sr = new StreamReader(assets.Open(assetsPath)))
             {
                 while (sr.Peek() > -1)
                 {
+                    // Extract all the data from file located in the Assets folder. 
                     scoreData.Add(sr.ReadLine());
                 }
+
+                // Close the connection to the file (.txt).
                 sr.Close();
             }
 
-            using (StreamWriter sw = new StreamWriter(pathToFile))
+            // Open a new connection to the .txt file, so we can insert the new data.
+            using (StreamWriter sw = new StreamWriter(gameFilePath))
             {
                 for (int i = 0; i < scoreData.Count; i++)
                 {
                     sw.WriteLine(scoreData[i]);
                 }
+
+                // Close the connection to the file (.txt).
                 sw.Close();
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
         // 
-        public static void addScoreToFile(bool isOnline, string score, Android.Content.Res.AssetManager assets)
+        public static void addScoreToFile(bool isOnline, string score)
         {
-            initializeAssests(assets);
             string path = "";
             if (isOnline)
             {
@@ -144,16 +153,10 @@ namespace SCaR_Arcade
                     // For this instance we are creating a Online (.txt) file, and not an Local (.txt).
 
                     //This is determined by the boolean parameter true is for Online, false for Local
-                    createFilesForGame(true);
+                    createFilesForGame();
 
                     //Now add the predefine scores into the newly created .txt files.
-                    addPredefinedScores(true, assets);
-                }
-                // Write to the Local file containing scores.
-                using (StreamWriter sw = File.AppendText(path))
-                {
-                    sw.WriteLine(score);
-                    sw.Close();
+                    addPredefinedScores(true);
                 }
             }
             else
@@ -166,24 +169,23 @@ namespace SCaR_Arcade
                     // For this instance we are creating a Local (.txt) file, and not an Online (.txt).
 
                     //This is determined by the boolean parameter true is for Online, false for Local
-                    createFilesForGame(false);
+                    createFilesForGame();
 
                     //Now add the predefine scores into the newly created .txt files.
-                    addPredefinedScores(false, assets);
+                    addPredefinedScores(false);
                 }
-                // Write to the Local file containing scores.
-                using (StreamWriter sw = File.AppendText(path))
-                {
-                    sw.WriteLine(score);
-                    sw.Close();
-                }
+            }
+            // Write to the Local file containing scores.
+            using (StreamWriter sw = File.AppendText(path))
+            {
+                sw.WriteLine(score);
+                sw.Close();
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
         // 
-        public static string readFromDescription(Android.Content.Res.AssetManager assets)
+        public static string readFromDescription()
         {
-            initializeAssests(assets);
             if (game.gDescription == null)
             {
                 return "";
@@ -192,18 +194,21 @@ namespace SCaR_Arcade
             {
                 string path = GAMEDESCRIPTIONSPATH + game.gDescription;
                 string content = "";
+
+                // Open a new connection to the Assets folder, so we may extract the description from the .txt file.
                 using (StreamReader sr = new StreamReader(assets.Open(path)))
                 {
+                    // Read from top to bottom of the file.
                     content = sr.ReadToEnd();
                 }
+
                 return content;
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
         // 
-        public static List<string> readFromScoreFile(bool isOnline, Android.Content.Res.AssetManager assets)
+        public static List<string> readFromScoreFile(bool isOnline)
         {
-            initializeAssests(assets);
             List<string> scoreLines = new List<string>();
             string path = "";
             string lineScore = "";

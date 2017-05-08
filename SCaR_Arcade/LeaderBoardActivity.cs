@@ -52,7 +52,7 @@ namespace SCaR_Arcade
                 localBtn = FindViewById<Button>(Resource.Id.btnLocal);
                 onlineBtn = FindViewById<Button>(Resource.Id.btnOnline);
 
-                LeaderBoardListView.Adapter = new LeaderBoardRowAdapter(this, Assets);
+                LeaderBoardListView.Adapter = new LeaderBoardRowAdapter(this);
 
                 LeaderBoard.SetBackgroundColor(Color.Gray);
                 // FullScreen.SetBackgroundResource(game.gMenuBackground);
@@ -88,7 +88,7 @@ namespace SCaR_Arcade
                 // Delete the current Adpater
                 LeaderBoardListView.Adapter = null;
                 // And store a new one.
-                LeaderBoardListView.Adapter = new LeaderBoardRowAdapter(this, Assets, false);
+                LeaderBoardListView.Adapter = new LeaderBoardRowAdapter(this, false);
             }
             catch
             {
@@ -103,7 +103,7 @@ namespace SCaR_Arcade
                 // Delete the current Adpater
                 LeaderBoardListView.Adapter = null;
                 // And store a new one.
-                LeaderBoardListView.Adapter = new LeaderBoardRowAdapter(this, Assets, true);
+                LeaderBoardListView.Adapter = new LeaderBoardRowAdapter(this, true);
             }
             catch
             {

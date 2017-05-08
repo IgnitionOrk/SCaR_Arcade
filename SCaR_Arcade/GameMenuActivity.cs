@@ -90,11 +90,11 @@ namespace SCaR_Arcade
                 // that can increase or decrease the difficulty level.
                 addPlusAndMinus();
 
-                // Add the current game to the Interface
+                // Add the current game to the Interface, and Assets folder.
                 FileInterface.addCurrentGame(game, Assets);
 
                 // Add the description of the game.
-                gameDescription.Text = FileInterface.readFromDescription(Assets);
+                gameDescription.Text = FileInterface.readFromDescription();
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Plus, and minus bitmap images are added to the image buttons 

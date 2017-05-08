@@ -31,15 +31,13 @@ namespace SCaR_Arcade
         */
         private List<LeaderBoard> data;
         private Activity context;
-        private Android.Content.Res.AssetManager assets;
         private const int MAXNUMBEROFLOCALSCORES = 20;
         private const int MAXNUMBEROFONLINESCORES = 100;
         // ----------------------------------------------------------------------------------------------------------------
         // Constructor:
-        public LeaderBoardRowAdapter (Activity activity, Android.Content.Res.AssetManager assets)
+        public LeaderBoardRowAdapter (Activity activity)
         {
             context = activity;
-            this.assets = assets; 
 
             // the boolean parameter determines if we are using the local, or online .text files.
             // Here we are working with the default which is local (false).
@@ -47,10 +45,9 @@ namespace SCaR_Arcade
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Constructor:
-        public LeaderBoardRowAdapter(Activity activity, Android.Content.Res.AssetManager assets, bool isOnline)
+        public LeaderBoardRowAdapter(Activity activity, bool isOnline)
         {
             context = activity;
-            this.assets = assets;
 
             // the boolean parameter determines if we are using the local, or online .text files.
             // Here we are working with the default which is local (false).
@@ -109,7 +106,7 @@ namespace SCaR_Arcade
         {
             if (data == null)
             {   // A particular .txt file (local, or online) will be used determined by the boolean parameter.
-                List<string> unsortedList = FileInterface.readFromScoreFile(isOnline, assets);
+                List<string> unsortedList = FileInterface.readFromScoreFile(isOnline);
 
                 // This list will be sorted;
                 List<LeaderBoard> unsortedLb = new List<LeaderBoard>();
@@ -140,6 +137,7 @@ namespace SCaR_Arcade
                             lbScore = subStrings[3]
                         });
                     }
+
                     // Return a sorted Leaderboard list. 
                     data = selectionSort(unsortedLb);
                 }
