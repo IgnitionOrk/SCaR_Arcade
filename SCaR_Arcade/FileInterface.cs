@@ -17,11 +17,12 @@ namespace SCaR_Arcade
     static class FileInterface
     {
         private static Game game;
-        private const int MAXNUMBEROFLINES = 20;
         private static Android.Content.Res.AssetManager assets;
         private const string SCOREFILESPATH = "ScoreFiles/";
         private const string GAMEDESCRIPTIONSPATH = "GameDescriptions/";
         private static string saveFileLocation = Android.App.Application.Context.FilesDir.AbsolutePath;
+        private static string subFolderLocalPath = "";
+        private static string subFolderOnlinePath = ""; 
         /*
          * IMPORTANT NOTE:
          * We need to create a method that determines if the file has the MAXNUMBEROFLINES;
@@ -37,8 +38,8 @@ namespace SCaR_Arcade
             createFilesForGame(false);
 
             // Add the predefined data from the Assets folder.
-            addPredefinedScores(true, game.gOnlineDirectory + game.gOnlineFileName, assets);
-            addPredefinedScores(false, game.gLocalDirectory + game.gLocalFileName, assets);
+            addPredefinedScores(true, assets);
+            addPredefinedScores(false, assets);
 
         }
         // ----------------------------------------------------------------------------------------------------------------
@@ -49,7 +50,7 @@ namespace SCaR_Arcade
             if (game != null)
             {
 
-                if (!Directory.Exists(game.gOnlineDirectory) && isOnline || !Directory.Exists(game.gLocalDirectory) && !isOnline)
+                if (!Directory.Exists(subFolderLocalPath) || !Directory.Exists(subFolderOnlinePath))
                 {
                     string directory = "";
                     string path = "";
@@ -64,58 +65,50 @@ namespace SCaR_Arcade
                     if (isOnline)
                     {
                         game.gOnlineFileName = gTitleTrimmed + "Online.txt";
-
-                        // Create a path that contains the (.txt) file.
                         directory = SCOREFILESPATH + "Online/";
-
                     }
                     else
                     {
                         game.gLocalFileName = gTitleTrimmed + "Local.txt";
-
-                        // Create a path that contains the (.txt) file.
                         directory = SCOREFILESPATH + "Local/";
-
                     }
 
                     directory = Path.Combine(saveFileLocation.ToString(), directory);
 
-
-                    // Create the directory 
+                    // Create the directory. This directory will contain the subfolder with all the data
+                    // of scores by the player, and players around the world.
                     Directory.CreateDirectory(directory);
 
                     //Used to create the path in which the .txt file will be located.
                     // Create the .txt file at the specified location (directory).
-
                     if (isOnline)
                     {
                         path = directory + game.gOnlineFileName;
-
-                        game.gOnlineDirectory = directory;
-
+                        subFolderOnlinePath = directory;
                     }
                     else
                     {
-                        game.gLocalDirectory = directory;
-
                         path = directory + game.gLocalFileName;
-
+                        subFolderLocalPath = directory;
                     }
                 }
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
-        private static void addPredefinedScores(bool isOnline, string pathToFile, Android.Content.Res.AssetManager assets)
+        private static void addPredefinedScores(bool isOnline, Android.Content.Res.AssetManager assets)
         {
             string path = "";
+            string pathToFile = "";
             List<string> scoreData = new List<string>();
             if (isOnline)
             {
                 path = SCOREFILESPATH + "Online/onlineTest.txt";
+                pathToFile = subFolderOnlinePath + game.gOnlineFileName;
             }
             else
             {
                 path = SCOREFILESPATH + "Local/localTest.txt";
+                pathToFile = subFolderLocalPath + game.gLocalFileName;
             }
             using (StreamReader sr = new StreamReader(assets.Open(path)))
             {
@@ -143,7 +136,7 @@ namespace SCaR_Arcade
             string path = "";
             if (isOnline)
             {
-                path = game.gOnlineDirectory + game.gOnlineFileName;
+                path = subFolderOnlinePath + game.gOnlineFileName;
                 // Determine if there is not a Local (.txt) file.
                 if (!File.Exists(path))
                 {
@@ -154,18 +147,18 @@ namespace SCaR_Arcade
                     createFilesForGame(true);
 
                     //Now add the predefine scores into the newly created .txt files.
-                    addPredefinedScores(true, path, assets);
+                    addPredefinedScores(true, assets);
                 }
                 // Write to the Local file containing scores.
                 using (StreamWriter sw = File.AppendText(path))
                 {
                     sw.WriteLine(score);
+                    sw.Close();
                 }
-
             }
             else
             {
-                path = game.gLocalDirectory + game.gLocalFileName;
+                path = subFolderLocalPath + game.gLocalFileName;
                 // Determine if there is not a Local (.txt) file.
                 if (!File.Exists(path))
                 {
@@ -176,12 +169,13 @@ namespace SCaR_Arcade
                     createFilesForGame(false);
 
                     //Now add the predefine scores into the newly created .txt files.
-                    addPredefinedScores(false, path, assets);
+                    addPredefinedScores(false, assets);
                 }
                 // Write to the Local file containing scores.
                 using (StreamWriter sw = File.AppendText(path))
                 {
                     sw.WriteLine(score);
+                    sw.Close();
                 }
             }
         }
@@ -215,11 +209,11 @@ namespace SCaR_Arcade
             string lineScore = "";
             if (isOnline)
             {
-                path = game.gOnlineDirectory + game.gOnlineFileName;
+                path = subFolderOnlinePath + game.gOnlineFileName;
             }
             else
             {
-                path = game.gLocalDirectory + game.gLocalFileName;
+                path = subFolderLocalPath + game.gLocalFileName;
             }
 
                 
