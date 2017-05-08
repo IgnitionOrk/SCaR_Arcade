@@ -139,44 +139,83 @@ namespace SCaR_Arcade
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
-        // 
-        public static void addScoreToFile(bool isOnline, string score)
+        // Removes the string (by not adding it to the list) from the .txt file Local or online. 
+        // @param position must be determined.
+        public static void removeScoreAtPosition(bool isOnline, int position)
         {
-            string path = "";
+            string gameFilePath = "";
+            string lineScore = "";
+            List<string> scoreData = new List<string>();
+            int currentPosition = 0;
+   
+            // Determine the game file path, where the .txt file is saved.
             if (isOnline)
             {
-                path = subFolderOnlinePath + game.gOnlineFileName;
-                // Determine if there is not a Local (.txt) file.
-                if (!File.Exists(path))
-                {
-                    // Create the Files that will be used to score data on scores from the player.
-                    // For this instance we are creating a Online (.txt) file, and not an Local (.txt).
-
-                    //This is determined by the boolean parameter true is for Online, false for Local
-                    createFilesForGame();
-
-                    //Now add the predefine scores into the newly created .txt files.
-                    addPredefinedScores(true);
-                }
+                gameFilePath = subFolderOnlinePath + game.gOnlineFileName;
             }
             else
             {
-                path = subFolderLocalPath + game.gLocalFileName;
-                // Determine if there is not a Local (.txt) file.
-                if (!File.Exists(path))
+                gameFilePath = subFolderLocalPath + game.gLocalFileName;
+            }
+
+            // Open a new connection to the .txt file, so we may extract the data.
+            // Essentially we are only adding the scores from the .txt file that do not equal the @param position.
+            using (StreamReader sr = new StreamReader(gameFilePath))
+            {
+                while (sr.Peek() > -1)
                 {
-                    // Create the Files that will be used to score data on scores from the player.
-                    // For this instance we are creating a Local (.txt) file, and not an Online (.txt).
+                    // Read the next line from the .txt file.
+                    lineScore = sr.ReadLine();
 
-                    //This is determined by the boolean parameter true is for Online, false for Local
-                    createFilesForGame();
+                    // Remove any possibility of extra whitespace at the start, and end of the string.
+                    lineScore.Trim();
 
-                    //Now add the predefine scores into the newly created .txt files.
-                    addPredefinedScores(false);
+                    // The position of the score is at the start of the string. 
+                    currentPosition = Convert.ToInt32(lineScore.Substring(0, lineScore.IndexOf("-")));
+
+                    if (currentPosition != position)
+                    {
+                        // We are only adding in the scores that do not match the @param position.
+                        // Thereby, essentially removing it from the current scores. 
+                        scoreData.Add(lineScore);
+                    }
                 }
+
+                // Close the connection to the file (.txt).
+                sr.Close();
+            }
+
+            // Open a new connection to the .txt file, so we can insert the new data.
+            // Using StreamWrite overrides the current .txt file there, so we are not adding data onto the end of .txt file.
+            using (StreamWriter sw = new StreamWriter(gameFilePath))
+            {
+                for (int i = 0; i < scoreData.Count; i++)
+                {
+                    sw.WriteLine(scoreData[i]);
+                }
+
+                // Close the connection to the file (.txt).
+                sw.Close();
+            }
+        }
+        // ----------------------------------------------------------------------------------------------------------------
+        // 
+        public static void addScoreToFile(bool isOnline, string score)
+        {
+            string gameFilePath = "";
+
+            // Determine the game file path, where the .txt file is saved.
+            if (isOnline)
+            {
+                gameFilePath = subFolderOnlinePath + game.gOnlineFileName;
+            }
+            else
+            {
+                gameFilePath = subFolderLocalPath + game.gLocalFileName;
             }
             // Write to the Local file containing scores.
-            using (StreamWriter sw = File.AppendText(path))
+            // We are appending the @param score into the .txt file.
+            using (StreamWriter sw = File.AppendText(gameFilePath))
             {
                 sw.WriteLine(score);
                 sw.Close();

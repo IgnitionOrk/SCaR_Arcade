@@ -58,6 +58,7 @@
     <Compile Include="GameActivities\MemoryTestActivity.cs" />
     <Compile Include="LeaderBoard.cs" />
     <Compile Include="LeaderBoardActivity.cs" />
+    <Compile Include="LeaderBoardInterface.cs" />
     <Compile Include="LeaderBoardRowAdapter.cs" />
     <Compile Include="MainRowAdapter.cs" />
     <Compile Include="GameInterface.cs" />

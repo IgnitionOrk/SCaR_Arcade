@@ -195,14 +195,14 @@ namespace SCaR_Arcade
 			// aapt resource value: 0x7f05000e
 			public const int relativeLayout1 = 2131034126;
 			
-			// aapt resource value: 0x7f050019
-			public const int scoretxt = 2131034137;
+			// aapt resource value: 0x7f050018
+			public const int scoretxt = 2131034136;
 			
 			// aapt resource value: 0x7f050022
 			public const int startProgress = 2131034146;
 			
-			// aapt resource value: 0x7f050018
-			public const int timetxt = 2131034136;
+			// aapt resource value: 0x7f050019
+			public const int timetxt = 2131034137;
 			
 			// aapt resource value: 0x7f05001d
 			public const int titletxt = 2131034141;

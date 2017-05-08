@@ -31,17 +31,15 @@ namespace SCaR_Arcade
         */
         private List<LeaderBoard> data;
         private Activity context;
-        private const int MAXNUMBEROFLOCALSCORES = 20;
-        private const int MAXNUMBEROFONLINESCORES = 100;
         // ----------------------------------------------------------------------------------------------------------------
         // Constructor:
         public LeaderBoardRowAdapter (Activity activity)
         {
-            context = activity;
+            this.context = activity;
 
             // the boolean parameter determines if we are using the local, or online .text files.
             // Here we are working with the default which is local (false).
-            PopulateLeaderBoardData(false);
+            this.PopulateLeaderBoardData(false);
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Constructor:
@@ -91,85 +89,22 @@ namespace SCaR_Arcade
             TextView name = view.FindViewById<TextView>(SCaR_Arcade.Resource.Id.nametxt);
             name.Text = "N#"+row.lbName;
 
-            TextView time = view.FindViewById<TextView>(SCaR_Arcade.Resource.Id.timetxt);
-            time.Text = "T#" + row.lbTime;
-
             TextView score = view.FindViewById<TextView>(SCaR_Arcade.Resource.Id.scoretxt);
             score.Text = "S#"+row.lbScore;
 
+            TextView time = view.FindViewById<TextView>(SCaR_Arcade.Resource.Id.timetxt);
+            time.Text = "T#" + row.lbTime;
 
             return view;
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Populates the Leader board with data of scores that are either from the local, or online text files.
-        public void PopulateLeaderBoardData(bool isOnline)
+        private void PopulateLeaderBoardData(bool isOnline)
         {
             if (data == null)
-            {   // A particular .txt file (local, or online) will be used determined by the boolean parameter.
-                List<string> unsortedList = FileInterface.readFromScoreFile(isOnline);
-
-                // This list will be sorted;
-                List<LeaderBoard> unsortedLb = new List<LeaderBoard>();
-
-                if (unsortedList != null)
-                {
-                    int count = 0;
-                    if (isOnline) {
-                        count = MAXNUMBEROFONLINESCORES;
-                    }
-                    else
-                    {
-                        count = MAXNUMBEROFLOCALSCORES;
-                    }
-                    for (int i = 0; i < count && i < unsortedList.Count; i++)
-                    {
-                        // Return the data (string) and index i;
-                        string line = unsortedList[i];
-
-                        Char delimiter = '-';
-                        String[] subStrings = line.Split(delimiter);
-
-                        unsortedLb.Add(new LeaderBoard
-                        {
-                            lbPosition = Convert.ToInt32(subStrings[0]),
-                            lbName = subStrings[1],
-                            lbTime = subStrings[2],
-                            lbScore = subStrings[3]
-                        });
-                    }
-
-                    // Return a sorted Leaderboard list. 
-                    data = selectionSort(unsortedLb);
-                }
-            }
-        }
-
-        // ----------------------------------------------------------------------------------------------------------------
-        // We will sort the entire list here, using the sorting algorithm selection.
-        // Resource: http://cforbeginners.com/CSharp/SelectionSort.html helped us create the algorithm.
-        // Returns a list of Leaderboard data sorted in ascending order, by the instance variable lbPosition.
-        private List<LeaderBoard> selectionSort(List<LeaderBoard> sortedList)
-        {
-            int position = 0;
-            LeaderBoard temp;
-            for (int x = 0; x < sortedList.Count - 1; x++)
             {
-                position = x;
-                for (int y = x + 1; y < sortedList.Count; y++)
-                {
-                    if (sortedList[y].lbPosition < sortedList[position].lbPosition)
-                    {
-                        position = y;
-                    }
-                }
-                if (position != x)
-                {
-                    temp = sortedList[x];
-                    sortedList[x] = sortedList[position];
-                    sortedList[position] = temp;
-                }
+                data = LeaderBoardInterface.PopulateLeaderBoardData(isOnline);
             }
-            return sortedList;
         }
     }
 }

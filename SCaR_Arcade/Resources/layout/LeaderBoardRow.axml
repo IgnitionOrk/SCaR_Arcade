@@ -22,16 +22,16 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/timetxt"
+        android:id="@+id/scoretxt"
         android:textSize="18sp"
         android:paddingStart="15.5dp"
         android:paddingTop="15.5dp" />
-  <TextView
-       android:textAppearance="?android:attr/textAppearanceMedium"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:id="@+id/scoretxt"
-       android:textSize="18sp"
-       android:paddingStart="15.5dp"
-       android:paddingTop="15.5dp" />
+    <TextView
+      android:textAppearance="?android:attr/textAppearanceMedium"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:id="@+id/timetxt"
+      android:textSize="18sp"
+      android:paddingStart="15.5dp"
+      android:paddingTop="15.5dp" />
 </LinearLayout>
