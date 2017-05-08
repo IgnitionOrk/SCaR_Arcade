@@ -34,6 +34,6 @@ namespace SCaR_Arcade
         public Type gType { get; set; }
         public int gMinDifficulty { get; set; }
         public int gMaxDifficulty { get; set; }
-        public string gDiscription { get; set; }
+        public string gDescription { get; set; }
     }
 }

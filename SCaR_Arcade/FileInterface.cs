@@ -31,6 +31,7 @@ namespace SCaR_Arcade
         public static void addCurrentGame(Game g, Android.Content.Res.AssetManager assets)
         {
             game = g;
+
             // Create the Local, and Online txt files.
             createFilesForGame(true);
             createFilesForGame(false);
@@ -125,8 +126,6 @@ namespace SCaR_Arcade
                 sr.Close();
             }
 
-            // StreamWriter is the problem and I don't know why!!!
-            // The pathToFile is correct because I've checked if the file exists, and it returns true. 
             using (StreamWriter sw = new StreamWriter(pathToFile))
             {
                 for (int i = 0; i < scoreData.Count; i++)
@@ -191,13 +190,20 @@ namespace SCaR_Arcade
         public static string readFromDescription(Android.Content.Res.AssetManager assets)
         {
             initializeAssests(assets);
-            string path = GAMEDESCRIPTIONSPATH + game.gDiscription;
-            string content = "";
-            using (StreamReader sr = new StreamReader(assets.Open(path)))
+            if (game.gDescription == null)
             {
-                content = sr.ReadToEnd();
+                return "";
             }
-            return content;
+            else
+            {
+                string path = GAMEDESCRIPTIONSPATH + game.gDescription;
+                string content = "";
+                using (StreamReader sr = new StreamReader(assets.Open(path)))
+                {
+                    content = sr.ReadToEnd();
+                }
+                return content;
+            }
         }
         // ----------------------------------------------------------------------------------------------------------------
         // 

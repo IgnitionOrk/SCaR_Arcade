@@ -65,26 +65,7 @@ namespace SCaR_Arcade
                     gMinDifficulty = 3,
                     gMaxDifficulty = 8,
                     gType = typeof(GameActivities.TowersOfHanoiActivity),
-                    gDiscription = "ToH_GameDescription.txt"
-                    
-                }
-                );
-
-                gList.Add(new Game
-                {
-                    gTitle = "Memory test",
-                    gLogo = Resource.Drawable.game2,
-                    gMenuBackground = Resource.Drawable.game1bg,
-                    gMinDifficulty = 3,
-                    gMaxDifficulty = 8,
-                    gType = typeof(GameActivities.MemoryTestActivity)
-                }
-                );
-
-                gList.Add(new Game
-                {
-                    gTitle = "A game with a long name",
-                    gLogo = Resource.Drawable.game3
+                    gDescription = "ToH_GameDescription.txt"               
                 }
                 );
             }
