@@ -65,7 +65,7 @@ namespace SCaR_Arcade
 
             score = GlobalApp.extractValuesFromString("-",content, false);
             time = GlobalApp.extractValuesFromString("-",content, true);
-            dif = Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1);
+            dif = 1;
             scoreTxtView.Text += " "+score;
             timeTxtView.Text += " "+time;
 
