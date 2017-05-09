@@ -106,17 +106,10 @@ namespace SCaR_Arcade
         // ----------------------------------------------------------------------------------------------------------------
         protected void ButtonOnlineClick(Object sender, EventArgs args)
         {
-            try
-            {
                 // Delete the current Adpater
                 LeaderBoardListView.Adapter = null;
                 // And store a new one.
                 LeaderBoardListView.Adapter = new LeaderBoardRowAdapter(this, true);
-            }
-            catch
-            {
-                GlobalApp.Alert(this, 0);
-            }
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Event Handler: Will direct the player to the Main menu.
