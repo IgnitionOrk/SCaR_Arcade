@@ -30,17 +30,24 @@ namespace SCaR_Arcade
         private static string gChoice = "gameChoice";
         private static string playersScore = "playersScore";
         // ----------------------------------------------------------------------------------------------------------------
-        // Sets the name of the current player;
-        public static void setName(string name)
+        public static void createNewPlayer(string name)
         {
-            if (player == null)
-            {
-                player = new Player();
-            }
+            player = new Player();
             player.name = name;
         }
         // ----------------------------------------------------------------------------------------------------------------
-        public static bool newPlayer()
+        // Sets the name of the current player;
+        public static void setName(string name)
+        {
+            player.name = name;
+        }
+        // ----------------------------------------------------------------------------------------------------------------
+        public static string getName()
+        {
+            return player.name;
+        }
+        // ----------------------------------------------------------------------------------------------------------------
+        public static bool isNewPlayer()
         {
             return player == null;
         }

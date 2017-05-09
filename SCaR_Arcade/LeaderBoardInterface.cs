@@ -24,6 +24,8 @@ namespace SCaR_Arcade
 
         // The top 100 of players scores around the world will be added, and shown.
         private const int MAXNUMBEROFONLINESCORES = 100;
+
+        private static int localPosition = 0;
         // ----------------------------------------------------------------------------------------------------------------
         // Populates the Leader board with data of scores that are either from the local, or online text files.
         public static List<LeaderBoard> PopulateLeaderBoardData(bool isOnline)
@@ -70,6 +72,7 @@ namespace SCaR_Arcade
             return sortedList;
         }
         // ----------------------------------------------------------------------------------------------------------------
+        // @param playersScore should be in the format Name-Score-Time
         // Will format the @parameter playersScore into the format Position-Name-Score-Time
         // Position - The position the player is in the list.
         // Name - Name of the player.
@@ -77,24 +80,15 @@ namespace SCaR_Arcade
         // Time - How long it took to win the game. 
         public static void addNewScore(string playersScore)
         {
-            // @param playersScore will be in the format Name-Score-Time
-
             // The boolean parameter will determine if we are using with the local file, or online file.
-            int localPosition = determinePosition(false, playersScore);
             int onlinePosition = determinePosition(true, playersScore);
            
-            // Because the @param playersScore has been determine to be in the top MAXNUMBEROFLOCALSCORES
-            // We must add it to the local .txt file.
-            if (localPosition <= MAXNUMBEROFLOCALSCORES)
-            {
-                // Remove the current score at position localPosition;
-                FileInterface.removeScoreAtPosition(false, localPosition);
-
-                // Now we can add the new score.
-                // This will be in the format Position-Name-Score-Time
-                FileInterface.addScoreToFile(false, localPosition + "-" + playersScore);
-            }
-
+            // Remove the current score at position localPosition;
+            FileInterface.removeScoreAtPosition(false, localPosition);
+            // Now we can add the new score.
+            // This will be in the format Position-Name-Score-Time
+            FileInterface.addScoreToFile(false, localPosition + "-" + playersScore);
+          
             if (onlinePosition <= MAXNUMBEROFONLINESCORES)
             {
                 // Remove the current score at position onlinePosition;
@@ -217,11 +211,13 @@ namespace SCaR_Arcade
                             else
                             {
                                 newScore = false;
+                                localPosition++;
                             }
                         }
                         else
                         {
                             newScore = false;
+                            localPosition++;
                         }
                     }
                     else
@@ -248,12 +244,14 @@ namespace SCaR_Arcade
                                 else
                                 {
                                     newScore = false;
+                                    localPosition++;
                                 }
                             }
                         }
                         else
                         {
                             newScore = false;
+                            localPosition++;
                         }
                     }
                 }

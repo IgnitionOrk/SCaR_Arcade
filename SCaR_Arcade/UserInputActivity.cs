@@ -11,7 +11,11 @@ using Android.Views;
 using Android.Widget;
 using Android.Views.InputMethods;
 using static Android.Views.View;
-
+/// <summary>
+/// Created by: Ryan Cunneen
+/// Student number: 3179234
+/// Date created: 09-May-2017
+/// Date modified: 09-May-2017
 namespace SCaR_Arcade
 {
     [Activity(
@@ -28,6 +32,8 @@ namespace SCaR_Arcade
         private CheckBox chkBoxName;
         private string score;
         private string time;
+        private const string DEFAULTNAME = "Unknown";
+        private const string DEFAULTENTERNAMEHERE = "Enter name here.";
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -43,7 +49,12 @@ namespace SCaR_Arcade
             // Event handlers:
             enterNameTxt.Click += EditTextClick;
             menuBtn.Click += MenuButtonClick;
+            chkBoxName.Click += CheckBoxClick;
+            saveBtn.Click += SaveButtonClick;
 
+
+            // Initializing data for the User input.
+            enterNameTxt.Text = DEFAULTENTERNAMEHERE;
             string content = Intent.GetStringExtra(GlobalApp.getPlayersScoreVariable());
 
             // As content is in the format of -Score-Time we need to remove the first '-'
@@ -55,6 +66,15 @@ namespace SCaR_Arcade
             scoreTxtView.Text += " "+score;
             timeTxtView.Text += " "+time;
 
+
+            chkBoxName.Enabled = !GlobalApp.isNewPlayer();
+
+            // We don't want the checkbox to be auto checked. 
+            if (chkBoxName.Enabled)
+            {
+                chkBoxName.Checked = false;
+            }
+
             checkForNewPositionToLocalAndOnline(score, time);
         }
         // ----------------------------------------------------------------------------------------------------------------
@@ -64,7 +84,10 @@ namespace SCaR_Arcade
         {
             InputMethodManager imm = (InputMethodManager)GetSystemService(Context.InputMethodService);
             imm.HideSoftInputFromWindow(enterNameTxt.WindowToken, HideSoftInputFlags.None);
-            enterNameTxt.Text = "Enter name here.";
+            if (String.Compare(enterNameTxt.Text, "") == 0 || String.Compare(enterNameTxt.Text, DEFAULTENTERNAMEHERE) == 0)
+            {
+                enterNameTxt.Text = DEFAULTENTERNAMEHERE;
+            }
             return base.OnTouchEvent(e);
         }
 
@@ -73,8 +96,48 @@ namespace SCaR_Arcade
         {
             enterNameTxt.Text = "";
         }
+        // ----------------------------------------------------------------------------------------------------------------
+        protected void CheckBoxClick(Object sender, EventArgs args)
+        {
+            // Get the current name of the player. 
+            enterNameTxt.Text = GlobalApp.getName();
+        }
+        // ----------------------------------------------------------------------------------------------------------------
+        protected void SaveButtonClick(Object sender, EventArgs args)
+        {
+            string content = Intent.GetStringExtra(GlobalApp.getPlayersScoreVariable());
 
+            if (GlobalApp.isNewPlayer())
+            {
+                if (String.Compare(enterNameTxt.Text, DEFAULTENTERNAMEHERE) == 0)
+                {
+                    GlobalApp.createNewPlayer(DEFAULTNAME);
+                    content = DEFAULTNAME +content;
+                }
+                else
+                {
+                    GlobalApp.createNewPlayer(enterNameTxt.Text);
+                    content = enterNameTxt.Text + content;
+                }
+            }
+            else
+            {
+                if (String.Compare(enterNameTxt.Text, DEFAULTENTERNAMEHERE) == 0)
+                {
+                    GlobalApp.setName(DEFAULTNAME);
+                    content = DEFAULTNAME + content;
+                }
+                else
+                {
+                    GlobalApp.setName(enterNameTxt.Text);
+                    content = enterNameTxt.Text + content;
+                }
+            }
 
+            // Now we can add the new score into the local leaderboard. 
+            // Method: addNewScore will also determine if the score can be added into the Online leaderboard.
+            // LeaderBoardInterface.addNewScore(content);
+        }
         // ----------------------------------------------------------------------------------------------------------------
         protected void MenuButtonClick(Object sender, EventArgs args)
         {

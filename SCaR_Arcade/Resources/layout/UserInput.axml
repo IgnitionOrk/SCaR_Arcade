@@ -36,7 +36,6 @@
         android:gravity="center_horizontal">
         <EditText
             android:id="@+id/enterNameETxt"
-            android:text="Enter name here"
             android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />
