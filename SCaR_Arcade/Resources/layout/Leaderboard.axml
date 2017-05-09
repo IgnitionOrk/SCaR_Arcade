@@ -12,14 +12,12 @@
         android:id="@+id/FullScreenLinLay">
         <LinearLayout
             android:orientation="horizontal"
-            android:minWidth="25px"
-            android:minHeight="240px"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/UpperLinLay"
-            android:layout_marginLeft="160px"
-            android:layout_marginRight="160px"
-            android:paddingTop="40px">
+            android:paddingTop="40px"
+            android:layout_gravity="center"
+            android:gravity="center">
             <Button
                 android:text="Local"
                 android:layout_width="160dp"
@@ -29,11 +27,11 @@
                 android:id="@+id/btnLocal" />
             <Button
                 android:text="Online"
-                android:layout_width="160dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:textSize="30sp"
-                android:id="@+id/btnOnline" />
+                android:id="@+id/btnOnline"
+                android:layout_width="160dp" />
         </LinearLayout>
         <LinearLayout
             android:orientation="vertical"
