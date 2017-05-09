@@ -12,8 +12,10 @@ using Android.Widget;
 using Android.Views.InputMethods;
 using static Android.Views.View;
 /// <summary>
-/// Created by: Ryan Cunneen
+/// Creator: Ryan Cunneen
+/// Creator: Martin O'Connor
 /// Student number: 3179234
+/// Student number: 3279660
 /// Date created: 09-May-2017
 /// Date modified: 09-May-2017
 namespace SCaR_Arcade
@@ -32,6 +34,7 @@ namespace SCaR_Arcade
         private CheckBox chkBoxName;
         private string score;
         private string time;
+        private int dif;
         private const string DEFAULTNAME = "Unknown";
         private const string DEFAULTENTERNAMEHERE = "Enter name here.";
         protected override void OnCreate(Bundle savedInstanceState)
@@ -62,7 +65,7 @@ namespace SCaR_Arcade
 
             score = GlobalApp.extractValuesFromString("-",content, false);
             time = GlobalApp.extractValuesFromString("-",content, true);
-
+            dif = Convert.ToInt32(GlobalApp.getVariableDifficultyName());
             scoreTxtView.Text += " "+score;
             timeTxtView.Text += " "+time;
 
@@ -75,7 +78,7 @@ namespace SCaR_Arcade
                 chkBoxName.Checked = false;
             }
 
-            checkForNewPositionToLocalAndOnline(score, time);
+            checkForNewPositionToLocalAndOnline(score, time, dif);
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Overwritten method to close the soft keyboard on EditText (enterNameTxt), when the user has clicked outside of the EditText view.
@@ -153,13 +156,12 @@ namespace SCaR_Arcade
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Will determine if the players score, and time can be added to either local, or online. 
-        private void checkForNewPositionToLocalAndOnline(string scoreStr, string timeStr)
+        private void checkForNewPositionToLocalAndOnline(string scoreStr, string timeStr,int dif)
         {
             int score = Convert.ToInt32(scoreStr);
             int hours = 0;
             int minutes = 0;
             int seconds = 0;
-
             // Counts the number of ":" in timeStr,
             // There will be two if timeStr is in the format of HH:MM:SS
             // Otherwise there will be only one MM:SS
@@ -184,7 +186,7 @@ namespace SCaR_Arcade
                 seconds = Convert.ToInt32(timeStr.Substring(timeStr.LastIndexOf(":"), 2));
             }
 
-            bool ifNewHighScore = LeaderBoardInterface.checkForNewLocalHighScore(score, hours, minutes, seconds);
+            bool ifNewHighScore = LeaderBoardInterface.checkForNewLocalHighScore(score,dif ,hours, minutes, seconds);
             saveBtn.Enabled = ifNewHighScore;
             enterNameTxt.Enabled = ifNewHighScore;
 

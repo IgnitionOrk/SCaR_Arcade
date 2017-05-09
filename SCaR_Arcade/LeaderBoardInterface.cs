@@ -10,8 +10,10 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 /// <summary>
-/// Created by: Ryan Cunneen
-/// Student no: 3179234
+/// Creator: Ryan Cunneen
+/// Creator: Martin O'Connor
+/// Student number: 3179234
+/// Student number: 3279660
 /// Date modified: 08-Apr-2017
 /// Date created: 08-Apr-2017
 /// </summary>
@@ -176,13 +178,13 @@ namespace SCaR_Arcade
         }
         // ----------------------------------------------------------------------------------------------------------------
         //
-        public static string formatLeaderBoardScore(string name, string score, string time)
+        public static string formatLeaderBoardScore(string name, string score,int dif, string time)
         {
-            return name + "-" + score + "-" + time;
+            return name + "-" + score + "-" +dif+"-"+ time;
         }
         // ----------------------------------------------------------------------------------------------------------------
         // 
-        public static bool checkForNewLocalHighScore(int score, int hours, int minutes, int seconds)
+        public static bool checkForNewLocalHighScore(int score,int dif, int hours, int minutes, int seconds)
         {
             int currentHours = 0;
             int currentMinutes = 0;

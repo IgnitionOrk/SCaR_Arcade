@@ -11,7 +11,9 @@ using Android.Views;
 using System.Threading.Tasks;
 /// <summary>
 /// Creator: Ryan Cunneen
+/// Creator: Martin O'Connor
 /// Student number: 3179234
+/// Student number: 3279660
 /// Date created: 25-Mar-17
 /// Date modified: 10-Apr-17
 /// </summary>
@@ -354,7 +356,7 @@ namespace SCaR_Arcade.GameActivities
             try
             {
                 chronometer.Stop();
-                string playersScore = LeaderBoardInterface.formatLeaderBoardScore("", numberOfMoves.ToString(), chronometer.Text); 
+                string playersScore = LeaderBoardInterface.formatLeaderBoardScore("", numberOfMoves.ToString(), Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1), chronometer.Text); 
                 BeginActivity(typeof(UserInputActivity), GlobalApp.getPlayersScoreVariable(), playersScore);
             }
             catch
