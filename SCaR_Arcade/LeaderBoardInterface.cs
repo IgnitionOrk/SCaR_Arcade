@@ -186,5 +186,80 @@ namespace SCaR_Arcade
         {
             return name + "-" + score + "-" + time;
         }
+        // ----------------------------------------------------------------------------------------------------------------
+        // 
+        public static bool checkForNewLocalHighScore(int score, int hours, int minutes, int seconds)
+        {
+            int currentHours = 0;
+            int currentMinutes = 0;
+            int currentSeconds = 0;
+            bool newScore = false;
+            // A particular .txt file (local, or online) will be used determined by the boolean parameter.
+            // The method populateLeaderBoardData will have been sorted.
+            List<LeaderBoard> listLBd = PopulateLeaderBoardData(false);
+            for (int i = 0; i < listLBd.Count && !newScore; i++)
+            {
+                if (score <= listLBd[i].lbScore)
+                {
+                    if (hours == 0)
+                    {
+                        currentMinutes = Convert.ToInt32(GlobalApp.extractValuesFromString(":", listLBd[i].lbTime, false));
+                        currentSeconds = Convert.ToInt32(GlobalApp.extractValuesFromString(":", listLBd[i].lbTime, true));
+                        if (minutes < currentMinutes)
+                        {
+                            newScore = true;
+                        }
+                        else if (minutes == currentMinutes)
+                        {
+                            if (seconds < currentSeconds)
+                            {
+                                newScore = true;
+                            }
+                            else
+                            {
+                                newScore = false;
+                            }
+                        }
+                        else
+                        {
+                            newScore = false;
+                        }
+                    }
+                    else
+                    {
+                        currentHours = Convert.ToInt32(GlobalApp.extractValuesFromString(":", listLBd[i].lbTime, false));
+                        currentMinutes = Convert.ToInt32(GlobalApp.extractValuesFromString(":", listLBd[i].lbTime, true));
+                        currentSeconds = Convert.ToInt32(listLBd[i].lbTime.Substring(listLBd[i].lbTime.LastIndexOf(":"), 2));
+                        if (hours < currentHours)
+                        {
+                            newScore = true;
+                        }
+                        else if (hours == currentHours)
+                        {
+                            if (minutes < currentMinutes)
+                            {
+                                newScore = true;
+                            }
+                            else
+                            {
+                                if (seconds < currentSeconds)
+                                {
+                                    newScore = true;
+                                }
+                                else
+                                {
+                                    newScore = false;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            newScore = false;
+                        }
+                    }
+                }
+            }
+            return newScore;
+        }
     }
 }

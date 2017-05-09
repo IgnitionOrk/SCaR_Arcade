@@ -40,6 +40,11 @@ namespace SCaR_Arcade
             player.name = name;
         }
         // ----------------------------------------------------------------------------------------------------------------
+        public static bool newPlayer()
+        {
+            return player == null;
+        }
+        // ----------------------------------------------------------------------------------------------------------------
         // Returns the value of the variables (value represents the name).
         public static string getVariableDifficultyName()
         {
@@ -115,6 +120,24 @@ namespace SCaR_Arcade
             //if added
             scoreAdded = true;
             return scoreAdded;
+        }
+        // ----------------------------------------------------------------------------------------------------------------
+        //
+        public static string extractValuesFromString(string character, string content, bool isSecondPart)
+        {
+            int index = 0;
+            string temp = "";
+            if (isSecondPart)
+            {
+                index = content.LastIndexOf(character);
+                temp = content.Substring(index + 1, (content.Length) - (index + 1));
+            }
+            else
+            {
+                index = content.LastIndexOf(character);
+                temp = content.Substring(0, index);
+            }
+            return temp;
         }
     }
 }

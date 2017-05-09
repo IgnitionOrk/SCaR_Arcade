@@ -28,12 +28,24 @@
         android:layout_height="wrap_content"
         android:id="@+id/timeTxtView"
         android:gravity="center" />
-    <EditText
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/enterNameETxt"
-        android:text="Enter name here"
-        android:gravity="center" />
+        android:id="@+id/linearLayout3"
+        android:gravity="center_horizontal">
+        <EditText
+            android:id="@+id/enterNameETxt"
+            android:text="Enter name here"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <CheckBox
+            android:text="Use previous name?"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/chkBoxPreviousName" />
+    </LinearLayout>
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
