@@ -66,7 +66,7 @@ namespace SCaR_Arcade.GameActivities
                 btnQuit.Click += btnQuitOnClick;
                 chronometer.ChronometerTick += chronometerOnTick;
 
-                chronometer.SetFormat("HH:MM:SS");
+                //chronometer.SetFormat("HH:MM:SS");
                 // Begin the timer;
                 chronometer.Start();
             }
