@@ -89,11 +89,16 @@ namespace SCaR_Arcade
             TextView name = view.FindViewById<TextView>(SCaR_Arcade.Resource.Id.nametxt);
             name.Text = "N#"+row.lbName;
 
+            TextView diff = view.FindViewById<TextView>(SCaR_Arcade.Resource.Id.difftxt);
+            diff.Text = "D#" + row.lbDiff;
+
             TextView score = view.FindViewById<TextView>(SCaR_Arcade.Resource.Id.scoretxt);
             score.Text = "S#"+row.lbScore;
 
             TextView time = view.FindViewById<TextView>(SCaR_Arcade.Resource.Id.timetxt);
             time.Text = "T#" + row.lbTime;
+
+            
 
             return view;
         }

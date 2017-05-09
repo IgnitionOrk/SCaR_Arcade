@@ -12,8 +12,10 @@ using Android.Widget;
 using System.IO;
 
 /// <summary>
-/// Created by: Ryan Cunneen
-/// Student no: 3179234
+/// Creator: Ryan Cunneen
+/// Creator: Martin O'Connor
+/// Student number: 3179234
+/// Student number: 3279660
 /// Date modified: 13-Apr-2017
 /// /// Date created: 08-Apr-2017
 /// </summary>

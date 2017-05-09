@@ -103,7 +103,7 @@ namespace SCaR_Arcade
         //
         private static int determinePosition(bool isOnline, string playersScore)
         {
-            // @param playersScore will be formatted as "name + "-" + score + "-" + time";
+            // @param playersScore will be formatted as "name + "-" + score + "-" + diff + "-" + time";
 
             // Get the index of the first "-"
             int startIndex = playersScore.IndexOf("-");
@@ -168,7 +168,8 @@ namespace SCaR_Arcade
                     lbPosition = Convert.ToInt32(subStrings[0]),
                     lbName = subStrings[1],
                     lbScore = Convert.ToInt32(subStrings[2]),
-                    lbTime = subStrings[3]
+                    lbDiff = Convert.ToInt32(subStrings[3]),
+                    lbTime = subStrings[4]
                 });
             }
             return temp;
