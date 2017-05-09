@@ -71,6 +71,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GameActivities\TowersOfHanoiActivity.cs" />
     <Compile Include="Start.cs" />
+    <Compile Include="UserInputActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\Symbols1.ttf" />
@@ -92,6 +93,9 @@
     <AndroidResource Include="Resources\layout\LeaderBoardRow.axml" />
     <AndroidResource Include="Resources\layout\MainRow.axml" />
     <AndroidResource Include="Resources\layout\Start.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\UserInput.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minWidth="25px"
+    android:minHeight="25px"
+    android:gravity="center_vertical">
+    <TextView
+        android:text="Congratulations you won!"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/congratulationsTxtView"
+        android:gravity="center"
+        android:paddingBottom="20" />
+    <TextView
+        android:text="Score:"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/scoreTxtView"
+        android:gravity="center" />
+    <TextView
+        android:text="Time: "
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/timeTxtView"
+        android:gravity="center" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/enterNameETxt"
+        android:text="Enter name here"
+        android:gravity="center" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout1"
+        android:gravity="center_vertical">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/linearLayout2"
+            android:gravity="center">
+            <Button
+                android:text="Save"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/saveBtn" />
+            <Button
+                android:text="Menu"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/menuBtn" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -28,6 +28,7 @@ namespace SCaR_Arcade
         private static Player player;
         private static string gDifficultyName = "gameDifficulty";
         private static string gChoice = "gameChoice";
+        private static string playersScore = "playersScore";
         // ----------------------------------------------------------------------------------------------------------------
         // Sets the name of the current player;
         public static void setName(string name)
@@ -49,6 +50,12 @@ namespace SCaR_Arcade
         public static string getVariableChoiceName()
         {
             return gChoice;
+        }
+        // ----------------------------------------------------------------------------------------------------------------
+        // Returns the value of the variables (value represents the name).
+        public static string getPlayersScoreVariable()
+        {
+            return playersScore;
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Displays an Alert (most definitely an error that has occured at the application level).

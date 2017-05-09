@@ -147,6 +147,9 @@ namespace SCaR_Arcade
 			// aapt resource value: 0x7f050028
 			public const int cTimer = 2131034152;
 			
+			// aapt resource value: 0x7f05002d
+			public const int congratulationsTxtView = 2131034157;
+			
 			// aapt resource value: 0x7f05000c
 			public const int desTextView = 2131034124;
 			
@@ -155,6 +158,9 @@ namespace SCaR_Arcade
 			
 			// aapt resource value: 0x7f05000b
 			public const int descriptionLinLay = 2131034123;
+			
+			// aapt resource value: 0x7f050030
+			public const int enterNameETxt = 2131034160;
 			
 			// aapt resource value: 0x7f050005
 			public const int imgBtnDecrease = 2131034117;
@@ -186,6 +192,9 @@ namespace SCaR_Arcade
 			// aapt resource value: 0x7f05001b
 			public const int lvGameList = 2131034139;
 			
+			// aapt resource value: 0x7f050032
+			public const int menuBtn = 2131034162;
+			
 			// aapt resource value: 0x7f050017
 			public const int nametxt = 2131034135;
 			
@@ -195,11 +204,20 @@ namespace SCaR_Arcade
 			// aapt resource value: 0x7f05000e
 			public const int relativeLayout1 = 2131034126;
 			
+			// aapt resource value: 0x7f050031
+			public const int saveBtn = 2131034161;
+			
+			// aapt resource value: 0x7f05002e
+			public const int scoreTxtView = 2131034158;
+			
 			// aapt resource value: 0x7f050018
 			public const int scoretxt = 2131034136;
 			
 			// aapt resource value: 0x7f050022
 			public const int startProgress = 2131034146;
+			
+			// aapt resource value: 0x7f05002f
+			public const int timeTxtView = 2131034159;
 			
 			// aapt resource value: 0x7f050019
 			public const int timetxt = 2131034137;
@@ -267,6 +285,9 @@ namespace SCaR_Arcade
 			
 			// aapt resource value: 0x7f030007
 			public const int TowersOfHanoi = 2130903047;
+			
+			// aapt resource value: 0x7f030008
+			public const int UserInput = 2130903048;
 			
 			static Layout()
 			{

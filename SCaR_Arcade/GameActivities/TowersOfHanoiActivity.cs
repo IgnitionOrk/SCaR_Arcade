@@ -351,8 +351,17 @@ namespace SCaR_Arcade.GameActivities
         // The game has ended so the score, and time will be displayed.
         private void end()
         {
-            chronometer.Stop();
-            Alert(1, 1);
+            try
+            {
+                chronometer.Stop();
+                string playersScore = LeaderBoardInterface.formatLeaderBoardScore("", numberOfMoves.ToString(), chronometer.Text); 
+                BeginActivity(typeof(UserInputActivity), GlobalApp.getPlayersScoreVariable(), playersScore);
+            }
+            catch
+            {
+                GlobalApp.Alert(this, 0);
+            }
+
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Event Handler: Will direct the player to the Game menu.
@@ -522,6 +531,26 @@ namespace SCaR_Arcade.GameActivities
         // ----------------------------------------------------------------------------------------------------------------
         // Begins the Activity specified by @param type.
         private void BeginActivity(Type type, string variableName, int value)
+        {
+            try
+            {
+                Intent intent = new Intent(this, type);
+                if (type != typeof(MainActivity))
+                {
+                    intent.PutExtra(variableName, value);
+                }
+                StartActivity(intent);
+            }
+            catch
+            {
+                // because an error has happend at the Application level
+                // We delegate the responsibility to the GlobalApp class.
+                GlobalApp.Alert(this, 2);
+            }
+        }
+        // ----------------------------------------------------------------------------------------------------------------
+        // Begins the Activity specified by @param type.
+        private void BeginActivity(Type type, string variableName, string value)
         {
             try
             {
