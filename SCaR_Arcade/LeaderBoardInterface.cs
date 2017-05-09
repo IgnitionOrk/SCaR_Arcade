@@ -138,11 +138,8 @@ namespace SCaR_Arcade
             foreach (LeaderBoard lb in leaderBdList)
             {
                 if (score > lb.lbScore)
-                {
-                    if (time > lb.lbTime)
-                    {
-                        position++;
-                    }
+                { 
+                    position++;
                 }
             }
 
@@ -177,7 +174,7 @@ namespace SCaR_Arcade
                     lbPosition = Convert.ToInt32(subStrings[0]),
                     lbName = subStrings[1],
                     lbScore = Convert.ToInt32(subStrings[2]),
-                    lbTime = Convert.ToDouble(subStrings[3])
+                    lbTime = subStrings[3]
                 });
             }
             return temp;

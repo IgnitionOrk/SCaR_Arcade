@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/congratulationsTxtView"
         android:gravity="center"
-        android:paddingBottom="20" />
+        android:paddingBottom="20px" />
     <TextView
         android:text="Score:"
         android:textAppearance="?android:attr/textAppearanceMedium"

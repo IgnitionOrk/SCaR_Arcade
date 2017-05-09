@@ -108,6 +108,7 @@ namespace SCaR_Arcade
         private void checkForNewPositionToLocalAndOnline(string scoreStr, string timeStr)
         {
             int score = Convert.ToInt32(scoreStr);
+
             if (false)
             {
                 enterNameTxt.Enabled = true;

@@ -23,6 +23,6 @@ namespace SCaR_Arcade
         public int lbPosition { get; set; }
         public string lbName { get; set; }
         public int lbScore { get; set; }
-        public double lbTime { get; set; }
+        public string lbTime { get; set; }
     }
 }
