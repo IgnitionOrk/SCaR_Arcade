@@ -4,42 +4,47 @@
     android:layout_width="match_parent">
     <TextView
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_width="wrap_content"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:id="@+id/positiontxt"
         android:textSize="18sp"
         android:paddingStart="15.5dp"
-        android:paddingTop="15.5dp" />
+        android:paddingTop="15.5dp"
+        android:gravity="center" />
     <TextView
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_width="wrap_content"
+        android:layout_width="70dp"
         android:layout_height="wrap_content"
         android:id="@+id/nametxt"
         android:textSize="18sp"
         android:paddingStart="15.5dp"
-        android:paddingTop="15.5dp" />
-  <TextView
+        android:paddingTop="15.5dp"
+        android:gravity="center" />
+    <TextView
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_width="wrap_content"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:id="@+id/difftxt"
         android:textSize="18sp"
         android:paddingStart="15.5dp"
-        android:paddingTop="15.5dp" />
+        android:paddingTop="15.5dp"
+        android:gravity="center" />
     <TextView
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_width="wrap_content"
+        android:layout_width="70dp"
         android:layout_height="wrap_content"
         android:id="@+id/scoretxt"
         android:textSize="18sp"
         android:paddingStart="15.5dp"
-        android:paddingTop="15.5dp" />
+        android:paddingTop="15.5dp"
+        android:gravity="center" />
     <TextView
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_width="wrap_content"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:id="@+id/timetxt"
         android:textSize="18sp"
         android:paddingStart="15.5dp"
-        android:paddingTop="15.5dp" />
+        android:paddingTop="15.5dp"
+        android:gravity="center" />
 </LinearLayout>

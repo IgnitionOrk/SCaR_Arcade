@@ -84,19 +84,19 @@ namespace SCaR_Arcade
             
             //add text colom details down list
             TextView leaderboardPosition = view.FindViewById<TextView>(SCaR_Arcade.Resource.Id.positiontxt);
-            leaderboardPosition.Text = "P#"+ row.lbPosition; ;
+            leaderboardPosition.Text = Convert.ToString(row.lbPosition) ;
 
             TextView name = view.FindViewById<TextView>(SCaR_Arcade.Resource.Id.nametxt);
-            name.Text = "N#"+row.lbName;
+            name.Text = row.lbName;
 
             TextView diff = view.FindViewById<TextView>(SCaR_Arcade.Resource.Id.difftxt);
-            diff.Text = "D#" + row.lbDiff;
+            diff.Text = Convert.ToString(row.lbDiff);
 
             TextView score = view.FindViewById<TextView>(SCaR_Arcade.Resource.Id.scoretxt);
-            score.Text = "S#"+row.lbScore;
+            score.Text = Convert.ToString(row.lbScore);
 
             TextView time = view.FindViewById<TextView>(SCaR_Arcade.Resource.Id.timetxt);
-            time.Text = "T#" + row.lbTime;
+            time.Text = row.lbTime;
 
             
 

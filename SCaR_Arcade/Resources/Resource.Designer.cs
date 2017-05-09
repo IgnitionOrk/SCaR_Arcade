@@ -105,14 +105,14 @@ namespace SCaR_Arcade
 			// aapt resource value: 0x7f05001f
 			public const int GameBoard = 2131034143;
 			
-			// aapt resource value: 0x7f050013
-			public const int LeaderBoardLinLay = 2131034131;
+			// aapt resource value: 0x7f050018
+			public const int LeaderBoardLinLay = 2131034136;
 			
-			// aapt resource value: 0x7f050014
-			public const int LeaderBoardListView = 2131034132;
+			// aapt resource value: 0x7f050019
+			public const int LeaderBoardListView = 2131034137;
 			
-			// aapt resource value: 0x7f050015
-			public const int LowerLinLay = 2131034133;
+			// aapt resource value: 0x7f05001a
+			public const int LowerLinLay = 2131034138;
 			
 			// aapt resource value: 0x7f050012
 			public const int MiddleLinLay = 2131034130;
@@ -162,8 +162,8 @@ namespace SCaR_Arcade
 			// aapt resource value: 0x7f05000b
 			public const int descriptionLinLay = 2131034123;
 			
-			// aapt resource value: 0x7f050018
-			public const int difftxt = 2131034136;
+			// aapt resource value: 0x7f050015
+			public const int difftxt = 2131034133;
 			
 			// aapt resource value: 0x7f050031
 			public const int enterNameETxt = 2131034161;
@@ -201,11 +201,11 @@ namespace SCaR_Arcade
 			// aapt resource value: 0x7f050034
 			public const int menuBtn = 2131034164;
 			
-			// aapt resource value: 0x7f050017
-			public const int nametxt = 2131034135;
+			// aapt resource value: 0x7f050014
+			public const int nametxt = 2131034132;
 			
-			// aapt resource value: 0x7f050016
-			public const int positiontxt = 2131034134;
+			// aapt resource value: 0x7f050013
+			public const int positiontxt = 2131034131;
 			
 			// aapt resource value: 0x7f05000e
 			public const int relativeLayout1 = 2131034126;
@@ -216,8 +216,8 @@ namespace SCaR_Arcade
 			// aapt resource value: 0x7f05002f
 			public const int scoreTxtView = 2131034159;
 			
-			// aapt resource value: 0x7f050019
-			public const int scoretxt = 2131034137;
+			// aapt resource value: 0x7f050016
+			public const int scoretxt = 2131034134;
 			
 			// aapt resource value: 0x7f050023
 			public const int startProgress = 2131034147;
@@ -225,8 +225,8 @@ namespace SCaR_Arcade
 			// aapt resource value: 0x7f050030
 			public const int timeTxtView = 2131034160;
 			
-			// aapt resource value: 0x7f05001a
-			public const int timetxt = 2131034138;
+			// aapt resource value: 0x7f050017
+			public const int timetxt = 2131034135;
 			
 			// aapt resource value: 0x7f05001e
 			public const int titletxt = 2131034142;

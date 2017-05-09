@@ -31,6 +31,7 @@ namespace SCaR_Arcade
     {
         private LinearLayout FullScreen;
         private LinearLayout LeaderBoard;
+        private LinearLayout LeaderBoardHeader;
         private Button btnBack;
         private int gameChoice;
         private Game game;
@@ -47,6 +48,7 @@ namespace SCaR_Arcade
                 SetContentView(Resource.Layout.Leaderboard);
                 FullScreen = FindViewById<LinearLayout>(Resource.Id.FullScreenLinLay);
                 LeaderBoard = FindViewById<LinearLayout>(Resource.Id.LeaderBoardLinLay);
+                LeaderBoardHeader = FindViewById<LinearLayout>(Resource.Id.linearLayout1);
                 LeaderBoardListView = FindViewById<ListView>(Resource.Id.LeaderBoardListView);
                 btnBack = FindViewById<Button>(Resource.Id.btnGameSelect);
                 localBtn = FindViewById<Button>(Resource.Id.btnLocal);
@@ -55,7 +57,13 @@ namespace SCaR_Arcade
                 LeaderBoardListView.Adapter = new LeaderBoardRowAdapter(this);
 
                 LeaderBoard.SetBackgroundColor(Color.Gray);
-                // FullScreen.SetBackgroundResource(game.gMenuBackground);
+                LeaderBoardHeader.SetBackgroundColor(Color.LightGray);
+
+                gameChoice = Intent.GetIntExtra(GlobalApp.getVariableChoiceName(), 0);
+
+                game = GameInterface.getGameAt(gameChoice);
+
+                FullScreen.SetBackgroundResource(game.gMenuBackground);
 
                 // Event handlers.
                 btnBack.Click += ButtonClickSelect;

@@ -43,6 +43,63 @@
             android:id="@+id/MiddleLinLay"
             android:layout_height="wrap_content">
             <LinearLayout
+                android:orientation="horizontal"
+                android:id="@+id/linearLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp">
+                <TextView
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/positiontxt"
+                    android:textSize="18sp"
+                    android:paddingStart="15.5dp"
+                    android:paddingTop="15.5dp"
+                    android:text="#"
+                    android:gravity="center"
+                    android:layout_width="50dp" />
+                <TextView
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/nametxt"
+                    android:textSize="18sp"
+                    android:paddingStart="15.5dp"
+                    android:paddingTop="15.5dp"
+                    android:text="Name"
+                    android:gravity="center" />
+                <TextView
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/difftxt"
+                    android:textSize="18sp"
+                    android:paddingStart="15.5dp"
+                    android:paddingTop="15.5dp"
+                    android:text="Dif"
+                    android:gravity="center" />
+                <TextView
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/scoretxt"
+                    android:textSize="18sp"
+                    android:paddingStart="15.5dp"
+                    android:paddingTop="15.5dp"
+                    android:text="Score"
+                    android:gravity="center" />
+                <TextView
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/timetxt"
+                    android:textSize="18sp"
+                    android:paddingStart="15.5dp"
+                    android:paddingTop="15.5dp"
+                    android:text="Time" />
+            </LinearLayout>
+            <LinearLayout
                 android:orientation="vertical"
                 android:minWidth="25px"
                 android:minHeight="1800px"
