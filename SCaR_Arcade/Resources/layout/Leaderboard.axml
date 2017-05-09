@@ -51,14 +51,14 @@
                 android:layout_marginRight="50dp">
                 <TextView
                     android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/positiontxt"
                     android:textSize="18sp"
                     android:paddingStart="15.5dp"
                     android:paddingTop="15.5dp"
-                    android:text="#"
                     android:gravity="center"
-                    android:layout_width="50dp" />
+                    android:text="#"  />
                 <TextView
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:layout_width="70dp"
@@ -67,8 +67,8 @@
                     android:textSize="18sp"
                     android:paddingStart="15.5dp"
                     android:paddingTop="15.5dp"
-                    android:text="Name"
-                    android:gravity="center" />
+                    android:gravity="center"
+                    android:text="Name" />
                 <TextView
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:layout_width="40dp"
@@ -77,8 +77,8 @@
                     android:textSize="18sp"
                     android:paddingStart="15.5dp"
                     android:paddingTop="15.5dp"
-                    android:text="Dif"
-                    android:gravity="center" />
+                    android:gravity="center"
+                    android:text="Dif" />
                 <TextView
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:layout_width="70dp"
@@ -87,8 +87,8 @@
                     android:textSize="18sp"
                     android:paddingStart="15.5dp"
                     android:paddingTop="15.5dp"
-                    android:text="Score"
-                    android:gravity="center" />
+                    android:gravity="center"
+                    android:text="Score"  />
                 <TextView
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:layout_width="80dp"
@@ -97,6 +97,7 @@
                     android:textSize="18sp"
                     android:paddingStart="15.5dp"
                     android:paddingTop="15.5dp"
+                    android:gravity="center"
                     android:text="Time" />
             </LinearLayout>
             <LinearLayout
