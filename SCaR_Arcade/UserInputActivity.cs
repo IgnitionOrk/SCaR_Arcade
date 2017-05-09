@@ -65,7 +65,7 @@ namespace SCaR_Arcade
 
             score = GlobalApp.extractValuesFromString("-",content, false);
             time = GlobalApp.extractValuesFromString("-",content, true);
-            dif = Convert.ToInt32(GlobalApp.getVariableDifficultyName());
+            dif = Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1);
             scoreTxtView.Text += " "+score;
             timeTxtView.Text += " "+time;
 
@@ -186,7 +186,7 @@ namespace SCaR_Arcade
                 seconds = Convert.ToInt32(timeStr.Substring(timeStr.LastIndexOf(":"), 2));
             }
 
-            bool ifNewHighScore = LeaderBoardInterface.checkForNewLocalHighScore(score,dif ,hours, minutes, seconds);
+            bool ifNewHighScore = LeaderBoardInterface.checkForNewLocalHighScore(score,hours, minutes, seconds);
             saveBtn.Enabled = ifNewHighScore;
             enterNameTxt.Enabled = ifNewHighScore;
 

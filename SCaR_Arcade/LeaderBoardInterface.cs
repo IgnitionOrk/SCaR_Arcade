@@ -184,7 +184,7 @@ namespace SCaR_Arcade
         }
         // ----------------------------------------------------------------------------------------------------------------
         // 
-        public static bool checkForNewLocalHighScore(int score,int dif, int hours, int minutes, int seconds)
+        public static bool checkForNewLocalHighScore(int score, int hours, int minutes, int seconds)
         {
             int currentHours = 0;
             int currentMinutes = 0;
