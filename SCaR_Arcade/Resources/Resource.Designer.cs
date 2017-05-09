@@ -147,6 +147,9 @@ namespace SCaR_Arcade
 			// aapt resource value: 0x7f050028
 			public const int cTimer = 2131034152;
 			
+			// aapt resource value: 0x7f050031
+			public const int chkBoxPreviousName = 2131034161;
+			
 			// aapt resource value: 0x7f05002d
 			public const int congratulationsTxtView = 2131034157;
 			
@@ -192,8 +195,8 @@ namespace SCaR_Arcade
 			// aapt resource value: 0x7f05001b
 			public const int lvGameList = 2131034139;
 			
-			// aapt resource value: 0x7f050032
-			public const int menuBtn = 2131034162;
+			// aapt resource value: 0x7f050033
+			public const int menuBtn = 2131034163;
 			
 			// aapt resource value: 0x7f050017
 			public const int nametxt = 2131034135;
@@ -204,8 +207,8 @@ namespace SCaR_Arcade
 			// aapt resource value: 0x7f05000e
 			public const int relativeLayout1 = 2131034126;
 			
-			// aapt resource value: 0x7f050031
-			public const int saveBtn = 2131034161;
+			// aapt resource value: 0x7f050032
+			public const int saveBtn = 2131034162;
 			
 			// aapt resource value: 0x7f05002e
 			public const int scoreTxtView = 2131034158;

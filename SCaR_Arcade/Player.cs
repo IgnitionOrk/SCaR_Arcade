@@ -20,6 +20,10 @@ namespace SCaR_Arcade
 { 
     class Player
     {
+        public Player()
+        {
+            name = "";
+        }
         public string name { get; set; }
     }
 }

@@ -66,7 +66,7 @@ namespace SCaR_Arcade.GameActivities
                 btnQuit.Click += btnQuitOnClick;
                 chronometer.ChronometerTick += chronometerOnTick;
 
-                chronometer.SetFormat("HH:MM:SS");
+                
                 // Begin the timer;
                 chronometer.Start();
             }
@@ -573,7 +573,7 @@ namespace SCaR_Arcade.GameActivities
         // Continuously update the displayed time.
         protected void chronometerOnTick(Object sender, EventArgs arg)
         {
-            elapsedTime.Text = String.Format("{0}", "Time: " + chronometer.Format);
+            elapsedTime.Text = String.Format("{0}", "Time: " + chronometer.Text);
         }
     }
 }
