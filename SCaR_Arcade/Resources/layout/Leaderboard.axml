@@ -99,9 +99,7 @@
                 <ListView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/LeaderBoardListView"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp" />
+                    android:id="@+id/LeaderBoardListView" />
             </LinearLayout>
         </LinearLayout>
         <LinearLayout
