@@ -32,6 +32,7 @@ namespace SCaR_Arcade
         private LinearLayout FullScreen;
         private LinearLayout LeaderBoard;
         private LinearLayout LeaderBoardHeader;
+        private LinearLayout middleLayout;
         private Button btnBack;
         private int gameChoice;
         private Game game;
@@ -50,9 +51,16 @@ namespace SCaR_Arcade
                 LeaderBoard = FindViewById<LinearLayout>(Resource.Id.LeaderBoardLinLay);
                 LeaderBoardHeader = FindViewById<LinearLayout>(Resource.Id.linearLayout1);
                 LeaderBoardListView = FindViewById<ListView>(Resource.Id.LeaderBoardListView);
+                middleLayout = FindViewById<LinearLayout>(Resource.Id.MiddleLinLay);
                 btnBack = FindViewById<Button>(Resource.Id.btnGameSelect);
                 localBtn = FindViewById<Button>(Resource.Id.btnLocal);
                 onlineBtn = FindViewById<Button>(Resource.Id.btnOnline);
+
+                var metrics = Resources.DisplayMetrics;
+                middleLayout.LayoutParameters =  new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MatchParent,
+                    (int)(metrics.HeightPixels * 0.75)
+                );
 
                 LeaderBoardListView.Adapter = new LeaderBoardRowAdapter(this);
 
