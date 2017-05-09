@@ -559,7 +559,6 @@ namespace SCaR_Arcade.GameActivities
                 Intent intent = new Intent(this, type);
                 if (type != typeof(MainActivity))
                 {
-                    intent.PutExtra(GlobalApp.getVariableDifficultyName(),Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1));
                     intent.PutExtra(variableName, value);
                 }
                 StartActivity(intent);
