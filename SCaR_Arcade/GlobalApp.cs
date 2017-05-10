@@ -10,8 +10,10 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 /// <summary>
-/// Created by: Ryan Cunneen
+/// Creator: Ryan Cunneen
+/// Creator: Martin O'Connor
 /// Student number: 3179234
+/// Student number: 3279660
 /// Date created: 20-Apr-2017
 /// Date modified: 20-Apr-2017
 /// </summary>
@@ -132,6 +134,8 @@ namespace SCaR_Arcade
         //
         public static string extractValuesFromString(string character, string content, bool isSecondPart)
         {
+            System.Diagnostics.Debug.Write(character);
+            System.Diagnostics.Debug.Write(content);
             int index = 0;
             string temp = "";
             if (isSecondPart)

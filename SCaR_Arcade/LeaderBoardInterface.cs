@@ -180,7 +180,7 @@ namespace SCaR_Arcade
         //
         public static string formatLeaderBoardScore(string name, string score,int dif, string time)
         {
-            return name + "-" + score + "-" +dif+"-"+ time;
+            return name + "-" + score + "-" + dif + "-"+ time;
         }
         // ----------------------------------------------------------------------------------------------------------------
         // 

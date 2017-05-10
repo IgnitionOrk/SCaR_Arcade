@@ -1,0 +1,5 @@
+﻿This is a brief discription of Towers of Hanoi.
+This text goes through how to play the game.
+Maybe even a tip to try.
+
+It will also say what the difficulty setting effects.
