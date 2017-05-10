@@ -109,6 +109,7 @@ namespace SCaR_Arcade
         // ----------------------------------------------------------------------------------------------------------------
         protected void SaveButtonClick(Object sender, EventArgs args)
         {
+
             string content = Intent.GetStringExtra(GlobalApp.getPlayersScoreVariable());
 
             if (GlobalApp.isNewPlayer())
@@ -116,7 +117,7 @@ namespace SCaR_Arcade
                 if (String.Compare(enterNameTxt.Text, DEFAULTENTERNAMEHERE) == 0)
                 {
                     GlobalApp.createNewPlayer(DEFAULTNAME);
-                    content = DEFAULTNAME +content;
+                    content = DEFAULTNAME + content;
                 }
                 else
                 {
@@ -140,7 +141,10 @@ namespace SCaR_Arcade
 
             // Now we can add the new score into the local leaderboard. 
             // Method: addNewScore will also determine if the score can be added into the Online leaderboard.
-            // LeaderBoardInterface.addNewScore(content);
+            LeaderBoardInterface.addNewScore(content);
+
+            // Return back to the Game menu. 
+            BeginActivity(typeof(GameMenuActivity), "", 0);
         }
         // ----------------------------------------------------------------------------------------------------------------
         protected void MenuButtonClick(Object sender, EventArgs args)
@@ -157,11 +161,7 @@ namespace SCaR_Arcade
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Will determine if the players score, and time can be added to either local, or online. 
-<<<<<<< HEAD
-        private void checkForNewPositionToLocalAndOnline(string scoreStr, string timeStr, int dif)
-=======
         private void checkForNewPositionToLocalAndOnline(string scoreStr, string timeStr,string difStr)
->>>>>>> origin/master
         {
             
             System.Diagnostics.Debug.Write(timeStr);

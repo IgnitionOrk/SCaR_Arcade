@@ -27,7 +27,7 @@ namespace SCaR_Arcade
         // The top 100 of players scores around the world will be added, and shown.
         private const int MAXNUMBEROFONLINESCORES = 100;
 
-        private static int localPosition = 0;
+        private static int localPosition = 1;
         // ----------------------------------------------------------------------------------------------------------------
         // Populates the Leader board with data of scores that are either from the local, or online text files.
         public static List<LeaderBoard> PopulateLeaderBoardData(bool isOnline)
@@ -82,20 +82,39 @@ namespace SCaR_Arcade
         // Time - How long it took to win the game. 
         public static void addNewScore(string playersScore)
         {
-            // The boolean parameter will determine if we are using with the local file, or online file.
-            int onlinePosition = determinePosition(true, playersScore);
-           
-            // Remove the current score at position localPosition;
-            FileInterface.removeScoreAtPosition(false, localPosition);
+            System.Diagnostics.Debug.WriteLine("LOCAL POSITION: " + localPosition);
+
+            if (FileInterface.localFileReachLimit(MAXNUMBEROFLOCALSCORES))
+            {
+                // Remove the current score at position localPosition;
+                FileInterface.removeScoreAtPosition(false, localPosition);
+            }
+            else
+            {
+                // push scores up by one, starting after the localPosition
+                FileInterface.pushPositionsUp(false, localPosition);
+            }
             // Now we can add the new score.
             // This will be in the format Position-Name-Score-Time
             FileInterface.addScoreToFile(false, localPosition + "-" + playersScore);
-          
+            // The boolean parameter will determine if we are using with the local file, or online file.
+            int onlinePosition = determinePosition(true, playersScore);
+
+
+            System.Diagnostics.Debug.WriteLine("PLAYERS SCORE POSITION: " + playersScore);
+
             if (onlinePosition <= MAXNUMBEROFONLINESCORES)
             {
-                // Remove the current score at position onlinePosition;
-                FileInterface.removeScoreAtPosition(false, onlinePosition);
-
+                if (FileInterface.onlineFileReachedLimit(MAXNUMBEROFONLINESCORES))
+                {
+                    // Remove the current score at position onlinePosition;
+                    FileInterface.removeScoreAtPosition(true, onlinePosition);
+                }
+                else
+                {
+                    // push scores up by one, starting after the onlinePosition;
+                    FileInterface.pushPositionsUp(true, onlinePosition);
+                }
                 // Now we can add the new score. 
                 // This will be in the format Position-Name-Score-Time
                 FileInterface.addScoreToFile(true, onlinePosition + "-" + playersScore);
@@ -108,17 +127,20 @@ namespace SCaR_Arcade
             // @param playersScore will be formatted as "name + "-" + score + "-" + diff + "-" + time";
 
             // Get the index of the first "-"
-            int startIndex = playersScore.IndexOf("-");
+            int startIndex = playersScore.IndexOf("-") + 1;
 
-            //Get the index of the last "-";
-            int endIndex = playersScore.LastIndexOf("-");
+            string subStrPlayerScore = playersScore.Substring(startIndex, playersScore.Length - startIndex - 1);
+
+            //Get the index of the next "-";
+            int endIndex = subStrPlayerScore.IndexOf("-");
+
             // Get the substring from @param playersScore, and convert it to an integer.
             int score = Convert.ToInt32(playersScore.Substring(startIndex, endIndex));
 
             // Get the substring from @param playersScore, and convert it to a double.
-            double time = Convert.ToDouble(playersScore.Substring(endIndex, playersScore.Length));
+            //double time = Convert.ToDouble(playersScore.Substring(playersScore.LastIndexOf("-") + 1, ));
 
-            int position = 0;
+            int position = 1;
 
             // A particular .txt file (local, or online) will be used determined by the boolean parameter.
             // We determine if the score is high enough to be added into the local file, if it is, it may be 

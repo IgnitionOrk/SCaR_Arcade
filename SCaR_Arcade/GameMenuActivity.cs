@@ -50,51 +50,50 @@ namespace SCaR_Arcade
         // Predefined method to the create to build the Activity GameMenu.axml executes. 
         protected override void OnCreate(Bundle savedInstanceState)
         {
-                base.OnCreate(savedInstanceState);
-                SetContentView(Resource.Layout.GameMenu);
-                FullScreen = FindViewById<LinearLayout>(Resource.Id.FullScreenLinLay);
-                txtGameTitle = FindViewById<TextView>(Resource.Id.txtGameTitle);
-                txtDifficulty = FindViewById<TextView>(Resource.Id.txtDifficulty);
-                btnStart = FindViewById<Button>(Resource.Id.btnStart);
-                btnLeaderBoard = FindViewById<Button>(Resource.Id.btnLeaderBoard);
-                btnBack = FindViewById<Button>(Resource.Id.btnGameSelect);
-                imgBtnIn = FindViewById<ImageButton>(Resource.Id.imgBtnIncrease);
-                imgBtnDe = FindViewById<ImageButton>(Resource.Id.imgBtnDecrease);
-                gameDescription = FindViewById<TextView>(Resource.Id.description);
-                descriptionTitle = FindViewById<TextView>(Resource.Id.desTextView);
-                descriptionBackground = FindViewById<LinearLayout>(Resource.Id.descriptionLinLay);
+            base.OnCreate(savedInstanceState);
+            SetContentView(Resource.Layout.GameMenu);
+            FullScreen = FindViewById<LinearLayout>(Resource.Id.FullScreenLinLay);
+            txtGameTitle = FindViewById<TextView>(Resource.Id.txtGameTitle);
+            txtDifficulty = FindViewById<TextView>(Resource.Id.txtDifficulty);
+            btnStart = FindViewById<Button>(Resource.Id.btnStart);
+            btnLeaderBoard = FindViewById<Button>(Resource.Id.btnLeaderBoard);
+            btnBack = FindViewById<Button>(Resource.Id.btnGameSelect);
+            imgBtnIn = FindViewById<ImageButton>(Resource.Id.imgBtnIncrease);
+            imgBtnDe = FindViewById<ImageButton>(Resource.Id.imgBtnDecrease);
+            gameDescription = FindViewById<TextView>(Resource.Id.description);
+            descriptionTitle = FindViewById<TextView>(Resource.Id.desTextView);
+            descriptionBackground = FindViewById<LinearLayout>(Resource.Id.descriptionLinLay);
 
 
-                // get the index of the item the player has chosen.
-                gameChoice = Intent.GetIntExtra(GlobalApp.getVariableChoiceName(), 0);
+            // get the index of the item the player has chosen.
+            gameChoice = Intent.GetIntExtra(GlobalApp.getVariableChoiceName(), 0);
 
-                game = GameInterface.getGameAt(gameChoice);
+            game = GameInterface.getGameAt(gameChoice);
 
 
-                descriptionBackground.SetBackgroundColor(Color.Gray);
-                difficulty = game.gMinDifficulty;
-                minDifficulty = game.gMinDifficulty;
-                maxDifficulty = game.gMaxDifficulty;
-                txtDifficulty.Text = String.Format("{0}", difficulty);
-                txtGameTitle.Text = game.gTitle;
-                FullScreen.SetBackgroundResource(game.gMenuBackground);
+            descriptionBackground.SetBackgroundColor(Color.Gray);
+            difficulty = game.gMinDifficulty;
+            minDifficulty = game.gMinDifficulty;
+            maxDifficulty = game.gMaxDifficulty;
+            txtDifficulty.Text = String.Format("{0}", difficulty);
+            txtGameTitle.Text = game.gTitle;
+            FullScreen.SetBackgroundResource(game.gMenuBackground);
                 
-                // Event handlers.
-                btnStart.Click += ButtonClickStart;
-                btnBack.Click += ButtonClickSelect;
-                btnLeaderBoard.Click += ButtonClickLeaderboard;
-                imgBtnIn.Click += ImageButtonIncrease;
-                imgBtnDe.Click += ImageButtonDecrease;
+            // Event handlers.
+            btnStart.Click += ButtonClickStart;
+            btnBack.Click += ButtonClickSelect;
+            btnLeaderBoard.Click += ButtonClickLeaderboard;
+            imgBtnIn.Click += ImageButtonIncrease;
+            imgBtnDe.Click += ImageButtonDecrease;
 
-                // Add the plus and minus pictures to the two image buttons, 
-                // that can increase or decrease the difficulty level.
-                addPlusAndMinus();
+            // Add the plus and minus pictures to the two image buttons, 
+            // that can increase or decrease the difficulty level.
+            addPlusAndMinus();
 
-                // Add the current game to the Interface, and Assets folder.
-                FileInterface.addCurrentGame(game, Assets);
+            FileInterface.addCurrentGame(game, Assets);
 
-                // Add the description of the game.
-                gameDescription.Text = FileInterface.readFromDescription();
+            // Add the description of the game.
+            gameDescription.Text = FileInterface.readFromDescription();
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Plus, and minus bitmap images are added to the image buttons 

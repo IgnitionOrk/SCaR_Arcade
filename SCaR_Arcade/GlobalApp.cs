@@ -31,6 +31,7 @@ namespace SCaR_Arcade
         private static string gDifficultyName = "gameDifficulty";
         private static string gChoice = "gameChoice";
         private static string playersScore = "playersScore";
+        private static List<Game> playedGames = new List<Game>();
         // ----------------------------------------------------------------------------------------------------------------
         public static void createNewPlayer(string name)
         {

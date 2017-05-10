@@ -39,13 +39,18 @@ namespace SCaR_Arcade
             // Initialize the Assets folder, so we may extract data from it. 
             initializeAssests(assets);
 
-            // Create the Local, and Online txt files.
-            createFilesForGame();
+            // We determine if the variables have already been set,
+            // If they have, then the files have already been created.
+            if(game.gOnlineFileName == null && game.gLocalFileName == null)
+            {
+                // Create the Local, and Online txt files.
+                createFilesForGame();
 
-            // Add the predefined data from the Assets folder.
-            // These will similar to the scores that are inbuilt for a game at an actual arcade. 
-            addPredefinedScores(true);
-            addPredefinedScores(false);
+                // Add the predefined data from the Assets folder.
+                // These will similar to the scores that are inbuilt for a game at an actual arcade. 
+                addPredefinedScores(true);
+                addPredefinedScores(false);
+            }
 
         }
         // ----------------------------------------------------------------------------------------------------------------
@@ -149,7 +154,7 @@ namespace SCaR_Arcade
             string lineScore = "";
             List<string> scoreData = new List<string>();
             int currentPosition = 0;
-   
+
             // Determine the game file path, where the .txt file is saved.
             if (isOnline)
             {
@@ -187,6 +192,7 @@ namespace SCaR_Arcade
                 sr.Close();
             }
 
+
             // Open a new connection to the .txt file, so we can insert the new data.
             // Using StreamWrite overrides the current .txt file there, so we are not adding data onto the end of .txt file.
             using (StreamWriter sw = new StreamWriter(gameFilePath))
@@ -199,6 +205,7 @@ namespace SCaR_Arcade
                 // Close the connection to the file (.txt).
                 sw.Close();
             }
+
         }
         // ----------------------------------------------------------------------------------------------------------------
         // 
@@ -274,6 +281,102 @@ namespace SCaR_Arcade
                 sr.Close();
             }
             return scoreLines;
+        }
+        public static void pushPositionsUp(bool isOnline, int atPosition)
+        {
+            string path = "";
+            string lineScore = "";
+            List<string> scoreData = new List<string>();
+            int currentPosition = 0;
+            int newPosition = 0;
+            // Determine the game file path, where the .txt file is saved.
+            if (isOnline)
+            {
+                path = subFolderOnlinePath + game.gOnlineFileName;
+            }
+            else
+            {
+                path = subFolderLocalPath + game.gLocalFileName;
+            }
+
+
+            // Open a new connection to the .txt file, so we may extract the data.
+            // Essentially we are only adding the scores from the .txt file that do not equal the @param position.
+            using (StreamReader sr = new StreamReader(path))
+            {
+                while (sr.Peek() > -1)
+                {
+                    // Read the next line from the .txt file.
+                    lineScore = sr.ReadLine();
+
+                    // Remove any possibility of extra whitespace at the start, and end of the string.
+                    lineScore.Trim();
+
+                    // The position of the score is at the start of the string. 
+                    currentPosition = Convert.ToInt32(lineScore.Substring(0, lineScore.IndexOf("-")));
+
+                    if (currentPosition >= atPosition)
+                    {
+                        // We are only adding in the scores that do not match the @param position.
+                        // Thereby, essentially removing it from the current scores. 
+                        // Push the currentPosition by 1, and the atPosition will now come before it.
+                        newPosition = currentPosition + 1;
+                        lineScore = lineScore.Substring(lineScore.IndexOf("-") + 1, lineScore.Length - lineScore.IndexOf("-") - 1);
+                        lineScore = newPosition +"-"+lineScore;
+                        scoreData.Add(lineScore);
+                    }
+                }
+
+                // Close the connection to the file (.txt).
+                sr.Close();
+            }
+
+            // Open a new connection to the .txt file, so we can insert the new data.
+            // Using StreamWrite overrides the current .txt file there, so we are not adding data onto the end of .txt file.
+            using (StreamWriter sw = new StreamWriter(path))
+            {
+                for (int i = 0; i < scoreData.Count; i++)
+                {
+                    sw.WriteLine(scoreData[i]);
+                }
+
+                // Close the connection to the file (.txt).
+                sw.Close();
+            }
+        }
+        // ----------------------------------------------------------------------------------------------------------------
+        //
+        public static bool localFileReachLimit(int limit)
+        {
+            string path = subFolderLocalPath + game.gLocalFileName;
+            List<string> scoreLines = new List<string>();
+            using (StreamReader sr = new StreamReader(path))
+            {
+                while (sr.Peek() > -1)
+                {
+                    scoreLines.Add(sr.ReadLine());
+                }
+
+                sr.Close();
+            }
+            return scoreLines.Count == limit;
+        }
+        // ----------------------------------------------------------------------------------------------------------------
+        //
+        public static bool onlineFileReachedLimit(int limit)
+        {
+            string path = subFolderOnlinePath + game.gOnlineFileName;
+            List<string> scoreLines = new List<string>();
+            using (StreamReader sr = new StreamReader(path))
+            {
+                while (sr.Peek() > -1)
+                {
+                    scoreLines.Add(sr.ReadLine());
+                }
+
+                sr.Close();
+            }
+            return scoreLines.Count == limit;
         }
         // ----------------------------------------------------------------------------------------------------------------
         //
