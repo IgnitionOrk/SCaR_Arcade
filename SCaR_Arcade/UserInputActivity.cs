@@ -156,7 +156,7 @@ namespace SCaR_Arcade
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Will determine if the players score, and time can be added to either local, or online. 
-        private void checkForNewPositionToLocalAndOnline(string scoreStr, string timeStr,int dif)
+        private void checkForNewPositionToLocalAndOnline(string scoreStr, string timeStr, int dif)
         {
             int score = Convert.ToInt32(scoreStr);
             int hours = 0;
