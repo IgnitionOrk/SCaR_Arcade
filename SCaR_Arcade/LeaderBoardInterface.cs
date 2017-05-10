@@ -180,7 +180,8 @@ namespace SCaR_Arcade
         //
         public static string formatLeaderBoardScore(string name, string score,int dif, string time)
         {
-            return name + "-" + score + "-" +dif+"-"+ time;
+            System.Diagnostics.Debug.Write("HAHAHAHAHAHAHAHAHAH");
+            return name + "-" + score + "-" + dif +"-"+ time;
         }
         // ----------------------------------------------------------------------------------------------------------------
         // 
@@ -190,6 +191,7 @@ namespace SCaR_Arcade
             int currentMinutes = 0;
             int currentSeconds = 0;
             bool newScore = false;
+            System.Diagnostics.Debug.Write("HAHAHAHAHAHAHAHAHAH       WLWLWLWLLWLWLW");
             // A particular .txt file (local, or online) will be used determined by the boolean parameter.
             // The method populateLeaderBoardData will have been sorted.
             List<LeaderBoard> listLBd = PopulateLeaderBoardData(false);

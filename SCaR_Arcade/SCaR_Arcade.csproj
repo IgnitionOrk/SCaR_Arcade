@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="FileInterface.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="GameActivities\MarblesAndHoles.cs" />
     <Compile Include="GameActivities\MemoryTestActivity.cs" />
     <Compile Include="LeaderBoard.cs" />
     <Compile Include="LeaderBoardActivity.cs" />
@@ -143,7 +144,9 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\plus.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <AndroidAsset Include="Assets\GameDescriptions\MaH_GameDescription.txt" />
+  </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\SCaRARCADE.png" />
     <AndroidResource Include="Resources\drawable\TargetPole.png" />

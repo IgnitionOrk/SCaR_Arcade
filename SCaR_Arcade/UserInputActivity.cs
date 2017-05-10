@@ -34,7 +34,7 @@ namespace SCaR_Arcade
         private CheckBox chkBoxName;
         private string score;
         private string time;
-        private int dif;
+        private string dif;
         private const string DEFAULTNAME = "Unknown";
         private const string DEFAULTENTERNAMEHERE = "Enter name here.";
         protected override void OnCreate(Bundle savedInstanceState)
@@ -55,21 +55,20 @@ namespace SCaR_Arcade
             chkBoxName.Click += CheckBoxClick;
             saveBtn.Click += SaveButtonClick;
 
-
             // Initializing data for the User input.
             enterNameTxt.Text = DEFAULTENTERNAMEHERE;
             string content = Intent.GetStringExtra(GlobalApp.getPlayersScoreVariable());
+            Char delimiter = '-';
+            String[] subStrings = content.Split(delimiter);
 
-            // As content is in the format of -Score-Time we need to remove the first '-'
-            content = content.Substring(content.IndexOf("-") + 1, content.Length - 1);
-
-            score = GlobalApp.extractValuesFromString("-",content, false);
-            time = GlobalApp.extractValuesFromString("-",content, true);
-            dif = 1;
+            score =subStrings[0];
+            dif = subStrings[1];
+            time = subStrings[2];
             scoreTxtView.Text += " "+score;
             timeTxtView.Text += " "+time;
 
 
+            System.Diagnostics.Debug.Write("HAHAHAHAHAHAHAHAHAH       LOLOLOLO");
             chkBoxName.Enabled = !GlobalApp.isNewPlayer();
 
             // We don't want the checkbox to be auto checked. 
@@ -156,16 +155,25 @@ namespace SCaR_Arcade
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Will determine if the players score, and time can be added to either local, or online. 
-        private void checkForNewPositionToLocalAndOnline(string scoreStr, string timeStr,int dif)
+        private void checkForNewPositionToLocalAndOnline(string scoreStr, string timeStr,string difStr)
         {
+
+            System.Diagnostics.Debug.Write("HAHAHAHAHAHAHAHAHAH       DADADADADADDDA");
+            System.Diagnostics.Debug.Write(timeStr);
+            System.Diagnostics.Debug.Write(scoreStr);
+            System.Diagnostics.Debug.Write(difStr);
             int score = Convert.ToInt32(scoreStr);
             int hours = 0;
             int minutes = 0;
             int seconds = 0;
+
+            System.Diagnostics.Debug.Write("HAHAHAHAHAHAHAHAHAH       QUQUQUQUQUQUQU");
             // Counts the number of ":" in timeStr,
             // There will be two if timeStr is in the format of HH:MM:SS
             // Otherwise there will be only one MM:SS
             int count = findNumberOfCharacters(":", timeStr);
+
+            System.Diagnostics.Debug.Write("HAHAHAHAHAHAHAHAHAH       BABABABABABABA"+count);
             if (count < 2)
             {
                 // First part of the string
@@ -185,6 +193,8 @@ namespace SCaR_Arcade
                 // Third part of the string
                 seconds = Convert.ToInt32(timeStr.Substring(timeStr.LastIndexOf(":"), 2));
             }
+
+            System.Diagnostics.Debug.Write("HAHAHAHAHAHAHAHAHAH       HEHEHEHEHE");
 
             bool ifNewHighScore = LeaderBoardInterface.checkForNewLocalHighScore(score,hours, minutes, seconds);
             saveBtn.Enabled = ifNewHighScore;

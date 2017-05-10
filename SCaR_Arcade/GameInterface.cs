@@ -65,9 +65,21 @@ namespace SCaR_Arcade
                     gMinDifficulty = 3,
                     gMaxDifficulty = 8,
                     gType = typeof(GameActivities.TowersOfHanoiActivity),
-                    gDescription = "ToH_GameDescription.txt"               
+                    gDescription = "ToH_GameDescription.txt"
                 }
                 );
+                gList.Add(new Game
+                {
+                    gTitle = "'Marbles And Holes",
+                    gLogo = Resource.Drawable.circle,
+                    gMenuBackground = Resource.Drawable.circle,
+                    gMinDifficulty = 1,
+                    gMaxDifficulty = 8,
+                    gType = typeof(GameActivities.MarblesAndHoles),
+                    gDescription = "MaH_GameDescription.txt"
+                }
+                );
+
             }
         }
     }

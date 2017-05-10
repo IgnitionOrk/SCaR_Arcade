@@ -132,6 +132,8 @@ namespace SCaR_Arcade
         //
         public static string extractValuesFromString(string character, string content, bool isSecondPart)
         {
+            System.Diagnostics.Debug.Write(character);
+            System.Diagnostics.Debug.Write(content);
             int index = 0;
             string temp = "";
             if (isSecondPart)

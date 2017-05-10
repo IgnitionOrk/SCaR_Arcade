@@ -1,4 +1,4 @@
-using Android.App;
+﻿using Android.App;
 using Android.Widget;
 using Android.OS;
 using System;
@@ -24,7 +24,7 @@ namespace SCaR_Arcade.GameActivities
         ScreenOrientation = Android.Content.PM.ScreenOrientation.Landscape,
         Theme = "@android:style/Theme.NoTitleBar"
     )]
-    public class TowersOfHanoiActivity :  Activity, View.IOnLongClickListener, View.IOnDragListener, IDialogInterfaceOnDismissListener
+    public class MarblesAndHoles : Activity, View.IOnLongClickListener, View.IOnDragListener, IDialogInterfaceOnDismissListener
     {
         private GameLogic.TowersOfHanoiLogic logic;
         private Chronometer chronometer;
@@ -34,7 +34,7 @@ namespace SCaR_Arcade.GameActivities
         private FrameLayout[] frameLayout;
         private LinearLayout[] linearLayout;
         private ImageView[] poles;
-        private const int MAXCOMPONENTS = 3;
+        private const int MAXCOMPONENTS = 1;
         private int numberOfMoves = 0;
         // Used when a drag and drop event has occured to store data. 
         private View disk;
@@ -121,23 +121,19 @@ namespace SCaR_Arcade.GameActivities
                 poles[i].SetScaleType(ImageView.ScaleType.FitCenter);
                 poles[i].Enabled = false;
                 frameLayout[i].AddView(poles[i], imageViewParameters);
-                if (i == MAXCOMPONENTS - 1)
-                {
-                    // Make the target pole a different colour.
-                    // As so the player can differentiate which is the target pole. 
-                    poles[i].SetImageResource(Resource.Drawable.TargetPole);
-                }
-                else
-                {
-                    poles[i].SetImageResource(Resource.Drawable.Pole);
-                }
+                
+                poles[i].SetImageResource(Resource.Drawable.circle);
+                
+                poles[i].SetColorFilter(Color.ParseColor("#AE6118"));
+
+
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Creates the LinearLayouts (vertical) that will hold the ImageViews (disks).
         private void createLinearLayouts()
         {
-            int paddingHeight = Resources.DisplayMetrics.HeightPixels / 6;
+            int paddingHeight = Resources.DisplayMetrics.HeightPixels / 40;
 
             linearLayout = new LinearLayout[MAXCOMPONENTS];
             LinearLayout.LayoutParams linearParameters = new LinearLayout.LayoutParams(
@@ -157,11 +153,11 @@ namespace SCaR_Arcade.GameActivities
                 frameLayout[i].AddView(linearLayout[i], linearParameters);
             }
         }
-    // ----------------------------------------------------------------------------------------------------------------
-    // Builds all the disks, and adds then into the first LinearLayout;
-    private void createDisks()
+        // ----------------------------------------------------------------------------------------------------------------
+        // Builds all the disks, and adds then into the first LinearLayout;
+        private void createDisks()
         {
-            int numberOfDisks = Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(),1);
+            int numberOfDisks = Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1);
             for (int i = 0; i < numberOfDisks; i++)
             {
                 ImageView imgView = getResizedImage(i);
@@ -183,19 +179,20 @@ namespace SCaR_Arcade.GameActivities
             // Disk.png is used because it has been calibrated to a desired shape (width, height).
             // So we simply form an imageView to the shape of Disk.png. 
             ImageView img = new ImageView(this);
-            Bitmap bMapDisk = BitmapFactory.DecodeResource(Resources, Resource.Drawable.Disk);
+            Bitmap bMapDisk = BitmapFactory.DecodeResource(Resources, Resource.Drawable.circle);
 
             // Determine the width of the new Bitmap image;
             int newWidth = determineNewWidth(bMapDisk.Width, count);
 
             // Scale the Bitmap image to the desired specs;
             Bitmap bMapDiskScaled = Bitmap.CreateScaledBitmap(bMapDisk, newWidth, bMapDisk.Height, true);
-            
+
             //Add the numbers to each Bitmap so the player can differentiate between disks, particularly if there are a large number of them.
             bMapDiskScaled = addNumbersToBitMap(bMapDiskScaled, count);
 
             img.SetImageBitmap(bMapDiskScaled);
             img.SetScaleType(ImageView.ScaleType.Center);
+            img.SetColorFilter(Color.ParseColor("#AE6118"));
 
             return img;
         }
@@ -204,7 +201,7 @@ namespace SCaR_Arcade.GameActivities
         // Particularly if there are alot of them.
         private Bitmap addNumbersToBitMap(Bitmap bMapDiskScaled, int count)
         {
-            int number = Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(),1) - count;
+            int number = Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1) - count;
             // The top left hand corner of the image of the number is specified by the (x,y)
             // the number will not be placed exactly in the middle, instead it will be slightly off centre. 
             // The 0.15 (15%), and 0.10 (10%) have been determined by testing different values
@@ -273,7 +270,7 @@ namespace SCaR_Arcade.GameActivities
         // Whilst the drag is still in progress
         // Reference: https://forums.xamarin.com/discussion/63590/drag-and-drop-in-android-c
         public bool OnDrag(View v, DragEvent args)
-        {          
+        {
             switch (args.Action)
             {
                 case DragAction.Entered:
@@ -290,7 +287,7 @@ namespace SCaR_Arcade.GameActivities
                 case DragAction.Drop:
                     // Parameter v is of type LinearLayout and is defined as the dropzone
                     // the new disk will be added to. 
-                        allowableMove(v);
+                    allowableMove(v);
                     return true;
                 default:
                     return false;
@@ -356,8 +353,7 @@ namespace SCaR_Arcade.GameActivities
             try
             {
                 chronometer.Stop();
-                System.Diagnostics.Debug.Write("HAHAHAHAHAHAHAHAHAH" + Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1));
-                string playersScore = LeaderBoardInterface.formatLeaderBoardScore("", numberOfMoves.ToString(), Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1), chronometer.Text); 
+                string playersScore = LeaderBoardInterface.formatLeaderBoardScore("", numberOfMoves.ToString(), Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1), chronometer.Text);
                 BeginActivity(typeof(UserInputActivity), GlobalApp.getPlayersScoreVariable(), playersScore);
             }
             catch
@@ -370,7 +366,7 @@ namespace SCaR_Arcade.GameActivities
         // Event Handler: Will direct the player to the Game menu.
         public override void OnBackPressed()
         {
-            BeginActivity(typeof(GameMenuActivity),"", 0);
+            BeginActivity(typeof(GameMenuActivity), "", 0);
         }
         // ----------------------------------------------------------------------------------------------------------------
         /*
@@ -389,7 +385,7 @@ namespace SCaR_Arcade.GameActivities
             chronometer.Stop();
 
             // Say that time the chronometer was stopped so we can restart it. 
-            pausedAt = chronometer.Base - SystemClock.ElapsedRealtime(); 
+            pausedAt = chronometer.Base - SystemClock.ElapsedRealtime();
 
             // Now we build the Alert that will show the error message.
             AlertDialog.Builder adb = new AlertDialog.Builder(this);
