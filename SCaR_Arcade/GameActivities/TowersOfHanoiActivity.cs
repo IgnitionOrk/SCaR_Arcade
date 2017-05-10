@@ -190,14 +190,45 @@ namespace SCaR_Arcade.GameActivities
 
             // Scale the Bitmap image to the desired specs;
             Bitmap bMapDiskScaled = Bitmap.CreateScaledBitmap(bMapDisk, newWidth, bMapDisk.Height, true);
-            
+
             //Add the numbers to each Bitmap so the player can differentiate between disks, particularly if there are a large number of them.
             bMapDiskScaled = addNumbersToBitMap(bMapDiskScaled, count);
 
             img.SetImageBitmap(bMapDiskScaled);
             img.SetScaleType(ImageView.ScaleType.Center);
+            img.SetColorFilter(Color.ParseColor(getHexColor(count)));
+           
+
 
             return img;
+        }
+        // ----------------------------------------------------------------------------------------------------------------
+        // retrun a hex string for a color
+        private string getHexColor(int count)
+        {
+            switch (count)
+            {
+                case 1:
+                    return "#CFB095";
+                case 2:
+                    return "#5A7247";
+                case 3:
+                    return "#CE3175";
+                case 4:
+                    return "#95DEE3";
+                case 5:
+                    return "#F2552C";
+                case 6:
+                    return "#004B8D";
+                case 7:
+                    return "#672E3B";
+                case 8:
+                    return "#F6D155";
+                case 9:
+                    return "#9C9A40";
+                default:
+                    return "#578CA9";
+            }
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Adds numbers to each of the disks, as some players may find it hard to differentiate between disks.
