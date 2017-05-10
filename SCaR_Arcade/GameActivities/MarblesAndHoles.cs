@@ -33,8 +33,8 @@ namespace SCaR_Arcade.GameActivities
         private LinearLayout gameDisplay;
         private FrameLayout[] frameLayout;
         private LinearLayout[] linearLayout;
-        private ImageView[] poles;
-        private const int MAXCOMPONENTS = 1;
+        private ImageView[] holes;
+        private const int MAXCOMPONENTS = 2;
         private int numberOfMoves = 0;
         // Used when a drag and drop event has occured to store data. 
         private View disk;
@@ -114,19 +114,22 @@ namespace SCaR_Arcade.GameActivities
                 LinearLayout.LayoutParams.MatchParent,
                 LinearLayout.LayoutParams.MatchParent
             );
-            poles = new ImageView[MAXCOMPONENTS];
+            holes = new ImageView[MAXCOMPONENTS];
             for (int i = 0; i < MAXCOMPONENTS; i++)
             {
-                poles[i] = new ImageView(this);
-                poles[i].SetScaleType(ImageView.ScaleType.FitCenter);
-                poles[i].Enabled = false;
-                frameLayout[i].AddView(poles[i], imageViewParameters);
-                
-                poles[i].SetImageResource(Resource.Drawable.circle);
-                
-                poles[i].SetColorFilter(Color.ParseColor("#AE6118"));
+                holes[i] = new ImageView(this);
+                holes[i].SetScaleType(ImageView.ScaleType.FitCenter);
+                holes[i].Enabled = false;
+                frameLayout[i].AddView(holes[i], imageViewParameters);
+                if (i == MAXCOMPONENTS - 1)
+                {
+                    // Make the target Hole a different colour.
+                    // As so the player can differentiate which is the target pole. 
+                    holes[i].SetImageResource(Resource.Drawable.TargetPole);
+                    holes[i].SetImageResource(Resource.Drawable.circle);
 
-
+                    holes[i].SetColorFilter(Color.ParseColor("#000000"));
+                }
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
@@ -181,11 +184,8 @@ namespace SCaR_Arcade.GameActivities
             ImageView img = new ImageView(this);
             Bitmap bMapDisk = BitmapFactory.DecodeResource(Resources, Resource.Drawable.circle);
 
-            // Determine the width of the new Bitmap image;
-            int newWidth = determineNewWidth(bMapDisk.Width, count);
-
             // Scale the Bitmap image to the desired specs;
-            Bitmap bMapDiskScaled = Bitmap.CreateScaledBitmap(bMapDisk, newWidth, bMapDisk.Height, true);
+            Bitmap bMapDiskScaled = Bitmap.CreateScaledBitmap(bMapDisk, 150, 150, true);
 
             //Add the numbers to each Bitmap so the player can differentiate between disks, particularly if there are a large number of them.
             bMapDiskScaled = addNumbersToBitMap(bMapDiskScaled, count);
@@ -222,19 +222,7 @@ namespace SCaR_Arcade.GameActivities
             canvas.DrawText(String.Format("{0}", number), x, y, paint);
             return bMapDiskScaled;
         }
-        // ----------------------------------------------------------------------------------------------------------------
-        // Calculate the new width for a Bitmap image;
-        // the image will be 5% shorter, than its predecessor;
-        private int determineNewWidth(int currentWidth, int count)
-        {
-            int fivePercentWidth = (int)(currentWidth * 0.10);
-            // Continously remove 5% from the current width;
-            for (int i = 0; i < count; i++)
-            {
-                currentWidth = (int)(currentWidth - fivePercentWidth);
-            }
-            return currentWidth;
-        }
+        
         // ----------------------------------------------------------------------------------------------------------------
         // An listener issued for when an view has been (long) click;
         // Will execute a StartDrag event for when the user
@@ -520,7 +508,7 @@ namespace SCaR_Arcade.GameActivities
             }
             if (isReplay)
             {
-                BeginActivity(typeof(TowersOfHanoiActivity), GlobalApp.getVariableDifficultyName(), Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1));
+                BeginActivity(typeof(MarblesAndHoles), GlobalApp.getVariableDifficultyName(), Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1));
             }
             else
             {

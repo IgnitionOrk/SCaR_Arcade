@@ -70,11 +70,10 @@ namespace SCaR_Arcade
                 );
                 gList.Add(new Game
                 {
-                    gTitle = "'Marbles And Holes",
+                    gTitle = "Marbles And Holes",
                     gLogo = Resource.Drawable.circle,
-                    gMenuBackground = Resource.Drawable.circle,
                     gMinDifficulty = 1,
-                    gMaxDifficulty = 8,
+                    gMaxDifficulty = 3,
                     gType = typeof(GameActivities.MarblesAndHoles),
                     gDescription = "MaH_GameDescription.txt"
                 }
