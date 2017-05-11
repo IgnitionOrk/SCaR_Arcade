@@ -42,6 +42,11 @@ namespace SCaR_Arcade.GameActivities
         private ImageView[] diceSlots;
         private int maxComponents = 1;
         private int numberOfMoves = 0;
+        private int buffCount = 5;
+        private int numOfGoodShakeCount = 5;
+        private float x;
+        private float y;
+        private float z;
         // Used when a drag and drop event has occured to store data. 
         private View disk;
         private LinearLayout removedFromLinearLayout;
@@ -167,7 +172,7 @@ namespace SCaR_Arcade.GameActivities
                 linearLayout[i].AddView(imgView, 0);
 
                 //Only the top disk is allowed to be clickable.
-                topDiskIsOnlyClickable();
+                //rollDice();
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
@@ -284,7 +289,7 @@ namespace SCaR_Arcade.GameActivities
                     addToNewDropzone(view);
 
                     // Now we set the appropriate properties of the disks for each LinearLayout.
-                    topDiskIsOnlyClickable();
+                    //topDiskIsOnlyClickable();
                     numberOfMoves++;
                     txtVScore.Text = "No. of moves: " + numberOfMoves;
                 }
@@ -432,16 +437,20 @@ namespace SCaR_Arcade.GameActivities
         // Notice that there is not loop going through the all LinearLayout's, and setting each ImageViews property.
         // Why? Look at the function createDisks(). The loop in createDisks() does this for us when the ImageView as added, 
         // we need only check the values of the top and the next ImageView (if any), and set their respective properties.  
-        private void topDiskIsOnlyClickable()
+        private void rollDice()
         {
-            foreach (LinearLayout lin in linearLayout)
+            if (numOfGoodShakeCount != 0)
             {
-                if (lin.ChildCount > 0)     // Only one ImageView in the LinearLayout.
+                //not enough shakes
+                numOfGoodShakeCount--;
+            }
+            else
+            {
+                numOfGoodShakeCount = 5;
+                foreach (LinearLayout lin in linearLayout)
                 {
-                    
-                    if (lin.ChildCount > 1) // two or more ImageViews in the LinearLayout. 
-                    {
-                    }
+                    OnPause();
+                    System.Diagnostics.Debug.Write("Rolling dice");
                 }
             }
         }
@@ -531,15 +540,53 @@ namespace SCaR_Arcade.GameActivities
             elapsedTime.Text = String.Format("{0}", "Time: " + chronometer.Text);
         }
 
-        public void OnAccuracyChanged(Sensor sensor, [GeneratedEnum] SensorStatus accuracy)
-        {
-            throw new NotImplementedException();
-        }
+        public void OnAccuracyChanged(Sensor sensor, [GeneratedEnum] SensorStatus accuracy) { }
 
         public void OnSensorChanged(SensorEvent e)
         {
-            //generate new dice
-            throw new NotImplementedException();
+            if (buffCount != 0)
+            {
+                buffCount--;
+                lock (_syncLock)
+                {
+                    x = e.Values[0];
+                    y = e.Values[1];
+                    z = e.Values[2];
+                }
+            }
+            else
+            {
+                buffCount = 5;
+                lock (_syncLock)
+                {
+                    float num = 3;
+                    float negNum = -3;
+
+                    System.Diagnostics.Debug.Write("X "+ (x - e.Values[0])+" Y "+(y - e.Values[1]) +" Z "+(z - e.Values[2]));
+                    if (x - e.Values[0] < negNum || num < x - e.Values[0] ||
+                    y - e.Values[1] < negNum || num < y - e.Values[1] ||
+                    z - e.Values[2] < negNum || num < z - e.Values[2] )
+                    {
+                        rollDice();
+                    }
+                }
+            }
+                
+               
+           
+        }
+        protected override void OnPause()
+        {
+            base.OnPause();
+            _sensorManager.UnregisterListener(this);
+        }
+        protected override void OnResume()
+        {
+            base.OnResume();
+            _sensorManager.RegisterListener(this,
+                                            _sensorManager.GetDefaultSensor(SensorType.Accelerometer),
+                                            SensorDelay.Ui);
         }
     }
+
 }
