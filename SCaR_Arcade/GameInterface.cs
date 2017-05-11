@@ -70,12 +70,12 @@ namespace SCaR_Arcade
                 );
                 gList.Add(new Game
                 {
-                    gTitle = "Marbles And Holes",
-                    gLogo = Resource.Drawable.circle,
+                    gTitle = "Dice Rolls",
+                    gLogo = Resource.Drawable.gameBase,
                     gMinDifficulty = 1,
-                    gMaxDifficulty = 3,
-                    gType = typeof(GameActivities.MarblesAndHoles),
-                    gDescription = "MaH_GameDescription.txt"
+                    gMaxDifficulty = 5,
+                    gType = typeof(GameActivities.DiceRolls),
+                    gDescription = "DR_GameDescription.txt"
                 }
                 );
 

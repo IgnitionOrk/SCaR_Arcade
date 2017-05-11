@@ -401,7 +401,7 @@ namespace SCaR_Arcade.GameActivities
         // Event Handler: Will direct the player to the Game menu.
         public override void OnBackPressed()
         {
-            BeginActivity(typeof(GameMenuActivity),"", 0);
+            determineResponse(false);
         }
         // ----------------------------------------------------------------------------------------------------------------
         /*

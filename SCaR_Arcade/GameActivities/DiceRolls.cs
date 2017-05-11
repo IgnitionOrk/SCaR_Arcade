@@ -24,7 +24,7 @@ namespace SCaR_Arcade.GameActivities
         ScreenOrientation = Android.Content.PM.ScreenOrientation.Landscape,
         Theme = "@android:style/Theme.NoTitleBar"
     )]
-    public class MarblesAndHoles : Activity, View.IOnLongClickListener, View.IOnDragListener, IDialogInterfaceOnDismissListener
+    public class DiceRolls : Activity, View.IOnLongClickListener, IDialogInterfaceOnDismissListener
     {
         private GameLogic.TowersOfHanoiLogic logic;
         private Chronometer chronometer;
@@ -33,8 +33,8 @@ namespace SCaR_Arcade.GameActivities
         private LinearLayout gameDisplay;
         private FrameLayout[] frameLayout;
         private LinearLayout[] linearLayout;
-        private ImageView[] holes;
-        private const int MAXCOMPONENTS = 2;
+        private ImageView[] diceSlots;
+        private int maxComponents = 1;
         private int numberOfMoves = 0;
         // Used when a drag and drop event has occured to store data. 
         private View disk;
@@ -55,11 +55,13 @@ namespace SCaR_Arcade.GameActivities
                 txtVScore = FindViewById<TextView>(Resource.Id.txtVScore);
                 gameDisplay = FindViewById<LinearLayout>(Resource.Id.linLayGameDisplay);
                 // Build the game display that the user will interact with;
+                maxComponents = Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1);
+
                 Game();
 
                 // Initializing data for the game.
-                logic = new GameLogic.TowersOfHanoiLogic(MAXCOMPONENTS, Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1));
-                txtOptimalNoOfMoves.Text = string.Format("{0}", "Optimal no. of moves: " + logic.calOptimalNoOfMoves(Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1)));
+                logic = new GameLogic.TowersOfHanoiLogic(maxComponents, Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1));
+                //txtOptimalNoOfMoves.Text = string.Format("{0}", "Optimal no. of moves: " + logic.calOptimalNoOfMoves(Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1)));
                 txtVScore.Text = "No. of moves: " + 0;
                 chronometer.Visibility = Android.Views.ViewStates.Invisible;
 
@@ -92,14 +94,14 @@ namespace SCaR_Arcade.GameActivities
         // FrameLayout will allow us to place ImageViews, and LinearLayouts on top of each other. 
         private void createFrameLayouts()
         {
-            frameLayout = new FrameLayout[MAXCOMPONENTS];
+            frameLayout = new FrameLayout[maxComponents];
 
             LinearLayout.LayoutParams frameParameters = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WrapContent,
                 LinearLayout.LayoutParams.MatchParent,
                 1
             );
-            for (int i = 0; i < MAXCOMPONENTS; i++)
+            for (int i = 0; i < maxComponents; i++)
             {
                 frameLayout[i] = new FrameLayout(this);
                 frameLayout[i].Clickable = false;
@@ -114,22 +116,13 @@ namespace SCaR_Arcade.GameActivities
                 LinearLayout.LayoutParams.MatchParent,
                 LinearLayout.LayoutParams.MatchParent
             );
-            holes = new ImageView[MAXCOMPONENTS];
-            for (int i = 0; i < MAXCOMPONENTS; i++)
+            diceSlots = new ImageView[maxComponents];
+            for (int i = 0; i < maxComponents; i++)
             {
-                holes[i] = new ImageView(this);
-                holes[i].SetScaleType(ImageView.ScaleType.FitCenter);
-                holes[i].Enabled = false;
-                frameLayout[i].AddView(holes[i], imageViewParameters);
-                if (i == MAXCOMPONENTS - 1)
-                {
-                    // Make the target Hole a different colour.
-                    // As so the player can differentiate which is the target pole. 
-                    holes[i].SetImageResource(Resource.Drawable.TargetPole);
-                    holes[i].SetImageResource(Resource.Drawable.circle);
-
-                    holes[i].SetColorFilter(Color.ParseColor("#000000"));
-                }
+                diceSlots[i] = new ImageView(this);
+                diceSlots[i].SetScaleType(ImageView.ScaleType.FitCenter);
+                diceSlots[i].Enabled = false;
+                frameLayout[i].AddView(diceSlots[i], imageViewParameters);
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
@@ -138,21 +131,18 @@ namespace SCaR_Arcade.GameActivities
         {
             int paddingHeight = Resources.DisplayMetrics.HeightPixels / 40;
 
-            linearLayout = new LinearLayout[MAXCOMPONENTS];
+            linearLayout = new LinearLayout[maxComponents];
             LinearLayout.LayoutParams linearParameters = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MatchParent,
                 LinearLayout.LayoutParams.MatchParent
             );
-            for (int i = 0; i < MAXCOMPONENTS; i++)
+            for (int i = 0; i < maxComponents; i++)
             {
                 linearLayout[i] = new LinearLayout(this);
                 linearLayout[i].SetMinimumWidth(25);
                 linearLayout[i].SetMinimumHeight(25);
                 linearLayout[i].Orientation = Orientation.Vertical;
-                linearLayout[i].SetGravity(Android.Views.GravityFlags.Bottom);
-                linearLayout[i].SetHorizontalGravity(Android.Views.GravityFlags.Center);
-                linearLayout[i].SetOnDragListener(this);
-                linearLayout[i].SetPadding(0, 0, 0, paddingHeight);
+                linearLayout[i].SetGravity(Android.Views.GravityFlags.Center);
                 frameLayout[i].AddView(linearLayout[i], linearParameters);
             }
         }
@@ -160,13 +150,12 @@ namespace SCaR_Arcade.GameActivities
         // Builds all the disks, and adds then into the first LinearLayout;
         private void createDisks()
         {
-            int numberOfDisks = Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1);
-            for (int i = 0; i < numberOfDisks; i++)
+            for (int i = 0; i < maxComponents; i++)
             {
                 ImageView imgView = getResizedImage(i);
 
                 // Add the view (imgView) into the linearlayout, with the added effect of the disks appearing in ascending order.
-                linearLayout[0].AddView(imgView, 0);
+                linearLayout[i].AddView(imgView, 0);
 
                 //Only the top disk is allowed to be clickable.
                 topDiskIsOnlyClickable();
@@ -182,47 +171,19 @@ namespace SCaR_Arcade.GameActivities
             // Disk.png is used because it has been calibrated to a desired shape (width, height).
             // So we simply form an imageView to the shape of Disk.png. 
             ImageView img = new ImageView(this);
-            Bitmap bMapDisk = BitmapFactory.DecodeResource(Resources, Resource.Drawable.circle);
+            Bitmap bMapDisk = BitmapFactory.DecodeResource(Resources, Resource.Drawable.gameBase);
 
             // Scale the Bitmap image to the desired specs;
-            Bitmap bMapDiskScaled = Bitmap.CreateScaledBitmap(bMapDisk, 150, 150, true);
+            Bitmap bMapDiskScaled = Bitmap.CreateScaledBitmap(bMapDisk, 400, 400, true);
 
             //Add the numbers to each Bitmap so the player can differentiate between disks, particularly if there are a large number of them.
             bMapDiskScaled = addNumbersToBitMap(bMapDiskScaled, count);
 
             img.SetImageBitmap(bMapDiskScaled);
             img.SetScaleType(ImageView.ScaleType.Center);
-            img.SetColorFilter(Color.ParseColor(getHexColor(count)));
+            
 
             return img;
-        }
-        // ----------------------------------------------------------------------------------------------------------------
-        // retrun a hex string for a color
-        private string getHexColor(int count)
-        {
-            switch (count)
-            {
-                case 1:
-                    return "#CFB095";
-                case 2:
-                    return "#5A7247";
-                case 3:
-                    return "#CE3175";
-                case 4:
-                    return "#95DEE3";
-                case 5:
-                    return "#F2552C";
-                case 6:
-                    return "#004B8D";
-                case 7:
-                    return "#672E3B";
-                case 8:
-                    return "#F6D155";
-                case 9:
-                    return "#9C9A40";
-                default:
-                    return "#578CA9";
-            }
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Adds numbers to each of the disks, as some players may find it hard to differentiate between disks.
@@ -280,34 +241,6 @@ namespace SCaR_Arcade.GameActivities
 
             //Remove the view (disk) from its Parent. 
             removedFromLinearLayout.RemoveView(view);
-        }
-        // ----------------------------------------------------------------------------------------------------------------
-        // Executes after the user initiates a Drag event.
-        // Whilst the drag is still in progress
-        // Reference: https://forums.xamarin.com/discussion/63590/drag-and-drop-in-android-c
-        public bool OnDrag(View v, DragEvent args)
-        {
-            switch (args.Action)
-            {
-                case DragAction.Entered:
-                    return true;
-                case DragAction.Exited:
-                    return true;
-                case DragAction.Ended:
-                    // Essentially if the Player moves the disk out of the game screen
-                    // the disk will disappear;
-                    returnDiskToPlacement(args);
-                    return true;
-                case DragAction.Started:
-                    return true;
-                case DragAction.Drop:
-                    // Parameter v is of type LinearLayout and is defined as the dropzone
-                    // the new disk will be added to. 
-                    allowableMove(v);
-                    return true;
-                default:
-                    return false;
-            }
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Reloads the disk back on the pole;
@@ -382,7 +315,7 @@ namespace SCaR_Arcade.GameActivities
         // Event Handler: Will direct the player to the Game menu.
         public override void OnBackPressed()
         {
-            BeginActivity(typeof(GameMenuActivity), "", 0);
+            determineResponse(false);
         }
         // ----------------------------------------------------------------------------------------------------------------
         /*
@@ -536,7 +469,7 @@ namespace SCaR_Arcade.GameActivities
             }
             if (isReplay)
             {
-                BeginActivity(typeof(MarblesAndHoles), GlobalApp.getVariableDifficultyName(), Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1));
+                BeginActivity(typeof(DiceRolls), GlobalApp.getVariableDifficultyName(), Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1));
             }
             else
             {
