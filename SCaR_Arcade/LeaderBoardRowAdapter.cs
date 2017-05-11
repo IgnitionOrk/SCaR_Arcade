@@ -26,6 +26,7 @@ namespace SCaR_Arcade
         // ----------------------------------------------------------------------------------------------------------------
         /*
          * sources
+         * 
          * http://blog.atavisticsoftware.com/2014/02/listview-using-activitylistitem-style.html
          * http://blog.atavisticsoftware.com/2014/01/listview-basics-for-xamarain-android.html
         */

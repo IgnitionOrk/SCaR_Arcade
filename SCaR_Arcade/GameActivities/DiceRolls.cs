@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using Android.Runtime;
 using Android.Views;
 using System.Threading.Tasks;
+using Android.Hardware;
 /// <summary>
 /// Creator: Ryan Cunneen
 /// Creator: Martin O'Connor
@@ -24,8 +25,13 @@ namespace SCaR_Arcade.GameActivities
         ScreenOrientation = Android.Content.PM.ScreenOrientation.Landscape,
         Theme = "@android:style/Theme.NoTitleBar"
     )]
-    public class DiceRolls : Activity, View.IOnLongClickListener, IDialogInterfaceOnDismissListener
+    public class DiceRolls : Activity, IDialogInterfaceOnDismissListener, ISensorEventListener
     {
+        // ----------------------------------------------------------------------------------------------------------------
+        /*
+         * sources
+         * https://developer.xamarin.com/recipes/android/os_device_resources/accelerometer/get_accelerometer_readings/ 
+        */
         private GameLogic.TowersOfHanoiLogic logic;
         private Chronometer chronometer;
         private TextView elapsedTime;
@@ -40,6 +46,8 @@ namespace SCaR_Arcade.GameActivities
         private View disk;
         private LinearLayout removedFromLinearLayout;
         private long pausedAt = 0;
+        static readonly object _syncLock = new object();
+        SensorManager _sensorManager;
         protected override void OnCreate(Bundle bundle)
         {
             try
@@ -47,6 +55,7 @@ namespace SCaR_Arcade.GameActivities
                 base.OnCreate(bundle);
                 SetContentView(Resource.Layout.TowersOfHanoi);
 
+                _sensorManager = (SensorManager)GetSystemService(SensorService);
                 Button btnReplay = FindViewById<Button>(Resource.Id.btnReplay);
                 Button btnQuit = FindViewById<Button>(Resource.Id.btnQuit);
                 TextView txtOptimalNoOfMoves = FindViewById<TextView>(Resource.Id.txtViewOptNoOfMoves);
@@ -191,12 +200,10 @@ namespace SCaR_Arcade.GameActivities
         private Bitmap addNumbersToBitMap(Bitmap bMapDiskScaled, int count)
         {
             int number = Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1) - count;
-            // The top left hand corner of the image of the number is specified by the (x,y)
-            // the number will not be placed exactly in the middle, instead it will be slightly off centre. 
-            // The 0.15 (15%), and 0.10 (10%) have been determined by testing different values
-            // To find the optimal (x,y) values so the image looks to be in the middle of the Bitmap. 
-            float x = (float)((bMapDiskScaled.Width / 2) - (bMapDiskScaled.Height * 0.15));
-            float y = (float)(bMapDiskScaled.Height - (bMapDiskScaled.Height * 0.10));
+            // The top left hand corner of the image of the number is specified by the (x,y) 
+            // Different values were tested to find the best size.
+            float x = (float)(bMapDiskScaled.Width - bMapDiskScaled.Width * .78);
+            float y = (float)(bMapDiskScaled.Height - bMapDiskScaled.Height / 6);
 
             // The bitmap must be immutable otherwise it will through an exception, if changes are permitted. 
             bMapDiskScaled = bMapDiskScaled.Copy(Bitmap.Config.Argb8888, true);
@@ -204,7 +211,7 @@ namespace SCaR_Arcade.GameActivities
             Paint paint = new Paint();
             paint.Color = Color.Black;
 
-            // Again different values were tested to find the best text size. 
+            // Again different values were tested to find the best size. 
             paint.TextSize = (int)(bMapDiskScaled.Height - (bMapDiskScaled.Height * 0.05));
 
             // Now draw the number at the specified x, and y coordinates. 
@@ -431,12 +438,9 @@ namespace SCaR_Arcade.GameActivities
             {
                 if (lin.ChildCount > 0)     // Only one ImageView in the LinearLayout.
                 {
-                    (lin.GetChildAt(0) as ImageView).Clickable = true;
-                    (lin.GetChildAt(0) as ImageView).SetOnLongClickListener(this);
+                    
                     if (lin.ChildCount > 1) // two or more ImageViews in the LinearLayout. 
                     {
-                        (lin.GetChildAt(1) as ImageView).Clickable = false;
-                        (lin.GetChildAt(1) as ImageView).SetOnLongClickListener(null);
                     }
                 }
             }
@@ -466,6 +470,10 @@ namespace SCaR_Arcade.GameActivities
             {
                 logic.deleteBoard();
                 logic = null;
+            }
+            if (_sensorManager != null)
+            {
+                _sensorManager.UnregisterListener(this);
             }
             if (isReplay)
             {
@@ -521,6 +529,17 @@ namespace SCaR_Arcade.GameActivities
         protected void chronometerOnTick(Object sender, EventArgs arg)
         {
             elapsedTime.Text = String.Format("{0}", "Time: " + chronometer.Text);
+        }
+
+        public void OnAccuracyChanged(Sensor sensor, [GeneratedEnum] SensorStatus accuracy)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnSensorChanged(SensorEvent e)
+        {
+            //generate new dice
+            throw new NotImplementedException();
         }
     }
 }
