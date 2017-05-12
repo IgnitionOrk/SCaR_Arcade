@@ -559,7 +559,7 @@ namespace SCaR_Arcade.GameActivities
             }
             else
             {
-                BeginActivity(typeof(GameMenuActivity), "", 0);
+                BeginActivity(typeof(GameMenuActivity), GlobalApp.getVariableChoiceName(), Intent.GetIntExtra(GlobalApp.getVariableChoiceName(),0));
             }
         }
         // ----------------------------------------------------------------------------------------------------------------

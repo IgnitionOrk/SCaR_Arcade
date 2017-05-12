@@ -49,6 +49,7 @@ namespace SCaR_Arcade.GameActivities
         private float x;
         private float y;
         private float z;
+        private bool sensorOn = false;
         // Used when a drag and drop event has occured to store data. 
         private long pausedAt = 0;
         static readonly object _syncLock = new object();
@@ -63,6 +64,7 @@ namespace SCaR_Arcade.GameActivities
                 SetContentView(Resource.Layout.TowersOfHanoi);
 
                 _sensorManager = (SensorManager)GetSystemService(SensorService);
+                sensorOn = true;
 
                 chronometer = FindViewById<Chronometer>(Resource.Id.cTimer);
                 Button btnReplay = FindViewById<Button>(Resource.Id.btnReplay);
@@ -71,14 +73,14 @@ namespace SCaR_Arcade.GameActivities
                 elapsedTime = FindViewById<TextView>(Resource.Id.txtVElapsedTime);
                 txtVScore = FindViewById<TextView>(Resource.Id.txtVScore);
                 gameDisplay = FindViewById<LinearLayout>(Resource.Id.linLayGameDisplay);
-                
-                
+
+
                 // Build the game display that the user will interact with;
                 maxComponents = Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1);
 
                 Game();
 
-                logic = new GameLogic.DiceRollsLogic(maxComponents, Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1));
+                logic = new GameLogic.DiceRollsLogic(maxComponents);
                 txtVScore.Text = "Score: " + 0;
                 txtOptimalNoOfMoves.Text = "no. of Rolls: " + numberOfRolls;
                 chronometer.Visibility = Android.Views.ViewStates.Invisible;
@@ -176,6 +178,7 @@ namespace SCaR_Arcade.GameActivities
                     linearLayout[i].RemoveAllViews();
                     dieWorth = rnd.Next(1, 7);
                     score = score + dieWorth;
+                    logic.finalizeMove(dieWorth, i);
                 }
                 else
                 {
@@ -245,21 +248,26 @@ namespace SCaR_Arcade.GameActivities
         // we need only check the values of the top and the next ImageView (if any), and set their respective properties.  
         private void rollDice()
         {
+            numOfGoodShakeCount--;
+
             if (numOfGoodShakeCount != 0)
             {
                 //not enough shakes
-                numOfGoodShakeCount--;
-            }
-            else
-            {
-                numOfGoodShakeCount = 5;
-                foreach (LinearLayout lin in linearLayout)
+                if (!sensorOn)
                 {
-                    OnPause();
-                    createDice(true);
-                    allowableMove();
-                    System.Diagnostics.Debug.Write("Rolling dice");
+                    _sensorManager.RegisterListener(this,
+                                        _sensorManager.GetDefaultSensor(SensorType.Accelerometer),
+                                        SensorDelay.Ui);
+                    sensorOn = true;
                 }
+            }
+            else if (numOfGoodShakeCount == 0)
+            {
+
+                createDice(true);
+                allowableMove();
+
+
             }
         }
 
@@ -269,16 +277,16 @@ namespace SCaR_Arcade.GameActivities
         // Otherwise return the disk back from whence it came (removedFromLinearLayout).  
         private void allowableMove()
         {
-            
+
             if (logic != null)
             {
                 numberOfRolls++;
                 txtVScore.Text = "Score: " + score;
-                txtOptimalNoOfMoves.Text =  "no. of Rolls: " + numberOfRolls;
-                /*if (logic.ifWon())
+                txtOptimalNoOfMoves.Text = "no. of Rolls: " + numberOfRolls;
+                if (logic.ifWon())
                 {
                     end();
-                }*/
+                }
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
@@ -300,7 +308,7 @@ namespace SCaR_Arcade.GameActivities
 
         // ----------------------------------------------------------------------------------------------------------------
         /*
-            INTERNAL ALERTS FOR TOWERS OF HANOI.        
+            INTERNAL ALERTS FOR Dice Rolls.        
         */
         // Display an error message for the invalid move.
         // Also stops the chronometer from continuing to count up.
@@ -335,7 +343,7 @@ namespace SCaR_Arcade.GameActivities
             // Continue the chronometer.
             chronometer.Start();
         }
-        
+
         // ----------------------------------------------------------------------------------------------------------------
         // Determines, and returns the correct title for an alert about to be executed.
         private string getAlertTitle(int iMsg)
@@ -371,6 +379,11 @@ namespace SCaR_Arcade.GameActivities
             return message;
         }
         // ----------------------------------------------------------------------------------------------------------------
+        // ----------------------------------------------------------------------------------------------------------------
+        //buttons and game responses
+        // ----------------------------------------------------------------------------------------------------------------
+
+        // ----------------------------------------------------------------------------------------------------------------
         // Event handler: Triggered when the user pressed the replay button;
         protected void btnReplayOnClick(Object sender, EventArgs args)
         {
@@ -396,9 +409,10 @@ namespace SCaR_Arcade.GameActivities
                 logic.deleteBoard();
                 logic = null;
             }
-            if (_sensorManager != null)
+            if (sensorOn)
             {
                 _sensorManager.UnregisterListener(this);
+                sensorOn = false;
             }
             if (isReplay)
             {
@@ -406,7 +420,7 @@ namespace SCaR_Arcade.GameActivities
             }
             else
             {
-                BeginActivity(typeof(GameMenuActivity), "", 0);
+                BeginActivity(typeof(GameMenuActivity), GlobalApp.getVariableChoiceName(), Intent.GetIntExtra(GlobalApp.getVariableChoiceName(), 0));
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
@@ -460,40 +474,47 @@ namespace SCaR_Arcade.GameActivities
 
         public void OnSensorChanged(SensorEvent e)
         {
-            if (buffCount != 0)
+            lock (_syncLock)
             {
-                buffCount--;
-                lock (_syncLock)
+                if (buffCount != 0)
                 {
-                    x = e.Values[0];
-                    y = e.Values[1];
-                    z = e.Values[2];
-                }
-            }
-            else
-            {
-                buffCount = 5;
-                lock (_syncLock)
-                {
-                    float num = 3;
-                    float negNum = -3;
-                    
-                    if (x - e.Values[0] < negNum || num < x - e.Values[0] ||
-                    y - e.Values[1] < negNum || num < y - e.Values[1] ||
-                    z - e.Values[2] < negNum || num < z - e.Values[2])
+                    buffCount--;
+                    lock (_syncLock)
                     {
-                        rollDice();
+                        x = e.Values[0];
+                        y = e.Values[1];
+                        z = e.Values[2];
                     }
                 }
+                else
+                {
+                    buffCount = 5;
+                    lock (_syncLock)
+                    {
+                        float num = 3;
+                        float negNum = -3;
+
+                        if (x - e.Values[0] < negNum || num < x - e.Values[0] ||
+                        y - e.Values[1] < negNum || num < y - e.Values[1] ||
+                        z - e.Values[2] < negNum || num < z - e.Values[2])
+                        {
+
+                            _sensorManager.UnregisterListener(this);
+                            sensorOn = false;
+                            rollDice();
+                        }
+                    }
+                }
+
             }
-
-
 
         }
         protected override void OnPause()
         {
             base.OnPause();
             _sensorManager.UnregisterListener(this);
+            sensorOn = false;
+
         }
         protected override void OnResume()
         {
