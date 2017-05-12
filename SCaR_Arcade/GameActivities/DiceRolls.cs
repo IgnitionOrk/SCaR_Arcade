@@ -32,27 +32,29 @@ namespace SCaR_Arcade.GameActivities
          * sources
          * https://developer.xamarin.com/recipes/android/os_device_resources/accelerometer/get_accelerometer_readings/ 
         */
-        private GameLogic.TowersOfHanoiLogic logic;
+        private GameLogic.DiceRollsLogic logic;
         private Chronometer chronometer;
         private TextView elapsedTime;
         private TextView txtVScore;
+        private TextView txtOptimalNoOfMoves;
         private LinearLayout gameDisplay;
         private FrameLayout[] frameLayout;
         private LinearLayout[] linearLayout;
         private ImageView[] diceSlots;
         private int maxComponents = 1;
-        private int numberOfMoves = 0;
+        private int numberOfRolls = 0;
+        private int score = 0;
         private int buffCount = 5;
         private int numOfGoodShakeCount = 5;
         private float x;
         private float y;
         private float z;
         // Used when a drag and drop event has occured to store data. 
-        private View disk;
-        private LinearLayout removedFromLinearLayout;
         private long pausedAt = 0;
         static readonly object _syncLock = new object();
         SensorManager _sensorManager;
+        Random rnd = new Random();
+
         protected override void OnCreate(Bundle bundle)
         {
             try
@@ -61,22 +63,24 @@ namespace SCaR_Arcade.GameActivities
                 SetContentView(Resource.Layout.TowersOfHanoi);
 
                 _sensorManager = (SensorManager)GetSystemService(SensorService);
+
+                chronometer = FindViewById<Chronometer>(Resource.Id.cTimer);
                 Button btnReplay = FindViewById<Button>(Resource.Id.btnReplay);
                 Button btnQuit = FindViewById<Button>(Resource.Id.btnQuit);
-                TextView txtOptimalNoOfMoves = FindViewById<TextView>(Resource.Id.txtViewOptNoOfMoves);
-                chronometer = FindViewById<Chronometer>(Resource.Id.cTimer);
+                txtOptimalNoOfMoves = FindViewById<TextView>(Resource.Id.txtViewOptNoOfMoves);
                 elapsedTime = FindViewById<TextView>(Resource.Id.txtVElapsedTime);
                 txtVScore = FindViewById<TextView>(Resource.Id.txtVScore);
                 gameDisplay = FindViewById<LinearLayout>(Resource.Id.linLayGameDisplay);
+                
+                
                 // Build the game display that the user will interact with;
                 maxComponents = Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1);
 
                 Game();
 
-                // Initializing data for the game.
-                logic = new GameLogic.TowersOfHanoiLogic(maxComponents, Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1));
-                //txtOptimalNoOfMoves.Text = string.Format("{0}", "Optimal no. of moves: " + logic.calOptimalNoOfMoves(Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1)));
-                txtVScore.Text = "No. of moves: " + 0;
+                logic = new GameLogic.DiceRollsLogic(maxComponents, Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1));
+                txtVScore.Text = "Score: " + 0;
+                txtOptimalNoOfMoves.Text = "no. of Rolls: " + numberOfRolls;
                 chronometer.Visibility = Android.Views.ViewStates.Invisible;
 
                 // Event handlers:
@@ -101,7 +105,7 @@ namespace SCaR_Arcade.GameActivities
             createFrameLayouts();   // Will Allow both ImageViews (Poles) and ImageView (Disks) to be placed on top of eachother.
             createImageViews();     // Images of the poles that are displayed. 
             createLinearLayouts();  // (Vertical) Stacks that will hold the disks. 
-            createDisks();          //  Movable disks that the user interacts with;
+            createDice(false);          //  Movable disks that the user interacts with;
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Initialize Layout manager (FrameLayout) as so to group an ImageView, and LinearLayout;
@@ -162,11 +166,23 @@ namespace SCaR_Arcade.GameActivities
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Builds all the disks, and adds then into the first LinearLayout;
-        private void createDisks()
+        private void createDice(bool roll)
         {
+            int dieWorth = 0;
             for (int i = 0; i < maxComponents; i++)
             {
-                ImageView imgView = getResizedImage(i);
+                if (roll)
+                {
+                    linearLayout[i].RemoveAllViews();
+                    dieWorth = rnd.Next(1, 7);
+                    score = score + dieWorth;
+                }
+                else
+                {
+                    dieWorth = maxComponents;
+                }
+
+                ImageView imgView = getResizedImage(dieWorth);
 
                 // Add the view (imgView) into the linearlayout, with the added effect of the disks appearing in ascending order.
                 linearLayout[i].AddView(imgView, 0);
@@ -177,9 +193,7 @@ namespace SCaR_Arcade.GameActivities
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Returns an imageView with a desired width;
-        // Every imageView will be 5% shorter than its predecessor, so the user can 
-        // differentiate between disks;
-        private ImageView getResizedImage(int count)
+        private ImageView getResizedImage(int num)
         {
             // Why use Disk.png to determine the width, and height?
             // Disk.png is used because it has been calibrated to a desired shape (width, height).
@@ -191,11 +205,11 @@ namespace SCaR_Arcade.GameActivities
             Bitmap bMapDiskScaled = Bitmap.CreateScaledBitmap(bMapDisk, 400, 400, true);
 
             //Add the numbers to each Bitmap so the player can differentiate between disks, particularly if there are a large number of them.
-            bMapDiskScaled = addNumbersToBitMap(bMapDiskScaled, count);
+            bMapDiskScaled = addNumbersToBitMap(bMapDiskScaled, num);
 
             img.SetImageBitmap(bMapDiskScaled);
             img.SetScaleType(ImageView.ScaleType.Center);
-            
+
 
             return img;
         }
@@ -204,7 +218,7 @@ namespace SCaR_Arcade.GameActivities
         // Particularly if there are alot of them.
         private Bitmap addNumbersToBitMap(Bitmap bMapDiskScaled, int count)
         {
-            int number = Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1) - count;
+
             // The top left hand corner of the image of the number is specified by the (x,y) 
             // Different values were tested to find the best size.
             float x = (float)(bMapDiskScaled.Width - bMapDiskScaled.Width * .78);
@@ -220,91 +234,51 @@ namespace SCaR_Arcade.GameActivities
             paint.TextSize = (int)(bMapDiskScaled.Height - (bMapDiskScaled.Height * 0.05));
 
             // Now draw the number at the specified x, and y coordinates. 
-            canvas.DrawText(String.Format("{0}", number), x, y, paint);
+            canvas.DrawText(String.Format("{0}", count), x, y, paint);
             return bMapDiskScaled;
         }
-        
         // ----------------------------------------------------------------------------------------------------------------
-        // An listener issued for when an view has been (long) click;
-        // Will execute a StartDrag event for when the user
-        // wishes to move a view around the screen. 
-        // Reference: https://blog.xamarin.com/android-tricks-supporting-drag-and-drop-in-an-app/
-        public bool OnLongClick(View v)
+        // Will make every top disk (if the LinearLayout has any views) clickable, with drag, and drop capability.
+        // Essentially if the LinearLayout has 2 or more disks, the top will be clickable, and the next one down won't be.
+        // Notice that there is not loop going through the all LinearLayout's, and setting each ImageViews property.
+        // Why? Look at the function createDisks(). The loop in createDisks() does this for us when the ImageView as added, 
+        // we need only check the values of the top and the next ImageView (if any), and set their respective properties.  
+        private void rollDice()
         {
-            var data = ClipData.NewPlainText("", "");
-
-            // Initiates a drag event. 
-            v.StartDrag(data, new View.DragShadowBuilder(v), null, 0);
-
-            // After the drag event has finished we remove the disk from 
-            // the linearlayout.
-            removeDiskFromLinearLayout(v);
-            return true;
-        }
-        // ----------------------------------------------------------------------------------------------------------------
-        // Removes the @param v from its Parent view;
-        private void removeDiskFromLinearLayout(View view)
-        {
-            // Save the view into the instance variable disk for one reason:
-            // The lifetime of disk is the lifetime of the game (so no data is lost), when we 
-            // try to insert the disk back into a LinearLayout. 
-            disk = view;
-            removedFromLinearLayout = (view.Parent) as LinearLayout;
-
-            //Remove the view (disk) from its Parent. 
-            removedFromLinearLayout.RemoveView(view);
-        }
-        // ----------------------------------------------------------------------------------------------------------------
-        // Reloads the disk back on the pole;
-        private void returnDiskToPlacement(DragEvent args)
-        {
-            //Check validity of Disk placement 
-            if (!args.Result)
+            if (numOfGoodShakeCount != 0)
             {
-                if (disk.Parent != null)
+                //not enough shakes
+                numOfGoodShakeCount--;
+            }
+            else
+            {
+                numOfGoodShakeCount = 5;
+                foreach (LinearLayout lin in linearLayout)
                 {
-                    (disk.Parent as ViewGroup).RemoveView(disk);
+                    OnPause();
+                    createDice(true);
+                    allowableMove();
+                    System.Diagnostics.Debug.Write("Rolling dice");
                 }
-                removedFromLinearLayout.AddView(disk, 0);
-                disk.Invalidate();
-                removedFromLinearLayout.Invalidate();
             }
         }
+
         // ----------------------------------------------------------------------------------------------------------------
         // Determines if the move is allowable
         // If the move is the disk is dropped into the desired dropzone.
         // Otherwise return the disk back from whence it came (removedFromLinearLayout).  
-        private void allowableMove(View view)
+        private void allowableMove()
         {
+            
             if (logic != null)
             {
-                int indexFrom = findLinearLayoutIndex(removedFromLinearLayout);
-                int indexTo = findLinearLayoutIndex((view as LinearLayout));
-                if (logic.canDropDisk(indexFrom, indexTo))
+                numberOfRolls++;
+                txtVScore.Text = "Score: " + score;
+                txtOptimalNoOfMoves.Text =  "no. of Rolls: " + numberOfRolls;
+                /*if (logic.ifWon())
                 {
-                    //Essentially we now save the moves into the game logic object 'logic' for further use. 
-                    logic.finalizeMove(indexFrom, indexTo);
-
-                    // Add the new disk into the @param view.
-                    addToNewDropzone(view);
-
-                    // Now we set the appropriate properties of the disks for each LinearLayout.
-                    //topDiskIsOnlyClickable();
-                    numberOfMoves++;
-                    txtVScore.Text = "No. of moves: " + numberOfMoves;
-                }
-                else
-                {
-                    // Show an alert.
-                    Alert(0, 0);
-                    // Adding the disk, that was just removed back into the linearlayout it came from at the top of the stack;
-                    removedFromLinearLayout.AddView(disk, 0);
-                }
-                if (logic.ifWon())
-                {
-                    txtVScore.Text = "No. of moves: " + numberOfMoves;
                     end();
-                }
+                }*/
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
@@ -314,7 +288,7 @@ namespace SCaR_Arcade.GameActivities
             try
             {
                 chronometer.Stop();
-                string playersScore = LeaderBoardInterface.formatLeaderBoardScore("", numberOfMoves.ToString(), Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1), chronometer.Text);
+                string playersScore = LeaderBoardInterface.formatLeaderBoardScore("", score.ToString(), Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1), chronometer.Text);
                 BeginActivity(typeof(UserInputActivity), GlobalApp.getPlayersScoreVariable(), playersScore);
             }
             catch
@@ -323,12 +297,7 @@ namespace SCaR_Arcade.GameActivities
             }
 
         }
-        // ----------------------------------------------------------------------------------------------------------------
-        // Event Handler: Will direct the player to the Game menu.
-        public override void OnBackPressed()
-        {
-            determineResponse(false);
-        }
+
         // ----------------------------------------------------------------------------------------------------------------
         /*
             INTERNAL ALERTS FOR TOWERS OF HANOI.        
@@ -366,6 +335,7 @@ namespace SCaR_Arcade.GameActivities
             // Continue the chronometer.
             chronometer.Start();
         }
+        
         // ----------------------------------------------------------------------------------------------------------------
         // Determines, and returns the correct title for an alert about to be executed.
         private string getAlertTitle(int iMsg)
@@ -394,65 +364,11 @@ namespace SCaR_Arcade.GameActivities
                             + "\n\nPress outside of the box to continue.";
                     break;
                 case 1:
-                    message = "Moves: " + numberOfMoves + ".\nTime: " + chronometer.Text
+                    message = "Moves: " + numberOfRolls + ".\nTime: " + chronometer.Text
                             + "\n\nPress outside of the box.";
                     break;
             }
             return message;
-        }
-        // ----------------------------------------------------------------------------------------------------------------
-        // Determines which @param lin is referring to. 
-        // This method is vital for determining if the move is allowed or not. 
-        private int findLinearLayoutIndex(LinearLayout lin)
-        {
-            int index = 0;
-            foreach (LinearLayout l in linearLayout)
-            {
-                if (l == lin)
-                {
-                    break;
-                }
-                else
-                {
-                    index++;
-                }
-            }
-            return index;
-        }
-        // ----------------------------------------------------------------------------------------------------------------
-        // Adds the disk (view) into the new LinearLayout (dropzone). 
-        // @param view is the LinearLayout;
-        private void addToNewDropzone(View view)
-        {
-            // View v is the LinearLayout of the dropzone. 
-            LinearLayout dropzone = (view as LinearLayout);
-
-            // As the orientation of the LinearLayout is defined as vertical,
-            // the top of the LinearLayout is indexed at 0. 
-            dropzone.AddView(disk, 0);
-        }
-        // ----------------------------------------------------------------------------------------------------------------
-        // Will make every top disk (if the LinearLayout has any views) clickable, with drag, and drop capability.
-        // Essentially if the LinearLayout has 2 or more disks, the top will be clickable, and the next one down won't be.
-        // Notice that there is not loop going through the all LinearLayout's, and setting each ImageViews property.
-        // Why? Look at the function createDisks(). The loop in createDisks() does this for us when the ImageView as added, 
-        // we need only check the values of the top and the next ImageView (if any), and set their respective properties.  
-        private void rollDice()
-        {
-            if (numOfGoodShakeCount != 0)
-            {
-                //not enough shakes
-                numOfGoodShakeCount--;
-            }
-            else
-            {
-                numOfGoodShakeCount = 5;
-                foreach (LinearLayout lin in linearLayout)
-                {
-                    OnPause();
-                    System.Diagnostics.Debug.Write("Rolling dice");
-                }
-            }
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Event handler: Triggered when the user pressed the replay button;
@@ -561,19 +477,18 @@ namespace SCaR_Arcade.GameActivities
                 {
                     float num = 3;
                     float negNum = -3;
-
-                    System.Diagnostics.Debug.Write("X "+ (x - e.Values[0])+" Y "+(y - e.Values[1]) +" Z "+(z - e.Values[2]));
+                    
                     if (x - e.Values[0] < negNum || num < x - e.Values[0] ||
                     y - e.Values[1] < negNum || num < y - e.Values[1] ||
-                    z - e.Values[2] < negNum || num < z - e.Values[2] )
+                    z - e.Values[2] < negNum || num < z - e.Values[2])
                     {
                         rollDice();
                     }
                 }
             }
-                
-               
-           
+
+
+
         }
         protected override void OnPause()
         {
@@ -586,6 +501,12 @@ namespace SCaR_Arcade.GameActivities
             _sensorManager.RegisterListener(this,
                                             _sensorManager.GetDefaultSensor(SensorType.Accelerometer),
                                             SensorDelay.Ui);
+        }
+        // ----------------------------------------------------------------------------------------------------------------
+        // Event Handler: Will direct the player to the Game menu.
+        public override void OnBackPressed()
+        {
+            determineResponse(false);
         }
     }
 

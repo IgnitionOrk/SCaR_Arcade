@@ -72,7 +72,7 @@ namespace SCaR_Arcade
                 {
                     gTitle = "Dice Rolls",
                     gLogo = Resource.Drawable.gameBase,
-                    gMinDifficulty = 1,
+                    gMinDifficulty = 2,
                     gMaxDifficulty = 5,
                     gType = typeof(GameActivities.DiceRolls),
                     gDescription = "DR_GameDescription.txt"
