@@ -266,7 +266,10 @@ namespace SCaR_Arcade.GameActivities
 
                 createDice(true);
                 allowableMove();
-
+                _sensorManager.RegisterListener(this,
+                                        _sensorManager.GetDefaultSensor(SensorType.Accelerometer),
+                                        SensorDelay.Ui);
+                sensorOn = true;
 
             }
         }
