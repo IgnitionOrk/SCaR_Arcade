@@ -52,7 +52,6 @@ namespace SCaR_Arcade.GameActivities
         private float y;
         private float z;
         private bool sensorOn = false;
-        // Used when a drag and drop event has occured to store data. 
         private long pausedAt = 0;
         static readonly object _syncLock = new object();
         SensorManager _sensorManager;
@@ -285,9 +284,13 @@ namespace SCaR_Arcade.GameActivities
                 if (logic.ifWon())
                 {
                     CountDown();
+                    timer.Enabled = false;
                     end();
                 }
-                Alert(0, 0);
+                else
+                {
+                    Alert(0, 0);
+                }
             }
         }
         // ----------------------------------------------------------------------------------------------------------------

@@ -142,7 +142,7 @@ namespace SCaR_Arcade
             // Now we can add the new score into the local leaderboard. 
             // Method: addNewScore will also determine if the score can be added into the Online leaderboard.
             LeaderBoardInterface.addNewScore(content);
-
+            
             // Return back to the Game menu. 
             BeginActivity(typeof(GameMenuActivity), "", 0);
         }
