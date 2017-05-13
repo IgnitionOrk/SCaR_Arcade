@@ -26,7 +26,7 @@ namespace SCaR_Arcade
         Icon = "@drawable/SCaRARCADE",
         Theme = "@android:style/Theme.NoTitleBar"
     )]
-    public class Start : Activity
+    public class SplashScreen : Activity
     {
         /*
         * sources

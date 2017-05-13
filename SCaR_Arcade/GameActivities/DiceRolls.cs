@@ -32,6 +32,8 @@ namespace SCaR_Arcade.GameActivities
          * sources
          * https://developer.xamarin.com/recipes/android/os_device_resources/accelerometer/get_accelerometer_readings/ 
         */
+        System.Timers.Timer timer;
+        int delay;
         private GameLogic.DiceRollsLogic logic;
         private Chronometer chronometer;
         private TextView elapsedTime;
@@ -66,6 +68,7 @@ namespace SCaR_Arcade.GameActivities
                 _sensorManager = (SensorManager)GetSystemService(SensorService);
                 sensorOn = true;
 
+                delay = 3;      // Arbitrary number (3 seconds). 
                 chronometer = FindViewById<Chronometer>(Resource.Id.cTimer);
                 Button btnReplay = FindViewById<Button>(Resource.Id.btnReplay);
                 Button btnQuit = FindViewById<Button>(Resource.Id.btnQuit);
@@ -99,19 +102,22 @@ namespace SCaR_Arcade.GameActivities
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
+        /*
+            INTERNAL dice and Layout FOR Dice Rolls.        
+        */
+        // ----------------------------------------------------------------------------------------------------------------
+
+        // ----------------------------------------------------------------------------------------------------------------
         // builds the game that the user will interact with at runtime. 
-        // Initially the game had multiple instance variables for each ImageViews (Poles), and LinearLayouts (vertical)
-        // By removing them from the axml file, and bulding them at runtime the Activity file's simplicity, and readability has been enhanced.
         private void Game()
         {
-            createFrameLayouts();   // Will Allow both ImageViews (Poles) and ImageView (Disks) to be placed on top of eachother.
-            createImageViews();     // Images of the poles that are displayed. 
-            createLinearLayouts();  // (Vertical) Stacks that will hold the disks. 
-            createDice(false);          //  Movable disks that the user interacts with;
+            createFrameLayouts();   
+            createImageViews();    
+            createLinearLayouts(); 
+            createDice(false);      
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Initialize Layout manager (FrameLayout) as so to group an ImageView, and LinearLayout;
-        // FrameLayout will allow us to place ImageViews, and LinearLayouts on top of each other. 
         private void createFrameLayouts()
         {
             frameLayout = new FrameLayout[maxComponents];
@@ -146,7 +152,7 @@ namespace SCaR_Arcade.GameActivities
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
-        // Creates the LinearLayouts (vertical) that will hold the ImageViews (disks).
+        // Creates the LinearLayouts that will hold the ImageViews (dice).
         private void createLinearLayouts()
         {
             int paddingHeight = Resources.DisplayMetrics.HeightPixels / 40;
@@ -167,7 +173,7 @@ namespace SCaR_Arcade.GameActivities
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
-        // Builds all the disks, and adds then into the first LinearLayout;
+        // Builds all the dice, and adds then into the first LinearLayout and can make a roll if called after first call;
         private void createDice(bool roll)
         {
             int dieWorth = 0;
@@ -187,27 +193,24 @@ namespace SCaR_Arcade.GameActivities
 
                 ImageView imgView = getResizedImage(dieWorth);
 
-                // Add the view (imgView) into the linearlayout, with the added effect of the disks appearing in ascending order.
+                // Add the view (imgView) into the linearlayout
                 linearLayout[i].AddView(imgView, 0);
-
-                //Only the top disk is allowed to be clickable.
-                //rollDice();
+                
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Returns an imageView with a desired width;
         private ImageView getResizedImage(int num)
         {
-            // Why use Disk.png to determine the width, and height?
-            // Disk.png is used because it has been calibrated to a desired shape (width, height).
-            // So we simply form an imageView to the shape of Disk.png. 
+            
+            // So we simply form an imageView to the shape of dice. 
             ImageView img = new ImageView(this);
             Bitmap bMapDisk = BitmapFactory.DecodeResource(Resources, Resource.Drawable.gameBase);
 
             // Scale the Bitmap image to the desired specs;
             Bitmap bMapDiskScaled = Bitmap.CreateScaledBitmap(bMapDisk, 400, 400, true);
 
-            //Add the numbers to each Bitmap so the player can differentiate between disks, particularly if there are a large number of them.
+            //Add the numbers to each Bitmap 
             bMapDiskScaled = addNumbersToBitMap(bMapDiskScaled, num);
 
             img.SetImageBitmap(bMapDiskScaled);
@@ -217,8 +220,7 @@ namespace SCaR_Arcade.GameActivities
             return img;
         }
         // ----------------------------------------------------------------------------------------------------------------
-        // Adds numbers to each of the disks, as some players may find it hard to differentiate between disks.
-        // Particularly if there are alot of them.
+        // Adds numbers to each of the dice
         private Bitmap addNumbersToBitMap(Bitmap bMapDiskScaled, int count)
         {
 
@@ -227,7 +229,7 @@ namespace SCaR_Arcade.GameActivities
             float x = (float)(bMapDiskScaled.Width - bMapDiskScaled.Width * .78);
             float y = (float)(bMapDiskScaled.Height - bMapDiskScaled.Height / 6);
 
-            // The bitmap must be immutable otherwise it will through an exception, if changes are permitted. 
+            // The bitmap must be immutable otherwise it will throw an exception, if changes are permitted. 
             bMapDiskScaled = bMapDiskScaled.Copy(Bitmap.Config.Argb8888, true);
             Canvas canvas = new Canvas(bMapDiskScaled);
             Paint paint = new Paint();
@@ -241,11 +243,13 @@ namespace SCaR_Arcade.GameActivities
             return bMapDiskScaled;
         }
         // ----------------------------------------------------------------------------------------------------------------
-        // Will make every top disk (if the LinearLayout has any views) clickable, with drag, and drop capability.
-        // Essentially if the LinearLayout has 2 or more disks, the top will be clickable, and the next one down won't be.
-        // Notice that there is not loop going through the all LinearLayout's, and setting each ImageViews property.
-        // Why? Look at the function createDisks(). The loop in createDisks() does this for us when the ImageView as added, 
-        // we need only check the values of the top and the next ImageView (if any), and set their respective properties.  
+        /*
+            INTERNAL rules FOR Dice Rolls.        
+        */
+        // ----------------------------------------------------------------------------------------------------------------
+
+        // ----------------------------------------------------------------------------------------------------------------
+        // if phone has been shaken well enough it will alow the dice to roll else more shakes needed 
         private void rollDice()
         {
             numOfGoodShakeCount--;
@@ -255,29 +259,21 @@ namespace SCaR_Arcade.GameActivities
                 //not enough shakes
                 if (!sensorOn)
                 {
-                    _sensorManager.RegisterListener(this,
-                                        _sensorManager.GetDefaultSensor(SensorType.Accelerometer),
-                                        SensorDelay.Ui);
-                    sensorOn = true;
+                    sensorSwitch(true);
                 }
             }
             else if (numOfGoodShakeCount == 0)
             {
-
                 createDice(true);
                 allowableMove();
-                _sensorManager.RegisterListener(this,
-                                        _sensorManager.GetDefaultSensor(SensorType.Accelerometer),
-                                        SensorDelay.Ui);
-                sensorOn = true;
+                sensorSwitch(true);
+                numOfGoodShakeCount = 5;
 
             }
         }
 
         // ----------------------------------------------------------------------------------------------------------------
-        // Determines if the move is allowable
-        // If the move is the disk is dropped into the desired dropzone.
-        // Otherwise return the disk back from whence it came (removedFromLinearLayout).  
+        // Determines if the move is allowable and sees if there are no dupes
         private void allowableMove()
         {
 
@@ -288,8 +284,10 @@ namespace SCaR_Arcade.GameActivities
                 txtOptimalNoOfMoves.Text = "no. of Rolls: " + numberOfRolls;
                 if (logic.ifWon())
                 {
+                    CountDown();
                     end();
                 }
+                Alert(0, 0);
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
@@ -308,83 +306,36 @@ namespace SCaR_Arcade.GameActivities
             }
 
         }
-
         // ----------------------------------------------------------------------------------------------------------------
         /*
-            INTERNAL ALERTS FOR Dice Rolls.        
+            INTERNAL Timer FOR Dice Rolls.        
         */
-        // Display an error message for the invalid move.
-        // Also stops the chronometer from continuing to count up.
-        // http://stackoverflow.com/questions/42006181/chronometer-is-still-running-after-calling-stop
-        // Helped with how to stop, and start the chronometer.s
-        private void Alert(int iTitle, int iMessage)
-        {
-            string title = this.getAlertTitle(iTitle);
-            string message = this.getAlertMessage(iMessage);
-
-            // Stop the chronometer or the player will be timed for actually not playing the game.
-            chronometer.Stop();
-
-            // Say that time the chronometer was stopped so we can restart it. 
-            pausedAt = chronometer.Base - SystemClock.ElapsedRealtime();
-
-            // Now we build the Alert that will show the error message.
-            AlertDialog.Builder adb = new AlertDialog.Builder(this);
-            adb.SetMessage(message);
-            adb.SetTitle(title);
-            adb.SetOnDismissListener(this);
-            adb.Show();
-
-
-        }
         // ----------------------------------------------------------------------------------------------------------------
-        // When the alert is dismissed by the player. The chronometer will continue the game clock.
-        public void OnDismiss(IDialogInterface dialog)
-        {
-            chronometer.Base = SystemClock.ElapsedRealtime() + pausedAt;
 
-            // Continue the chronometer.
-            chronometer.Start();
+        private void CountDown()
+        {
+            timer = new System.Timers.Timer();
+            timer.Interval = 1000;
+            timer.Elapsed += OnTimedEvent;
+            timer.Enabled = true;
         }
-
-        // ----------------------------------------------------------------------------------------------------------------
-        // Determines, and returns the correct title for an alert about to be executed.
-        private string getAlertTitle(int iMsg)
+        // Event handler
+        private void OnTimedEvent(object sender, System.Timers.ElapsedEventArgs e)
         {
-            string title = "";
-            switch (iMsg)
+            delay--;
+            if (delay == 0)
             {
-                case 0:
-                    title = "Incorrect move.";
-                    break;
-                case 1:
-                    title = "You've won!!";
-                    break;
+                timer.Dispose();
+                BeginActivity(typeof(MainActivity), "", 0);
             }
-            return title;
         }
+
+        
         // ----------------------------------------------------------------------------------------------------------------
-        // Determines, and returns the correct message for an alert about to be executed.
-        private string getAlertMessage(int iMsg)
-        {
-            string message = "";
-            switch (iMsg)
-            {
-                case 0:
-                    message = "You cannot place larger disks on top of smaller disks."
-                            + "\n\nPress outside of the box to continue.";
-                    break;
-                case 1:
-                    message = "Moves: " + numberOfRolls + ".\nTime: " + chronometer.Text
-                            + "\n\nPress outside of the box.";
-                    break;
-            }
-            return message;
-        }
-        // ----------------------------------------------------------------------------------------------------------------
-        // ----------------------------------------------------------------------------------------------------------------
-        //buttons and game responses
-        // ----------------------------------------------------------------------------------------------------------------
+        /*
+            INTERNAL buttons and th FOR Dice Rolls.        
+        */
+        //----------------------------------------------------------------------------------------------------------------
 
         // ----------------------------------------------------------------------------------------------------------------
         // Event handler: Triggered when the user pressed the replay button;
@@ -414,8 +365,7 @@ namespace SCaR_Arcade.GameActivities
             }
             if (sensorOn)
             {
-                _sensorManager.UnregisterListener(this);
-                sensorOn = false;
+                sensorSwitch(false);
             }
             if (isReplay)
             {
@@ -466,6 +416,24 @@ namespace SCaR_Arcade.GameActivities
                 GlobalApp.Alert(this, 2);
             }
         }
+        protected override void OnPause()
+        {
+            base.OnPause();
+            sensorSwitch(false);
+        }
+        protected override void OnResume()
+        {
+            base.OnResume();
+            sensorSwitch(true);
+        }
+        public override void OnBackPressed()
+        {
+            determineResponse(false);
+        }
+        // ----------------------------------------------------------------------------------------------------------------
+        /*
+            INTERNAL Sensors FOR Dice Rolls.        
+        */
         // ----------------------------------------------------------------------------------------------------------------
         // Continuously update the displayed time.
         protected void chronometerOnTick(Object sender, EventArgs arg)
@@ -473,8 +441,25 @@ namespace SCaR_Arcade.GameActivities
             elapsedTime.Text = String.Format("{0}", "Time: " + chronometer.Text);
         }
 
-        public void OnAccuracyChanged(Sensor sensor, [GeneratedEnum] SensorStatus accuracy) { }
+        public void sensorSwitch(bool turnOn)
+        {
+            if (turnOn)
+            {
+                _sensorManager.RegisterListener(this,
+                                            _sensorManager.GetDefaultSensor(SensorType.Accelerometer),
+                                            SensorDelay.Ui);
+                sensorOn = true;
+            }
+            else
+            {
 
+                _sensorManager.UnregisterListener(this);
+                sensorOn = false;
+            }
+        }
+
+        public void OnAccuracyChanged(Sensor sensor, [GeneratedEnum] SensorStatus accuracy) { }
+        //checks if phone has been moved in any direction to that directions previous point
         public void OnSensorChanged(SensorEvent e)
         {
             lock (_syncLock)
@@ -502,8 +487,7 @@ namespace SCaR_Arcade.GameActivities
                         z - e.Values[2] < negNum || num < z - e.Values[2])
                         {
 
-                            _sensorManager.UnregisterListener(this);
-                            sensorOn = false;
+                            sensorSwitch(false);
                             rollDice();
                         }
                     }
@@ -512,25 +496,77 @@ namespace SCaR_Arcade.GameActivities
             }
 
         }
-        protected override void OnPause()
+        // ----------------------------------------------------------------------------------------------------------------
+        /*
+            INTERNAL ALERTS FOR Dice Rolls.        
+        */
+        // Display an error message for the invalid move.
+        // Also stops the chronometer from continuing to count up.
+        // http://stackoverflow.com/questions/42006181/chronometer-is-still-running-after-calling-stop
+        // Helped with how to stop, and start the chronometer.s
+        private void Alert(int iTitle, int iMessage)
         {
-            base.OnPause();
-            _sensorManager.UnregisterListener(this);
-            sensorOn = false;
+            string title = this.getAlertTitle(iTitle);
+            string message = this.getAlertMessage(iMessage);
+
+            // Stop the chronometer or the player will be timed for actually not playing the game.
+            chronometer.Stop();
+
+            // Say that time the chronometer was stopped so we can restart it. 
+            pausedAt = chronometer.Base - SystemClock.ElapsedRealtime();
+
+            // Now we build the Alert that will show the error message.
+            AlertDialog.Builder adb = new AlertDialog.Builder(this);
+            adb.SetMessage(message);
+            adb.SetTitle(title);
+            adb.SetOnDismissListener(this);
+            adb.Show();
+
 
         }
-        protected override void OnResume()
+        // ----------------------------------------------------------------------------------------------------------------
+        // When the alert is dismissed by the player. The chronometer will continue the game clock.
+        public void OnDismiss(IDialogInterface dialog)
         {
-            base.OnResume();
-            _sensorManager.RegisterListener(this,
-                                            _sensorManager.GetDefaultSensor(SensorType.Accelerometer),
-                                            SensorDelay.Ui);
+            chronometer.Base = SystemClock.ElapsedRealtime() + pausedAt;
+
+            // Continue the chronometer.
+            chronometer.Start();
+        }
+
+        // ----------------------------------------------------------------------------------------------------------------
+        // Determines, and returns the correct title for an alert about to be executed.
+        private string getAlertTitle(int iMsg)
+        {
+            string title = "";
+            switch (iMsg)
+            {
+                case 0:
+                    title = "Roll again";
+                    break;
+                case 1:
+                    title = "You've won!!";
+                    break;
+            }
+            return title;
         }
         // ----------------------------------------------------------------------------------------------------------------
-        // Event Handler: Will direct the player to the Game menu.
-        public override void OnBackPressed()
+        // Determines, and returns the correct message for an alert about to be executed.
+        private string getAlertMessage(int iMsg)
         {
-            determineResponse(false);
+            string message = "";
+            switch (iMsg)
+            {
+                case 0:
+                    message = "You have rolled two or more ove the same dice."
+                            + "\n\nYou get to roll again.";
+                    break;
+                case 1:
+                    message = "Moves: " + numberOfRolls + ".\nTime: " + chronometer.Text
+                            + "\n\nPress outside of the box.";
+                    break;
+            }
+            return message;
         }
     }
 

@@ -387,7 +387,6 @@ namespace SCaR_Arcade.GameActivities
             try
             {
                 chronometer.Stop();
-                System.Diagnostics.Debug.Write("HAHAHAHAHAHAHAHAHAH" + Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1));
                 string playersScore = LeaderBoardInterface.formatLeaderBoardScore("", numberOfMoves.ToString(), Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1), chronometer.Text); 
                 BeginActivity(typeof(UserInputActivity), GlobalApp.getPlayersScoreVariable(), playersScore);
             }
