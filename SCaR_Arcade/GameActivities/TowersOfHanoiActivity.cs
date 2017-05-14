@@ -387,8 +387,8 @@ namespace SCaR_Arcade.GameActivities
             try
             {
                 chronometer.Stop();
-                string playersScore = LeaderBoardInterface.formatLeaderBoardScore("", numberOfMoves.ToString(), Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1), chronometer.Text); 
-                BeginActivity(typeof(UserInputActivity), GlobalApp.getPlayersScoreVariable(), playersScore);
+                string playersScore = LeaderBoardInterface.formatLeaderBoardScore("", numberOfMoves.ToString(), Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1), chronometer.Text);
+                GlobalApp.BeginActivity(this, typeof(UserInputActivity), GlobalApp.getPlayersScoreVariable(), playersScore);
             }
             catch
             {
@@ -554,51 +554,11 @@ namespace SCaR_Arcade.GameActivities
             }
             if (isReplay)
             {
-                BeginActivity(typeof(TowersOfHanoiActivity), GlobalApp.getVariableDifficultyName(), Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1));
+                GlobalApp.BeginActivity(this, typeof(TowersOfHanoiActivity), GlobalApp.getVariableDifficultyName(), Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1));
             }
             else
             {
-                BeginActivity(typeof(GameMenuActivity), GlobalApp.getVariableChoiceName(), Intent.GetIntExtra(GlobalApp.getVariableChoiceName(),0));
-            }
-        }
-        // ----------------------------------------------------------------------------------------------------------------
-        // Begins the Activity specified by @param type.
-        private void BeginActivity(Type type, string variableName, int value)
-        {
-            try
-            {
-                Intent intent = new Intent(this, type);
-                if (type != typeof(MainActivity))
-                {
-                    intent.PutExtra(variableName, value);
-                }
-                StartActivity(intent);
-            }
-            catch
-            {
-                // because an error has happend at the Application level
-                // We delegate the responsibility to the GlobalApp class.
-                GlobalApp.Alert(this, 2);
-            }
-        }
-        // ----------------------------------------------------------------------------------------------------------------
-        // Begins the Activity specified by @param type.
-        private void BeginActivity(Type type, string variableName, string value)
-        {
-            try
-            {
-                Intent intent = new Intent(this, type);
-                if (type != typeof(MainActivity))
-                {
-                    intent.PutExtra(variableName, value);
-                }
-                StartActivity(intent);
-            }
-            catch
-            {
-                // because an error has happend at the Application level
-                // We delegate the responsibility to the GlobalApp class.
-                GlobalApp.Alert(this, 2);
+                GlobalApp.BeginActivity(this, typeof(GameMenuActivity), GlobalApp.getVariableChoiceName(), Intent.GetIntExtra(GlobalApp.getVariableChoiceName(),0));
             }
         }
         // ----------------------------------------------------------------------------------------------------------------

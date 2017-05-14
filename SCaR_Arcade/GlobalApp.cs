@@ -72,6 +72,45 @@ namespace SCaR_Arcade
         {
             return playersScore;
         }
+        public static void BeginActivity(Context c,Type type, string variableName, int value)
+        {
+            try
+            {
+                Intent intent = new Intent(c, type);
+                if (type != typeof(MainActivity))
+                {
+                    intent.PutExtra(variableName, value);
+                }
+                c.StartActivity(intent);
+            }
+            catch
+            {
+                // Because an error has happend at the application level
+                // We delegate the responsibility to the GlobalApp class.
+                Alert(c, 2);
+            }
+        }
+
+        // ----------------------------------------------------------------------------------------------------------------
+        // Begins the Activity specified by @param type.
+        public static void BeginActivity(Context c, Type type, string variableName, string value)
+        {
+            try
+            {
+                Intent intent = new Intent(c, type);
+                if (type != typeof(MainActivity))
+                {
+                    intent.PutExtra(variableName, value);
+                }
+                c.StartActivity(intent);
+            }
+            catch
+            {
+                // because an error has happend at the Application level
+                // We delegate the responsibility to the GlobalApp class.
+                GlobalApp.Alert(c, 2);
+            }
+        }
         // ----------------------------------------------------------------------------------------------------------------
         // Displays an Alert (most definitely an error that has occured at the application level).
         public static void Alert(Context c, int iApp)

@@ -73,27 +73,7 @@ namespace SCaR_Arcade
             if (delay == 0)
             {
                 timer.Dispose();
-                BeginActivity(typeof(MainActivity), "", 0);
-            }
-        }
-        // ----------------------------------------------------------------------------------------------------------------
-        // Begins the Activity specified by @param type.
-        private void BeginActivity(Type type, string variableName, int value)
-        {
-            try
-            {
-                Intent intent = new Intent(this, type);
-                if (type != typeof(MainActivity))
-                {
-                    intent.PutExtra(variableName, value);
-                }
-                StartActivity(intent);
-            }
-            catch
-            {
-                // Because an error has happend at the application level
-                // We delegate the responsibility to the GlobalApp class.
-                GlobalApp.Alert(this, 2);
+                GlobalApp.BeginActivity(this, typeof(MainActivity), "", 0);
             }
         }
     }

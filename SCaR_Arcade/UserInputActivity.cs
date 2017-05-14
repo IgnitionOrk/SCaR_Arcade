@@ -142,22 +142,15 @@ namespace SCaR_Arcade
             // Now we can add the new score into the local leaderboard. 
             // Method: addNewScore will also determine if the score can be added into the Online leaderboard.
             LeaderBoardInterface.addNewScore(content);
-            
+
             // Return back to the Game menu. 
-            BeginActivity(typeof(GameMenuActivity), "", 0);
+            GlobalApp.BeginActivity(this, typeof(GameMenuActivity), "", 0);
         }
         // ----------------------------------------------------------------------------------------------------------------
         protected void MenuButtonClick(Object sender, EventArgs args)
         {
-            try
-            {
-                BeginActivity(typeof(GameMenuActivity), "", 0);
-            }
-            catch
-            {
-                GlobalApp.Alert(this, 0);
-            }
-
+            GlobalApp.BeginActivity(this, typeof(GameMenuActivity), "", 0);
+           
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Will determine if the players score, and time can be added to either local, or online. 
@@ -222,25 +215,6 @@ namespace SCaR_Arcade
 
             return count;
         }
-        // ----------------------------------------------------------------------------------------------------------------
-        // Begins the Activity specified by @param type.
-        private void BeginActivity(Type type, string variableName, int value)
-        {
-            try
-            {
-                Intent intent = new Intent(this, type);
-                if (type != typeof(MainActivity))
-                {
-                    intent.PutExtra(variableName, value);
-                }
-                StartActivity(intent);
-            }
-            catch
-            {
-                // because an error has happend at the Application level
-                // We delegate the responsibility to the GlobalApp class.
-                GlobalApp.Alert(this, 2);
-            }
-        }
+        
     }
 }

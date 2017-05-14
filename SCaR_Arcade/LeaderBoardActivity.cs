@@ -87,14 +87,8 @@ namespace SCaR_Arcade
         // Returns to the Game Menu Activity of the application.
         protected void ButtonClickSelect(Object sender, EventArgs args)
         {
-            try
-            {
-                BeginActivity(typeof(GameMenuActivity), GlobalApp.getVariableChoiceName(), gameChoice);
-            }
-            catch
-            {
-                GlobalApp.Alert(this, 0);
-            }
+            GlobalApp.BeginActivity(this, typeof(GameMenuActivity), GlobalApp.getVariableChoiceName(), gameChoice);
+            
         }
         // ----------------------------------------------------------------------------------------------------------------
         protected void ButtonLocalClick(Object sender, EventArgs args)
@@ -123,25 +117,8 @@ namespace SCaR_Arcade
         // Event Handler: Will direct the player to the Main menu.
         public override void OnBackPressed()
         {
-            try
-            {
-                BeginActivity(typeof(GameMenuActivity), GlobalApp.getVariableChoiceName(), gameChoice);        
-            }
-            catch
-            {
-                GlobalApp.Alert(this, 0);
-            }
-        }
-        // ----------------------------------------------------------------------------------------------------------------
-        // Begins the Activity specified by @param type.
-        private void BeginActivity(Type type, string variableName, int value)
-        {
-            Intent intent = new Intent(this, type);
-            if (type != typeof(MainActivity))
-            {
-                intent.PutExtra(variableName, value);
-            }
-            StartActivity(intent);
+            GlobalApp.BeginActivity(this, typeof(GameMenuActivity), GlobalApp.getVariableChoiceName(), gameChoice);        
+           
         }
     }
 }

@@ -52,25 +52,7 @@ namespace SCaR_Arcade
         // and moves to GameMenuActivity.
         private void listViewItemClick(Object sender, AdapterView.ItemClickEventArgs args)
         {
-            BeginActivity(typeof(GameMenuActivity), GlobalApp.getVariableChoiceName(), args.Position);
-        }
-        // ----------------------------------------------------------------------------------------------------------------
-        // Begins the Activity specified by @param type.
-        private void BeginActivity(Type type, string variableName, int value)
-        {
-            try
-            {
-                Intent intent = new Intent(this, type);
-                if (type != typeof(MainActivity))
-                {
-                    intent.PutExtra(variableName, value);
-                }
-                StartActivity(intent);
-            }
-            catch
-            {
-                GlobalApp.Alert(this, 0);
-            }
+            GlobalApp.BeginActivity(this, typeof(GameMenuActivity), GlobalApp.getVariableChoiceName(), args.Position);
         }
     }
 }

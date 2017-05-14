@@ -117,70 +117,38 @@ namespace SCaR_Arcade
         // Begins the game selected from the Main menu.
         protected void ButtonClickStart(Object sender, EventArgs args)
         {
-            try
-            {
                 // Begin the game Activity specifed by type
-                BeginActivity(game.gType, GlobalApp.getVariableDifficultyName(), difficulty);
-            }
-            catch
-            {
-                GlobalApp.Alert(this, 0);
-            }
+                GlobalApp.BeginActivity(this, game.gType, GlobalApp.getVariableDifficultyName(), difficulty);
+           
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Returns to the Main Activity of the application.
         protected void ButtonClickSelect(Object sender, EventArgs args)
         {
-            try
-            {
+           
                 // Begin the Main Activity
-                BeginActivity(typeof(MainActivity), null, 0);
-            }
-            catch
-            {
-                GlobalApp.Alert(this, 0);
-            }
+                GlobalApp.BeginActivity(this, typeof(MainActivity), "", 0);
+            
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Event Handler: Will direct the player to the Main menu.
         public override void OnBackPressed()
         {
-            //TODO: add if statement to back into leaderboardactivity if that was the last place visited, maybe
-            try
-            {
+          
                 // Begin the Main Activity
-                BeginActivity(typeof(MainActivity), null, 0);
-            }
-            catch
-            {
-                GlobalApp.Alert(this, 0);
-            }
+                GlobalApp.BeginActivity(this, typeof(MainActivity), "", 0);
+           
+            
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Event Handler: Will direct the user to the Leaderboard. 
         protected void ButtonClickLeaderboard(Object sender, EventArgs ev)
         {
-            try
-            {
-                // Begin the Leaderboard Activity
-                BeginActivity(typeof(LeaderBoardActivity), GlobalApp.getVariableChoiceName(), gameChoice);
-            }
-            catch
-            {
-                GlobalApp.Alert(this, 0);
-            }
+           
+                GlobalApp.BeginActivity(this ,typeof(LeaderBoardActivity), GlobalApp.getVariableChoiceName(), gameChoice);
+            
         }
-        // ----------------------------------------------------------------------------------------------------------------
-        // Begins the Activity specified by @param type.
-        private void BeginActivity(Type type, string variableName, int value)
-        {
-            Intent intent = new Intent(this, type);
-            if (type != typeof(MainActivity))
-            {
-                intent.PutExtra(variableName, value);
-            }
-            StartActivity(intent);
-        }
+
         // ----------------------------------------------------------------------------------------------------------------
         // Event handler: that increases the difficulty level for the game selected.
         protected void ImageButtonIncrease(Object sender, EventArgs args)
