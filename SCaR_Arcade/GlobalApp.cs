@@ -93,6 +93,7 @@ namespace SCaR_Arcade
                 Intent intent = new Intent(c, type);
                 if (type != typeof(MainActivity))
                 {
+                    intent.PutExtra(getVariableChoiceName(), intent.GetIntExtra(getVariableChoiceName(), 0));
                     intent.PutExtra(variableName, value);
                 }
                 c.StartActivity(intent);
