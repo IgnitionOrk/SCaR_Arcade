@@ -72,6 +72,7 @@
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GameActivities\TowersOfHanoiActivity.cs" />
+    <Compile Include="ScarConnectionManager.cs" />
     <Compile Include="SplashScreen.cs" />
     <Compile Include="UserInputActivity.cs" />
   </ItemGroup>
@@ -152,10 +153,10 @@
     <AndroidResource Include="Resources\drawable\SCaRARCADE.png" />
     <AndroidResource Include="Resources\drawable\TargetPole.png" />
     <AndroidAsset Include="Assets\GameDescriptions\ToH_GameDescription.txt" />
-    <AndroidAsset Include="Assets\ScoreFiles\Local\localTest.txt" />
+    <AndroidAsset Include="Assets\ScoreFiles\Local\tohLocalTest.txt" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidAsset Include="Assets\ScoreFiles\Online\onlineTest.txt" />
+    <AndroidAsset Include="Assets\ScoreFiles\Online\tohOnlineTest.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

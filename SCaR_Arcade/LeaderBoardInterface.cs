@@ -58,13 +58,11 @@ namespace SCaR_Arcade
 
             if (FileInterface.fileReachedLimit(false, MAXNUMBEROFLOCALSCORES))
             {
-                // Remove the current score at position localPosition;
-                FileInterface.removeScoreAtPosition(false, localPosition);
-            }
-            else
-            {
-                // push scores up by one, starting after the localPosition
+                // push scores up by one, starting after the localPosition + 1
                 FileInterface.updateData(false, localPosition);
+                
+                // Now we remove the score that has been pushed up to 21
+                FileInterface.removeScoreAtPosition(false, MAXNUMBEROFLOCALSCORES + 1);
             }
             // Now we can add the new score.
             // This will be in the format Position-Name-Score-Time
@@ -74,13 +72,11 @@ namespace SCaR_Arcade
             {
                 if (FileInterface.fileReachedLimit(true, MAXNUMBEROFONLINESCORES))
                 {
-                    // Remove the current score at position onlinePosition;
-                    FileInterface.removeScoreAtPosition(true, onlinePosition);
-                }
-                else
-                {
-                    // push scores up by one, starting after the onlinePosition;
+                    // push scores up by one, starting after the onlinePosition + 1
                     FileInterface.updateData(true, onlinePosition);
+
+                    // Now we remove the score that has been pushed up to 101.
+                    FileInterface.removeScoreAtPosition(true, MAXNUMBEROFONLINESCORES + 1);
                 }
                 // Now we can add the new score. 
                 // This will be in the format Position-Name-Score-Time
@@ -92,7 +88,6 @@ namespace SCaR_Arcade
         public static bool newHighTimeScore(string scoreStr, string timeStr, string difStr)
         {
             int score = Convert.ToInt32(scoreStr);
-            int hours = 0;
             int minutes = 0;
             int seconds = 0;
 
@@ -101,6 +96,8 @@ namespace SCaR_Arcade
             // Otherwise there will be only one MM:SS
             int count = GlobalApp.findNumberOfCharacters(":", timeStr);
 
+            // What we are determining is if the timeStr has 2 ":";
+            // if it does then, the format of timeStre is HH:MM:SS
             if (count < 2)
             {
                 // First part of the string
@@ -108,21 +105,27 @@ namespace SCaR_Arcade
 
                 // Second part of the string
                 seconds = Convert.ToInt32(GlobalApp.extractValuesFromString(":", timeStr, true));
+
+                localPosition = determinePosition(false, score, 0, minutes, seconds);
+                onlinePosition = determinePosition(true, score, 0, minutes, seconds);
             }
             else
             {
+
                 // First part of the string
-                hours = Convert.ToInt32(GlobalApp.extractValuesFromString(":", timeStr, false));
+                int hours = Convert.ToInt32(GlobalApp.extractValuesFromString(":", timeStr, false));
 
                 // Second part of the string
                 minutes = Convert.ToInt32(GlobalApp.extractValuesFromString(":", timeStr, true));
 
                 // Third part of the string
                 seconds = Convert.ToInt32(timeStr.Substring(timeStr.LastIndexOf(":"), 2));
+
+                localPosition = determinePosition(false, score, hours, minutes, seconds);
+                onlinePosition = determinePosition(true, score, hours, minutes, seconds);
             }
 
-            localPosition = determinePosition(false, score, hours, minutes, seconds);
-            onlinePosition = determinePosition(true, score, hours, minutes, seconds);
+
             return localPosition <= MAXNUMBEROFLOCALSCORES || onlinePosition <= MAXNUMBEROFONLINESCORES;
         }
         // ----------------------------------------------------------------------------------------------------------------
@@ -132,32 +135,24 @@ namespace SCaR_Arcade
             int currentHours = 0;
             int currentMinutes = 0;
             int currentSeconds = 0;
-            int position = 0;
-            if (isOnline)
-            {
-                position = MAXNUMBEROFONLINESCORES;
-            }
-            else
-            {
-                position = MAXNUMBEROFLOCALSCORES;
-            }
+            int position = 1;
             // The method populateLeaderBoardData will have been sorted.
             List<LeaderBoard> listLBd = PopulateLeaderBoardData(isOnline);
-            for (int i = listLBd.Count - 1; i > 0; i--)
+            for (int i = 0; i < listLBd.Count; i++)
             {
                 if (hours == 0)
                 {
                     currentMinutes = Convert.ToInt32(GlobalApp.extractValuesFromString(":", listLBd[i].lbTime, false));
                     currentSeconds = Convert.ToInt32(GlobalApp.extractValuesFromString(":", listLBd[i].lbTime, true));
-                    if (minutes < currentMinutes)
+                    if (minutes > currentMinutes)
                     {
-                        position--;
+                        position++;
                     }
                     else if (minutes == currentMinutes)
                     {
-                        if (seconds < currentSeconds)
+                        if (seconds > currentSeconds)
                         {
-                            position--;
+                            position++;
                         }
                     }
                 }
@@ -166,23 +161,23 @@ namespace SCaR_Arcade
                     currentHours = Convert.ToInt32(GlobalApp.extractValuesFromString(":", listLBd[i].lbTime, false));
                     currentMinutes = Convert.ToInt32(GlobalApp.extractValuesFromString(":", listLBd[i].lbTime, true));
                     currentSeconds = Convert.ToInt32(listLBd[i].lbTime.Substring(listLBd[i].lbTime.LastIndexOf(":"), 2));
-                    if (hours < currentHours)
+                    if (hours > currentHours)
                     {
-                        position--;
+                        position++;
                     }
                     else if (hours == currentHours)
                     {
-                        if (minutes < currentMinutes)
+                        if (minutes > currentMinutes)
                         {
-                            position--;
+                            position++;
                         }
                         else
                         {
                             if (minutes == currentMinutes)
                             {
-                                if (seconds < currentSeconds)
+                                if (seconds > currentSeconds)
                                 {
-                                    position--;
+                                    position++;
                                 }
                             }
                         }

@@ -109,23 +109,23 @@ namespace SCaR_Arcade
         {
             try
             {
-                string assetsPath = "";
+                string assetsFile = "";
                 string gameFilePath = "";
                 List<string> scoreData = new List<string>();
 
                 if (isOnline)
                 {
-                    assetsPath = SCOREFILESPATH + "Online/onlineTest.txt";
+                    assetsFile = game.onlineTestFile;
                     gameFilePath = subFolderOnlinePath + game.gOnlineFileName;
                 }
                 else
                 {
-                    assetsPath = SCOREFILESPATH + "Local/localTest.txt";
+                    assetsFile = game.localTestFile;
                     gameFilePath = subFolderLocalPath + game.gLocalFileName;
                 }
 
                 // Open a new connection to the .txt file, so we may extract the data.
-                using (StreamReader sr = new StreamReader(assets.Open(assetsPath)))
+                using (StreamReader sr = new StreamReader(assets.Open(assetsFile)))
                 {
                     while (sr.Peek() > -1)
                     {
@@ -360,7 +360,7 @@ namespace SCaR_Arcade
         public static bool fileReachedLimit(bool isOnline, int limit)
         {
             string path = "";
-            int count = 1;
+            int count = 0;
             if (isOnline)
             {
                 path = subFolderOnlinePath + game.gOnlineFileName;

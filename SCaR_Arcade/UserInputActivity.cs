@@ -138,12 +138,12 @@ namespace SCaR_Arcade
             LeaderBoardInterface.addNewScore(content);
 
             // Return back to the Game menu. 
-            GlobalApp.BeginActivity(this, typeof(GameMenuActivity), "", 0);
+            GlobalApp.BeginActivity(this, typeof(GameMenuActivity), GlobalApp.getVariableChoiceName(), Intent.GetIntExtra(GlobalApp.getVariableChoiceName(), 0));
         }
         // ----------------------------------------------------------------------------------------------------------------
         protected void MenuButtonClick(Object sender, EventArgs args)
         {
-            GlobalApp.BeginActivity(this, typeof(GameMenuActivity), "", 0);
+            GlobalApp.BeginActivity(this, typeof(GameMenuActivity), GlobalApp.getVariableChoiceName(), Intent.GetIntExtra(GlobalApp.getVariableChoiceName(), 0));
            
         }
         // ----------------------------------------------------------------------------------------------------------------
