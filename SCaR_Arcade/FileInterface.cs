@@ -29,7 +29,7 @@ namespace SCaR_Arcade
         private const string GAMEDESCRIPTIONSPATH = "GameDescriptions/";
         private static string saveFileLocation = Android.App.Application.Context.FilesDir.AbsolutePath;
         private static string subFolderLocalPath = "";
-        private static string subFolderOnlinePath = ""; 
+        private static string subFolderOnlinePath = "";
         // ----------------------------------------------------------------------------------------------------------------
         // Adds the game the player has clicked on. 
         public static void addCurrentGame(Game g, Android.Content.Res.AssetManager assets)
@@ -41,7 +41,7 @@ namespace SCaR_Arcade
 
             // We determine if the variables have already been set,
             // If they have, then the files have already been created.
-            if(game.gOnlineFileName == null && game.gLocalFileName == null)
+            if (game.gOnlineFileName == null && game.gLocalFileName == null)
             {
                 // Create the Local, and Online txt files.
                 createFilesForGame();
@@ -51,6 +51,7 @@ namespace SCaR_Arcade
                 addPredefinedScores(true);
                 addPredefinedScores(false);
             }
+
 
         }
         // ----------------------------------------------------------------------------------------------------------------
@@ -100,49 +101,57 @@ namespace SCaR_Arcade
                     Directory.CreateDirectory(directory);
                 }
             }
+
         }
         // ----------------------------------------------------------------------------------------------------------------
         // 
         private static void addPredefinedScores(bool isOnline)
         {
-            string assetsPath = "";
-            string gameFilePath = "";
-            List<string> scoreData = new List<string>();
+            try
+            {
+                string assetsPath = "";
+                string gameFilePath = "";
+                List<string> scoreData = new List<string>();
 
-            if (isOnline)
-            {
-                assetsPath = SCOREFILESPATH + "Online/onlineTest.txt";
-                gameFilePath = subFolderOnlinePath + game.gOnlineFileName;
-            }
-            else
-            {
-                assetsPath = SCOREFILESPATH + "Local/localTest.txt";
-                gameFilePath = subFolderLocalPath + game.gLocalFileName;
-            }
-
-            // Open a new connection to the .txt file, so we may extract the data.
-            using (StreamReader sr = new StreamReader(assets.Open(assetsPath)))
-            {
-                while (sr.Peek() > -1)
+                if (isOnline)
                 {
-                    // Extract all the data from file located in the Assets folder. 
-                    scoreData.Add(sr.ReadLine());
+                    assetsPath = SCOREFILESPATH + "Online/onlineTest.txt";
+                    gameFilePath = subFolderOnlinePath + game.gOnlineFileName;
+                }
+                else
+                {
+                    assetsPath = SCOREFILESPATH + "Local/localTest.txt";
+                    gameFilePath = subFolderLocalPath + game.gLocalFileName;
                 }
 
-                // Close the connection to the file (.txt).
-                sr.Close();
-            }
-
-            // Open a new connection to the .txt file, so we can insert the new data.
-            using (StreamWriter sw = new StreamWriter(gameFilePath))
-            {
-                for (int i = 0; i < scoreData.Count; i++)
+                // Open a new connection to the .txt file, so we may extract the data.
+                using (StreamReader sr = new StreamReader(assets.Open(assetsPath)))
                 {
-                    sw.WriteLine(scoreData[i]);
+                    while (sr.Peek() > -1)
+                    {
+                        // Extract all the data from file located in the Assets folder. 
+                        scoreData.Add(sr.ReadLine());
+                    }
+
+                    // Close the connection to the file (.txt).
+                    sr.Close();
                 }
 
-                // Close the connection to the file (.txt).
-                sw.Close();
+                // Open a new connection to the .txt file, so we can insert the new data.
+                using (StreamWriter sw = new StreamWriter(gameFilePath))
+                {
+                    for (int i = 0; i < scoreData.Count; i++)
+                    {
+                        sw.WriteLine(scoreData[i]);
+                    }
+
+                    // Close the connection to the file (.txt).
+                    sw.Close();
+                }
+            }
+            catch
+            {
+                System.Diagnostics.Debug.Write("Crash caused in FileInterface.addPredefinedScores().");
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
@@ -269,7 +278,7 @@ namespace SCaR_Arcade
                 path = subFolderLocalPath + game.gLocalFileName;
             }
 
-                
+
             using (StreamReader sr = new StreamReader(path))
             {
                 while (sr.Peek() > -1)
@@ -322,7 +331,7 @@ namespace SCaR_Arcade
                         // Push the currentPosition by 1, and the atPosition will now come before it.
                         newPosition = currentPosition + 1;
                         lineScore = lineScore.Substring(lineScore.IndexOf("-") + 1, lineScore.Length - lineScore.IndexOf("-") - 1);
-                        lineScore = newPosition +"-"+lineScore;
+                        lineScore = newPosition + "-" + lineScore;
                         scoreData.Add(lineScore);
                     }
                 }
@@ -382,10 +391,12 @@ namespace SCaR_Arcade
         //
         private static void initializeAssests(Android.Content.Res.AssetManager a)
         {
+
             if (assets == null)
             {
                 assets = a;
             }
+
         }
     }
 }
