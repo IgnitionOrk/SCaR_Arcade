@@ -63,6 +63,8 @@ namespace SCaR_Arcade
                 );
 
                 LeaderBoardListView.Adapter = new LeaderBoardRowAdapter(this);
+                localBtn.SetBackgroundColor(Color.DarkGray);
+                onlineBtn.SetBackgroundColor(Color.Gray);
 
                 LeaderBoard.SetBackgroundColor(Color.Gray);
                 LeaderBoardHeader.SetBackgroundColor(Color.LightGray);
@@ -95,6 +97,8 @@ namespace SCaR_Arcade
         {
             try
             {
+                localBtn.SetBackgroundColor(Color.DarkGray);
+                onlineBtn.SetBackgroundColor(Color.Gray);
                 // Delete the current Adpater
                 LeaderBoardListView.Adapter = null;
                 // And store a new one.
@@ -108,8 +112,10 @@ namespace SCaR_Arcade
         // ----------------------------------------------------------------------------------------------------------------
         protected void ButtonOnlineClick(Object sender, EventArgs args)
         {
-                // Delete the current Adpater
-                LeaderBoardListView.Adapter = null;
+            localBtn.SetBackgroundColor(Color.Gray);
+            onlineBtn.SetBackgroundColor(Color.DarkGray);
+            // Delete the current Adpater
+            LeaderBoardListView.Adapter = null;
                 // And store a new one.
                 LeaderBoardListView.Adapter = new LeaderBoardRowAdapter(this, true);
         }
