@@ -20,8 +20,8 @@ namespace SCaR_Arcade
     {
         private static Storage currentStorage;
         // ----------------------------------------------------------------------------------------------------------------
-        // determineCurrentStorage, is completely extensible. We have the ability to add any form of 
-        // storage system, so long as they implement the Storage interface.
+        // determineCurrentStorage, is very extensible. We have the ability to add any form of 
+        // storage system, so long as they implement the Storage interface methods.
         static public void determineCurrentStorage(int identifier, Android.Content.Res.AssetManager assets)
         {
             switch (identifier)
