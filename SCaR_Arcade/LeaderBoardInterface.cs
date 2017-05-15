@@ -55,12 +55,10 @@ namespace SCaR_Arcade
         // Time - How long it took to win the game. 
         public static void addNewScore(string playersScore)
         {
-
+            // push scores up by one, starting after the localPosition + 1
+            FileInterface.updateData(false, localPosition);
             if (FileInterface.fileReachedLimit(false, MAXNUMBEROFLOCALSCORES))
-            {
-                // push scores up by one, starting after the localPosition + 1
-                FileInterface.updateData(false, localPosition);
-                
+            {                
                 // Now we remove the score that has been pushed up to 21
                 FileInterface.removeScoreAtPosition(false, MAXNUMBEROFLOCALSCORES + 1);
             }
@@ -70,11 +68,10 @@ namespace SCaR_Arcade
 
             if (onlinePosition <= MAXNUMBEROFONLINESCORES)
             {
+                // push scores up by one, starting after the onlinePosition + 1
+                FileInterface.updateData(true, onlinePosition);
                 if (FileInterface.fileReachedLimit(true, MAXNUMBEROFONLINESCORES))
                 {
-                    // push scores up by one, starting after the onlinePosition + 1
-                    FileInterface.updateData(true, onlinePosition);
-
                     // Now we remove the score that has been pushed up to 101.
                     FileInterface.removeScoreAtPosition(true, MAXNUMBEROFONLINESCORES + 1);
                 }
@@ -129,7 +126,7 @@ namespace SCaR_Arcade
             return localPosition <= MAXNUMBEROFLOCALSCORES || onlinePosition <= MAXNUMBEROFONLINESCORES;
         }
         // ----------------------------------------------------------------------------------------------------------------
-        //
+        // Determines the position of the players score, by comparing the time it took to complete the game
         private static int determinePosition(bool isOnline, int score, int hours, int minutes, int seconds)
         {
             int currentHours = 0;

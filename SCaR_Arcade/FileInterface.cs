@@ -43,14 +43,12 @@ namespace SCaR_Arcade
             // If they have, then the files have already been created.
             if (game.gOnlineFileName == null && game.gLocalFileName == null)
             {
-                System.Diagnostics.Debug.WriteLine("HEREREREREREREREER");
                 // Create the Local, and Online txt files.
                 createFilesForGame();
 
                 // Add the predefined data from the Assets folder.
                 // These will similar to the scores that are inbuilt for a game at an actual arcade. 
-                addPredefinedData(false);
-                addPredefinedData(true);
+                addPredefinedData();
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
@@ -102,26 +100,16 @@ namespace SCaR_Arcade
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
-        // 
-        private static void addPredefinedData(bool isOnline)
+        // Will add predefined data that is for the local leaderboard, notice how there isn't a need for an online .txt predefined data.
+        // As the online should be purely about global players.
+        private static void addPredefinedData()
         {
             string assetsFile = "";
             string gameFilePath = "";
             List<string> scoreData = new List<string>();
 
-            if (isOnline)
-            {
-                assetsFile = SCOREFILESPATH + "Online/" + game.onlineTestFile;
-                gameFilePath = subFolderOnlinePath + game.gOnlineFileName;
-            }
-            else
-            {
-                assetsFile = SCOREFILESPATH + "Local/" + game.localTestFile;
-                gameFilePath = subFolderLocalPath + game.gLocalFileName;
-            }
-            System.Diagnostics.Debug.WriteLine("HEHEHE FILE EXISTS: "+File.Exists(assetsFile));
-            System.Diagnostics.Debug.WriteLine("HEHEHE GAMES FILE EXISTS: " + File.Exists(gameFilePath));
-            System.Diagnostics.Debug.WriteLine("HEHEHE GAMES PATH: " +gameFilePath);
+            assetsFile = SCOREFILESPATH + "Local/" + game.localTestFile;
+            gameFilePath = subFolderLocalPath + game.gLocalFileName;
             // Open a new connection to the .txt file, so we may extract the data.
             using (StreamReader sr = new StreamReader(assets.Open(assetsFile)))
             {
@@ -182,7 +170,7 @@ namespace SCaR_Arcade
                     // The position of the score is at the start of the string. 
                     currentPosition = Convert.ToInt32(lineScore.Substring(0, lineScore.IndexOf("-")));
 
-                    if (currentPosition != position)
+                    if (currentPosition < position)
                     {
                         // We are only adding in the scores that do not match the @param position.
                         // Thereby, essentially removing it from the current scores. 
@@ -264,13 +252,10 @@ namespace SCaR_Arcade
             string lineScore = "";
             if (isOnline)
             {
-                System.Diagnostics.Debug.WriteLine("HERE 1 ");
                 path = subFolderOnlinePath + game.gOnlineFileName;
             }
             else
             {
-                System.Diagnostics.Debug.WriteLine("HERE 2");
-
                 path = subFolderLocalPath + game.gLocalFileName;
             }
 
@@ -285,6 +270,9 @@ namespace SCaR_Arcade
 
                 sr.Close();
             }
+            System.Diagnostics.Debug.WriteLine("HEREREREREERERWRERERERERERERE:" + scoreLines == null );
+            System.Diagnostics.Debug.WriteLine("HEREREREREERERWRERERERERERERE:" + scoreLines.Count);
+
             return scoreLines;
         }
         // ----------------------------------------------------------------------------------------------------------------
@@ -319,7 +307,7 @@ namespace SCaR_Arcade
                     // Remove any possibility of extra whitespace at the start, and end of the string.
                     lineScore.Trim();
 
-                    // The position of the score is at the start of the string. 
+                    // The position of the players score is at the start of the string. 
                     currentPosition = Convert.ToInt32(lineScore.Substring(0, lineScore.IndexOf("-")));
 
                     if (currentPosition >= atPosition)

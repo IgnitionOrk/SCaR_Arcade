@@ -56,7 +56,6 @@
     <Compile Include="FileInterface.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GameActivities\DiceRolls.cs" />
-    <Compile Include="GameActivities\MemoryTestActivity.cs" />
     <Compile Include="GameLogic\DiceRollsLogic.cs" />
     <Compile Include="LeaderBoard.cs" />
     <Compile Include="LeaderBoardActivity.cs" />
@@ -154,9 +153,6 @@
     <AndroidResource Include="Resources\drawable\TargetPole.png" />
     <AndroidAsset Include="Assets\GameDescriptions\ToH_GameDescription.txt" />
     <AndroidAsset Include="Assets\ScoreFiles\Local\tohLocalTest.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\ScoreFiles\Online\tohOnlineTest.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

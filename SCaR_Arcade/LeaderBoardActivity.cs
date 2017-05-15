@@ -60,11 +60,9 @@ namespace SCaR_Arcade
                     (int)(metrics.HeightPixels * 0.75)
                 );
 
-            System.Diagnostics.Debug.WriteLine("HEREaelhaegiehgpqeghgnqeilvnhilddvsdvasdlbasdilbvhil");
-                LeaderBoardListView.Adapter = new LeaderBoardRowAdapter(this);
-            System.Diagnostics.Debug.WriteLine("HEREaelhaegiehgpqeghgnqeilvnhilddvsdvasdlbasdilbvhil");
+                LeaderBoardListView.Adapter = new LeaderBoardRowAdapter(this, false);
 
-            localBtn.SetBackgroundColor(Color.DarkGray);
+                localBtn.SetBackgroundColor(Color.DarkGray);
                 onlineBtn.SetBackgroundColor(Color.Gray);
 
                 LeaderBoard.SetBackgroundColor(Color.Gray);
@@ -108,20 +106,33 @@ namespace SCaR_Arcade
         // ----------------------------------------------------------------------------------------------------------------
         protected void ButtonOnlineClick(Object sender, EventArgs args)
         {
+
             try
-            { 
+            {
                 localBtn.SetBackgroundColor(Color.Gray);
                 onlineBtn.SetBackgroundColor(Color.DarkGray);
-                // Delete the current Adpater
-                LeaderBoardListView.Adapter = null;
-                // And store a new one.
-                LeaderBoardListView.Adapter = new LeaderBoardRowAdapter(this, true);
+
+                // Determine if the application has an internet connection.
+                if (ScarConnectionManager.hasInternetConnection())
+                {
+                    // Delete the current Adpater
+                    LeaderBoardListView.Adapter = null;
+                    // And store a new one.
+                    LeaderBoardListView.Adapter = new LeaderBoardRowAdapter(this, true);
+                }
+                else
+                {
+                    // Delete the current Adpater
+                    LeaderBoardListView.Adapter = null;
+                    // And store a new one.
+                    LeaderBoardListView.Adapter = new LeaderBoardRowAdapter(this);
+                }
             }
             catch
             {
                 GlobalApp.Alert(this, 0);
             }
-}
+        }
         // ----------------------------------------------------------------------------------------------------------------
         // Event Handler: Will direct the player to the Main menu.
         public override void OnBackPressed()

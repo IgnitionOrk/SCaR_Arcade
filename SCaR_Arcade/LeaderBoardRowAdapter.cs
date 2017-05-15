@@ -37,10 +37,6 @@ namespace SCaR_Arcade
         public LeaderBoardRowAdapter (Activity activity)
         {
             this.context = activity;
-
-            // the boolean parameter determines if we are using the local, or online .text files.
-            // Here we are working with the default which is local (false).
-            this.PopulateLeaderBoardData(false);
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Constructor:
@@ -68,7 +64,17 @@ namespace SCaR_Arcade
         // Defined method signature by BaseAdapter interface.
         public override int Count
         {
-            get { return data.Count; } 
+            get
+            {
+                if(data == null)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return data.Count;
+                }
+            } 
         }
         // ----------------------------------------------------------------------------------------------------------------
         public override View GetView(int position, View rowView, ViewGroup parent)
@@ -80,26 +86,41 @@ namespace SCaR_Arcade
                 view = context.LayoutInflater.Inflate(SCaR_Arcade.Resource.Layout.LeaderBoardRow, null);
             }
 
-            var row = data[position];
+            if (data == null)
+            {
 
-            
-            //add text colom details down list
-            TextView leaderboardPosition = view.FindViewById<TextView>(SCaR_Arcade.Resource.Id.positiontxt);
-            leaderboardPosition.Text = Convert.ToString(row.lbPosition) ;
+                //add text colom details down list
+                TextView leaderboardPosition = view.FindViewById<TextView>(SCaR_Arcade.Resource.Id.positiontxt);
+                leaderboardPosition.Text = "No Internet connection";
 
-            TextView name = view.FindViewById<TextView>(SCaR_Arcade.Resource.Id.nametxt);
-            name.Text = row.lbName;
 
-            TextView diff = view.FindViewById<TextView>(SCaR_Arcade.Resource.Id.difftxt);
-            diff.Text = Convert.ToString(row.lbDiff);
+                leaderboardPosition.LayoutParameters = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MatchParent,
+                    LinearLayout.LayoutParams.WrapContent
+                );
+            }
+            else
+            {
+                var row = data[position];
 
-            TextView score = view.FindViewById<TextView>(SCaR_Arcade.Resource.Id.scoretxt);
-            score.Text = Convert.ToString(row.lbScore);
+                //add text colom details down list
+                TextView leaderboardPosition = view.FindViewById<TextView>(SCaR_Arcade.Resource.Id.positiontxt);
+                leaderboardPosition.Text = Convert.ToString(row.lbPosition);
 
-            TextView time = view.FindViewById<TextView>(SCaR_Arcade.Resource.Id.timetxt);
-            time.Text = row.lbTime;
+                TextView name = view.FindViewById<TextView>(SCaR_Arcade.Resource.Id.nametxt);
+                name.Text = row.lbName;
 
-            
+                TextView diff = view.FindViewById<TextView>(SCaR_Arcade.Resource.Id.difftxt);
+                diff.Text = Convert.ToString(row.lbDiff);
+
+                TextView score = view.FindViewById<TextView>(SCaR_Arcade.Resource.Id.scoretxt);
+                score.Text = Convert.ToString(row.lbScore);
+
+                TextView time = view.FindViewById<TextView>(SCaR_Arcade.Resource.Id.timetxt);
+                time.Text = row.lbTime;
+
+            }
+
 
             return view;
         }
