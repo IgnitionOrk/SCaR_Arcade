@@ -144,7 +144,6 @@ namespace SCaR_Arcade
         protected void MenuButtonClick(Object sender, EventArgs args)
         {
             GlobalApp.BeginActivity(this, typeof(GameMenuActivity), GlobalApp.getVariableChoiceName(), Intent.GetIntExtra(GlobalApp.getVariableChoiceName(), 0));
-           
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Will determine if the players score, and time can be added to either local, or online. 

@@ -61,7 +61,7 @@ namespace SCaR_Arcade.GameActivities
                 logic = new GameLogic.TowersOfHanoiLogic(MAXCOMPONENTS, Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1));
                 txtOptimalNoOfMoves.Text = string.Format("{0}", "Optimal no. of moves: " + logic.calOptimalNoOfMoves(Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1)));
                 txtVScore.Text = "No. of moves: " + 0;
-                chronometer.Visibility = Android.Views.ViewStates.Invisible;
+                chronometer.Visibility = ViewStates.Invisible;
 
                 // Event handlers:
                 btnReplay.Click += btnReplayOnClick;
@@ -196,7 +196,7 @@ namespace SCaR_Arcade.GameActivities
 
             img.SetImageBitmap(bMapDiskScaled);
             img.SetScaleType(ImageView.ScaleType.Center);
-            img.SetColorFilter(Color.ParseColor(getHexColor(count)));
+            //img.SetColorFilter(Color.ParseColor(getHexColor(count)));
            
 
 
@@ -554,7 +554,7 @@ namespace SCaR_Arcade.GameActivities
             }
             if (isReplay)
             {
-                GlobalApp.BeginActivity(this, typeof(TowersOfHanoiActivity), GlobalApp.getVariableDifficultyName(), Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1));
+                GlobalApp.BeginActivity(this, typeof(TowersOfHanoiActivity), GlobalApp.getVariableDifficultyName(), Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 3));
             }
             else
             {

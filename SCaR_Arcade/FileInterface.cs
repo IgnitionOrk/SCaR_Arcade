@@ -101,7 +101,6 @@ namespace SCaR_Arcade
                     Directory.CreateDirectory(directory);
                 }
             }
-
         }
         // ----------------------------------------------------------------------------------------------------------------
         // 
@@ -271,10 +270,13 @@ namespace SCaR_Arcade
             string lineScore = "";
             if (isOnline)
             {
+                System.Diagnostics.Debug.WriteLine("HERE 1 ");
                 path = subFolderOnlinePath + game.gOnlineFileName;
             }
             else
             {
+                System.Diagnostics.Debug.WriteLine("HERE 2");
+
                 path = subFolderLocalPath + game.gLocalFileName;
             }
 
