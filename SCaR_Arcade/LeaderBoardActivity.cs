@@ -43,6 +43,8 @@ namespace SCaR_Arcade
         // ----------------------------------------------------------------------------------------------------------------
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            try
+            {
                 base.OnCreate(savedInstanceState);
                 SetContentView(Resource.Layout.Leaderboard);
                 FullScreen = FindViewById<LinearLayout>(Resource.Id.FullScreenLinLay);
@@ -55,7 +57,7 @@ namespace SCaR_Arcade
                 onlineBtn = FindViewById<Button>(Resource.Id.btnOnline);
 
                 var metrics = Resources.DisplayMetrics;
-                middleLayout.LayoutParameters =  new LinearLayout.LayoutParams(
+                middleLayout.LayoutParameters = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MatchParent,
                     (int)(metrics.HeightPixels * 0.75)
                 );
@@ -78,13 +80,21 @@ namespace SCaR_Arcade
                 btnBack.Click += ButtonClickSelect;
                 localBtn.Click += ButtonLocalClick;
                 onlineBtn.Click += ButtonOnlineClick;
+            }
+            catch
+            {
+                GlobalApp.Alert(this, 0);
+            }
+            finally
+            {
+                GlobalApp.BeginActivity(this, typeof(MainActivity), "", 0);
+            }
         } 
         // ----------------------------------------------------------------------------------------------------------------
         // Returns to the Game Menu Activity of the application.
         protected void ButtonClickSelect(Object sender, EventArgs args)
         {
-            GlobalApp.BeginActivity(this, typeof(GameMenuActivity), GlobalApp.getVariableChoiceName(), gameChoice);
-            
+            GlobalApp.BeginActivity(this, typeof(GameMenuActivity), GlobalApp.getVariableChoiceName(), gameChoice);        
         }
         // ----------------------------------------------------------------------------------------------------------------
         protected void ButtonLocalClick(Object sender, EventArgs args)
@@ -106,7 +116,6 @@ namespace SCaR_Arcade
         // ----------------------------------------------------------------------------------------------------------------
         protected void ButtonOnlineClick(Object sender, EventArgs args)
         {
-
             try
             {
                 localBtn.SetBackgroundColor(Color.Gray);

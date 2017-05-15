@@ -27,6 +27,8 @@ namespace SCaR_Arcade
         public int gMenuBackground { get; set; }
         public string gLocalFileName { get; set; }
         public string gOnlineFileName { get; set; }
+        public string gLocalPath { get; set; }
+        public string gOnlinePath { get; set; }
         public string localTestFile { get; set; }
         public string onlineTestFile { get; set; }
         public Type gType { get; set; }

@@ -53,7 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FileInterface.cs" />
+    <Compile Include="FileStorage.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GameActivities\DiceRolls.cs" />
     <Compile Include="GameLogic\DiceRollsLogic.cs" />

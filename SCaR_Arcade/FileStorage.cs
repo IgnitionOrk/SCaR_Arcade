@@ -26,9 +26,8 @@ namespace SCaR_Arcade
         private Android.Content.Res.AssetManager assets;
         private const string SCOREFILESPATH = @"ScoreFiles/";
         private const string GAMEDESCRIPTIONSPATH = @"GameDescriptions/";
-        private string saveFileLocation = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
-        private string subFolderLocalPath = "";
-        private string subFolderOnlinePath = "";
+        private string saveFileLocation = Android.App.Application.Context.FilesDir.AbsolutePath;
+        //private string saveFileLocation = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
         // ----------------------------------------------------------------------------------------------------------------
         // Constructor
         public FileStorage(Android.Content.Res.AssetManager assets)
@@ -69,7 +68,7 @@ namespace SCaR_Arcade
                 // Then we replace all whitespaces " " in between with empty;
                 gTitleTrimmed = gTitleTrimmed.Replace(" ", String.Empty);
 
-                if (!Directory.Exists(subFolderLocalPath))
+                if (!Directory.Exists(game.gLocalPath))
                 {
                     // Save the name so to be used later on with extracting, and inserting new data.
                     game.gLocalFileName = gTitleTrimmed + "Local.txt";
@@ -78,14 +77,16 @@ namespace SCaR_Arcade
                     // Combine the two strings together.
                     directory = Path.Combine(saveFileLocation.ToString(), directory);
 
-                    subFolderLocalPath = directory;
                     // Create the directory. This directory will contain the subfolder with all the data
                     // of scores by the player, and players around the world.
                     Directory.CreateDirectory(directory);
+
+                    // Save the directory.
+                    game.gLocalPath = directory;
                 }
 
 
-                if (!Directory.Exists(subFolderOnlinePath))
+                if (!Directory.Exists(game.gOnlinePath))
                 {
                     // Save the name so to be used later on with extracting, and inserting new data.
                     game.gOnlineFileName = gTitleTrimmed + "Online.txt";
@@ -94,11 +95,12 @@ namespace SCaR_Arcade
                     // Combine the two strings together.
                     directory = Path.Combine(saveFileLocation.ToString(), directory);
 
-                    subFolderOnlinePath = directory;
                     // Create the directory. This directory will contain the subfolder with all the data
                     // of scores by the player, and players around the world.
                     Directory.CreateDirectory(directory);
-                    
+
+                    // Save the directory.
+                    game.gOnlinePath = directory;
                 }
             }
         }
@@ -111,7 +113,7 @@ namespace SCaR_Arcade
             string gameFilePath = "";
 
             assetsFile = SCOREFILESPATH + "Local/" + game.localTestFile;
-            gameFilePath = subFolderLocalPath + game.gLocalFileName;
+            gameFilePath = game.gLocalPath + game.gLocalFileName;
             // Open a new connection to the .txt file, so we may extract the data.
             using (StreamReader sr = new StreamReader(assets.Open(assetsFile)))
             {
@@ -145,11 +147,11 @@ namespace SCaR_Arcade
             // Determine the game file path, where the .txt file is saved.
             if (isOnline)
             {
-                gameFilePath = subFolderOnlinePath + game.gOnlineFileName;
+                gameFilePath = game.gOnlinePath + game.gOnlineFileName;
             }
             else
             {
-                gameFilePath = subFolderLocalPath + game.gLocalFileName;
+                gameFilePath = game.gLocalPath + game.gLocalFileName;
             }
 
             // Open a new connection to the .txt file, so we may extract the data.
@@ -203,11 +205,11 @@ namespace SCaR_Arcade
             // Determine the game file path, where the .txt file is saved.
             if (isOnline)
             {
-                gameFilePath = subFolderOnlinePath + game.gOnlineFileName;
+                gameFilePath = game.gOnlinePath + game.gOnlineFileName;
             }
             else
             {
-                gameFilePath = subFolderLocalPath + game.gLocalFileName;
+                gameFilePath = game.gLocalPath + game.gLocalFileName;
             }
             // Write to the Local file containing scores.
             // We are appending the @param score into the .txt file.
@@ -251,13 +253,12 @@ namespace SCaR_Arcade
             // Determine the game file path, where the .txt file is saved.
             if (isOnline)
             {
-                path = subFolderOnlinePath + game.gOnlineFileName;
+                path = game.gOnlinePath + game.gOnlineFileName;
             }
             else
             {
-                path = subFolderLocalPath + game.gLocalFileName;
+                path = game.gLocalPath + game.gLocalFileName;
             }
-
 
             using (StreamReader sr = new StreamReader(path))
             {
@@ -282,11 +283,11 @@ namespace SCaR_Arcade
             // Determine the game file path, where the .txt file is saved.
             if (isOnline)
             {
-                path = subFolderOnlinePath + game.gOnlineFileName;
+                path = game.gOnlinePath + game.gOnlineFileName;
             }
             else
             {
-                path = subFolderLocalPath + game.gLocalFileName;
+                path = game.gLocalPath + game.gLocalFileName;
             }
 
 
@@ -344,11 +345,11 @@ namespace SCaR_Arcade
             // Determine the game file path, where the .txt file is saved.
             if (isOnline)
             {
-                path = subFolderOnlinePath + game.gOnlineFileName;
+                path = game.gOnlinePath + game.gOnlineFileName;
             }
             else
             {
-                path = subFolderLocalPath + game.gLocalFileName;
+                path = game.gLocalPath + game.gLocalFileName;
             }
             using (StreamReader sr = new StreamReader(path))
             {

@@ -120,18 +120,13 @@ namespace SCaR_Arcade
                 time.Text = row.lbTime;
 
             }
-
-
             return view;
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Populates the Leader board with data of scores that are either from the local, or online text files.
         private void PopulateLeaderBoardData(bool isOnline)
         {
-            if (data == null)
-            {
-                data = LeaderBoardInterface.PopulateLeaderBoardData(isOnline);
-            }
+            data = LeaderBoardInterface.PopulateLeaderBoardData(isOnline);
         }
     }
 }

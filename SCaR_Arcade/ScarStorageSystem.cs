@@ -75,5 +75,11 @@ namespace SCaR_Arcade
         {
             return currentStorage.reachedLimit(isOnline, limit);
         }
+        // ----------------------------------------------------------------------------------------------------------------
+        // Determines if the storage has already been created. 
+        public static bool hasStorage()
+        {
+            return currentStorage != null;
+        }
     }
 }
