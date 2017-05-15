@@ -63,6 +63,7 @@ namespace SCaR_Arcade
                 );
 
                 LeaderBoardListView.Adapter = new LeaderBoardRowAdapter(this);
+
                 localBtn.SetBackgroundColor(Color.DarkGray);
                 onlineBtn.SetBackgroundColor(Color.Gray);
 
