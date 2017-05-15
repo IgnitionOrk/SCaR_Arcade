@@ -77,7 +77,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\Symbols1.ttf" />
-    <None Include="GettingStarted.Xamarin" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
     <AndroidResource Include="Resources\layout\GameMenu.axml">
