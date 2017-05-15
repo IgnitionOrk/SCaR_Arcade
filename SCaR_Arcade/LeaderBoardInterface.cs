@@ -34,7 +34,7 @@ namespace SCaR_Arcade
         public static List<LeaderBoard> PopulateLeaderBoardData(bool isOnline)
         { 
             // A particular .txt file (local, or online) will be used determined by the boolean parameter.
-            List<string> unsortedList = FileInterface.readFromScoreFile(isOnline);
+            List<string> unsortedList = ScarStorageSystem.readData(isOnline);
 
             // This list will be sorted;
             List<LeaderBoard> unsortedLb = new List<LeaderBoard>();
@@ -56,28 +56,28 @@ namespace SCaR_Arcade
         public static void addNewScore(string playersScore)
         {
             // push scores up by one, starting after the localPosition + 1
-            FileInterface.updateData(false, localPosition);
-            if (FileInterface.fileReachedLimit(false, MAXNUMBEROFLOCALSCORES))
-            {                
+            ScarStorageSystem.updateData(false, localPosition);
+            if (ScarStorageSystem.reachedLimit(false, MAXNUMBEROFLOCALSCORES))
+            {
                 // Now we remove the score that has been pushed up to 21
-                FileInterface.removeScoreAtPosition(false, MAXNUMBEROFLOCALSCORES + 1);
+                ScarStorageSystem.removeData(false, MAXNUMBEROFLOCALSCORES + 1);
             }
             // Now we can add the new score.
             // This will be in the format Position-Name-Score-Time
-            FileInterface.addDataToFile(false, localPosition + "-" + playersScore);
+            ScarStorageSystem.addData(false, localPosition + "-" + playersScore);
 
             if (onlinePosition <= MAXNUMBEROFONLINESCORES)
             {
                 // push scores up by one, starting after the onlinePosition + 1
-                FileInterface.updateData(true, onlinePosition);
-                if (FileInterface.fileReachedLimit(true, MAXNUMBEROFONLINESCORES))
+                ScarStorageSystem.updateData(true, onlinePosition);
+                if (ScarStorageSystem.reachedLimit(true, MAXNUMBEROFONLINESCORES))
                 {
                     // Now we remove the score that has been pushed up to 101.
-                    FileInterface.removeScoreAtPosition(true, MAXNUMBEROFONLINESCORES + 1);
+                    ScarStorageSystem.removeData(true, MAXNUMBEROFONLINESCORES + 1);
                 }
                 // Now we can add the new score. 
                 // This will be in the format Position-Name-Score-Time
-                FileInterface.addDataToFile(true, onlinePosition + "-" + playersScore);
+                ScarStorageSystem.addData(true, onlinePosition + "-" + playersScore);
             }
         }
         // ----------------------------------------------------------------------------------------------------------------

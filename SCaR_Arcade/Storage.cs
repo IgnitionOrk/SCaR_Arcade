@@ -1,0 +1,30 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+using Android.App;
+using Android.Content;
+using Android.OS;
+using Android.Runtime;
+using Android.Views;
+using Android.Widget;
+/// <summary>
+/// Creator: Ryan Cunneen
+/// Student number: 3179234
+/// Date modified: 15-May-2017
+/// /// Date created: 15-May-2017
+/// </summary>
+namespace SCaR_Arcade
+{
+    interface Storage
+    {
+        void addData(bool isOnline, string score);
+        void removeData(bool isOnline, int position);
+        void assignGame(Game g);
+        string readDescription();
+        List<string> readData(bool isOnline);
+        void updateData(bool isOnline, int atPosition);
+        bool reachedLimit(bool isOnline, int limit);
+    }
+}

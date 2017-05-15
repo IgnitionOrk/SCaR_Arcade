@@ -131,6 +131,7 @@ namespace SCaR_Arcade
             return message;
         }
         // ----------------------------------------------------------------------------------------------------------------
+        //
         public static void endScreen(Context c, int iGame, int score, string time)
         {
             // Show an alert.
@@ -156,6 +157,7 @@ namespace SCaR_Arcade
             adb.Show();
         }
         // ----------------------------------------------------------------------------------------------------------------
+        //
         private static bool addToLeaderBoard(int score)
         {
             bool scoreAdded = false;

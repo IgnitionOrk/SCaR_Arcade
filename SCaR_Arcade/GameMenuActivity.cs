@@ -88,10 +88,16 @@ namespace SCaR_Arcade
             // that can increase or decrease the difficulty level.
             addPlusAndMinus();
 
-            FileInterface.addCurrentGame(game, Assets);
+
+            // Determine the storage type.
+            ScarStorageSystem.determineCurrentStorage(0, Assets);
+
+
+            // Assign the current game the player is playing.
+            ScarStorageSystem.assignGame(game);
 
             // Add the description of the game.
-            gameDescription.Text = FileInterface.readFromDescription();
+            gameDescription.Text = ScarStorageSystem.readDescription();
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Plus, and minus bitmap images are added to the image buttons 

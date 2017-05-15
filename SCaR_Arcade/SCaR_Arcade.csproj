@@ -72,7 +72,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GameActivities\TowersOfHanoiActivity.cs" />
     <Compile Include="ScarConnectionManager.cs" />
+    <Compile Include="ScarStorageSystem.cs" />
     <Compile Include="SplashScreen.cs" />
+    <Compile Include="Storage.cs" />
     <Compile Include="UserInputActivity.cs" />
   </ItemGroup>
   <ItemGroup>

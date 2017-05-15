@@ -10,7 +10,6 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using System.IO;
-
 /// <summary>
 /// Creator: Ryan Cunneen
 /// Creator: Martin O'Connor
@@ -21,23 +20,26 @@ using System.IO;
 /// </summary>
 namespace SCaR_Arcade
 {
-    static class FileInterface
+    class FileStorage : Storage
     {
-        private static Game game;
-        private static Android.Content.Res.AssetManager assets;
-        private const string SCOREFILESPATH = "ScoreFiles/";
-        private const string GAMEDESCRIPTIONSPATH = "GameDescriptions/";
-        private static string saveFileLocation = Android.App.Application.Context.FilesDir.AbsolutePath;
-        private static string subFolderLocalPath = "";
-        private static string subFolderOnlinePath = "";
+        private Game game;
+        private Android.Content.Res.AssetManager assets;
+        private const string SCOREFILESPATH = @"ScoreFiles/";
+        private const string GAMEDESCRIPTIONSPATH = @"GameDescriptions/";
+        private string saveFileLocation = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+        private string subFolderLocalPath = "";
+        private string subFolderOnlinePath = "";
+        // ----------------------------------------------------------------------------------------------------------------
+        // Constructor
+        public FileStorage(Android.Content.Res.AssetManager assets)
+        {
+            this.assets = assets;
+        }
         // ----------------------------------------------------------------------------------------------------------------
         // Adds the game the player has clicked on. 
-        public static void addCurrentGame(Game g, Android.Content.Res.AssetManager assets)
+        public void assignGame(Game g)
         {
             game = g;
-
-            // Initialize the Assets folder, so we may extract data from it. 
-            initializeAssests(assets);
 
             // We determine if the variables have already been set,
             // If they have, then the files have already been created.
@@ -54,7 +56,7 @@ namespace SCaR_Arcade
         // ----------------------------------------------------------------------------------------------------------------
         // Will create the Local (.txt), and Online(.txt) file for a particular game (instance variable),
         // And saves the file path, and name into the instance variables of game.
-        private static void createFilesForGame()
+        private void createFilesForGame()
         {
             if (game != null)
             {
@@ -96,49 +98,44 @@ namespace SCaR_Arcade
                     // Create the directory. This directory will contain the subfolder with all the data
                     // of scores by the player, and players around the world.
                     Directory.CreateDirectory(directory);
+                    
                 }
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Will add predefined data that is for the local leaderboard, notice how there isn't a need for an online .txt predefined data.
         // As the online should be purely about global players.
-        private static void addPredefinedData()
+        private void addPredefinedData()
         {
             string assetsFile = "";
             string gameFilePath = "";
-            List<string> scoreData = new List<string>();
 
             assetsFile = SCOREFILESPATH + "Local/" + game.localTestFile;
             gameFilePath = subFolderLocalPath + game.gLocalFileName;
             // Open a new connection to the .txt file, so we may extract the data.
             using (StreamReader sr = new StreamReader(assets.Open(assetsFile)))
             {
-                while (sr.Peek() > -1)
+                // Open a new connection to the .txt file, so we can insert the new data.
+                using (StreamWriter sw = new StreamWriter(gameFilePath))
                 {
-                    // Extract all the data from file located in the Assets folder. 
-                    scoreData.Add(sr.ReadLine());
-                }
+                    while (sr.Peek() > -1)
+                    {
+                        // Extract all the data from file located in the Assets folder. 
+                        sw.WriteLine(sr.ReadLine());
+                    }
 
+                    // Close the connection to the file (.txt).
+                    sw.Close();
+
+                }
                 // Close the connection to the file (.txt).
                 sr.Close();
-            }
-
-            // Open a new connection to the .txt file, so we can insert the new data.
-            using (StreamWriter sw = new StreamWriter(gameFilePath))
-            {
-                for (int i = 0; i < scoreData.Count; i++)
-                {
-                    sw.WriteLine(scoreData[i]);
-                }
-
-                // Close the connection to the file (.txt).
-                sw.Close();
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Removes the string (by not adding it to the list) from the .txt file Local or online. 
         // @param position must be determined.
-        public static void removeScoreAtPosition(bool isOnline, int position)
+        public void removeData(bool isOnline, int position)
         {
             string gameFilePath = "";
             string lineScore = "";
@@ -198,8 +195,8 @@ namespace SCaR_Arcade
 
         }
         // ----------------------------------------------------------------------------------------------------------------
-        // 
-        public static void addDataToFile(bool isOnline, string score)
+        // Adds the @param score into the .txt file determined by the @param isOnline.
+        public void addData(bool isOnline, string score)
         {
             string gameFilePath = "";
 
@@ -221,8 +218,8 @@ namespace SCaR_Arcade
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
-        // 
-        public static string readFromDescription()
+        // Returns the description of the game. 
+        public string readDescription()
         {
             if (game.gDescription == null)
             {
@@ -238,18 +235,20 @@ namespace SCaR_Arcade
                 {
                     // Read from top to bottom of the file.
                     content = sr.ReadToEnd();
+                    sr.Close();
                 }
 
                 return content;
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
-        // 
-        public static List<string> readFromScoreFile(bool isOnline)
+        // Reads all the data from either the local, or online file determined by the @param isOnline. 
+        public List<string> readData(bool isOnline)
         {
             List<string> scoreLines = new List<string>();
             string path = "";
-            string lineScore = "";
+
+            // Determine the game file path, where the .txt file is saved.
             if (isOnline)
             {
                 path = subFolderOnlinePath + game.gOnlineFileName;
@@ -264,20 +263,16 @@ namespace SCaR_Arcade
             {
                 while (sr.Peek() > -1)
                 {
-                    lineScore = sr.ReadLine();
-                    scoreLines.Add(lineScore);
+                    scoreLines.Add(sr.ReadLine());
                 }
 
                 sr.Close();
             }
-            System.Diagnostics.Debug.WriteLine("HEREREREREERERWRERERERERERERE:" + scoreLines == null );
-            System.Diagnostics.Debug.WriteLine("HEREREREREERERWRERERERERERERE:" + scoreLines.Count);
-
             return scoreLines;
         }
         // ----------------------------------------------------------------------------------------------------------------
-        // 
-        public static void updateData(bool isOnline, int atPosition)
+        // Updates all positions for each line score. 
+        public void updateData(bool isOnline, int atPosition)
         {
             string path = "";
             string lineScore = "";
@@ -340,11 +335,13 @@ namespace SCaR_Arcade
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
-        //
-        public static bool fileReachedLimit(bool isOnline, int limit)
+        // Determines if the file has reached its capacity. 
+        public bool reachedLimit(bool isOnline, int limit)
         {
             string path = "";
             int count = 0;
+
+            // Determine the game file path, where the .txt file is saved.
             if (isOnline)
             {
                 path = subFolderOnlinePath + game.gOnlineFileName;
@@ -363,17 +360,6 @@ namespace SCaR_Arcade
                 sr.Close();
             }
             return count == limit;
-        }
-        // ----------------------------------------------------------------------------------------------------------------
-        //
-        private static void initializeAssests(Android.Content.Res.AssetManager a)
-        {
-
-            if (assets == null)
-            {
-                assets = a;
-            }
-
         }
     }
 }
