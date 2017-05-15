@@ -48,8 +48,8 @@ namespace SCaR_Arcade
 
                 // Add the predefined data from the Assets folder.
                 // These will similar to the scores that are inbuilt for a game at an actual arcade. 
-                addPredefinedScores(true);
-                addPredefinedScores(false);
+                addPredefinedData(true);
+                addPredefinedData(false);
             }
 
 
@@ -105,7 +105,7 @@ namespace SCaR_Arcade
         }
         // ----------------------------------------------------------------------------------------------------------------
         // 
-        private static void addPredefinedScores(bool isOnline)
+        private static void addPredefinedData(bool isOnline)
         {
             try
             {
@@ -218,7 +218,7 @@ namespace SCaR_Arcade
         }
         // ----------------------------------------------------------------------------------------------------------------
         // 
-        public static void addScoreToFile(bool isOnline, string score)
+        public static void addDataToFile(bool isOnline, string score)
         {
             string gameFilePath = "";
 
@@ -291,7 +291,9 @@ namespace SCaR_Arcade
             }
             return scoreLines;
         }
-        public static void pushPositionsUp(bool isOnline, int atPosition)
+        // ----------------------------------------------------------------------------------------------------------------
+        // 
+        public static void updateData(bool isOnline, int atPosition)
         {
             string path = "";
             string lineScore = "";
@@ -355,37 +357,28 @@ namespace SCaR_Arcade
         }
         // ----------------------------------------------------------------------------------------------------------------
         //
-        public static bool localFileReachLimit(int limit)
+        public static bool fileReachedLimit(bool isOnline, int limit)
         {
-            string path = subFolderLocalPath + game.gLocalFileName;
-            List<string> scoreLines = new List<string>();
+            string path = "";
+            int count = 1;
+            if (isOnline)
+            {
+                path = subFolderOnlinePath + game.gOnlineFileName;
+            }
+            else
+            {
+                path = subFolderLocalPath + game.gLocalFileName;
+            }
             using (StreamReader sr = new StreamReader(path))
             {
                 while (sr.Peek() > -1)
                 {
-                    scoreLines.Add(sr.ReadLine());
+                    sr.ReadLine();
+                    count++;
                 }
-
                 sr.Close();
             }
-            return scoreLines.Count == limit;
-        }
-        // ----------------------------------------------------------------------------------------------------------------
-        //
-        public static bool onlineFileReachedLimit(int limit)
-        {
-            string path = subFolderOnlinePath + game.gOnlineFileName;
-            List<string> scoreLines = new List<string>();
-            using (StreamReader sr = new StreamReader(path))
-            {
-                while (sr.Peek() > -1)
-                {
-                    scoreLines.Add(sr.ReadLine());
-                }
-
-                sr.Close();
-            }
-            return scoreLines.Count == limit;
+            return count == limit;
         }
         // ----------------------------------------------------------------------------------------------------------------
         //

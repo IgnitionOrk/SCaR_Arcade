@@ -32,9 +32,6 @@ namespace SCaR_Arcade
         private TextView scoreTxtView;
         private TextView timeTxtView;
         private CheckBox chkBoxName;
-        private string score;
-        private string time;
-        private string dif;
         private const string DEFAULTNAME = "Unknown";
         private const string DEFAULTENTERNAMEHERE = "Enter name here.";
         protected override void OnCreate(Bundle savedInstanceState)
@@ -57,17 +54,14 @@ namespace SCaR_Arcade
 
             // Initializing data for the User input.
             enterNameTxt.Text = DEFAULTENTERNAMEHERE;
-
-
             
             string content = Intent.GetStringExtra(GlobalApp.getPlayersScoreVariable());
-            System.Diagnostics.Debug.Write(content);
             Char delimiter = '-';
             String[] subStrings = content.Split(delimiter);
 
-            score =subStrings[1];
-            dif = subStrings[2];
-            time = subStrings[3];
+            string score = subStrings[1];
+            string dif = subStrings[2];
+            string time = subStrings[3];
             scoreTxtView.Text += " "+score;
             timeTxtView.Text += " "+time;
             
@@ -116,12 +110,12 @@ namespace SCaR_Arcade
             {
                 if (String.Compare(enterNameTxt.Text, DEFAULTENTERNAMEHERE) == 0)
                 {
-                    GlobalApp.createNewPlayer(DEFAULTNAME);
+                    GlobalApp.setName(DEFAULTNAME);
                     content = DEFAULTNAME + content;
                 }
                 else
                 {
-                    GlobalApp.createNewPlayer(enterNameTxt.Text);
+                    GlobalApp.setName(enterNameTxt.Text);
                     content = enterNameTxt.Text + content;
                 }
             }
@@ -156,65 +150,9 @@ namespace SCaR_Arcade
         // Will determine if the players score, and time can be added to either local, or online. 
         private void checkForNewPositionToLocalAndOnline(string scoreStr, string timeStr,string difStr)
         {
-            
-            System.Diagnostics.Debug.Write(timeStr);
-            System.Diagnostics.Debug.Write(scoreStr);
-            System.Diagnostics.Debug.Write(difStr);
-            int score = Convert.ToInt32(scoreStr);
-            int hours = 0;
-            int minutes = 0;
-            int seconds = 0;
-            
-            // Counts the number of ":" in timeStr,
-            // There will be two if timeStr is in the format of HH:MM:SS
-            // Otherwise there will be only one MM:SS
-            int count = findNumberOfCharacters(":", timeStr);
-            
-            if (count < 2)
-            {
-                // First part of the string
-                minutes = Convert.ToInt32(GlobalApp.extractValuesFromString(":", timeStr, false));
-
-                // Second part of the string
-                seconds = Convert.ToInt32(GlobalApp.extractValuesFromString(":", timeStr, true));
-            }
-            else
-            {
-                // First part of the string
-                hours = Convert.ToInt32(GlobalApp.extractValuesFromString(":", timeStr, false));
-
-                // Second part of the string
-                minutes = Convert.ToInt32(GlobalApp.extractValuesFromString(":", timeStr, true));
-
-                // Third part of the string
-                seconds = Convert.ToInt32(timeStr.Substring(timeStr.LastIndexOf(":"), 2));
-            }
-            
-
-            bool ifNewHighScore = LeaderBoardInterface.checkForNewLocalHighScore(score,hours, minutes, seconds);
+            bool ifNewHighScore = LeaderBoardInterface.newHighTimeScore(scoreStr, timeStr, difStr);
             saveBtn.Enabled = ifNewHighScore;
             enterNameTxt.Enabled = ifNewHighScore;
-
-            // Now we don't need to check if it can be uploaded to the Online .txt file.
-        }
-        // ----------------------------------------------------------------------------------------------------------------
-        // Counts the number of characters in the content string.
-        private int findNumberOfCharacters(string character, string content)
-        {
-            int count = 0;
-            // Remove an possibility of leading, and ending whitespace.
-            content.Trim();
-
-            for(int i = 0; i < content.Length; i++)
-            {
-                if (String.Compare(character, content.Substring(i, 1)) == 0)
-                {
-                    count++;
-                }
-            }
-
-            return count;
-        }
-        
+        }        
     }
 }

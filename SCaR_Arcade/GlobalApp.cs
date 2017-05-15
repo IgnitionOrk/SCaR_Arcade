@@ -27,32 +27,25 @@ namespace SCaR_Arcade
 {
     static class GlobalApp
     {
-        private static Player player;
+        private static string playerName; 
         private static string gDifficultyName = "gameDifficulty";
         private static string gChoice = "gameChoice";
         private static string playersScore = "playersScore";
-        private static List<Game> playedGames = new List<Game>();
-        // ----------------------------------------------------------------------------------------------------------------
-        public static void createNewPlayer(string name)
-        {
-            player = new Player();
-            player.name = name;
-        }
         // ----------------------------------------------------------------------------------------------------------------
         // Sets the name of the current player;
         public static void setName(string name)
         {
-            player.name = name;
+            playerName = name;
         }
         // ----------------------------------------------------------------------------------------------------------------
         public static string getName()
         {
-            return player.name;
+            return playerName;
         }
         // ----------------------------------------------------------------------------------------------------------------
         public static bool isNewPlayer()
         {
-            return player == null;
+            return playerName == null;
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Returns the value of the variables (value represents the name).
@@ -190,5 +183,24 @@ namespace SCaR_Arcade
             }
             return temp;
         }
+        // ----------------------------------------------------------------------------------------------------------------
+        // Counts the number of characters in the content string.
+        public static int findNumberOfCharacters(string character, string content)
+        {
+            int count = 0;
+            // Remove an possibility of leading, and ending whitespace.
+            content.Trim();
+
+            for (int i = 0; i < content.Length; i++)
+            {
+                if (String.Compare(character, content.Substring(i, 1)) == 0)
+                {
+                    count++;
+                }
+            }
+
+            return count;
+        }
+
     }
 }

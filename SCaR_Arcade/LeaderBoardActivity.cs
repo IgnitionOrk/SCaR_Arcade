@@ -118,7 +118,6 @@ namespace SCaR_Arcade
         public override void OnBackPressed()
         {
             GlobalApp.BeginActivity(this, typeof(GameMenuActivity), GlobalApp.getVariableChoiceName(), gameChoice);        
-           
         }
     }
 }
