@@ -77,7 +77,9 @@ namespace SCaR_Arcade
                     gMinDifficulty = 2,
                     gMaxDifficulty = 5,
                     gType = typeof(GameActivities.DiceRolls),
-                    gDescription = "DR_GameDescription.txt"
+                    gDescription = "DR_GameDescription.txt",
+                    localTestFile = "drLocalTest.txt",
+                    onlineTestFile = "drOnlineTest.txt"
                 }
                 );
 
