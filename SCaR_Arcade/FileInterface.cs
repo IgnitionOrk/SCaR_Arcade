@@ -43,16 +43,15 @@ namespace SCaR_Arcade
             // If they have, then the files have already been created.
             if (game.gOnlineFileName == null && game.gLocalFileName == null)
             {
+                System.Diagnostics.Debug.WriteLine("HEREREREREREREREER");
                 // Create the Local, and Online txt files.
                 createFilesForGame();
 
                 // Add the predefined data from the Assets folder.
                 // These will similar to the scores that are inbuilt for a game at an actual arcade. 
-                addPredefinedData(true);
                 addPredefinedData(false);
+                addPredefinedData(true);
             }
-
-
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Will create the Local (.txt), and Online(.txt) file for a particular game (instance variable),
@@ -106,51 +105,46 @@ namespace SCaR_Arcade
         // 
         private static void addPredefinedData(bool isOnline)
         {
-            try
+            string assetsFile = "";
+            string gameFilePath = "";
+            List<string> scoreData = new List<string>();
+
+            if (isOnline)
             {
-                string assetsFile = "";
-                string gameFilePath = "";
-                List<string> scoreData = new List<string>();
-
-                if (isOnline)
-                {
-                    assetsFile = game.onlineTestFile;
-                    gameFilePath = subFolderOnlinePath + game.gOnlineFileName;
-                }
-                else
-                {
-                    assetsFile = game.localTestFile;
-                    gameFilePath = subFolderLocalPath + game.gLocalFileName;
-                }
-
-                // Open a new connection to the .txt file, so we may extract the data.
-                using (StreamReader sr = new StreamReader(assets.Open(assetsFile)))
-                {
-                    while (sr.Peek() > -1)
-                    {
-                        // Extract all the data from file located in the Assets folder. 
-                        scoreData.Add(sr.ReadLine());
-                    }
-
-                    // Close the connection to the file (.txt).
-                    sr.Close();
-                }
-
-                // Open a new connection to the .txt file, so we can insert the new data.
-                using (StreamWriter sw = new StreamWriter(gameFilePath))
-                {
-                    for (int i = 0; i < scoreData.Count; i++)
-                    {
-                        sw.WriteLine(scoreData[i]);
-                    }
-
-                    // Close the connection to the file (.txt).
-                    sw.Close();
-                }
+                assetsFile = SCOREFILESPATH + "Online/" + game.onlineTestFile;
+                gameFilePath = subFolderOnlinePath + game.gOnlineFileName;
             }
-            catch
+            else
             {
-                System.Diagnostics.Debug.Write("Crash caused in FileInterface.addPredefinedScores().");
+                assetsFile = SCOREFILESPATH + "Local/" + game.localTestFile;
+                gameFilePath = subFolderLocalPath + game.gLocalFileName;
+            }
+            System.Diagnostics.Debug.WriteLine("HEHEHE FILE EXISTS: "+File.Exists(assetsFile));
+            System.Diagnostics.Debug.WriteLine("HEHEHE GAMES FILE EXISTS: " + File.Exists(gameFilePath));
+            System.Diagnostics.Debug.WriteLine("HEHEHE GAMES PATH: " +gameFilePath);
+            // Open a new connection to the .txt file, so we may extract the data.
+            using (StreamReader sr = new StreamReader(assets.Open(assetsFile)))
+            {
+                while (sr.Peek() > -1)
+                {
+                    // Extract all the data from file located in the Assets folder. 
+                    scoreData.Add(sr.ReadLine());
+                }
+
+                // Close the connection to the file (.txt).
+                sr.Close();
+            }
+
+            // Open a new connection to the .txt file, so we can insert the new data.
+            using (StreamWriter sw = new StreamWriter(gameFilePath))
+            {
+                for (int i = 0; i < scoreData.Count; i++)
+                {
+                    sw.WriteLine(scoreData[i]);
+                }
+
+                // Close the connection to the file (.txt).
+                sw.Close();
             }
         }
         // ----------------------------------------------------------------------------------------------------------------

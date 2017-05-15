@@ -66,8 +66,8 @@ namespace SCaR_Arcade
                     gMaxDifficulty = 8,
                     gType = typeof(GameActivities.TowersOfHanoiActivity),
                     gDescription = "ToH_GameDescription.txt",
-                    localTestFile = "tohLocalTest",
-                    onlineTestFile = "tohOnlineTest"
+                    localTestFile = "tohLocalTest.txt",
+                    onlineTestFile = "tohOnlineTest.txt"
                 }
                 );
                 gList.Add(new Game
