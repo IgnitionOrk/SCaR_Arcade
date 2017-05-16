@@ -66,8 +66,8 @@ namespace SCaR_Arcade
                     gMaxDifficulty = 8,
                     gType = typeof(GameActivities.TowersOfHanoiActivity),
                     gDescription = "ToH_GameDescription.txt",
-                    localTestFile = "tohLocalTest.txt",
-                    onlineTestFile = "tohOnlineTest.txt"
+                    glocalTestFile = "tohLocalTest.txt",
+                    gonlineTestFile = "tohOnlineTest.txt"
                 }
                 );
                 gList.Add(new Game
@@ -79,8 +79,14 @@ namespace SCaR_Arcade
                     gMaxDifficulty = 5,
                     gType = typeof(GameActivities.DiceRolls),
                     gDescription = "DR_GameDescription.txt",
-                    localTestFile = "drLocalTest.txt",
-                    onlineTestFile = "drOnlineTest.txt"
+                    glocalTestFile = "drLocalTest.txt",
+                    gonlineTestFile = "drOnlineTest.txt",
+                    gLeaderBoardCol1 = 2,
+                    gLeaderBoardCol1SortBy = 1,
+                    gLeaderBoardCol2 = 1,
+                    gLeaderBoardCol2SortBy = 2,
+                    gLeaderBoardCol3 = 3,
+                    gLeaderBoardCol3SortBy = 3
                 }
                 );
             }

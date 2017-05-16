@@ -29,11 +29,19 @@ namespace SCaR_Arcade
         public string gOnlineFileName { get; set; }
         public string gLocalPath { get; set; }
         public string gOnlinePath { get; set; }
-        public string localTestFile { get; set; }
-        public string onlineTestFile { get; set; }
+        public string glocalTestFile { get; set; }
+        public string gonlineTestFile { get; set; }
         public Type gType { get; set; }
         public int gMinDifficulty { get; set; }
         public int gMaxDifficulty { get; set; }
         public string gDescription { get; set; }
+        //sort by what first, dif = 1, score = 2, time = 3
+        public int gLeaderBoardCol1 { get; set; }
+        public int gLeaderBoardCol2 { get; set; }
+        public int gLeaderBoardCol3 { get; set; }
+        // sort by 1 = ascending, 2 = decending, 3 = doesn't mater
+        public int gLeaderBoardCol1SortBy { get; set; }
+        public int gLeaderBoardCol2SortBy { get; set; }
+        public int gLeaderBoardCol3SortBy { get; set; }
     }
 }

@@ -32,7 +32,7 @@ namespace SCaR_Arcade
         // ----------------------------------------------------------------------------------------------------------------
         // Populates the Leader board with data of scores that are either from the local, or online text files.
         public static List<LeaderBoard> PopulateLeaderBoardData(bool isOnline)
-        { 
+        {
             // A particular .txt file (local, or online) will be used determined by the boolean parameter.
             List<string> unsortedList = ScarStorageSystem.readData(isOnline);
 
@@ -181,7 +181,7 @@ namespace SCaR_Arcade
                     }
                 }
             }
-            return position;  
+            return position;
         }
         // ----------------------------------------------------------------------------------------------------------------
         //
@@ -219,9 +219,9 @@ namespace SCaR_Arcade
         }
         // ----------------------------------------------------------------------------------------------------------------
         //
-        public static string formatLeaderBoardScore(string name, string score,int dif, string time)
+        public static string formatLeaderBoardScore(string name, string score, int dif, string time)
         {
-            return name + "-" + score + "-" + dif + "-"+ time;
+            return name + "-" + score + "-" + dif + "-" + time;
         }
         // ----------------------------------------------------------------------------------------------------------------
         // We will sort the entire list here, using the sorting algorithm selection.
@@ -248,6 +248,70 @@ namespace SCaR_Arcade
                     sortedList[position] = temp;
                 }
             }
+            return sortedList;
+        }
+        //will detirmine which col the game wants to sort by first and by what method
+        private static List<LeaderBoard> LeaderBoardSort(List<LeaderBoard> sortedList, Game game)
+        {
+            int colPos = 0;
+            int colNum;
+            int colSortBy;
+            
+            colPos++;
+            colNum = game.gLeaderBoardCol1;
+            colSortBy = game.gLeaderBoardCol1SortBy;
+            LeaderBoardSortWhat(sortedList, colNum, colSortBy, colPos);
+
+            colPos++;
+            colNum = game.gLeaderBoardCol2;
+            colSortBy = game.gLeaderBoardCol2SortBy;
+            LeaderBoardSortWhat(sortedList, colNum, colSortBy, colPos);
+
+            colPos++;
+            colNum = game.gLeaderBoardCol3;
+            colSortBy = game.gLeaderBoardCol3SortBy;
+            LeaderBoardSortWhat(sortedList, colNum, colSortBy, colPos);
+
+
+            return sortedList;
+        }
+        private static List<LeaderBoard> LeaderBoardSortWhat(List<LeaderBoard> sortedList, int colNum, int colSortBy, int colPos)
+        {
+            switch (colNum)
+            {
+                case 1:
+                    LeaderBoardSortBy(sortedList, colNum, colSortBy, colPos);
+                    break;
+                case 2:
+                    LeaderBoardSortBy(sortedList, colNum, colSortBy, colPos);
+                    break;
+                case 3:
+                    LeaderBoardSortBy(sortedList, colNum, colSortBy, colPos);
+                    break;
+                default:
+                    break;
+            }
+            return sortedList;
+        }
+
+        private static List<LeaderBoard> LeaderBoardSortBy(List<LeaderBoard> sortedList, int colNum, int colSortBy, int colPos)
+        {
+            int position = 0;
+            LeaderBoard temp;
+
+            //sort colNum acending and make sure  it doesn't effect previous colPos's
+            if (colSortBy == 1)
+            {
+
+            }
+            //sort colNum decending and make sure  it doesn't effect previous colPos's
+            else if (colSortBy == 2)
+            {
+
+            }
+            // ifanything else do not sort
+            
+
             return sortedList;
         }
     }
