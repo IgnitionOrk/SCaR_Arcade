@@ -85,10 +85,6 @@ namespace SCaR_Arcade
             {
                 GlobalApp.Alert(this, 0);
             }
-            finally
-            {
-                GlobalApp.BeginActivity(this, typeof(MainActivity), "", 0);
-            }
         } 
         // ----------------------------------------------------------------------------------------------------------------
         // Returns to the Game Menu Activity of the application.
