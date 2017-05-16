@@ -114,7 +114,7 @@
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\game1.png" />
+    <AndroidResource Include="Resources\drawable\TowersLogo.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\game2.png" />
@@ -138,7 +138,7 @@
     <AndroidResource Include="Resources\drawable\Pole.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\game1bg.png" />
+    <AndroidResource Include="Resources\drawable\TowersLogo_bg.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\minus.png" />
@@ -160,6 +160,12 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\ScoreFiles\Online\drOnlineTest.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\DiceLogo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\DiceLogo_bg.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

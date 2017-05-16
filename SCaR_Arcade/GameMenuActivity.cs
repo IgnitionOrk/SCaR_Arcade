@@ -77,6 +77,7 @@ namespace SCaR_Arcade
                 txtDifficulty.Text = String.Format("{0}", difficulty);
                 txtGameTitle.Text = game.gTitle;
                 FullScreen.SetBackgroundResource(game.gMenuBackground);
+                descriptionBackground.SetBackgroundColor(Color.Gray);
 
                 // Event handlers.
                 btnStart.Click += ButtonClickStart;
@@ -129,7 +130,8 @@ namespace SCaR_Arcade
         protected void ButtonClickStart(Object sender, EventArgs args)
         {
             // Begin the game Activity specifed by type
-            GlobalApp.BeginActivity(this, game.gType, GlobalApp.getVariableDifficultyName(), difficulty);
+            GlobalApp.BeginActivity(this, game.gType, GlobalApp.getVariableDifficultyName(), difficulty,
+                    GlobalApp.getVariableChoiceName(), Intent.GetIntExtra(GlobalApp.getVariableChoiceName(), 0));
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Returns to the Main Activity of the application.

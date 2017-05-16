@@ -1,5 +1,5 @@
-﻿This is a brief discription of Towers of Hanoi.
+﻿This is a brief discription of Dice Rolls.
 This text goes through how to play the game.
 Maybe even a tip to try.
 
-It will also say what the difficulty setting effects.
+It will also say what the difficulty setting affects.

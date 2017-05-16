@@ -60,8 +60,8 @@ namespace SCaR_Arcade
                 gList.Add(new Game
                 {
                     gTitle = "Towers of Hanoi",
-                    gLogo = Resource.Drawable.game1,
-                    gMenuBackground = Resource.Drawable.game1bg,
+                    gLogo = Resource.Drawable.TowersLogo,
+                    gMenuBackground = Resource.Drawable.TowersLogo_bg,
                     gMinDifficulty = 3,
                     gMaxDifficulty = 8,
                     gType = typeof(GameActivities.TowersOfHanoiActivity),
@@ -73,7 +73,8 @@ namespace SCaR_Arcade
                 gList.Add(new Game
                 {
                     gTitle = "Dice Rolls",
-                    gLogo = Resource.Drawable.gameBase,
+                    gLogo = Resource.Drawable.DiceLogo,
+                    gMenuBackground = Resource.Drawable.DiceLogo_bg,
                     gMinDifficulty = 2,
                     gMaxDifficulty = 5,
                     gType = typeof(GameActivities.DiceRolls),

@@ -48,13 +48,13 @@ namespace SCaR_Arcade
 			public const int circle = 2130837504;
 			
 			// aapt resource value: 0x7f020001
-			public const int Disk = 2130837505;
+			public const int DiceLogo = 2130837505;
 			
 			// aapt resource value: 0x7f020002
-			public const int game1 = 2130837506;
+			public const int DiceLogo_bg = 2130837506;
 			
 			// aapt resource value: 0x7f020003
-			public const int game1bg = 2130837507;
+			public const int Disk = 2130837507;
 			
 			// aapt resource value: 0x7f020004
 			public const int game2 = 2130837508;
@@ -82,6 +82,12 @@ namespace SCaR_Arcade
 			
 			// aapt resource value: 0x7f02000c
 			public const int TargetPole = 2130837516;
+			
+			// aapt resource value: 0x7f02000d
+			public const int TowersLogo = 2130837517;
+			
+			// aapt resource value: 0x7f02000e
+			public const int TowersLogo_bg = 2130837518;
 			
 			static Drawable()
 			{

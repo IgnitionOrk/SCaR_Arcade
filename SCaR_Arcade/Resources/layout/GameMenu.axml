@@ -91,16 +91,18 @@
             android:layout_marginRight="50dp"
             android:layout_marginLeft="50dp">
             <TextView
-                android:text=""
+                android:text="Description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/desTextView" />
+                android:id="@+id/desTextView"
+                android:gravity="center"
+                android:textSize="18sp" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/description"
                 android:layout_marginBottom="219.5dp"
-                android:gravity="center"/>
+                android:gravity="center" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

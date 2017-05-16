@@ -65,6 +65,9 @@ namespace SCaR_Arcade
         {
             return playersScore;
         }
+
+        // ----------------------------------------------------------------------------------------------------------------
+        // Begins the Activity specified by @param type.
         public static void BeginActivity(Context c,Type type, string variableName, int value)
         {
             try
@@ -83,17 +86,37 @@ namespace SCaR_Arcade
                 Alert(c, 2);
             }
         }
-
         // ----------------------------------------------------------------------------------------------------------------
         // Begins the Activity specified by @param type.
-        public static void BeginActivity(Context c, Type type, string variableName, string value)
+        public static void BeginActivity(Context c, Type type, string variableName, string value, string variableTwoName, int valueTwo)
         {
             try
             {
                 Intent intent = new Intent(c, type);
                 if (type != typeof(MainActivity))
                 {
-                    intent.PutExtra(getVariableChoiceName(), intent.GetIntExtra(getVariableChoiceName(), 0));
+                    intent.PutExtra(variableTwoName, valueTwo);
+                    intent.PutExtra(variableName, value);
+                }
+                c.StartActivity(intent);
+            }
+            catch
+            {
+                // because an error has happend at the Application level
+                // We delegate the responsibility to the GlobalApp class.
+                GlobalApp.Alert(c, 2);
+            }
+        }
+        // ----------------------------------------------------------------------------------------------------------------
+        // Begins the Activity specified by @param type.
+        public static void BeginActivity(Context c, Type type, string variableName, int value, string variableTwoName, int valueTwo)
+        {
+            try
+            {
+                Intent intent = new Intent(c, type);
+                if (type != typeof(MainActivity))
+                {
+                    intent.PutExtra(variableTwoName, valueTwo);
                     intent.PutExtra(variableName, value);
                 }
                 c.StartActivity(intent);
