@@ -105,10 +105,6 @@ namespace SCaR_Arcade
             {
                 GlobalApp.Alert(this, 0);
             }
-            finally
-            {
-                GlobalApp.BeginActivity(this, typeof(MainActivity), "", 0);
-            }
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Plus, and minus bitmap images are added to the image buttons 
