@@ -328,13 +328,13 @@ namespace SCaR_Arcade
                                             switch (game.gLeaderBoardCol1)
                                             {
                                                 case 1:
-                                                    if (sortedList[y].lbDiff < sortedList[position].lbDiff)
+                                                    if (sortedList[y].lbDiff <= sortedList[position].lbDiff)
                                                     {
 
                                                     }
                                                     break;
                                                 case 2:
-                                                    if (sortedList[y].lbScore < sortedList[position].lbScore)
+                                                    if (sortedList[y].lbScore <= sortedList[position].lbScore)
                                                     {
                                                         position = y;
                                                     }
@@ -353,13 +353,13 @@ namespace SCaR_Arcade
                                             switch (game.gLeaderBoardCol1)
                                             {
                                                 case 1:
-                                                    if (sortedList[y].lbDiff > sortedList[position].lbDiff)
+                                                    if (sortedList[y].lbDiff >= sortedList[position].lbDiff)
                                                     {
 
                                                     }
                                                     break;
                                                 case 2:
-                                                    if (sortedList[y].lbScore > sortedList[position].lbScore)
+                                                    if (sortedList[y].lbScore >= sortedList[position].lbScore)
                                                     {
                                                         position = y;
                                                     }
