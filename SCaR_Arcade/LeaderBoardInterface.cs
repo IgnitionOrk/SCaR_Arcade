@@ -256,37 +256,37 @@ namespace SCaR_Arcade
             int colPos = 0;
             int colNum;
             int colSortBy;
-            
+
             colPos++;
             colNum = game.gLeaderBoardCol1;
             colSortBy = game.gLeaderBoardCol1SortBy;
-            LeaderBoardSortWhat(sortedList, colNum, colSortBy, colPos);
+            LeaderBoardSortWhat(sortedList, game, colNum, colSortBy, colPos);
 
             colPos++;
             colNum = game.gLeaderBoardCol2;
             colSortBy = game.gLeaderBoardCol2SortBy;
-            LeaderBoardSortWhat(sortedList, colNum, colSortBy, colPos);
+            LeaderBoardSortWhat(sortedList, game, colNum, colSortBy, colPos);
 
             colPos++;
             colNum = game.gLeaderBoardCol3;
             colSortBy = game.gLeaderBoardCol3SortBy;
-            LeaderBoardSortWhat(sortedList, colNum, colSortBy, colPos);
+            LeaderBoardSortWhat(sortedList, game, colNum, colSortBy, colPos);
 
 
             return sortedList;
         }
-        private static List<LeaderBoard> LeaderBoardSortWhat(List<LeaderBoard> sortedList, int colNum, int colSortBy, int colPos)
+        private static List<LeaderBoard> LeaderBoardSortWhat(List<LeaderBoard> sortedList, Game game, int colNum, int colSortBy, int colPos)
         {
             switch (colNum)
             {
                 case 1:
-                    LeaderBoardSortBy(sortedList, colNum, colSortBy, colPos);
+                    LeaderBoardSortBy(sortedList, game, colNum, colSortBy, colPos);
                     break;
                 case 2:
-                    LeaderBoardSortBy(sortedList, colNum, colSortBy, colPos);
+                    LeaderBoardSortBy(sortedList, game, colNum, colSortBy, colPos);
                     break;
                 case 3:
-                    LeaderBoardSortBy(sortedList, colNum, colSortBy, colPos);
+                    LeaderBoardSortBy(sortedList, game, colNum, colSortBy, colPos);
                     break;
                 default:
                     break;
@@ -294,7 +294,7 @@ namespace SCaR_Arcade
             return sortedList;
         }
 
-        private static List<LeaderBoard> LeaderBoardSortBy(List<LeaderBoard> sortedList, int colNum, int colSortBy, int colPos)
+        private static List<LeaderBoard> LeaderBoardSortBy(List<LeaderBoard> sortedList, Game game, int colNum, int colSortBy, int colPos)
         {
             int position = 0;
             LeaderBoard temp;
@@ -303,6 +303,114 @@ namespace SCaR_Arcade
             if (colSortBy == 1)
             {
 
+                for (int x = 0; x < sortedList.Count - 1; x++)
+                {
+                    position = x;
+                    for (int y = x + 1; y < sortedList.Count; y++)
+                    {
+                        //check which colNum we are sorting
+                        switch (colNum)
+                        {
+                            //sort dif
+                            case 1:
+                                if (sortedList[y].lbDiff < sortedList[position].lbDiff)
+                                {
+                                    //if 1st sort, just sort
+                                    if (colPos == 1)
+                                    {
+                                        position = y;
+                                    }
+                                    //if 2nd sort, don't affect 1st sort
+                                    if (colPos == 2)
+                                    {
+                                        if (game.gLeaderBoardCol1SortBy == 1)
+                                        {
+                                            switch (game.gLeaderBoardCol1)
+                                            {
+                                                case 1:
+                                                    if (sortedList[y].lbDiff < sortedList[position].lbDiff)
+                                                    {
+
+                                                    }
+                                                    break;
+                                                case 2:
+                                                    if (sortedList[y].lbScore < sortedList[position].lbScore)
+                                                    {
+                                                        position = y;
+                                                    }
+                                                    break;
+                                                case 3:
+                                                    /*
+                                                    if (sortedList[y].lbTime < sortedList[position].lbTime)
+                                                    {
+                                                        position = y;
+                                                    }*/
+                                                    break;
+                                            }
+                                        }
+                                        else if (game.gLeaderBoardCol1SortBy == 2)
+                                        {
+                                            switch (game.gLeaderBoardCol1)
+                                            {
+                                                case 1:
+                                                    if (sortedList[y].lbDiff > sortedList[position].lbDiff)
+                                                    {
+
+                                                    }
+                                                    break;
+                                                case 2:
+                                                    if (sortedList[y].lbScore > sortedList[position].lbScore)
+                                                    {
+                                                        position = y;
+                                                    }
+                                                    break;
+                                                case 3:
+                                                    /*
+                                                    if (sortedList[y].lbTime > sortedList[position].lbTime)
+                                                    {
+                                                        position = y;
+                                                    }*/
+                                                    break;
+                                            }
+                                        }
+                                    }
+                                    //if 3rd sort don't affect 1st and 2nd sorts
+                                    if (colPos == 3)
+                                    {
+
+
+
+                                    }
+                                }
+                                break;
+                            case 2:
+                                if (sortedList[y].lbScore < sortedList[position].lbScore)
+                                {
+                                    position = y;
+                                }
+                                break;
+                            case 3:
+                                /*
+                                if (sortedList[y].lbTime < sortedList[position].lbTime)
+                                {
+                                    position = y;
+                                }*/
+                                break;
+                            default:
+                                break;
+                        }
+
+                    }
+                    if (position != x)
+                    {
+                        temp = sortedList[x];
+                        sortedList[x] = sortedList[position];
+                        sortedList[position] = temp;
+                        sortedList[position].lbPosition = position;
+                    }
+                }
+                return sortedList;
+
             }
             //sort colNum decending and make sure  it doesn't effect previous colPos's
             else if (colSortBy == 2)
@@ -310,7 +418,7 @@ namespace SCaR_Arcade
 
             }
             // ifanything else do not sort
-            
+
 
             return sortedList;
         }
