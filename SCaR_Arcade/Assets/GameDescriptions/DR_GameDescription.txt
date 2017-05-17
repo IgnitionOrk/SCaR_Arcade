@@ -1,5 +1,3 @@
-﻿This is a brief discription of Dice Rolls.
-This text goes through how to play the game.
-Maybe even a tip to try.
-
-It will also say what the difficulty setting affects.
+﻿Dice Rolls is a game of luck.
+Try and get the highest score with the amount of dice given.
+If you get two or more of the same value, Roll again.
