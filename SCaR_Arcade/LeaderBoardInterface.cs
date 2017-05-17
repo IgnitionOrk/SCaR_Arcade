@@ -269,50 +269,36 @@ namespace SCaR_Arcade
             }
             return sortedList;
         }
-        //will detirmine which col the game wants to sort by first and by what method
+        //will detirmine which column the game wants to sort by first and by what method
         private static List<LeaderBoard> LeaderBoardSort(List<LeaderBoard> sortedList, Game game)
         {
             int colPos = 0;
             int colNum;
             int colSortBy;
 
+            //first sort
             colPos++;
             colNum = game.gLeaderBoardCol1;
             colSortBy = game.gLeaderBoardCol1SortBy;
-            LeaderBoardSortWhat(sortedList, game, colNum, colSortBy, colPos);
+            LeaderBoardSortBy(sortedList, game, colNum, colSortBy, colPos);
 
+            //second sort
             colPos++;
             colNum = game.gLeaderBoardCol2;
             colSortBy = game.gLeaderBoardCol2SortBy;
-            LeaderBoardSortWhat(sortedList, game, colNum, colSortBy, colPos);
+            LeaderBoardSortBy(sortedList, game, colNum, colSortBy, colPos);
 
+            //third sort
             colPos++;
             colNum = game.gLeaderBoardCol3;
             colSortBy = game.gLeaderBoardCol3SortBy;
-            LeaderBoardSortWhat(sortedList, game, colNum, colSortBy, colPos);
+            LeaderBoardSortBy(sortedList, game, colNum, colSortBy, colPos);
 
 
             return sortedList;
         }
-        private static List<LeaderBoard> LeaderBoardSortWhat(List<LeaderBoard> sortedList, Game game, int colNum, int colSortBy, int colPos)
-        {
-            switch (colNum)
-            {
-                case 1:
-                    LeaderBoardSortBy(sortedList, game, colNum, colSortBy, colPos);
-                    break;
-                case 2:
-                    LeaderBoardSortBy(sortedList, game, colNum, colSortBy, colPos);
-                    break;
-                case 3:
-                    LeaderBoardSortBy(sortedList, game, colNum, colSortBy, colPos);
-                    break;
-                default:
-                    break;
-            }
-            return sortedList;
-        }
 
+        //is the sorting methoed for leaderboards that sorts column how the game wants them sorted, while taking into account the previous sorts if any
         private static List<LeaderBoard> LeaderBoardSortBy(List<LeaderBoard> sortedList, Game game, int colNum, int colSortBy, int colPos)
         {
             int position = 0;

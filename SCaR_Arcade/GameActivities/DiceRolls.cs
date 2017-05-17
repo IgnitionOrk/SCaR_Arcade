@@ -78,6 +78,8 @@ namespace SCaR_Arcade.GameActivities
 
 
                 // Build the game display that the user will interact with;
+
+                //detirmine how many dice will be displayed based on difficulty
                 switch (Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1))
                 {
                     case 2:
@@ -151,7 +153,7 @@ namespace SCaR_Arcade.GameActivities
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
-        // Images of the poles in the background.
+        // Images of the dice in the background.
         private void createImageViews()
         {
             LinearLayout.LayoutParams imageViewParameters = new LinearLayout.LayoutParams(
@@ -311,7 +313,7 @@ namespace SCaR_Arcade.GameActivities
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
-        // The game has ended so the score, and time will be displayed.
+        // The game has ended so the score, and time will passed to userInputActivity.
         private void end()
         {
             try
@@ -354,7 +356,7 @@ namespace SCaR_Arcade.GameActivities
         
         // ----------------------------------------------------------------------------------------------------------------
         /*
-            INTERNAL buttons and th FOR Dice Rolls.        
+            INTERNAL buttons and there responses FOR Dice Rolls.        
         */
         //----------------------------------------------------------------------------------------------------------------
 
@@ -421,7 +423,7 @@ namespace SCaR_Arcade.GameActivities
         {
             elapsedTime.Text = String.Format("{0}", "Time: " + chronometer.Text);
         }
-
+        //turns on and off the acelerometer sensor
         public void sensorSwitch(bool turnOn)
         {
             if (turnOn)
@@ -440,13 +442,14 @@ namespace SCaR_Arcade.GameActivities
         }
 
         public void OnAccuracyChanged(Sensor sensor, [GeneratedEnum] SensorStatus accuracy) { }
+
         //checks if phone has been moved in any direction to that directions previous point
         public void OnSensorChanged(SensorEvent e)
         {
             lock (_syncLock)
             {
                 if (buffCount != 0)
-                {
+                {   //stored values to be checked against
                     buffCount--;
                     lock (_syncLock)
                     {
@@ -462,7 +465,7 @@ namespace SCaR_Arcade.GameActivities
                     {
                         float num = 3;
                         float negNum = -3;
-
+                        //check against stored values and see if moved
                         if (x - e.Values[0] < negNum || num < x - e.Values[0] ||
                         y - e.Values[1] < negNum || num < y - e.Values[1] ||
                         z - e.Values[2] < negNum || num < z - e.Values[2])
