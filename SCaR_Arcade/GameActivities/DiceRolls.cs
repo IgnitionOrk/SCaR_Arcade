@@ -92,6 +92,9 @@ namespace SCaR_Arcade.GameActivities
                     case 5:
                         maxComponents = 2;
                         break;
+                    default:
+                        maxComponents = 1;
+                        break;
                 }
 
                  Game();
