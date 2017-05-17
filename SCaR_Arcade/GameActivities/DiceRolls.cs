@@ -78,14 +78,31 @@ namespace SCaR_Arcade.GameActivities
 
 
                 // Build the game display that the user will interact with;
-                maxComponents = Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1);
+                switch (Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1))
+                {
+                    case 2:
+                        maxComponents = 5;
+                        break;
+                    case 3:
+                        maxComponents = 4;
+                        break;
+                    case 4:
+                        maxComponents = 3;
+                        break;
+                    case 5:
+                        maxComponents = 2;
+                        break;
+                    default:
+                        maxComponents = 1;
+                        break;
+                }
 
-                Game();
+                 Game();
 
                 logic = new GameLogic.DiceRollsLogic(maxComponents);
                 txtVScore.Text = "Score: " + 0;
                 txtOptimalNoOfMoves.Text = "no. of Rolls: " + numberOfRolls;
-                chronometer.Visibility = Android.Views.ViewStates.Invisible;
+                chronometer.Visibility = ViewStates.Invisible;
 
                 // Event handlers:
                 btnReplay.Click += btnReplayOnClick;

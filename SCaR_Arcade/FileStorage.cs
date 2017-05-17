@@ -120,6 +120,10 @@ namespace SCaR_Arcade
         {
             string assetsFile = "";
             string gameFilePath = "";
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
             assetsFile = SCOREFILESPATH + "Local/" + game.glocalTestFile;
             gameFilePath = game.gLocalPath + game.gLocalFileName;
             // Open a new connection to the .txt file, so we may extract the data.
