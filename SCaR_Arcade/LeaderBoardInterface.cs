@@ -27,23 +27,32 @@ namespace SCaR_Arcade
         // The top 100 of players scores around the world will be added, and shown.
         private const int MAXNUMBEROFONLINESCORES = 100;
 
-        private static int localPosition = 1;
-        private static int onlinePosition = 1;
+        private static int localPosition = 0;
+        private static int onlinePosition = 0;
         // ----------------------------------------------------------------------------------------------------------------
         // Populates the Leader board with data of scores that are either from the local, or online text files.
         public static List<LeaderBoard> PopulateLeaderBoardData(bool isOnline)
         {
-            // A particular .txt file (local, or online) will be used determined by the boolean parameter.
-            List<string> unsortedList = ScarStorageSystem.readData(isOnline);
+            string path = "";
+            if (isOnline)
+            {
+                path = GameInterface.getCurrentGame().gOnlinePath + GameInterface.getCurrentGame().gOnlineFileName;
+            }
+            else
+            {
+                path = GameInterface.getCurrentGame().gLocalPath + GameInterface.getCurrentGame().gLocalFileName;
+            }
 
-            // This list will be sorted;
+            // A particular .txt file (local, or online) will be used determined by the string (path) parameter.
+            List<string> unsortedList = ScarStorageSystem.readData(path);
+            
             List<LeaderBoard> unsortedLb = new List<LeaderBoard>();
 
             if (unsortedList != null)
             {
                 unsortedLb = addLeaderboardObjects(unsortedList, isOnline);
             }
-            // Return a sorted Leaderboard list. 
+
             return selectionSort(unsortedLb);
         }
         // ----------------------------------------------------------------------------------------------------------------
@@ -55,29 +64,32 @@ namespace SCaR_Arcade
         // Time - How long it took to win the game. 
         public static void addNewScore(string playersScore)
         {
-            // push scores up by one, starting after the localPosition + 1
-            ScarStorageSystem.updateData(false, localPosition);
-            if (ScarStorageSystem.reachedLimit(false, MAXNUMBEROFLOCALSCORES))
+
+            string localPath = GameInterface.getCurrentGame().gLocalPath + GameInterface.getCurrentGame().gLocalFileName;
+            string onlinePath = GameInterface.getCurrentGame().gOnlinePath + GameInterface.getCurrentGame().gOnlineFileName;
+            // push scores up by one, starting after the onlinePosition (localPosition + 1)
+            ScarStorageSystem.updateData(localPath, localPosition);
+            if (ScarStorageSystem.reachedLimit(localPath, MAXNUMBEROFLOCALSCORES))
             {
                 // Now we remove the score that has been pushed up to 21
-                ScarStorageSystem.removeData(false, MAXNUMBEROFLOCALSCORES + 1);
+                ScarStorageSystem.removeData(localPath, MAXNUMBEROFLOCALSCORES + 1);
             }
             // Now we can add the new score.
             // This will be in the format Position-Name-Score-Time
-            ScarStorageSystem.addData(false, localPosition + "-" + playersScore);
+            ScarStorageSystem.addData(localPath, localPosition + "-" + playersScore);
 
             if (onlinePosition <= MAXNUMBEROFONLINESCORES)
             {
-                // push scores up by one, starting after the onlinePosition + 1
-                ScarStorageSystem.updateData(true, onlinePosition);
-                if (ScarStorageSystem.reachedLimit(true, MAXNUMBEROFONLINESCORES))
+                // push scores up by one, starting after the onlinePosition (onlinePosition + 1)
+                ScarStorageSystem.updateData(onlinePath, onlinePosition);
+                if (ScarStorageSystem.reachedLimit(onlinePath, MAXNUMBEROFONLINESCORES))
                 {
                     // Now we remove the score that has been pushed up to 101.
-                    ScarStorageSystem.removeData(true, MAXNUMBEROFONLINESCORES + 1);
+                    ScarStorageSystem.removeData(onlinePath, MAXNUMBEROFONLINESCORES + 1);
                 }
                 // Now we can add the new score. 
                 // This will be in the format Position-Name-Score-Time
-                ScarStorageSystem.addData(true, onlinePosition + "-" + playersScore);
+                ScarStorageSystem.addData(onlinePath, onlinePosition + "-" + playersScore);
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
@@ -127,18 +139,23 @@ namespace SCaR_Arcade
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Determines the position of the players score, by comparing the time it took to complete the game
+        // @params score, hours, minutes, and seconds must be properly extracted from a string.
         private static int determinePosition(bool isOnline, int score, int hours, int minutes, int seconds)
         {
             int currentHours = 0;
             int currentMinutes = 0;
             int currentSeconds = 0;
             int position = 1;
+       
             // The method populateLeaderBoardData will have been sorted.
             List<LeaderBoard> listLBd = PopulateLeaderBoardData(isOnline);
             for (int i = 0; i < listLBd.Count; i++)
             {
                 if (hours == 0)
                 {
+
+                    // Extract the new comparable values from the strings stored in listLbd.
+                    // We are extracting particular values separated by the special character ":"
                     currentMinutes = Convert.ToInt32(GlobalApp.extractValuesFromString(":", listLBd[i].lbTime, false));
                     currentSeconds = Convert.ToInt32(GlobalApp.extractValuesFromString(":", listLBd[i].lbTime, true));
                     if (minutes > currentMinutes)
@@ -155,8 +172,13 @@ namespace SCaR_Arcade
                 }
                 else
                 {
+                    // Extract the new comparable values from the strings stored in listLbd.
+                    // We are extracting particular values separated by the special character ":"
                     currentHours = Convert.ToInt32(GlobalApp.extractValuesFromString(":", listLBd[i].lbTime, false));
                     currentMinutes = Convert.ToInt32(GlobalApp.extractValuesFromString(":", listLBd[i].lbTime, true));
+
+                    // Because there are only two possible values for a Boolean (true, false), 
+                    // so we have to define a simply hack to extract the values, for the third variable.
                     currentSeconds = Convert.ToInt32(listLBd[i].lbTime.Substring(listLBd[i].lbTime.LastIndexOf(":"), 2));
                     if (hours > currentHours)
                     {

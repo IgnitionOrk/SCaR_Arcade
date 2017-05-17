@@ -90,22 +90,31 @@ namespace SCaR_Arcade
                 // that can increase or decrease the difficulty level.
                 addPlusAndMinus();
 
-                if (!ScarStorageSystem.hasStorage())
-                {
-                    // Determine the storage type.
-                    ScarStorageSystem.determineCurrentStorage(0, Assets);
-                }
-
-                // Assign the current game the player is playing.
-                ScarStorageSystem.assignGame(game);
-
-                // Add the description of the game.
-                gameDescription.Text = ScarStorageSystem.readDescription();
+                initializeKeyComponents();           
             }
             catch
             {
                 GlobalApp.Alert(this, 0);
             }
+        }
+        // ----------------------------------------------------------------------------------------------------------------
+        // Initializes the key components Game Menu will use. 
+        private void initializeKeyComponents()
+        {
+            if (!ScarStorageSystem.hasStorage())
+            {
+                // Determine the storage type.
+                ScarStorageSystem.determineCurrentStorage(0, Assets);
+            }
+
+            if (game.gOnlinePath == null && game.gLocalPath == null)
+            {
+                // Assign the current game the player is playing.
+                ScarStorageSystem.assignGameFilePaths(game);
+            }
+
+            // Add the description of the game.
+            gameDescription.Text = ScarStorageSystem.readDescription(game.gDescription);
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Plus, and minus bitmap images are added to the image buttons 
@@ -130,8 +139,7 @@ namespace SCaR_Arcade
         protected void ButtonClickStart(Object sender, EventArgs args)
         {
             // Begin the game Activity specifed by type
-            GlobalApp.BeginActivity(this, game.gType, GlobalApp.getVariableDifficultyName(), difficulty,
-                    GlobalApp.getVariableChoiceName(), Intent.GetIntExtra(GlobalApp.getVariableChoiceName(), 0));
+            GlobalApp.BeginActivity(this, game.gType, GlobalApp.getVariableDifficultyName(), difficulty, GlobalApp.getVariableChoiceName(), Intent.GetIntExtra(GlobalApp.getVariableChoiceName(), 0));
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Returns to the Main Activity of the application.

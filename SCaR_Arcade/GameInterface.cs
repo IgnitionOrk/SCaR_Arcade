@@ -20,24 +20,19 @@ namespace SCaR_Arcade
 {
     static class GameInterface
     {
+        private static Game game;
         private static List<Game> gList;
-        // When functionality of adding, and deleting games methods AddGame, and removeAt wil be implemented:
         // ----------------------------------------------------------------------------------------------------------------
-        public static void addGame(Game g)
+        public static Game getCurrentGame()
         {
-            gList.Add(g);
+            return game;
         }
-        // ----------------------------------------------------------------------------------------------------------------
-        // Removes the Game in the List @param position.
-        public static void removeAt(int position)
-        {
-            gList.RemoveAt(position);
-        } 
         // ----------------------------------------------------------------------------------------------------------------
         // Returns the Game in the list @param position
         public static Game getGameAt(int position)
         {
-            return gList.ElementAt(position);
+            game = gList.ElementAt(position);
+            return game;
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Returns the list of in-built games;

@@ -17,6 +17,9 @@ using Android.Widget;
 /// Date created: 20-Apr-2017
 /// Date modified: 20-Apr-2017
 /// </summary>
+/// 
+
+
 // This class can be somewhat confusing as to why it has been created.
 // The answer is quite simple. In the original protoypes of the application,
 // when we called e.g.  Intent.GetIntExtra("gameDifficulty",1) in our games, there was a small chance
@@ -38,6 +41,7 @@ namespace SCaR_Arcade
             playerName = name;
         }
         // ----------------------------------------------------------------------------------------------------------------
+        // Returns the name of the player. 
         public static string getName()
         {
             return playerName;
@@ -49,25 +53,28 @@ namespace SCaR_Arcade
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Returns the value of the variables (value represents the name).
+        // Used to save data into Intents
         public static string getVariableDifficultyName()
         {
             return gDifficultyName;
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Returns the value of the variables (value represents the name).
+        // Used to save data into Intents
         public static string getVariableChoiceName()
         {
             return gChoice;
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Returns the value of the variables (value represents the name).
+        // Used to save data into Intents
         public static string getPlayersScoreVariable()
         {
             return playersScore;
         }
-
         // ----------------------------------------------------------------------------------------------------------------
         // Begins the Activity specified by @param type.
+        // @param type must be a type exisiting in Scar Arcade application. 
         public static void BeginActivity(Context c,Type type, string variableName, int value)
         {
             try
@@ -88,6 +95,7 @@ namespace SCaR_Arcade
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Begins the Activity specified by @param type.
+        // @param type must be a type exisiting in Scar Arcade application. 
         public static void BeginActivity(Context c, Type type, string variableName, string value, string variableTwoName, int valueTwo)
         {
             try
@@ -109,6 +117,7 @@ namespace SCaR_Arcade
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Begins the Activity specified by @param type.
+        // @param type must be a type exisiting in Scar Arcade application. 
         public static void BeginActivity(Context c, Type type, string variableName, int value, string variableTwoName, int valueTwo)
         {
             try
@@ -193,8 +202,6 @@ namespace SCaR_Arcade
         //
         public static string extractValuesFromString(string character, string content, bool isSecondPart)
         {
-            System.Diagnostics.Debug.Write(character);
-            System.Diagnostics.Debug.Write(content);
             int index = 0;
             string temp = "";
             if (isSecondPart)
@@ -211,6 +218,7 @@ namespace SCaR_Arcade
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Counts the number of characters in the content string.
+        // @param content must contain the @param characters. Otherwise, the 
         public static int findNumberOfCharacters(string character, string content)
         {
             int count = 0;

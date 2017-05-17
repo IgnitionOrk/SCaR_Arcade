@@ -19,12 +19,12 @@ namespace SCaR_Arcade
 {
     interface Storage
     {
-        void addData(bool isOnline, string score);
-        void removeData(bool isOnline, int position);
-        void assignGame(Game g);
-        string readDescription();
-        List<string> readData(bool isOnline);
-        void updateData(bool isOnline, int atPosition);
-        bool reachedLimit(bool isOnline, int limit);
+        void addData(string gameFilePath, string score);
+        void removeData(string path, int position);
+        void assignGameFilePaths(Game g);
+        string readDescription(string fileName);
+        List<string> readData(string path);
+        void updateData(string path, int atPosition);
+        bool reachedLimit(string path, int limit);
     }
 }

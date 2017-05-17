@@ -56,6 +56,7 @@ namespace SCaR_Arcade
             enterNameTxt.Text = DEFAULTENTERNAMEHERE;
             
             string content = Intent.GetStringExtra(GlobalApp.getPlayersScoreVariable());
+
             Char delimiter = '-';
             String[] subStrings = content.Split(delimiter);
 
