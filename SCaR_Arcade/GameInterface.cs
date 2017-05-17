@@ -15,7 +15,6 @@ using Android.Widget;
 /// Date modified: 13-Apr-2017
 /// /// Date created: 20-Apr-2017
 /// </summary>
-
 namespace SCaR_Arcade
 {
     static class GameInterface
@@ -23,12 +22,15 @@ namespace SCaR_Arcade
         private static Game game;
         private static List<Game> gList;
         // ----------------------------------------------------------------------------------------------------------------
+        // Returns the current game the user is playing. 
+        // Variable game must have been initialized, otherwise will be null;
         public static Game getCurrentGame()
         {
             return game;
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Returns the Game in the list @param position
+        // @param position will be a number greater or equal to 0.
         public static Game getGameAt(int position)
         {
             game = gList.ElementAt(position);
@@ -36,14 +38,14 @@ namespace SCaR_Arcade
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Returns the list of in-built games;
+        // gList must have populated with Game data. 
         public static List<Game> getGames()
         {
-            populateGameData();
-            return gList;
+            return populateGameData();
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Populates the List with in built games. 
-        private static void populateGameData()
+        private static List<Game> populateGameData()
         {
             if (gList == null)
             {
@@ -85,6 +87,7 @@ namespace SCaR_Arcade
                 }
                 );
             }
+            return gList;
         }
     }
 }

@@ -36,45 +36,51 @@ namespace SCaR_Arcade
         private const string DEFAULTENTERNAMEHERE = "Enter name here.";
         protected override void OnCreate(Bundle savedInstanceState)
         {
-            base.OnCreate(savedInstanceState);
-            SetContentView(Resource.Layout.UserInput);
-
-            saveBtn = FindViewById<Button>(Resource.Id.saveBtn);
-            menuBtn = FindViewById<Button>(Resource.Id.menuBtn);
-            enterNameTxt = FindViewById<EditText>(Resource.Id.enterNameETxt);
-            scoreTxtView = FindViewById<TextView>(Resource.Id.scoreTxtView);
-            timeTxtView = FindViewById<TextView>(Resource.Id.timeTxtView);
-            congratTxtView = FindViewById<TextView>(Resource.Id.congratulationsTxtView);
-            chkBoxName = FindViewById<CheckBox>(Resource.Id.chkBoxPreviousName);
-            // Event handlers:
-            enterNameTxt.Click += EditTextClick;
-            menuBtn.Click += MenuButtonClick;
-            chkBoxName.Click += CheckBoxClick;
-            saveBtn.Click += SaveButtonClick;
-
-            // Initializing data for the User input.
-            enterNameTxt.Text = DEFAULTENTERNAMEHERE;
-            
-            string content = Intent.GetStringExtra(GlobalApp.getPlayersScoreVariable());
-
-            Char delimiter = '-';
-            String[] subStrings = content.Split(delimiter);
-
-            string score = subStrings[1];
-            string dif = subStrings[2];
-            string time = subStrings[3];
-            scoreTxtView.Text += " "+score;
-            timeTxtView.Text += " "+time;
-            
-            chkBoxName.Enabled = !GlobalApp.isNewPlayer();
-
-            // We don't want the checkbox to be auto checked. 
-            if (chkBoxName.Enabled)
+            try
             {
-                chkBoxName.Checked = false;
-            }
+                base.OnCreate(savedInstanceState);
+                SetContentView(Resource.Layout.UserInput);
 
-            checkForNewPositionToLocalAndOnline(score, time, dif);
+                saveBtn = FindViewById<Button>(Resource.Id.saveBtn);
+                menuBtn = FindViewById<Button>(Resource.Id.menuBtn);
+                enterNameTxt = FindViewById<EditText>(Resource.Id.enterNameETxt);
+                scoreTxtView = FindViewById<TextView>(Resource.Id.scoreTxtView);
+                timeTxtView = FindViewById<TextView>(Resource.Id.timeTxtView);
+                congratTxtView = FindViewById<TextView>(Resource.Id.congratulationsTxtView);
+                chkBoxName = FindViewById<CheckBox>(Resource.Id.chkBoxPreviousName);
+                // Event handlers:
+                enterNameTxt.Click += EditTextClick;
+                menuBtn.Click += MenuButtonClick;
+                chkBoxName.Click += CheckBoxClick;
+                saveBtn.Click += SaveButtonClick;
+
+                // Initializing data for the User input.
+                enterNameTxt.Text = DEFAULTENTERNAMEHERE;
+
+                string content = Intent.GetStringExtra(GlobalApp.getPlayersScoreVariable());
+
+
+                // Why starting at index 1? Because the Name will come before the score data.
+                string score = GlobalApp.splitString(content, 1, '-');
+                string dif = GlobalApp.splitString(content, 2, '-');
+                string time = GlobalApp.splitString(content, 3, '-');
+                scoreTxtView.Text += " " + score;
+                timeTxtView.Text += " " + time;
+
+                chkBoxName.Enabled = !GlobalApp.isNewPlayer();
+
+                // We don't want the checkbox to be auto checked. 
+                if (chkBoxName.Enabled)
+                {
+                    chkBoxName.Checked = false;
+                }
+
+                checkForNewPositionToLocalAndOnline(score, time, dif);
+            }
+            catch
+            {
+                GlobalApp.Alert(this, 0);
+            }
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Overwritten method to close the soft keyboard on EditText (enterNameTxt), when the user has clicked outside of the EditText view.
@@ -102,57 +108,66 @@ namespace SCaR_Arcade
             enterNameTxt.Text = GlobalApp.getName();
         }
         // ----------------------------------------------------------------------------------------------------------------
+        // Will determine if the players score, and time can be added to either local, or online. 
+        // @param timeStr will be either in the form of HH:MM:SS or MM:SS
+        private void checkForNewPositionToLocalAndOnline(string scoreStr, string timeStr, string difStr)
+        {
+            bool ifNewHighScore = LeaderBoardInterface.newHighTimeScore(scoreStr, timeStr, difStr);
+            saveBtn.Enabled = ifNewHighScore;
+            enterNameTxt.Enabled = ifNewHighScore;
+        }
+        // ----------------------------------------------------------------------------------------------------------------
         protected void SaveButtonClick(Object sender, EventArgs args)
         {
 
-            string content = Intent.GetStringExtra(GlobalApp.getPlayersScoreVariable());
-
-            if (GlobalApp.isNewPlayer())
+            try
             {
-                if (String.Compare(enterNameTxt.Text, DEFAULTENTERNAMEHERE) == 0)
+                string content = Intent.GetStringExtra(GlobalApp.getPlayersScoreVariable());
+
+                if (GlobalApp.isNewPlayer())
                 {
-                    GlobalApp.setName(DEFAULTNAME);
-                    content = DEFAULTNAME + content;
+                    if (String.Compare(enterNameTxt.Text, DEFAULTENTERNAMEHERE) == 0)
+                    {
+                        GlobalApp.setName(DEFAULTNAME);
+                        content = DEFAULTNAME + content;
+                    }
+                    else
+                    {
+                        GlobalApp.setName(enterNameTxt.Text);
+                        content = enterNameTxt.Text + content;
+                    }
                 }
                 else
                 {
-                    GlobalApp.setName(enterNameTxt.Text);
-                    content = enterNameTxt.Text + content;
+                    if (String.Compare(enterNameTxt.Text, DEFAULTENTERNAMEHERE) == 0)
+                    {
+                        GlobalApp.setName(DEFAULTNAME);
+                        content = DEFAULTNAME + content;
+                    }
+                    else
+                    {
+                        GlobalApp.setName(enterNameTxt.Text);
+                        content = enterNameTxt.Text + content;
+                    }
                 }
+
+                // Now we can add the new score into the local leaderboard. 
+                // Method: addNewScore will also determine if the score can be added into the Online leaderboard.
+                LeaderBoardInterface.addNewScore(content);
             }
-            else
+            catch
             {
-                if (String.Compare(enterNameTxt.Text, DEFAULTENTERNAMEHERE) == 0)
-                {
-                    GlobalApp.setName(DEFAULTNAME);
-                    content = DEFAULTNAME + content;
-                }
-                else
-                {
-                    GlobalApp.setName(enterNameTxt.Text);
-                    content = enterNameTxt.Text + content;
-                }
+                GlobalApp.Alert(this, 0);
             }
-
-            // Now we can add the new score into the local leaderboard. 
-            // Method: addNewScore will also determine if the score can be added into the Online leaderboard.
-            LeaderBoardInterface.addNewScore(content);
-
-            // Return back to the Game menu. 
-            GlobalApp.BeginActivity(this, typeof(GameMenuActivity), GlobalApp.getVariableChoiceName(), Intent.GetIntExtra(GlobalApp.getVariableChoiceName(), 0));
+            finally
+            {
+                GlobalApp.BeginActivity(this, typeof(GameMenuActivity), GlobalApp.getVariableChoiceName(), Intent.GetIntExtra(GlobalApp.getVariableChoiceName(), 0));
+            }
         }
         // ----------------------------------------------------------------------------------------------------------------
         protected void MenuButtonClick(Object sender, EventArgs args)
         {
             GlobalApp.BeginActivity(this, typeof(GameMenuActivity), GlobalApp.getVariableChoiceName(), Intent.GetIntExtra(GlobalApp.getVariableChoiceName(), 0));
-        }
-        // ----------------------------------------------------------------------------------------------------------------
-        // Will determine if the players score, and time can be added to either local, or online. 
-        private void checkForNewPositionToLocalAndOnline(string scoreStr, string timeStr,string difStr)
-        {
-            bool ifNewHighScore = LeaderBoardInterface.newHighTimeScore(scoreStr, timeStr, difStr);
-            saveBtn.Enabled = ifNewHighScore;
-            enterNameTxt.Enabled = ifNewHighScore;
-        }        
+        }    
     }
 }

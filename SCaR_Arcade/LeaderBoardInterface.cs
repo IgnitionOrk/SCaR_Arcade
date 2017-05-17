@@ -75,7 +75,7 @@ namespace SCaR_Arcade
                 ScarStorageSystem.removeData(localPath, MAXNUMBEROFLOCALSCORES + 1);
             }
             // Now we can add the new score.
-            // This will be in the format Position-Name-Score-Time
+            // This will be in the format Position-Name-Diff-Score-Time
             ScarStorageSystem.addData(localPath, localPosition + "-" + playersScore);
 
             if (onlinePosition <= MAXNUMBEROFONLINESCORES)
@@ -88,53 +88,53 @@ namespace SCaR_Arcade
                     ScarStorageSystem.removeData(onlinePath, MAXNUMBEROFONLINESCORES + 1);
                 }
                 // Now we can add the new score. 
-                // This will be in the format Position-Name-Score-Time
+                // This will be in the format Position-Name-Diff-Score-Time
                 ScarStorageSystem.addData(onlinePath, onlinePosition + "-" + playersScore);
             }
         }
         // ----------------------------------------------------------------------------------------------------------------
-        // 
+        // Determines if the @param scoreStr, and timeStr is a players new high score. 
+        // All parameters must have been extracted from a players score data (Name-Diff-Score-Time). 
+        // @timeStr will be in the form of either HH:MM:SS or MM:SS
         public static bool newHighTimeScore(string scoreStr, string timeStr, string difStr)
         {
             int score = Convert.ToInt32(scoreStr);
             int minutes = 0;
             int seconds = 0;
 
-            // Counts the number of ":" in timeStr,
+            // Counts the number of special characters in timeStr,
+            // In this case we are counting the number of ":"
             // There will be two if timeStr is in the format of HH:MM:SS
             // Otherwise there will be only one MM:SS
             int count = GlobalApp.findNumberOfCharacters(":", timeStr);
 
             // What we are determining is if the timeStr has 2 ":";
-            // if it does then, the format of timeStre is HH:MM:SS
+            // if it does have 2 ":", the format of timeStr is HH:MM:SS
             if (count < 2)
             {
                 // First part of the string
-                minutes = Convert.ToInt32(GlobalApp.extractValuesFromString(":", timeStr, false));
+                minutes = Convert.ToInt32(GlobalApp.splitString(timeStr, 0, ':'));
 
                 // Second part of the string
-                seconds = Convert.ToInt32(GlobalApp.extractValuesFromString(":", timeStr, true));
+                seconds = Convert.ToInt32(GlobalApp.splitString(timeStr, 1, ':'));
 
                 localPosition = determinePosition(false, score, 0, minutes, seconds);
                 onlinePosition = determinePosition(true, score, 0, minutes, seconds);
             }
             else
             {
-
                 // First part of the string
-                int hours = Convert.ToInt32(GlobalApp.extractValuesFromString(":", timeStr, false));
+                int hours = Convert.ToInt32(GlobalApp.splitString(timeStr, 0, ':'));
 
                 // Second part of the string
-                minutes = Convert.ToInt32(GlobalApp.extractValuesFromString(":", timeStr, true));
+                minutes = Convert.ToInt32(GlobalApp.splitString(timeStr, 1, ':'));
 
                 // Third part of the string
-                seconds = Convert.ToInt32(timeStr.Substring(timeStr.LastIndexOf(":"), 2));
+                seconds = Convert.ToInt32(GlobalApp.splitString(timeStr, 2, ':'));
 
                 localPosition = determinePosition(false, score, hours, minutes, seconds);
                 onlinePosition = determinePosition(true, score, hours, minutes, seconds);
             }
-
-
             return localPosition <= MAXNUMBEROFLOCALSCORES || onlinePosition <= MAXNUMBEROFONLINESCORES;
         }
         // ----------------------------------------------------------------------------------------------------------------
@@ -147,8 +147,8 @@ namespace SCaR_Arcade
             int currentSeconds = 0;
             int position = 1;
        
-            // The method populateLeaderBoardData will have been sorted.
             List<LeaderBoard> listLBd = PopulateLeaderBoardData(isOnline);
+
             for (int i = 0; i < listLBd.Count; i++)
             {
                 if (hours == 0)
@@ -156,8 +156,8 @@ namespace SCaR_Arcade
 
                     // Extract the new comparable values from the strings stored in listLbd.
                     // We are extracting particular values separated by the special character ":"
-                    currentMinutes = Convert.ToInt32(GlobalApp.extractValuesFromString(":", listLBd[i].lbTime, false));
-                    currentSeconds = Convert.ToInt32(GlobalApp.extractValuesFromString(":", listLBd[i].lbTime, true));
+                    currentMinutes = Convert.ToInt32(GlobalApp.splitString(listLBd[i].lbTime, 0 ,':'));
+                    currentSeconds = Convert.ToInt32(GlobalApp.splitString(listLBd[i].lbTime, 1, ':'));
                     if (minutes > currentMinutes)
                     {
                         position++;
@@ -174,12 +174,9 @@ namespace SCaR_Arcade
                 {
                     // Extract the new comparable values from the strings stored in listLbd.
                     // We are extracting particular values separated by the special character ":"
-                    currentHours = Convert.ToInt32(GlobalApp.extractValuesFromString(":", listLBd[i].lbTime, false));
-                    currentMinutes = Convert.ToInt32(GlobalApp.extractValuesFromString(":", listLBd[i].lbTime, true));
-
-                    // Because there are only two possible values for a Boolean (true, false), 
-                    // so we have to define a simply hack to extract the values, for the third variable.
-                    currentSeconds = Convert.ToInt32(listLBd[i].lbTime.Substring(listLBd[i].lbTime.LastIndexOf(":"), 2));
+                    currentHours = Convert.ToInt32(GlobalApp.splitString(listLBd[i].lbTime, 0, ':'));
+                    currentMinutes = Convert.ToInt32(GlobalApp.splitString(listLBd[i].lbTime, 1, ':'));
+                    currentSeconds = Convert.ToInt32(GlobalApp.splitString(listLBd[i].lbTime, 2, ':'));
                     if (hours > currentHours)
                     {
                         position++;
@@ -206,7 +203,8 @@ namespace SCaR_Arcade
             return position;
         }
         // ----------------------------------------------------------------------------------------------------------------
-        //
+        // Adds LeaderBoard objects into a List, data will be extracted from @param list.
+        // @param list will have been populated with data in the form of Position-Name-Diff-Score-Time
         private static List<LeaderBoard> addLeaderboardObjects(List<string> list, bool isOnline)
         {
             int count = 0;
@@ -225,22 +223,21 @@ namespace SCaR_Arcade
                 // Return the data (string) and index i;
                 string line = list[i];
 
-                Char delimiter = '-';
-                String[] subStrings = line.Split(delimiter);
-
                 temp.Add(new LeaderBoard
                 {
-                    lbPosition = Convert.ToInt32(subStrings[0]),
-                    lbName = subStrings[1],
-                    lbScore = Convert.ToInt32(subStrings[2]),
-                    lbDiff = Convert.ToInt32(subStrings[3]),
-                    lbTime = subStrings[4]
+                    lbPosition = Convert.ToInt32(GlobalApp.splitString(line, 0, '-')),
+                    lbName = GlobalApp.splitString(line, 1, '-'),
+                    lbScore = Convert.ToInt32(GlobalApp.splitString(line, 2, '-')),
+                    lbDiff = Convert.ToInt32(GlobalApp.splitString(line, 3, '-')),
+                    lbTime = GlobalApp.splitString(line, 4, '-')
                 });
             }
             return temp;
         }
         // ----------------------------------------------------------------------------------------------------------------
-        //
+        // Standard format of how the data will be stored.
+        // @param time will be in the format of either HH:MM:SS or MM:SS,
+        // @param score, and dif will not equal or less than 0.
         public static string formatLeaderBoardScore(string name, string score, int dif, string time)
         {
             return name + "-" + score + "-" + dif + "-" + time;

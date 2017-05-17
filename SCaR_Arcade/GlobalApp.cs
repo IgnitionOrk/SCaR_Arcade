@@ -199,24 +199,6 @@ namespace SCaR_Arcade
             return scoreAdded;
         }
         // ----------------------------------------------------------------------------------------------------------------
-        //
-        public static string extractValuesFromString(string character, string content, bool isSecondPart)
-        {
-            int index = 0;
-            string temp = "";
-            if (isSecondPart)
-            {
-                index = content.LastIndexOf(character);
-                temp = content.Substring(index + 1, (content.Length) - (index + 1));
-            }
-            else
-            {
-                index = content.LastIndexOf(character);
-                temp = content.Substring(0, index);
-            }
-            return temp;
-        }
-        // ----------------------------------------------------------------------------------------------------------------
         // Counts the number of characters in the content string.
         // @param content must contain the @param characters. Otherwise, the 
         public static int findNumberOfCharacters(string character, string content)
@@ -232,9 +214,19 @@ namespace SCaR_Arcade
                     count++;
                 }
             }
-
             return count;
         }
-
+        // ----------------------------------------------------------------------------------------------------------------
+        // @param content must be either in the form of 
+        //      Name-Score-Time,
+        //      HH:MM:SS,
+        //      or MM:SS
+        // delimiter will be a character ":" or "-", and index should not be less than 0. 
+        // Returns a specific index of a string defined by the @param index,
+        public static string splitString(string content, int index, Char delimiter)
+        {
+            String[] subStrings = content.Split(delimiter);
+            return subStrings[index];
+        }
     }
 }
