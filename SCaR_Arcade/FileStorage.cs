@@ -112,7 +112,7 @@ namespace SCaR_Arcade
             string assetsFile = "";
             string gameFilePath = "";
 
-            assetsFile = SCOREFILESPATH + "Local/" + game.localTestFile;
+            assetsFile = SCOREFILESPATH + "Local/" + game.glocalTestFile;
             gameFilePath = game.gLocalPath + game.gLocalFileName;
             // Open a new connection to the .txt file, so we may extract the data.
             using (StreamReader sr = new StreamReader(assets.Open(assetsFile)))
