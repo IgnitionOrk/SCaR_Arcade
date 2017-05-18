@@ -76,7 +76,7 @@ namespace SCaR_Arcade
                     gMenuBackground = Resource.Drawable.DiceLogo_bg,
                     gMinDifficulty = 2,
                     gMaxDifficulty = 5,
-                    gType = typeof(GameActivities.DiceRolls),
+                    gType = typeof(GameActivities.DiceRollsActivity),
                     gDescription = "DR_GameDescription.txt",
                     glocalTestFile = "drLocalTest.txt",
                     gonlineTestFile = "drOnlineTest.txt",
