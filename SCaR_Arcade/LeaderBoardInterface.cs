@@ -269,6 +269,12 @@ namespace SCaR_Arcade
             }
             return sortedList;
         }
+        // ----------------------------------------------------------------------------------------------------------------
+        // ScarConnectionManager will determine if there is internet connection;
+        public static bool hasInternetConnection()
+        {
+            return ScarConnectionManager.hasInternetConnection();
+        }
         //will detirmine which column the game wants to sort by first and by what method
         private static List<LeaderBoard> LeaderBoardSort(List<LeaderBoard> sortedList, Game game)
         {

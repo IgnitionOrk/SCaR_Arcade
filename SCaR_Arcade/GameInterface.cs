@@ -32,11 +32,25 @@ namespace SCaR_Arcade
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Returns the Game in the list @param position
-        // @param position will be a number greater or equal to 0.
+        // @param position will be a number greater or equal to 0, and less than gList.Count.
         public static Game getGameAt(int position)
         {
-            game = gList.ElementAt(position);
-            return game;
+            try
+            {
+                if (position > gList.Count)
+                {
+                    throw new Exception();
+                }
+                else
+                {
+                    game = gList.ElementAt(position);
+                    return game;
+                }
+            }
+            catch
+            {
+                return null;
+            }
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Returns the list of in-built games;

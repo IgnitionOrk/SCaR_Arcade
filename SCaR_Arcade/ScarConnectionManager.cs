@@ -20,6 +20,8 @@ namespace SCaR_Arcade
 {
     static class ScarConnectionManager
     {
+        // ----------------------------------------------------------------------------------------------------------------
+        // Determines if the device has an internet connection. 
         public static bool hasInternetConnection()
         {
             try

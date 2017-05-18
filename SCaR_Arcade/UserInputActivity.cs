@@ -97,6 +97,7 @@ namespace SCaR_Arcade
         }
 
         // ----------------------------------------------------------------------------------------------------------------
+        // Initializes enterNameTxt field to empty.
         protected void EditTextClick(Object sender, EventArgs args)
         {
             enterNameTxt.Text = "";
@@ -117,9 +118,9 @@ namespace SCaR_Arcade
             enterNameTxt.Enabled = ifNewHighScore;
         }
         // ----------------------------------------------------------------------------------------------------------------
+        // Add the players score, and saves it into the current storage.
         protected void SaveButtonClick(Object sender, EventArgs args)
         {
-
             try
             {
                 string content = Intent.GetStringExtra(GlobalApp.getPlayersScoreVariable());

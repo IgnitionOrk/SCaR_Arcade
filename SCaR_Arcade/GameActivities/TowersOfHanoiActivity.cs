@@ -177,6 +177,7 @@ namespace SCaR_Arcade.GameActivities
         // Returns an imageView with a desired width;
         // Every imageView will be 5% shorter than its predecessor, so the user can 
         // differentiate between disks;
+        // @param count will be greater than 0;
         private ImageView getResizedImage(int count)
         {
             // Why use Disk.png to determine the width, and height?
@@ -201,34 +202,6 @@ namespace SCaR_Arcade.GameActivities
 
 
             return img;
-        }
-        // ----------------------------------------------------------------------------------------------------------------
-        // retrun a hex string for a color
-        private string getHexColor(int count)
-        {
-            switch (count)
-            {
-                case 1:
-                    return "#CFB095";
-                case 2:
-                    return "#5A7247";
-                case 3:
-                    return "#CE3175";
-                case 4:
-                    return "#95DEE3";
-                case 5:
-                    return "#F2552C";
-                case 6:
-                    return "#004B8D";
-                case 7:
-                    return "#672E3B";
-                case 8:
-                    return "#F6D155";
-                case 9:
-                    return "#9C9A40";
-                default:
-                    return "#578CA9";
-            }
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Adds numbers to each of the disks, as some players may find it hard to differentiate between disks.
@@ -288,6 +261,7 @@ namespace SCaR_Arcade.GameActivities
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Removes the @param v from its Parent view;
+        // @param view should not be initialized as null;
         private void removeDiskFromLinearLayout(View view)
         {
             // Save the view into the instance variable disk for one reason:
@@ -387,9 +361,11 @@ namespace SCaR_Arcade.GameActivities
             try
             {
                 chronometer.Stop();
-                string playersScore = LeaderBoardInterface.formatLeaderBoardScore("", numberOfMoves.ToString(), Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1), chronometer.Text);
-                GlobalApp.BeginActivity(this, typeof(UserInputActivity), GlobalApp.getPlayersScoreVariable(), playersScore,
-                    GlobalApp.getVariableChoiceName(), Intent.GetIntExtra(GlobalApp.getVariableChoiceName(), 0));
+                string playersScore = 
+                    LeaderBoardInterface.formatLeaderBoardScore("", numberOfMoves.ToString(), 
+                        Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1), chronometer.Text);
+                        GlobalApp.BeginActivity(this, typeof(UserInputActivity), GlobalApp.getPlayersScoreVariable(), playersScore,
+                        GlobalApp.getVariableChoiceName(), Intent.GetIntExtra(GlobalApp.getVariableChoiceName(), 0));
             }
             catch
             {

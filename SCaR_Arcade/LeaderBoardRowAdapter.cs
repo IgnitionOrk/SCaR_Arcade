@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -23,7 +22,6 @@ namespace SCaR_Arcade
 {
     class LeaderBoardRowAdapter:BaseAdapter<LeaderBoard>
     {
-        // ----------------------------------------------------------------------------------------------------------------
         /*
          * sources
          * 
@@ -68,6 +66,8 @@ namespace SCaR_Arcade
             {
                 if(data == null)
                 {
+                    // Why are we returning 1, when data is null (it would therefore have 0 Count)
+                    // We are returning 1, because we can then insert a TextView called noConnection that will have the message 'No internet connection'. 
                     return 1;
                 }
                 else
@@ -77,6 +77,7 @@ namespace SCaR_Arcade
             } 
         }
         // ----------------------------------------------------------------------------------------------------------------
+        // Populates the LeaderBoardRow with Views determined by the data == null condition.
         public override View GetView(int position, View rowView, ViewGroup parent)
         {
             var view = rowView;
@@ -88,13 +89,12 @@ namespace SCaR_Arcade
 
             if (data == null)
             {
-
                 //add text colom details down list
-                TextView leaderboardPosition = view.FindViewById<TextView>(SCaR_Arcade.Resource.Id.positiontxt);
-                leaderboardPosition.Text = "No Internet connection";
+                TextView noConnection = view.FindViewById<TextView>(SCaR_Arcade.Resource.Id.positiontxt);
+                noConnection.Text = "No Internet connection";
 
 
-                leaderboardPosition.LayoutParameters = new LinearLayout.LayoutParams(
+                noConnection.LayoutParameters = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MatchParent,
                     LinearLayout.LayoutParams.WrapContent
                 );

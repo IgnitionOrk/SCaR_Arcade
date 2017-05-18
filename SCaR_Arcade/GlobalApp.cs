@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -47,6 +46,7 @@ namespace SCaR_Arcade
             return playerName;
         }
         // ----------------------------------------------------------------------------------------------------------------
+        // Determines if the user has entered a name from previously playing a game.
         public static bool isNewPlayer()
         {
             return playerName == null;
@@ -75,16 +75,24 @@ namespace SCaR_Arcade
         // ----------------------------------------------------------------------------------------------------------------
         // Begins the Activity specified by @param type.
         // @param type must be a type exisiting in Scar Arcade application. 
+        // @param value must be greater, than or equal to 0. 
         public static void BeginActivity(Context c,Type type, string variableName, int value)
         {
             try
             {
-                Intent intent = new Intent(c, type);
-                if (type != typeof(MainActivity))
+                if (value >= 0)
                 {
-                    intent.PutExtra(variableName, value);
+                    Intent intent = new Intent(c, type);
+                    if (type != typeof(MainActivity))
+                    {
+                        intent.PutExtra(variableName, value);
+                    }
+                    c.StartActivity(intent);
                 }
-                c.StartActivity(intent);
+                else
+                {
+                    throw new Exception();
+                }
             }
             catch
             {
@@ -96,17 +104,26 @@ namespace SCaR_Arcade
         // ----------------------------------------------------------------------------------------------------------------
         // Begins the Activity specified by @param type.
         // @param type must be a type exisiting in Scar Arcade application. 
+        // @param valueTwo must be an integer greater than or equal to 0
+        // Overrided method. 
         public static void BeginActivity(Context c, Type type, string variableName, string value, string variableTwoName, int valueTwo)
         {
             try
             {
-                Intent intent = new Intent(c, type);
-                if (type != typeof(MainActivity))
-                {
-                    intent.PutExtra(variableTwoName, valueTwo);
-                    intent.PutExtra(variableName, value);
+                if(valueTwo >= 0)
+                { 
+                    Intent intent = new Intent(c, type);
+                    if (type != typeof(MainActivity))
+                    {
+                        intent.PutExtra(variableTwoName, valueTwo);
+                        intent.PutExtra(variableName, value);
+                    }
+                    c.StartActivity(intent);
                 }
-                c.StartActivity(intent);
+                else
+                {
+                    throw new Exception();
+                }
             }
             catch
             {
@@ -118,17 +135,26 @@ namespace SCaR_Arcade
         // ----------------------------------------------------------------------------------------------------------------
         // Begins the Activity specified by @param type.
         // @param type must be a type exisiting in Scar Arcade application. 
+        // @param valueTwo must be greater than or equal to 0.
+        // Overrided method. 
         public static void BeginActivity(Context c, Type type, string variableName, int value, string variableTwoName, int valueTwo)
         {
             try
             {
-                Intent intent = new Intent(c, type);
-                if (type != typeof(MainActivity))
+                if (valueTwo >= 0)
                 {
-                    intent.PutExtra(variableTwoName, valueTwo);
-                    intent.PutExtra(variableName, value);
+                    Intent intent = new Intent(c, type);
+                    if (type != typeof(MainActivity))
+                    {
+                        intent.PutExtra(variableTwoName, valueTwo);
+                        intent.PutExtra(variableName, value);
+                    }
+                    c.StartActivity(intent);
                 }
-                c.StartActivity(intent);
+                else
+                {
+                    throw new Exception();
+                }
             }
             catch
             {
@@ -141,10 +167,17 @@ namespace SCaR_Arcade
         // Displays an Alert (most definitely an error that has occured at the application level).
         public static void Alert(Context c, int iApp)
         {
-            AlertDialog.Builder adb = new AlertDialog.Builder(c);
-            adb.SetMessage(getApplicationErrorMessage(iApp));
-            adb.SetTitle("Application failed");
-            adb.Show();
+            try
+            {
+                AlertDialog.Builder adb = new AlertDialog.Builder(c);
+                adb.SetMessage(getApplicationErrorMessage(iApp));
+                adb.SetTitle("Application failed");
+                adb.Show();
+            }
+            catch
+            {
+                Alert(c, 1);
+            }
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Determines what particular error that has occured.
@@ -161,42 +194,6 @@ namespace SCaR_Arcade
                     break;
             }
             return message;
-        }
-        // ----------------------------------------------------------------------------------------------------------------
-        //
-        public static void endScreen(Context c, int iGame, int score, string time)
-        {
-            // Show an alert.
-            AlertDialog.Builder adb = new AlertDialog.Builder(c);
-            adb.SetTitle("You Won");
-
-            int isPB = -1;
-            if (addToLeaderBoard(score))
-            {
-                isPB++;
-            }
-
-            switch (isPB)
-            {
-                case 0:
-                    adb.SetMessage("Congratulations on a new personal best of " + score);
-                    break;
-                default:
-                    adb.SetMessage("You scored " + score);
-                    break;
-            }
-
-            adb.Show();
-        }
-        // ----------------------------------------------------------------------------------------------------------------
-        //
-        private static bool addToLeaderBoard(int score)
-        {
-            bool scoreAdded = false;
-            //add score to leaderBoard if(score<lbScore)
-            //if added
-            scoreAdded = true;
-            return scoreAdded;
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Counts the number of characters in the content string.

@@ -64,8 +64,7 @@ namespace SCaR_Arcade
 
                 LeaderBoardListView.Adapter = new LeaderBoardRowAdapter(this, false);
 
-                localBtn.SetBackgroundColor(Color.DarkGray);
-                onlineBtn.SetBackgroundColor(Color.Gray);
+                setBackgroundColorByClick(Color.DarkGray, Color.Gray, false);
 
                 LeaderBoard.SetBackgroundColor(Color.Gray);
                 LeaderBoardHeader.SetBackgroundColor(Color.LightGray);
@@ -73,6 +72,11 @@ namespace SCaR_Arcade
                 gameChoice = Intent.GetIntExtra(GlobalApp.getVariableChoiceName(), 0);
 
                 game = GameInterface.getGameAt(gameChoice);
+
+                if (game == null)
+                {
+                    throw new Exception();
+                }
 
                 FullScreen.SetBackgroundResource(game.gMenuBackground);
 
@@ -93,44 +97,50 @@ namespace SCaR_Arcade
             GlobalApp.BeginActivity(this, typeof(GameMenuActivity), GlobalApp.getVariableChoiceName(), gameChoice);        
         }
         // ----------------------------------------------------------------------------------------------------------------
+        // Initializes the data for the Local leaderboard.
         protected void ButtonLocalClick(Object sender, EventArgs args)
         {
-            try
-            {
-                localBtn.SetBackgroundColor(Color.DarkGray);
-                onlineBtn.SetBackgroundColor(Color.Gray);
-                // Delete the current Adpater
-                LeaderBoardListView.Adapter = null;
-                // And store a new one.
-                LeaderBoardListView.Adapter = new LeaderBoardRowAdapter(this, false);
-            }
-            catch
-            {
-                GlobalApp.Alert(this, 0);
-            }
+            initializeLeaderboardData(false);
         }
         // ----------------------------------------------------------------------------------------------------------------
+        // Initializes the data for the online Leaderboard.
         protected void ButtonOnlineClick(Object sender, EventArgs args)
         {
+            initializeLeaderboardData(true);
+        }
+        // ----------------------------------------------------------------------------------------------------------------
+        // Initializes the data for the Leaderboard Local, and Online.
+        // @param isOnline, must be either true, or false. 
+        private void initializeLeaderboardData(bool isOnline)
+        {
+
             try
             {
-                localBtn.SetBackgroundColor(Color.Gray);
-                onlineBtn.SetBackgroundColor(Color.DarkGray);
-
-                // Determine if the application has an internet connection.
-                if (ScarConnectionManager.hasInternetConnection())
+                if (isOnline)
                 {
-                    // Delete the current Adpater
-                    LeaderBoardListView.Adapter = null;
-                    // And store a new one.
-                    LeaderBoardListView.Adapter = new LeaderBoardRowAdapter(this, true);
+                    setBackgroundColorByClick(Color.DarkGray, Color.Gray, isOnline);
+                    if (LeaderBoardInterface.hasInternetConnection())
+                    {
+                        // Delete the current Adpater
+                        LeaderBoardListView.Adapter = null;
+                        // And store a new one.
+                        LeaderBoardListView.Adapter = new LeaderBoardRowAdapter(this, isOnline);
+                    }
+                    else
+                    {
+                        // Delete the current Adpater
+                        LeaderBoardListView.Adapter = null;
+                        // And store a new one.
+                        LeaderBoardListView.Adapter = new LeaderBoardRowAdapter(this);
+                    }
                 }
                 else
                 {
+                    setBackgroundColorByClick(Color.DarkGray, Color.Gray, isOnline);
                     // Delete the current Adpater
                     LeaderBoardListView.Adapter = null;
                     // And store a new one.
-                    LeaderBoardListView.Adapter = new LeaderBoardRowAdapter(this);
+                    LeaderBoardListView.Adapter = new LeaderBoardRowAdapter(this, isOnline);
                 }
             }
             catch
@@ -143,6 +153,23 @@ namespace SCaR_Arcade
         public override void OnBackPressed()
         {
             GlobalApp.BeginActivity(this, typeof(GameMenuActivity), GlobalApp.getVariableChoiceName(), gameChoice);        
+        }
+        // ----------------------------------------------------------------------------------------------------------------
+        // Changes the colour of the buttons, when pressed, Dark grey for clicked, light grey for unclicked. 
+        // @param clicked, and unclicked has been initialized with a color value.
+        // @param isOnline is either true, or false. 
+        private void setBackgroundColorByClick(Color clicked, Color unClicked, bool isOnline)
+        {
+            if (isOnline)
+            {
+                localBtn.SetBackgroundColor(unClicked);
+                onlineBtn.SetBackgroundColor(clicked);
+            }
+            else
+            {
+                localBtn.SetBackgroundColor(clicked);
+                onlineBtn.SetBackgroundColor(unClicked);
+            }
         }
     }
 }

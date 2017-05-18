@@ -36,8 +36,8 @@ namespace SCaR_Arcade
         */
         private ImageView appLogoImgView;
         private ProgressBar progress;
-        System.Timers.Timer timer;
-        int delay;
+        private System.Timers.Timer timer;
+        private int delay;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -58,6 +58,7 @@ namespace SCaR_Arcade
                 GlobalApp.Alert(this, 1);
             }
         }
+        // ----------------------------------------------------------------------------------------------------------------
         // Initiates a timer, used to simulate the application loading. 
         private void CountDown()
         {
@@ -66,6 +67,7 @@ namespace SCaR_Arcade
             timer.Elapsed += OnTimedEvent;
             timer.Enabled = true;
         }
+        // ----------------------------------------------------------------------------------------------------------------
         // Event handler
         private void OnTimedEvent(object sender, System.Timers.ElapsedEventArgs e)
         {

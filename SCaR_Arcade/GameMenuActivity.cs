@@ -54,6 +54,7 @@ namespace SCaR_Arcade
             {
                 base.OnCreate(savedInstanceState);
                 SetContentView(Resource.Layout.GameMenu);
+
                 FullScreen = FindViewById<LinearLayout>(Resource.Id.FullScreenLinLay);
                 txtGameTitle = FindViewById<TextView>(Resource.Id.txtGameTitle);
                 txtDifficulty = FindViewById<TextView>(Resource.Id.txtDifficulty);
@@ -70,6 +71,11 @@ namespace SCaR_Arcade
                 gameChoice = Intent.GetIntExtra(GlobalApp.getVariableChoiceName(), 0);
 
                 game = GameInterface.getGameAt(gameChoice);
+
+                if (game == null)
+                {
+                    throw new Exception();
+                }
 
                 difficulty = game.gMinDifficulty;
                 minDifficulty = game.gMinDifficulty;
@@ -99,6 +105,7 @@ namespace SCaR_Arcade
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Initializes the key components Game Menu will use. 
+        // Variable game must be initialized, from the GameInterface class.
         private void initializeKeyComponents()
         {
             if (!ScarStorageSystem.hasStorage())
@@ -178,6 +185,7 @@ namespace SCaR_Arcade
         // ----------------------------------------------------------------------------------------------------------------
         // Updates the difficulty level determined by pressing the 'plus' or 'minus' buttons.
         // Will either increases, or decreases the difficulty. 
+        // @param isIncrease will be either true or false. 
         private void updateDifficulty(bool isIncrease)
         {
             if (isIncrease)

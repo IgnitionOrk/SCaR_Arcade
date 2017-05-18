@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -23,20 +22,11 @@ namespace SCaR_Arcade
 {
     class MainRowAdapter:BaseAdapter<Game>
     {
-
-        // ----------------------------------------------------------------------------------------------------------------
-        
         /*
-         * 
          * sources
          * http://blog.atavisticsoftware.com/2014/02/listview-using-activitylistitem-style.html
          * http://blog.atavisticsoftware.com/2014/01/listview-basics-for-xamarain-android.html
-         * 
-         */
-
-        // ----------------------------------------------------------------------------------------------------------------
-
-        //insatiation for class
+         */  
         private List<Game> data;
         private Activity context;
 
@@ -45,11 +35,7 @@ namespace SCaR_Arcade
         public MainRowAdapter (Activity activity)
         {
             context = activity;
-
-            if (data == null)
-            {
-                data = PopulateGameData();
-            }
+            populateGameData();
         }
         // ----------------------------------------------------------------------------------------------------------------
         // Defined method signature by BaseAdapter interface.
@@ -67,7 +53,19 @@ namespace SCaR_Arcade
         // Defined method signature by BaseAdapter interface.
         public override int Count
         {
-            get { return data.Count; } 
+            get
+            {
+                if (data == null)
+                {
+                    // Why are we returning 1, when data is null (it would therefore have 0 Count)
+                    // We are returning 1, because we can then insert a TextView called noConnection that will have the message 'No games in list'. 
+                    return 1;
+                }
+                else
+                {
+                    return data.Count;
+                }
+            } 
         }
         // ----------------------------------------------------------------------------------------------------------------
         public override View GetView(int position, View rowView, ViewGroup parent)
@@ -79,21 +77,39 @@ namespace SCaR_Arcade
                 view = context.LayoutInflater.Inflate(SCaR_Arcade.Resource.Layout.MainRow, null);
             }
 
-            var game = data[position];
+            if(data == null)
+            {
+                // Essentially this would have been used if the user had the ability to add or remove Games.
+                // add text colom details down list
+                TextView noConnection = view.FindViewById<TextView>(SCaR_Arcade.Resource.Id.titletxt);
+                noConnection.Text = "No games in list.";
 
-            //add text and images down list
-            TextView txt = view.FindViewById<TextView>(SCaR_Arcade.Resource.Id.titletxt);
-            txt.Text = game.gTitle;
-            
-            ImageView img = view.FindViewById<ImageView>(SCaR_Arcade.Resource.Id.logo);
-            img.SetImageResource(game.gLogo);
+                noConnection.LayoutParameters = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MatchParent,
+                    LinearLayout.LayoutParams.WrapContent
+                );
+            }
+            else
+            {
+                var game = data[position];
 
+                // add text and images down list
+                TextView txt = view.FindViewById<TextView>(SCaR_Arcade.Resource.Id.titletxt);
+                txt.Text = game.gTitle;
+
+                ImageView img = view.FindViewById<ImageView>(SCaR_Arcade.Resource.Id.logo);
+                img.SetImageResource(game.gLogo);
+            }
             return view;
         }
         // ----------------------------------------------------------------------------------------------------------------
-        private List<Game> PopulateGameData()
+        private void populateGameData()
         {
-            return GameInterface.getGames();
+
+            if (data == null)
+            {
+                data = GameInterface.getGames();
+            }
         }
     }
 }
