@@ -14,7 +14,7 @@ using System.IO;
 /// Creator: Ryan Cunneen
 /// Student number: 3179234
 /// Date modified: 13-Apr-2017
-/// /// Date created: 08-Apr-2017
+/// Date created: 18-Apr-2017
 /// </summary>
 namespace SCaR_Arcade
 {
@@ -231,8 +231,8 @@ namespace SCaR_Arcade
         public List<string> readData(string path)
         {
             List<string> scoreLines = new List<string>();
+
             // Open a connection to the data file. 
-            System.Diagnostics.Debug.WriteLine("READ DATA: " + path);
             using (StreamReader sr = new StreamReader(path))
             {
                 while (sr.Peek() > -1)
