@@ -11,8 +11,8 @@ using Android.Views;
 using System.Threading.Tasks;
 /// <summary>
 /// Creator: Ryan Cunneen
-/// Creator: Martin O'Connor
 /// Student number: 3179234
+/// Creator: Martin O'Connor
 /// Student number: 3279660
 /// Date created: 25-Mar-17
 /// Date modified: 10-Apr-17

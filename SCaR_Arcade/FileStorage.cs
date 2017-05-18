@@ -13,6 +13,8 @@ using System.IO;
 /// <summary>
 /// Creator: Ryan Cunneen
 /// Student number: 3179234
+/// Creator: Martin O'Connor
+/// Student number: 3279660
 /// Date modified: 13-Apr-2017
 /// /// Date created: 08-Apr-2017
 /// </summary>
@@ -120,10 +122,7 @@ namespace SCaR_Arcade
         {
             string assetsFile = "";
             string gameFilePath = "";
-<<<<<<< HEAD
-=======
 
->>>>>>> origin/master
             assetsFile = SCOREFILESPATH + "Local/" + game.glocalTestFile;
             gameFilePath = game.gLocalPath + game.gLocalFileName;
             // Open a new connection to the .txt file, so we may extract the data.
@@ -236,7 +235,6 @@ namespace SCaR_Arcade
         {
             List<string> scoreLines = new List<string>();
             // Open a connection to the data file. 
-            System.Diagnostics.Debug.WriteLine("READ DATA: " + path);
             using (StreamReader sr = new StreamReader(path))
             {
                 while (sr.Peek() > -1)

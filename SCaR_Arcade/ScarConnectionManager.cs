@@ -10,6 +10,12 @@ using Android.Views;
 using Android.Widget;
 using Android.Net;
 
+/// <summary>
+/// Creator: Ryan Cunneen
+/// Student number: 3179234
+/// Date modified: 15-May-2017
+/// /// Date created: 15-May-2017
+/// </summary>
 namespace SCaR_Arcade
 {
     static class ScarConnectionManager
