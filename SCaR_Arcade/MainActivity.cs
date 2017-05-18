@@ -9,8 +9,8 @@ using Android.Content.PM;
 
 /// <summary>
 /// Creator: Ryan Cunneen
-/// Creator: Martin O'Connor
 /// Student number: 3179234
+/// Creator: Martin O'Connor
 /// Student number: 3279660
 /// Date created: 18-Mar-17
 /// Date modified: 20-Apr-17

@@ -12,8 +12,8 @@ using System.Threading.Tasks;
 using Android.Hardware;
 /// <summary>
 /// Creator: Ryan Cunneen
-/// Creator: Martin O'Connor
 /// Student number: 3179234
+/// Creator: Martin O'Connor
 /// Student number: 3279660
 /// Date created: 25-Mar-17
 /// Date modified: 10-Apr-17
@@ -25,7 +25,7 @@ namespace SCaR_Arcade.GameActivities
         ScreenOrientation = Android.Content.PM.ScreenOrientation.Landscape,
         Theme = "@android:style/Theme.NoTitleBar"
     )]
-    public class DiceRolls : Activity, IDialogInterfaceOnDismissListener, ISensorEventListener
+    public class DiceRollsActivity : Activity, IDialogInterfaceOnDismissListener, ISensorEventListener
     {
         // ----------------------------------------------------------------------------------------------------------------
         /*
@@ -282,10 +282,9 @@ namespace SCaR_Arcade.GameActivities
             }
             else if (numOfGoodShakeCount == 0)
             {
-                createDice(true);
-                allowableMove();
-                sensorSwitch(true);
-                numOfGoodShakeCount = 5;
+                    createDice(true);
+                    allowableMove();
+                    numOfGoodShakeCount = 5;
 
             }
         }
@@ -302,9 +301,7 @@ namespace SCaR_Arcade.GameActivities
                 txtOptimalNoOfMoves.Text = "no. of Rolls: " + numberOfRolls;
                 if (logic.ifWon())
                 {
-                    CountDown();
-                    timer.Enabled = false;
-                    end();
+                   end();
                 }
                 else
                 {
@@ -329,31 +326,6 @@ namespace SCaR_Arcade.GameActivities
             }
 
         }
-        // ----------------------------------------------------------------------------------------------------------------
-        /*
-            INTERNAL Timer FOR Dice Rolls.        
-        */
-        // ----------------------------------------------------------------------------------------------------------------
-
-        private void CountDown()
-        {
-            timer = new System.Timers.Timer();
-            timer.Interval = 1000;
-            timer.Elapsed += OnTimedEvent;
-            timer.Enabled = true;
-        }
-        // Event handler
-        private void OnTimedEvent(object sender, System.Timers.ElapsedEventArgs e)
-        {
-            delay--;
-            if (delay == 0)
-            {
-                timer.Dispose();
-                GlobalApp.BeginActivity(this, typeof(MainActivity), "", 0);
-            }
-        }
-
-        
         // ----------------------------------------------------------------------------------------------------------------
         /*
             INTERNAL buttons and there responses FOR Dice Rolls.        
@@ -392,7 +364,7 @@ namespace SCaR_Arcade.GameActivities
             }
             if (isReplay)
             {
-                GlobalApp.BeginActivity(this, typeof(DiceRolls), GlobalApp.getVariableDifficultyName(), Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1));
+                GlobalApp.BeginActivity(this, typeof(DiceRollsActivity), GlobalApp.getVariableDifficultyName(), Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1));
             }
             else
             {
@@ -512,6 +484,8 @@ namespace SCaR_Arcade.GameActivities
         // When the alert is dismissed by the player. The chronometer will continue the game clock.
         public void OnDismiss(IDialogInterface dialog)
         {
+
+            sensorSwitch(true);
             chronometer.Base = SystemClock.ElapsedRealtime() + pausedAt;
 
             // Continue the chronometer.
@@ -542,8 +516,9 @@ namespace SCaR_Arcade.GameActivities
             switch (iMsg)
             {
                 case 0:
-                    message = "You have rolled two or more ove the same dice."
-                            + "\n\nYou get to roll again.";
+                    message = "You have rolled two or more of the same dice."
+                            + "\n\nYou get to roll again."
+                            + "\n\nPress outside of the box.";
                     break;
                 case 1:
                     message = "Moves: " + numberOfRolls + ".\nTime: " + chronometer.Text

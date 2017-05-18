@@ -10,8 +10,8 @@ using Android.Views;
 using Android.Widget;
 /// <summary>
 /// Creator: Ryan Cunneen
-/// Creator: Martin O'Connor
 /// Student number: 3179234
+/// Creator: Martin O'Connor
 /// Student number: 3279660
 /// Date created 4-Apr-2017
 /// Date Modified 4-Apr-2017

@@ -13,8 +13,8 @@ using Android.Views.InputMethods;
 using static Android.Views.View;
 /// <summary>
 /// Creator: Ryan Cunneen
-/// Creator: Martin O'Connor
 /// Student number: 3179234
+/// Creator: Martin O'Connor
 /// Student number: 3279660
 /// Date created: 09-May-2017
 /// Date modified: 09-May-2017
