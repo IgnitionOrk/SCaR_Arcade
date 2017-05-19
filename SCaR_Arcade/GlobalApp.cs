@@ -171,7 +171,7 @@ namespace SCaR_Arcade
             {
                 AlertDialog.Builder adb = new AlertDialog.Builder(c);
                 adb.SetMessage(getApplicationErrorMessage(iApp));
-                adb.SetTitle("Application failed");
+                adb.SetTitle("Application Error");
                 adb.Show();
             }
             catch
