@@ -84,14 +84,14 @@ namespace SCaR_Arcade
 
             if (view == null)
             {
-                view = context.LayoutInflater.Inflate(SCaR_Arcade.Resource.Layout.LeaderBoardRow, null);
+                view = context.LayoutInflater.Inflate(Resource.Layout.LeaderBoardRow, null);
             }
 
             if (data == null)
             {
                 //add text colom details down list
-                TextView noConnection = view.FindViewById<TextView>(SCaR_Arcade.Resource.Id.positiontxt);
-                noConnection.Text = "No Internet connection";
+                TextView noConnection = view.FindViewById<TextView>(Resource.Id.positiontxt);
+                noConnection.Text = "No connection to server";
 
 
                 noConnection.LayoutParameters = new LinearLayout.LayoutParams(
@@ -104,19 +104,19 @@ namespace SCaR_Arcade
                 var row = data[position];
 
                 //add text colom details down list
-                TextView leaderboardPosition = view.FindViewById<TextView>(SCaR_Arcade.Resource.Id.positiontxt);
+                TextView leaderboardPosition = view.FindViewById<TextView>(Resource.Id.positiontxt);
                 leaderboardPosition.Text = Convert.ToString(row.lbPosition);
 
-                TextView name = view.FindViewById<TextView>(SCaR_Arcade.Resource.Id.nametxt);
+                TextView name = view.FindViewById<TextView>(Resource.Id.nametxt);
                 name.Text = row.lbName;
 
-                TextView diff = view.FindViewById<TextView>(SCaR_Arcade.Resource.Id.difftxt);
+                TextView diff = view.FindViewById<TextView>(Resource.Id.difftxt);
                 diff.Text = Convert.ToString(row.lbDiff);
 
-                TextView score = view.FindViewById<TextView>(SCaR_Arcade.Resource.Id.scoretxt);
+                TextView score = view.FindViewById<TextView>(Resource.Id.scoretxt);
                 score.Text = Convert.ToString(row.lbScore);
 
-                TextView time = view.FindViewById<TextView>(SCaR_Arcade.Resource.Id.timetxt);
+                TextView time = view.FindViewById<TextView>(Resource.Id.timetxt);
                 time.Text = row.lbTime;
 
             }
