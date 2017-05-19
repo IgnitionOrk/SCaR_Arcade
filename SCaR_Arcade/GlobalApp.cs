@@ -187,7 +187,7 @@ namespace SCaR_Arcade
             switch (iMsg)
             {
                 case 0:
-                    message = "Oops something went wrong, and have contacted IT support";
+                    message = "Oops something went wrong, IT support has been informed. Thank you for your patience";
                     break;
                 default:
                     message = "Unkown Error";
