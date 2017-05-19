@@ -531,7 +531,7 @@ namespace SCaR_Arcade.GameActivities
             }
             if (isReplay)
             {
-                GlobalApp.BeginActivity(this, typeof(TowersOfHanoiActivity), GlobalApp.getVariableDifficultyName(), Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 3));
+                GlobalApp.BeginActivity(this, typeof(TowersOfHanoiActivity), GlobalApp.getVariableDifficultyName(), Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1), GlobalApp.getVariableChoiceName(), Intent.GetIntExtra(GlobalApp.getVariableChoiceName(), 0));
             }
             else
             {

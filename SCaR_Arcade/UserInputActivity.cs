@@ -21,13 +21,16 @@ using static Android.Views.View;
 namespace SCaR_Arcade
 {
     [Activity(
-        Label = "",
-        ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
+        Label = "UserInputActivity", 
+        MainLauncher = false,
+        ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait,
+        Theme = "@android:style/Theme.NoTitleBar")]
     public class UserInputActivity : Activity
     {
         private Button saveBtn;
         private Button menuBtn;
         private EditText enterNameTxt;
+        private TextView highScoreTxtView;
         private TextView congratTxtView;
         private TextView scoreTxtView;
         private TextView timeTxtView;
@@ -46,6 +49,7 @@ namespace SCaR_Arcade
                 enterNameTxt = FindViewById<EditText>(Resource.Id.enterNameETxt);
                 scoreTxtView = FindViewById<TextView>(Resource.Id.scoreTxtView);
                 timeTxtView = FindViewById<TextView>(Resource.Id.timeTxtView);
+                highScoreTxtView = FindViewById<TextView>(Resource.Id.highScoreTxtView);
                 congratTxtView = FindViewById<TextView>(Resource.Id.congratulationsTxtView);
                 chkBoxName = FindViewById<CheckBox>(Resource.Id.chkBoxPreviousName);
                 // Event handlers:
@@ -114,6 +118,10 @@ namespace SCaR_Arcade
         private void checkForNewPositionToLocalAndOnline(string scoreStr, string timeStr, string difStr)
         {
             bool ifNewHighScore = LeaderBoardInterface.newHighTimeScore(scoreStr, timeStr, difStr);
+            if (ifNewHighScore)
+            {
+                highScoreTxtView.Text = "New High Score!";
+            }
             saveBtn.Enabled = ifNewHighScore;
             enterNameTxt.Enabled = ifNewHighScore;
         }

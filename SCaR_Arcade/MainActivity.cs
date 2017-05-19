@@ -54,6 +54,11 @@ namespace SCaR_Arcade
         {
             GlobalApp.BeginActivity(this, typeof(GameMenuActivity), GlobalApp.getVariableChoiceName(), args.Position);
         }
+        // ----------------------------------------------------------------------------------------------------------------
+        // Event Handler: Will disable exit
+        public override void OnBackPressed()
+        {
+        }
     }
 }
 

@@ -7,6 +7,14 @@
     android:minHeight="25px"
     android:gravity="center_vertical">
     <TextView
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/highScoreTxtView"
+        android:gravity="center"
+        android:paddingBottom="10px"
+        android:textSize="30" />
+    <TextView
         android:text="Congratulations you won!"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_width="match_parent"

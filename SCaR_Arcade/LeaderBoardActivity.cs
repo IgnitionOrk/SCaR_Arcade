@@ -29,7 +29,7 @@ namespace SCaR_Arcade
         Theme = "@android:style/Theme.NoTitleBar")]
     public class LeaderBoardActivity : Activity
     {
-        private LinearLayout FullScreen;
+        private LinearLayout Background;
         private LinearLayout LeaderBoard;
         private LinearLayout LeaderBoardHeader;
         private LinearLayout middleLayout;
@@ -47,7 +47,7 @@ namespace SCaR_Arcade
             {
                 base.OnCreate(savedInstanceState);
                 SetContentView(Resource.Layout.Leaderboard);
-                FullScreen = FindViewById<LinearLayout>(Resource.Id.FullScreenLinLay);
+                Background = FindViewById<LinearLayout>(Resource.Id.BackgroundLinLay);
                 LeaderBoard = FindViewById<LinearLayout>(Resource.Id.LeaderBoardLinLay);
                 LeaderBoardHeader = FindViewById<LinearLayout>(Resource.Id.linearLayout1);
                 LeaderBoardListView = FindViewById<ListView>(Resource.Id.LeaderBoardListView);
@@ -78,7 +78,7 @@ namespace SCaR_Arcade
                     throw new Exception();
                 }
 
-                FullScreen.SetBackgroundResource(game.gMenuBackground);
+                Background.SetBackgroundResource(game.gMenuBackground);
 
                 // Event handlers.
                 btnBack.Click += ButtonClickSelect;

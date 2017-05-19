@@ -32,8 +32,6 @@ namespace SCaR_Arcade.GameActivities
          * sources
          * https://developer.xamarin.com/recipes/android/os_device_resources/accelerometer/get_accelerometer_readings/ 
         */
-        System.Timers.Timer timer;
-        int delay;
         private GameLogic.DiceRollsLogic logic;
         private Chronometer chronometer;
         private TextView elapsedTime;
@@ -67,7 +65,6 @@ namespace SCaR_Arcade.GameActivities
                 _sensorManager = (SensorManager)GetSystemService(SensorService);
                 sensorOn = true;
 
-                delay = 3;      // Arbitrary number (3 seconds). 
                 chronometer = FindViewById<Chronometer>(Resource.Id.cTimer);
                 Button btnReplay = FindViewById<Button>(Resource.Id.btnReplay);
                 Button btnQuit = FindViewById<Button>(Resource.Id.btnQuit);
@@ -364,7 +361,7 @@ namespace SCaR_Arcade.GameActivities
             }
             if (isReplay)
             {
-                GlobalApp.BeginActivity(this, typeof(DiceRollsActivity), GlobalApp.getVariableDifficultyName(), Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1));
+                GlobalApp.BeginActivity(this, typeof(DiceRollsActivity), GlobalApp.getVariableDifficultyName(), Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1), GlobalApp.getVariableChoiceName(), Intent.GetIntExtra(GlobalApp.getVariableChoiceName(), 0));
             }
             else
             {
