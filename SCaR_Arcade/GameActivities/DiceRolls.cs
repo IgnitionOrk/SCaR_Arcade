@@ -54,6 +54,7 @@ namespace SCaR_Arcade.GameActivities
         static readonly object _syncLock = new object();
         SensorManager _sensorManager;
         Random rnd = new Random();
+        Button btnReplay;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -66,7 +67,7 @@ namespace SCaR_Arcade.GameActivities
                 sensorOn = true;
 
                 chronometer = FindViewById<Chronometer>(Resource.Id.cTimer);
-                Button btnReplay = FindViewById<Button>(Resource.Id.btnReplay);
+                btnReplay = FindViewById<Button>(Resource.Id.btnReplay);
                 Button btnQuit = FindViewById<Button>(Resource.Id.btnQuit);
                 txtOptimalNoOfMoves = FindViewById<TextView>(Resource.Id.txtViewOptNoOfMoves);
                 elapsedTime = FindViewById<TextView>(Resource.Id.txtVElapsedTime);
@@ -75,7 +76,7 @@ namespace SCaR_Arcade.GameActivities
 
 
                 // Build the game display that the user will interact with;
-
+                btnReplay.Enabled = false;
                 //detirmine how many dice will be displayed based on difficulty
                 switch (Intent.GetIntExtra(GlobalApp.getVariableDifficultyName(), 1))
                 {
@@ -196,6 +197,7 @@ namespace SCaR_Arcade.GameActivities
             {
                 if (roll)
                 {
+                    btnReplay.Enabled = true;
                     linearLayout[i].RemoveAllViews();
                     dieWorth = rnd.Next(1, 7);
                     score = score + dieWorth;

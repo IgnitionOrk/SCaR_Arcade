@@ -40,6 +40,7 @@ namespace SCaR_Arcade.GameActivities
         private View disk;
         private LinearLayout removedFromLinearLayout;
         private long pausedAt = 0;
+        Button btnReplay;
         protected override void OnCreate(Bundle bundle)
         {
             try
@@ -47,7 +48,7 @@ namespace SCaR_Arcade.GameActivities
                 base.OnCreate(bundle);
                 SetContentView(Resource.Layout.TowersOfHanoi);
 
-                Button btnReplay = FindViewById<Button>(Resource.Id.btnReplay);
+                btnReplay = FindViewById<Button>(Resource.Id.btnReplay);
                 Button btnQuit = FindViewById<Button>(Resource.Id.btnQuit);
                 TextView txtOptimalNoOfMoves = FindViewById<TextView>(Resource.Id.txtViewOptNoOfMoves);
                 chronometer = FindViewById<Chronometer>(Resource.Id.cTimer);
@@ -55,6 +56,7 @@ namespace SCaR_Arcade.GameActivities
                 txtVScore = FindViewById<TextView>(Resource.Id.txtVScore);
                 gameDisplay = FindViewById<LinearLayout>(Resource.Id.linLayGameDisplay);
                 // Build the game display that the user will interact with;
+                btnReplay.Enabled = false;
                 Game();
 
                 // Initializing data for the game.
@@ -339,6 +341,10 @@ namespace SCaR_Arcade.GameActivities
                     topDiskIsOnlyClickable();
                     numberOfMoves++;
                     txtVScore.Text = "No. of moves: " + numberOfMoves;
+                    if (numberOfMoves > 0)
+                    {
+                        btnReplay.Enabled = true;
+                    }
                 }
                 else
                 {
