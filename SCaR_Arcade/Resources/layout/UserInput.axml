@@ -13,7 +13,7 @@
         android:id="@+id/highScoreTxtView"
         android:gravity="center"
         android:paddingBottom="10px"
-        android:textSize="30" />
+        android:textSize="30px" />
     <TextView
         android:text="Congratulations you won!"
         android:textAppearance="?android:attr/textAppearanceLarge"

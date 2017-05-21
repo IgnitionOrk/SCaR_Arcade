@@ -24,7 +24,7 @@ namespace SCaR_Arcade.GameActivities
         ScreenOrientation = Android.Content.PM.ScreenOrientation.Landscape,
         Theme = "@android:style/Theme.NoTitleBar"
     )]
-    public class TowersOfHanoiActivity :  Activity, View.IOnLongClickListener, View.IOnDragListener, IDialogInterfaceOnDismissListener
+    public class TowersOfHanoiActivity :  Activity, View.IOnLongClickListener ,View.IOnDragListener, IDialogInterfaceOnDismissListener
     {
         private GameLogic.TowersOfHanoiLogic logic;
         private Chronometer chronometer;
