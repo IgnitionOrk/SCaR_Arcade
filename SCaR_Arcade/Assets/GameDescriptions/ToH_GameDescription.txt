@@ -2,3 +2,8 @@
 to the Blue pole. By moving one disk at a time.
 While also making sure you don't put a bigger disk
 on to a smaller disk.
+
+To move a disk to another pole, simply hold your finger
+down on the top disk, and drag to the desired pole. 
+If you remove your finger to early, the disk will return to its
+original pole. 
